@@ -1509,9 +1509,17 @@ class MainActivitySmokeTest {
     }
 
     private fun clickView(@IdRes viewId: Int) {
-        waitForDisplayed(viewId)
-        waitForEnabled(viewId)
-        tapViewWithPointerInput(viewId)
+        waitUntil {
+            val view = findCurrentViewById(viewId)
+                ?: throw AssertionError("View $viewId is missing.")
+            if (!view.isEffectivelyDisplayed()) {
+                throw AssertionError("View $viewId is not displayed.")
+            }
+            if (!view.isEnabled) {
+                throw AssertionError("View $viewId is disabled.")
+            }
+            tapViewWithPointerInput(viewId)
+        }
         SystemClock.sleep(VIEW_ACTION_SETTLE_MS)
     }
 

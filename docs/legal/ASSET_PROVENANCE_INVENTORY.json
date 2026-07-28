@@ -12917,8 +12917,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/01-home.png",
-      "bytes": 1696471,
-      "sha256": "5e37ad2815052aea72b6c82dfb9014e1a537fb8cb97a94cf882eff1cd36f3d76",
+      "bytes": 1697104,
+      "sha256": "2e93435c4087b55b5d1d71aa509a10ec5c3d0cabf969f85b87032d4c2b58521c",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12977,8 +12977,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/05-free-spins.png",
-      "bytes": 2708554,
-      "sha256": "9df836d6535db7504a89a598f69d372e9c0815107f56be514baa65a7df410e2f",
+      "bytes": 2715688,
+      "sha256": "99d01dd175ef228a21a7faed34a3ee8702586d6554cc13be62fa4407fb9b2dd8",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",

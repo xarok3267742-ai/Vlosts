@@ -1,21 +1,21 @@
 {
   "schema_version": 2,
-  "captured_at_utc": "2026-07-28T20:27:13Z",
+  "captured_at_utc": "2026-07-28T20:53:48Z",
   "build_variant": "qa",
   "package_name": "com.vslot.app.qa",
   "version_code": 1,
   "version_name": "1.0.0-qa",
-  "qa_apk_sha256": "be3fe48653d4e5516992792e7efe603dc63ebb37d153785f7ff55ec002c1368d",
+  "qa_apk_sha256": "55cccf0122687b42d2c1541e9842c253ede12781861d87edd9c0c503a8c33f3e",
   "qa_apk_payload_sha256": "24826e83eadc3ae319918d9e3a8bd18014e97ce1838743db9cafd79f71f50581",
-  "qa_test_apk_sha256": "c6a55e838cb75fab371d3cc19a77d33d7614c0d23afcde9e4521a86e29635c46",
-  "qa_test_apk_payload_sha256": "4224bc81c88398f677b25df012d99fc1e7ba65dfe7b34adbd2238ff2a420e115",
+  "qa_test_apk_sha256": "051e1e621fa3ea7b3211d76e7b6c336e3d30d362678523110e6de1afed9d3735",
+  "qa_test_apk_payload_sha256": "2b7133ac33dfcc6feb2c82579aa5e67dcf62e529df1583b8966107ef4ee9be69",
   "device": {"avd_name": "Leon_API36_Clean", "api_level": 36, "locale": "ru-RU", "physical_size": "1080x2400", "physical_density_dpi": 420},
   "capture": {"width": 1080, "height": 1920, "density_dpi": 360, "font_scale": 1.0},
   "screenshot_sha256": {
-    "01-home.png": "f8fd99e2f7aabffa4020794e90d95b14380e54963cc6be4022f9aeb4e153ce16",
-    "02-violet-slot.png": "b105edacf0ce98f2a818e2395dd9370c3ba8b2efe613cddc4b04abb76f6bf585",
-    "03-paytable.png": "c1ee16042e124ecdee6042f3762298688e740ab61d3539dfa1648e4d4adcc1b5",
+    "01-home.png": "2e93435c4087b55b5d1d71aa509a10ec5c3d0cabf969f85b87032d4c2b58521c",
+    "02-violet-slot.png": "1a770a156430adeb8b3d1ecacfedf5ab65808448c0c4d705a1399c0fc2ef51bb",
+    "03-paytable.png": "d49c299c60d69fe7d8fd8d93fba74135a1c96b27b367be0cc4e26bb91a4376a5",
     "04-settings.png": "02c60ae4fb710b565674931b0514e2a35916e66ea06fee0be7ce11591990a438",
-    "05-free-spins.png": "6d2294c2610479c8ae60a286e71c3c3b0ee7b744ff86834f38abbbe1479b32ca"
+    "05-free-spins.png": "99d01dd175ef228a21a7faed34a3ee8702586d6554cc13be62fa4407fb9b2dd8"
   }
 }

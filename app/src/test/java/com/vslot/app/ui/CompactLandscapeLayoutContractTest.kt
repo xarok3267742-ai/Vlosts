@@ -36,7 +36,7 @@ class CompactLandscapeLayoutContractTest {
         }
         assertEquals(1, document.elements("HorizontalScrollView").size)
         assertEquals("96dp", cardScroll.singleElementChild().attr("paddingEnd"))
-        assertEquals("220dp", (document.id("dailyBonusButton").parentNode as Element).attr("layout_width"))
+        assertEquals("168dp", (document.id("dailyBonusButton").parentNode as Element).attr("layout_width"))
         assertTrue("Settings must stay pinned outside the card carousel", !cardScroll.contains(document.id("settingsButton")))
         assertTrue("Daily bonus must stay pinned outside the card carousel", !cardScroll.contains(document.id("dailyBonusButton")))
         assertTrue("Privacy must stay pinned outside the card carousel", !cardScroll.contains(document.id("privacyButton")))

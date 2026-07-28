@@ -1,6 +1,7 @@
 package com.vslot.app.security
 
 import java.nio.file.Path
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -119,13 +120,39 @@ class ReleaseSecurityGradleContractTest {
         assertTrue(rootBuild.contains("android-build-tools-36.0.0-dexdump-sha256"))
         assertTrue(rootBuild.contains("release-google-services-sha256="))
         assertTrue(rootBuild.contains("release-configuration-sha256="))
-        assertTrue(rootBuild.contains("V_SLOT_FIREBASE_PROJECT_ID"))
-        assertTrue(rootBuild.contains("V_SLOT_FIREBASE_APP_ID"))
-        assertTrue(rootBuild.contains("V_SLOT_DATA_SAFETY_REVIEWED_VERSION_CODE"))
-        assertTrue(rootBuild.contains("V_SLOT_DATA_SAFETY_EVIDENCE_SHA256"))
-        assertTrue(rootBuild.contains("V_SLOT_ANDROID_PLATFORM_36_JAR_SHA256"))
-        assertTrue(rootBuild.contains("V_SLOT_ANDROID_BUILD_TOOLS_36_AAPT2_SHA256"))
-        assertTrue(rootBuild.contains("V_SLOT_ANDROID_BUILD_TOOLS_36_DEXDUMP_SHA256"))
+        val releaseConfigurationBlock = rootBuild
+            .substringAfter("val releaseConfigurationDigest = MessageDigest.getInstance(\"SHA-256\")")
+            .substringBefore(").forEach { name ->")
+        val boundReleaseInputs = Regex("\"(V_SLOT_[A-Z0-9_]+)\"")
+            .findAll(releaseConfigurationBlock)
+            .map { match -> match.groupValues[1] }
+            .toSet()
+        assertEquals(
+            setOf(
+                "V_SLOT_PRIVACY_POLICY_URL",
+                "V_SLOT_SUPPORT_EMAIL",
+                "V_SLOT_DEVELOPER_LEGAL_NAME",
+                "V_SLOT_APPMETRICA_API_KEY",
+                "V_SLOT_APPMETRICA_API_KEY_SHA256",
+                "V_SLOT_FIREBASE_PROJECT_ID",
+                "V_SLOT_FIREBASE_APP_ID",
+                "V_SLOT_DATA_SAFETY_REVIEWED_VERSION_CODE",
+                "V_SLOT_DATA_SAFETY_EVIDENCE_SHA256",
+                "V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256",
+                "V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE",
+                "V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256",
+                "V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256",
+                "V_SLOT_PROCESS_DEATH_EVIDENCE_SHA256",
+                "V_SLOT_FRAME_METRICS_EVIDENCE_SHA256",
+                "V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_SHA256",
+                "V_SLOT_RELEASE_KEY_ALIAS",
+                "V_SLOT_RELEASE_CERT_SHA256",
+                "V_SLOT_ANDROID_PLATFORM_36_JAR_SHA256",
+                "V_SLOT_ANDROID_BUILD_TOOLS_36_AAPT2_SHA256",
+                "V_SLOT_ANDROID_BUILD_TOOLS_36_DEXDUMP_SHA256"
+            ),
+            boundReleaseInputs
+        )
         assertTrue(rootBuild.contains("androidPlatformJarSha256 != expectedAndroidPlatformJarSha256"))
         assertTrue(rootBuild.contains("androidAapt2Sha256 != expectedAndroidAapt2Sha256"))
         assertTrue(rootBuild.contains("androidDexdumpSha256 != expectedAndroidDexdumpSha256"))

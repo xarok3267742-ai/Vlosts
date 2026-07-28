@@ -50,8 +50,18 @@ class AppMetricaAnalyticsTrackerTest {
         tracker.track(
             AnalyticsEvents.SpinResult,
             mapOf(
+                "amount" to 2_500,
+                "balance" to 7_500L,
                 "balance_before" to 12_345L,
                 "balance_after" to 62_345L,
+                "bet" to 250,
+                "coins_balance" to 1_000L,
+                "free_spins" to 3,
+                "free_spins_before" to 4,
+                "free_spins_after" to 10,
+                "free_spins_awarded" to 12,
+                "level" to 7,
+                "level_xp_awarded" to 50,
                 "line_bet" to 25,
                 "total_bet" to 250,
                 "win_amount" to 50_000,
@@ -62,21 +72,63 @@ class AppMetricaAnalyticsTrackerTest {
         val params = reporter.events.single().params
         assertEquals(
             setOf(
+                "amount_range",
+                "balance_range",
                 "balance_before_range",
                 "balance_after_range",
+                "bet_range",
+                "coins_balance_range",
+                "free_spins_range",
+                "free_spins_before_range",
+                "free_spins_after_range",
+                "free_spins_awarded_range",
+                "level_range",
+                "level_xp_awarded_range",
                 "line_bet_range",
                 "total_bet_range",
                 "win_amount_range",
-                "lines"
+                "lines_range"
             ),
             params.keys
         )
+        assertEquals("2500_4999", params["amount_range"])
+        assertEquals("5000_9999", params["balance_range"])
         assertEquals("10000_49999", params["balance_before_range"])
         assertEquals("50000_plus", params["balance_after_range"])
+        assertEquals("250_499", params["bet_range"])
+        assertEquals("1000_2499", params["coins_balance_range"])
+        assertEquals("1_9", params["free_spins_range"])
+        assertEquals("1_9", params["free_spins_before_range"])
+        assertEquals("10_49", params["free_spins_after_range"])
+        assertEquals("10_49", params["free_spins_awarded_range"])
+        assertEquals("1_9", params["level_range"])
+        assertEquals("50_99", params["level_xp_awarded_range"])
         assertEquals("10_49", params["line_bet_range"])
         assertEquals("250_499", params["total_bet_range"])
         assertEquals("50000_plus", params["win_amount_range"])
-        assertEquals(10, (params["lines"] as Number).toInt())
+        assertEquals("10_49", params["lines_range"])
+        assertTrue(
+            params.keys.none {
+                it in setOf(
+                    "amount",
+                    "balance",
+                    "balance_before",
+                    "balance_after",
+                    "bet",
+                    "coins_balance",
+                    "free_spins",
+                    "free_spins_before",
+                    "free_spins_after",
+                    "free_spins_awarded",
+                    "level",
+                    "level_xp_awarded",
+                    "line_bet",
+                    "lines",
+                    "total_bet",
+                    "win_amount"
+                )
+            }
+        )
     }
 
     @Test

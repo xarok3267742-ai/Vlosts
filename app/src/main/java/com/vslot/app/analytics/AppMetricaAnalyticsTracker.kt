@@ -133,11 +133,20 @@ class AppMetricaAnalyticsTracker internal constructor(
         const val MAX_PARAM_NAME_LENGTH = 80
         const val MAX_STRING_VALUE_LENGTH = 120
         val COARSE_NUMERIC_PARAM_NAMES = setOf(
+            "amount",
+            "balance",
             "balance_after",
             "balance_before",
             "bet",
             "coins_balance",
+            "free_spins",
+            "free_spins_after",
+            "free_spins_awarded",
+            "free_spins_before",
+            "level",
+            "level_xp_awarded",
             "line_bet",
+            "lines",
             "total_bet",
             "win_amount"
         )

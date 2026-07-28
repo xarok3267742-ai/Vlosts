@@ -832,6 +832,8 @@ val verifyReleaseProvenance = tasks.register("verifyReleaseProvenance") {
         val releaseConfigurationDigest = MessageDigest.getInstance("SHA-256")
         listOf(
             "V_SLOT_PRIVACY_POLICY_URL",
+            "V_SLOT_SUPPORT_EMAIL",
+            "V_SLOT_DEVELOPER_LEGAL_NAME",
             "V_SLOT_APPMETRICA_API_KEY",
             "V_SLOT_APPMETRICA_API_KEY_SHA256",
             "V_SLOT_FIREBASE_PROJECT_ID",
@@ -839,6 +841,8 @@ val verifyReleaseProvenance = tasks.register("verifyReleaseProvenance") {
             "V_SLOT_DATA_SAFETY_REVIEWED_VERSION_CODE",
             "V_SLOT_DATA_SAFETY_EVIDENCE_SHA256",
             "V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256",
+            "V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE",
+            "V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256",
             "V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256",
             "V_SLOT_PROCESS_DEATH_EVIDENCE_SHA256",
             "V_SLOT_FRAME_METRICS_EVIDENCE_SHA256",

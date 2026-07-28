@@ -18,6 +18,7 @@ import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.artifacts.component.ProjectComponentIdentifier
 import org.gradle.api.tasks.testing.Test
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.w3c.dom.Element
 
 plugins {
     id("com.android.application")
@@ -1079,10 +1080,226 @@ fun dataSafetyEvidenceIssues(
     return issues.distinct()
 }
 
+val requiredPrivacyPolicySections = setOf(
+    "operator",
+    "scope",
+    "local-data",
+    "analytics",
+    "push",
+    "processors",
+    "retention",
+    "deletion",
+    "security",
+    "children",
+    "changes",
+    "contact"
+)
+
+fun privacyPolicySnapshotIssues(
+    bytes: ByteArray,
+    expectedPrivacyPolicyUrl: String,
+    expectedSupportEmail: String,
+    expectedDeveloperLegalName: String
+): List<String> {
+    val issues = mutableListOf<String>()
+    val html = bytes.toString(Charsets.UTF_8)
+    if (!MessageDigest.isEqual(html.toByteArray(Charsets.UTF_8), bytes)) {
+        return listOf("must contain valid UTF-8")
+    }
+    if (bytes.size < 512) {
+        return listOf("must be at least 512 UTF-8 bytes")
+    }
+    val doctype = Regex(
+        "^\\s*<!doctype\\s+html\\s*>",
+        RegexOption.IGNORE_CASE
+    ).find(html)
+    if (doctype == null) {
+        return listOf("must start with an HTML5 doctype")
+    }
+    val xhtml = html.removeRange(doctype.range)
+    val document = runCatching {
+        DocumentBuilderFactory.newInstance().apply {
+            isNamespaceAware = false
+            setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
+            setFeature("http://xml.org/sax/features/external-general-entities", false)
+            setFeature("http://xml.org/sax/features/external-parameter-entities", false)
+            setAttribute("http://javax.xml.XMLConstants/property/accessExternalDTD", "")
+            setAttribute("http://javax.xml.XMLConstants/property/accessExternalSchema", "")
+            isXIncludeAware = false
+            isExpandEntityReferences = false
+        }.newDocumentBuilder().parse(ByteArrayInputStream(xhtml.toByteArray(Charsets.UTF_8)))
+    }.getOrNull()
+    if (document == null) {
+        return listOf("must be well-formed, self-contained XHTML")
+    }
+
+    val root = document.documentElement
+    if (!root.tagName.equals("html", ignoreCase = true)) {
+        issues += "root element must be html"
+    }
+    if (document.getElementsByTagName("head").length != 1) {
+        issues += "exactly one head element is required"
+    }
+    if (document.getElementsByTagName("body").length != 1) {
+        issues += "exactly one body element is required"
+    }
+    val language = root.getAttribute("lang").trim().lowercase()
+    if (language != "ru" && !language.startsWith("ru-")) {
+        issues += "html lang must be ru or a Russian locale"
+    }
+
+    val titleNodes = document.getElementsByTagName("title")
+    val title = if (titleNodes.length == 1) titleNodes.item(0).textContent.orEmpty() else ""
+    if (!title.contains("V Slot") || !title.lowercase().contains("конфиденциальност")) {
+        issues += "title must identify the V Slot privacy policy"
+    }
+
+    val normalizedHtml = html.lowercase()
+    if (
+        listOf(
+            "{{",
+            "}}",
+            "replace_with",
+            "placeholder",
+            "example.",
+            "dummy",
+            "fake"
+        ).any(normalizedHtml::contains) ||
+        Regex("\\bTODO\\b", RegexOption.IGNORE_CASE).containsMatchIn(html)
+    ) {
+        issues += "unresolved placeholder content is forbidden"
+    }
+
+    val prohibitedElements = setOf("script", "form", "iframe", "object", "embed", "base")
+    prohibitedElements.forEach { tag ->
+        if (document.getElementsByTagName(tag).length > 0) {
+            issues += "$tag elements are forbidden"
+        }
+    }
+
+    val links = document.getElementsByTagName("link")
+    var canonicalCount = 0
+    for (index in 0 until links.length) {
+        val link = links.item(index) as? Element ?: continue
+        val relTokens = link.getAttribute("rel")
+            .lowercase()
+            .split(Regex("\\s+"))
+            .filter(String::isNotBlank)
+        if ("canonical" in relTokens) {
+            canonicalCount += 1
+            if (link.getAttribute("href") != expectedPrivacyPolicyUrl) {
+                issues += "canonical URL must match V_SLOT_PRIVACY_POLICY_URL"
+            }
+        } else {
+            issues += "external link resources are forbidden"
+        }
+    }
+    if (canonicalCount != 1) {
+        issues += "exactly one canonical link is required"
+    }
+
+    val elements = document.getElementsByTagName("*")
+    for (index in 0 until elements.length) {
+        val element = elements.item(index) as? Element ?: continue
+        listOf("src", "srcset", "poster").forEach { attribute ->
+            if (element.hasAttribute(attribute)) {
+                issues += "$attribute resources are forbidden"
+            }
+        }
+        if (element.getAttribute("style").contains("url(", ignoreCase = true)) {
+            issues += "CSS URL resources are forbidden"
+        }
+        if (
+            element.tagName.equals("style", ignoreCase = true) &&
+            (
+                element.textContent.contains("url(", ignoreCase = true) ||
+                    element.textContent.contains("@import", ignoreCase = true)
+                )
+        ) {
+            issues += "external CSS resources are forbidden"
+        }
+        val attributes = element.attributes
+        for (attributeIndex in 0 until attributes.length) {
+            val attribute = attributes.item(attributeIndex)
+            val name = attribute.nodeName.lowercase()
+            val value = attribute.nodeValue.trim().lowercase()
+            if (name.startsWith("on")) {
+                issues += "event handler attributes are forbidden"
+            }
+            if (
+                name in setOf("href", "action", "formaction") &&
+                Regex("^(?:javascript|data|vbscript):").containsMatchIn(value)
+            ) {
+                issues += "executable or embedded URLs are forbidden"
+            }
+        }
+        if (
+            element.tagName.equals("meta", ignoreCase = true) &&
+            element.getAttribute("http-equiv").equals("refresh", ignoreCase = true)
+        ) {
+            issues += "meta refresh is forbidden"
+        }
+    }
+
+    val text = root.textContent
+        .orEmpty()
+        .replace(Regex("\\s+"), " ")
+        .trim()
+    if (!text.contains("V Slot")) issues += "body must identify V Slot"
+    if (!text.contains(vSlotApplicationId)) issues += "body must identify package $vSlotApplicationId"
+    if (
+        expectedDeveloperLegalName.isBlank() ||
+        !text.contains(expectedDeveloperLegalName)
+    ) {
+        issues += "body must contain the exact production developer legal name"
+    }
+    if (
+        expectedSupportEmail.isBlank() ||
+        !text.contains(expectedSupportEmail)
+    ) {
+        issues += "body must contain the exact production support email"
+    }
+
+    val declaredSectionElements = buildMap<String, MutableList<Element>> {
+        val sections = document.getElementsByTagName("section")
+        for (index in 0 until sections.length) {
+            val element = sections.item(index) as? Element ?: continue
+            val sectionName = element.getAttribute("data-v-slot-policy-section")
+                .trim()
+                .takeIf(String::isNotBlank)
+                ?: continue
+            getOrPut(sectionName) { mutableListOf() }.add(element)
+        }
+    }
+    val missingSections = requiredPrivacyPolicySections - declaredSectionElements.keys
+    if (missingSections.isNotEmpty()) {
+        issues += "required sections missing: ${missingSections.sorted().joinToString()}"
+    }
+    requiredPrivacyPolicySections.forEach { sectionName ->
+        val sectionElements = declaredSectionElements[sectionName].orEmpty()
+        if (sectionElements.size > 1) {
+            issues += "required section $sectionName must appear exactly once"
+        }
+        if (
+            sectionElements.size == 1 &&
+            sectionElements.single().textContent
+                .replace(Regex("\\s+"), " ")
+                .trim()
+                .length < 80
+        ) {
+            issues += "required section $sectionName must contain substantive reviewed text"
+        }
+    }
+    return issues.distinct()
+}
+
 fun dataSafetyRawEvidenceIssues(
     archiveFile: File,
     expectedArchiveSha256: String,
-    evidenceFile: File
+    evidenceFile: File,
+    expectedPrivacyPolicyUrl: String = releasePrivacyPolicyUrl,
+    expectedSupportEmail: String = releaseSupportEmail,
+    expectedDeveloperLegalName: String = releaseDeveloperLegalName
 ): List<String> {
     val label = "V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE"
     val shaLabel = "V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256"
@@ -1291,17 +1508,14 @@ fun dataSafetyRawEvidenceIssues(
     ) {
         issues += "$label(Play Console export must use the exact question,answer CSV schema with unique reviewed rows)"
     }
-    val privacySnapshot = outer.getValue("raw/privacy-policy-snapshot.html").toString(Charsets.UTF_8)
-    val normalizedPrivacySnapshot = privacySnapshot.lowercase()
-    if (privacySnapshot.toByteArray(Charsets.UTF_8).size < 512 ||
-        !normalizedPrivacySnapshot.contains("<!doctype html") ||
-        !normalizedPrivacySnapshot.contains("<html") ||
-        !normalizedPrivacySnapshot.contains("<head") ||
-        !normalizedPrivacySnapshot.contains("<title") ||
-        !normalizedPrivacySnapshot.contains("<body") ||
-        !normalizedPrivacySnapshot.contains("</html>")
-    ) {
-        issues += "$label(privacy policy snapshot must be a complete HTML document)"
+    val privacySnapshot = outer.getValue("raw/privacy-policy-snapshot.html")
+    privacyPolicySnapshotIssues(
+        bytes = privacySnapshot,
+        expectedPrivacyPolicyUrl = expectedPrivacyPolicyUrl,
+        expectedSupportEmail = expectedSupportEmail,
+        expectedDeveloperLegalName = expectedDeveloperLegalName
+    ).forEach { issue ->
+        issues += "$label(privacy policy snapshot $issue)"
     }
     val inner = boundedZipContents(outer.getValue("raw/evidence-archive.zip"), "inner evidence archive")
     val requiredInnerEntries = setOf(
@@ -2779,6 +2993,8 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
     val templateFixtureSha256 = "ee4a4c90ac610144888cc27f784316927757eadee13479c6d8568121d86c2360"
     val fixtureCommit = "0123456789abcdef0123456789abcdef01234567"
     val fixturePrivacyUrl = "https://privacy.vslot.test/policy"
+    val fixtureSupportEmail = "privacy@vslot.test"
+    val fixtureDeveloperLegalName = "V Slot Test Developer"
     inputs.files(validFixture, templateFixture)
     inputs.property("validFixtureSha256", validFixtureSha256)
     inputs.property("templateFixtureSha256", templateFixtureSha256)
@@ -2868,11 +3084,42 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
         val networkCapture = pcapngFixture()
         val playConsoleExport = "question,answer\nanalytics,reviewed\npush,reviewed\n"
             .toByteArray(Charsets.UTF_8)
-        val privacySnapshot = (
-            "<!doctype html><html><head><title>V Slot privacy policy</title></head><body>" +
-                "Reviewed privacy policy content. ".repeat(20) +
-                "</body></html>"
-            ).toByteArray(Charsets.UTF_8)
+        val privacySnapshot = buildString {
+            append("<!doctype html>\n")
+            append("<html lang=\"ru\"><head><meta charset=\"utf-8\" />")
+            append("<title>Политика конфиденциальности V Slot</title>")
+            append("<link rel=\"canonical\" href=\"$fixturePrivacyUrl\" />")
+            append("</head><body>")
+            append("<h1>Политика конфиденциальности V Slot</h1>")
+            append("<p>Приложение V Slot, пакет $vSlotApplicationId.</p>")
+            requiredPrivacyPolicySections.sorted().forEach { section ->
+                append("<section data-v-slot-policy-section=\"$section\">")
+                append("<h2>$section</h2>")
+                append("<p>Проверенная информация раздела $section для выпуска V Slot. ")
+                append("Оператор: $fixtureDeveloperLegalName. ")
+                append("Контакт: $fixtureSupportEmail.</p>")
+                append("</section>")
+            }
+            append("</body></html>\n")
+        }.toByteArray(Charsets.UTF_8)
+        val activeContentPolicy = privacySnapshot.toString(Charsets.UTF_8)
+            .replace(
+                "<body>",
+                "<body onclick=\"window.alert('bad')\"><style>@import 'https://unrelated.test/style.css';</style>"
+            )
+            .toByteArray(Charsets.UTF_8)
+        val activeContentIssues = privacyPolicySnapshotIssues(
+            bytes = activeContentPolicy,
+            expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+            expectedSupportEmail = fixtureSupportEmail,
+            expectedDeveloperLegalName = fixtureDeveloperLegalName
+        )
+        if (
+            activeContentIssues.none { it.contains("event handler attributes are forbidden") } ||
+            activeContentIssues.none { it.contains("external CSS resources are forbidden") }
+        ) {
+            throw GradleException("Privacy policy validator accepted active external content.")
+        }
         val innerArchive = zipBytes(
             linkedMapOf(
                 "network-capture.pcapng" to networkCapture,
@@ -2908,7 +3155,10 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
         val validRawIssues = dataSafetyRawEvidenceIssues(
             archiveFile = validRawArchive,
             expectedArchiveSha256 = sha256Hex(validRawArchive),
-            evidenceFile = rawManifest
+            evidenceFile = rawManifest,
+            expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+            expectedSupportEmail = fixtureSupportEmail,
+            expectedDeveloperLegalName = fixtureDeveloperLegalName
         )
         if (validRawIssues.isNotEmpty()) {
             throw GradleException("Valid Data Safety raw evidence was rejected: ${validRawIssues.joinToString()}")
@@ -2921,7 +3171,10 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
         if (dataSafetyRawEvidenceIssues(
                 archiveFile = tamperedRawArchive,
                 expectedArchiveSha256 = sha256Hex(tamperedRawArchive),
-                evidenceFile = rawManifest
+                evidenceFile = rawManifest,
+                expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+                expectedSupportEmail = fixtureSupportEmail,
+                expectedDeveloperLegalName = fixtureDeveloperLegalName
             ).none { issue -> issue.contains("network_capture_sha256") }
         ) {
             throw GradleException("Data Safety raw evidence validator accepted tampered capture bytes.")
@@ -2936,7 +3189,10 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
         if (dataSafetyRawEvidenceIssues(
                 archiveFile = fakePcapRawArchive,
                 expectedArchiveSha256 = sha256Hex(fakePcapRawArchive),
-                evidenceFile = rawManifest
+                evidenceFile = rawManifest,
+                expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+                expectedSupportEmail = fixtureSupportEmail,
+                expectedDeveloperLegalName = fixtureDeveloperLegalName
             ).none { issue -> issue.contains("structured pcapng") }
         ) {
             throw GradleException("Data Safety raw evidence validator accepted a pcapng magic-only fixture.")
@@ -2949,7 +3205,10 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
         if (dataSafetyRawEvidenceIssues(
                 archiveFile = malformedCsvRawArchive,
                 expectedArchiveSha256 = sha256Hex(malformedCsvRawArchive),
-                evidenceFile = rawManifest
+                evidenceFile = rawManifest,
+                expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+                expectedSupportEmail = fixtureSupportEmail,
+                expectedDeveloperLegalName = fixtureDeveloperLegalName
             ).none { issue -> issue.contains("exact question,answer CSV schema") }
         ) {
             throw GradleException("Data Safety raw evidence validator accepted an arbitrary CSV fixture.")
@@ -2963,10 +3222,76 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
         if (dataSafetyRawEvidenceIssues(
                 archiveFile = stubHtmlRawArchive,
                 expectedArchiveSha256 = sha256Hex(stubHtmlRawArchive),
-                evidenceFile = rawManifest
-            ).none { issue -> issue.contains("complete HTML document") }
+                evidenceFile = rawManifest,
+                expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+                expectedSupportEmail = fixtureSupportEmail,
+                expectedDeveloperLegalName = fixtureDeveloperLegalName
+            ).none { issue -> issue.contains("at least 512 UTF-8 bytes") }
         ) {
             throw GradleException("Data Safety raw evidence validator accepted an HTML tag-only fixture.")
+        }
+        val foreignPolicy = privacySnapshot.toString(Charsets.UTF_8)
+            .replace(fixtureDeveloperLegalName, "Unrelated Publisher")
+            .replace(fixtureSupportEmail, "privacy@unrelated.test")
+            .replace(vSlotApplicationId, "com.unrelated.app")
+            .toByteArray(Charsets.UTF_8)
+        val foreignPolicyRawArchive = rawArchive(
+            validRawEntries.toMutableMap().apply {
+                this["raw/privacy-policy-snapshot.html"] = foreignPolicy
+            }
+        )
+        val foreignPolicyIssues = dataSafetyRawEvidenceIssues(
+            archiveFile = foreignPolicyRawArchive,
+            expectedArchiveSha256 = sha256Hex(foreignPolicyRawArchive),
+            evidenceFile = rawManifest,
+            expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+            expectedSupportEmail = fixtureSupportEmail,
+            expectedDeveloperLegalName = fixtureDeveloperLegalName
+        )
+        if (
+            foreignPolicyIssues.none { it.contains("developer legal name") } ||
+            foreignPolicyIssues.none { it.contains("support email") } ||
+            foreignPolicyIssues.none { it.contains("package $vSlotApplicationId") }
+        ) {
+            throw GradleException("Data Safety raw evidence validator accepted an unrelated privacy policy.")
+        }
+        val missingRetentionPolicy = privacySnapshot.toString(Charsets.UTF_8)
+            .replace("data-v-slot-policy-section=\"retention\"", "data-v-slot-policy-section=\"other\"")
+            .toByteArray(Charsets.UTF_8)
+        val missingRetentionRawArchive = rawArchive(
+            validRawEntries.toMutableMap().apply {
+                this["raw/privacy-policy-snapshot.html"] = missingRetentionPolicy
+            }
+        )
+        if (dataSafetyRawEvidenceIssues(
+                archiveFile = missingRetentionRawArchive,
+                expectedArchiveSha256 = sha256Hex(missingRetentionRawArchive),
+                evidenceFile = rawManifest,
+                expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+                expectedSupportEmail = fixtureSupportEmail,
+                expectedDeveloperLegalName = fixtureDeveloperLegalName
+            ).none { issue -> issue.contains("required sections missing: retention") }
+        ) {
+            throw GradleException("Data Safety raw evidence validator accepted a policy without retention.")
+        }
+        val scriptedPolicy = privacySnapshot.toString(Charsets.UTF_8)
+            .replace("</body>", "<script>window.alert('bad')</script></body>")
+            .toByteArray(Charsets.UTF_8)
+        val scriptedPolicyRawArchive = rawArchive(
+            validRawEntries.toMutableMap().apply {
+                this["raw/privacy-policy-snapshot.html"] = scriptedPolicy
+            }
+        )
+        if (dataSafetyRawEvidenceIssues(
+                archiveFile = scriptedPolicyRawArchive,
+                expectedArchiveSha256 = sha256Hex(scriptedPolicyRawArchive),
+                evidenceFile = rawManifest,
+                expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+                expectedSupportEmail = fixtureSupportEmail,
+                expectedDeveloperLegalName = fixtureDeveloperLegalName
+            ).none { issue -> issue.contains("script elements are forbidden") }
+        ) {
+            throw GradleException("Data Safety raw evidence validator accepted executable policy content.")
         }
         val incompleteRawArchive = rawArchive(
             validRawEntries.filterKeys { name -> name != "raw/play-console-export.csv" }
@@ -2974,7 +3299,10 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
         if (dataSafetyRawEvidenceIssues(
                 archiveFile = incompleteRawArchive,
                 expectedArchiveSha256 = sha256Hex(incompleteRawArchive),
-                evidenceFile = rawManifest
+                evidenceFile = rawManifest,
+                expectedPrivacyPolicyUrl = fixturePrivacyUrl,
+                expectedSupportEmail = fixtureSupportEmail,
+                expectedDeveloperLegalName = fixtureDeveloperLegalName
             ).none { issue -> issue.contains("exact raw evidence entry set required") }
         ) {
             throw GradleException("Data Safety raw evidence validator accepted an incomplete archive.")

@@ -17,6 +17,7 @@ qa/screenshots/
 qa/logs/
 qa/frame-metrics/
 qa/process-death/evidence/
+qa/physical-samsung/
 .release-evidence/
 local.properties
 .DS_Store

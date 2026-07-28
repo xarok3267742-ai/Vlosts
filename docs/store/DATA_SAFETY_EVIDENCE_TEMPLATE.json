@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "application_id": "com.vslot.app",
+  "version_code": 1,
+  "reviewed_commit": "REPLACE_WITH_RELEASE_GIT_COMMIT",
+  "reviewed_at_utc": "REPLACE_WITH_ISO_8601_UTC_INSTANT",
+  "privacy_policy_url": "REPLACE_WITH_PRODUCTION_HTTPS_URL",
+  "network_capture_sha256": "REPLACE_WITH_SHA256",
+  "play_console_export_sha256": "REPLACE_WITH_SHA256",
+  "privacy_policy_snapshot_sha256": "REPLACE_WITH_SHA256",
+  "evidence_archive_sha256": "REPLACE_WITH_SHA256",
+  "checks": {
+    "fresh_install_pre_consent_no_telemetry": false,
+    "analytics_decline_no_telemetry": false,
+    "analytics_opt_in_expected_telemetry_only": false,
+    "analytics_revoke_no_future_telemetry": false,
+    "push_opt_in_expected_registration_only": false,
+    "notification_denied_no_registration": false,
+    "notification_disabled_no_registration": false,
+    "cleartext_absent": false,
+    "advertising_id_absent": false,
+    "location_absent": false,
+    "unexpected_pii_absent": false,
+    "production_dashboard_reviewed": false,
+    "privacy_policy_matches": false,
+    "play_console_preview_reviewed": false
+  }
+}

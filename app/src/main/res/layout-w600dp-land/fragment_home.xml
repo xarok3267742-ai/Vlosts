@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="NestedWeights">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="14dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="12dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/top_bar_premium" />
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="14dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/logo_v_slot" />
+
+            <LinearLayout
+                android:layout_width="386dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="56dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/homeBalancePanel"
+                    android:layout_width="170dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitXY"
+                            android:src="@drawable/top_bar_premium" />
+
+                    <ImageView
+                        android:id="@+id/homeBalanceMeterGlow"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/home_balance_meter_glow" />
+
+                    <ImageView
+                        android:id="@+id/homeBalanceCoin"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/coin_icon" />
+
+                    <com.vslot.app.ui.widget.BitmapNumberView
+                        android:id="@+id/balanceDigits"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="44dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="8dp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/homeLevelPanel"
+                    android:layout_width="206dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:contentDescription="@string/level"
+                    android:importantForAccessibility="yes">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/level_progress_panel" />
+
+                    <FrameLayout
+                        android:id="@+id/homeXpTrack"
+                        android:layout_width="174dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="bottom|start"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginBottom="2dp"
+                        android:clipChildren="false"
+                        android:clipToPadding="false">
+
+                        <ImageView
+                            android:id="@+id/homeXpTrackGlow"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.62"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/level_progress_track_glow" />
+
+                        <ImageView
+                            android:id="@+id/homeXpProgressFill"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:alpha="0.9"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/level_progress_fill" />
+
+                        <ImageView
+                            android:id="@+id/homeXpMilestones"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/level_progress_milestones" />
+
+                        <ImageView
+                            android:id="@+id/homeXpProgressPulse"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical|start"
+                            android:alpha="0.36"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/level_progress_pulse" />
+
+                        <ImageView
+                            android:id="@+id/homeXpProgressCap"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical|start"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/level_progress_cap" />
+                    </FrameLayout>
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="top|start"
+                        android:layout_marginStart="36dp"
+                        android:layout_marginTop="6dp"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/label_level" />
+
+                    <com.vslot.app.ui.widget.BitmapNumberView
+                        android:id="@+id/homeLevelDigits"
+                        android:layout_width="42dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="top|end"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="12dp"
+                        android:importantForAccessibility="no" />
+
+                    <ImageView
+                        android:id="@+id/homeXpReadoutPlate"
+                        android:layout_width="124dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="0dp"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/home_xp_readout_plate" />
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="12dp"
+                        android:layout_gravity="bottom|start"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginBottom="9dp"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/label_xp" />
+
+                    <com.vslot.app.ui.widget.BitmapNumberView
+                        android:id="@+id/homeXpDigits"
+                        android:layout_width="112dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="3dp"
+                        android:importantForAccessibility="no" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/settingsButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical|end"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/settings"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_settings_selector" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1">
+
+                <HorizontalScrollView
+                    android:id="@+id/homeSlotHorizontalScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="false"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="96dp">
+
+                    <FrameLayout
+                        android:id="@+id/violetCard"
+                        android:layout_width="248dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/home_play_violet_slot"
+                        android:focusable="true"
+                        android:importantForAccessibility="yes">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:duplicateParentState="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/slot_card_violet_fortune_land_selector" />
+
+                        <ImageView
+                            android:id="@+id/violetCardAura"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.22"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_violet_card_aura" />
+
+                        <ImageView
+                            android:id="@+id/violetCardShine"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_card_shine"
+                            android:visibility="invisible" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/romanCard"
+                        android:layout_width="248dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/home_play_roman_slot"
+                        android:focusable="true"
+                        android:importantForAccessibility="yes">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:duplicateParentState="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/slot_card_roman_reels_land_selector" />
+
+                        <ImageView
+                            android:id="@+id/romanCardAura"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.2"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_roman_card_aura" />
+
+                        <ImageView
+                            android:id="@+id/romanCardShine"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_card_shine"
+                            android:visibility="invisible" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/neonCard"
+                        android:layout_width="248dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/home_play_neon_slot"
+                        android:focusable="true"
+                        android:importantForAccessibility="yes">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:duplicateParentState="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/slot_card_neon_nights_land_selector" />
+
+                        <ImageView
+                            android:id="@+id/neonCardAura"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.22"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_nn_card_aura" />
+
+                        <ImageView
+                            android:id="@+id/neonCardShine"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_card_shine"
+                            android:visibility="invisible" />
+
+                        <ImageView
+                            android:id="@+id/neonLockedPulse"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_locked_slot_pulse_land"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/neonUnlockBurst"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_slot_unlock_burst_land"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/neonLockedOverlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/slot_card_lock_level_2"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/pharaohCard"
+                        android:layout_width="248dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/home_play_pharaoh_slot"
+                        android:focusable="true"
+                        android:importantForAccessibility="yes">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:duplicateParentState="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/slot_card_pharaoh_gold_land_selector" />
+
+                        <ImageView
+                            android:id="@+id/pharaohCardAura"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.2"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_pg_card_aura" />
+
+                        <ImageView
+                            android:id="@+id/pharaohCardShine"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_card_shine"
+                            android:visibility="invisible" />
+
+                        <ImageView
+                            android:id="@+id/pharaohLockedPulse"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_locked_slot_pulse_land"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/pharaohUnlockBurst"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_slot_unlock_burst_land"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/pharaohLockedOverlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/slot_card_lock_level_3"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/oceanCard"
+                        android:layout_width="248dp"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:contentDescription="@string/home_play_ocean_slot"
+                        android:focusable="true"
+                        android:importantForAccessibility="yes">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:duplicateParentState="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/slot_card_ocean_pearl_land_selector" />
+
+                        <ImageView
+                            android:id="@+id/oceanCardAura"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.22"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_op_card_aura" />
+
+                        <ImageView
+                            android:id="@+id/oceanCardShine"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_card_shine"
+                            android:visibility="invisible" />
+
+                        <ImageView
+                            android:id="@+id/oceanLockedPulse"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_locked_slot_pulse_land"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/oceanUnlockBurst"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/home_slot_unlock_burst_land"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/oceanLockedOverlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/slot_card_lock_level_4"
+                            android:visibility="gone" />
+                    </FrameLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <ImageView
+                    android:id="@+id/homeScrollRightVeil"
+                    android:layout_width="72dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/home_scroll_right_veil" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="310dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/dailyBonusButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/daily_bonus_ready_action"
+                    android:focusable="true"
+                    android:importantForAccessibility="yes">
+
+                    <ImageView
+                        android:id="@+id/dailyBonusImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:duplicateParentState="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/daily_bonus_ready_imagegen" />
+
+                    <ImageView
+                        android:id="@+id/dailyBonusShine"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0"
+                        android:contentDescription="@null"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/home_card_shine"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/dailyBonusClaimPlate"
+                        android:layout_width="150dp"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="9dp"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_bonus_claim_default" />
+
+                    <ImageView
+                        android:id="@+id/dailyBonusStatusText"
+                        android:layout_width="104dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="32dp"
+                        android:contentDescription="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/label_claim_bonus" />
+
+                    <FrameLayout
+                        android:id="@+id/dailyBonusCountdownRail"
+                        android:layout_width="152dp"
+                        android:layout_height="46dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="7dp"
+                        android:contentDescription="@string/daily_bonus_cooldown_remaining"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/dailyBonusCountdownCharge"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.46"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/daily_bonus_countdown_charge" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/daily_bonus_countdown_rail" />
+
+                        <com.vslot.app.ui.widget.BitmapNumberView
+                            android:id="@+id/dailyBonusCountdownDigits"
+                            android:layout_width="104dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="bottom|end"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="8dp"
+                            android:importantForAccessibility="no" />
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/privacyButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/privacy_policy"
+                    android:focusable="true"
+                    android:importantForAccessibility="yes">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:duplicateParentState="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_privacy_selector" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:duplicateParentState="true"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/label_privacy_policy" />
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/social_disclaimer_short"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/label_social_disclaimer_short" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

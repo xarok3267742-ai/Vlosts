@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="8dp"
+    android:paddingTop="6dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="6dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/modal_panel_backplate" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/daily_bonus_modal_panel_premium" />
+
+    <ImageView
+        android:id="@+id/bonusStageLattice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/daily_bonus_stage_lattice" />
+
+    <ImageView
+        android:id="@+id/bonusRewardOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/daily_bonus_reward_burst"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/bonusCooldownOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/daily_bonus_cooldown_vault"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:minHeight="260dp"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/bonusBadge"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:contentDescription="@null"
+                android:src="@drawable/modal_badge_bonus" />
+
+            <FrameLayout
+                android:id="@+id/bonusCooldownTimerRail"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/daily_bonus_cooldown_remaining"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/daily_bonus_modal_countdown_rail" />
+
+                <ImageView
+                    android:layout_width="46dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/label_daily_bonus_timer" />
+
+                <com.vslot.app.ui.widget.BitmapNumberView
+                    android:id="@+id/bonusCooldownTimerDigits"
+                    android:layout_width="94dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/bonusTitle"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:contentDescription="@string/daily_bonus"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/title_daily_bonus" />
+
+            <ImageView
+                android:id="@+id/bonusBody"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/bonus_ready"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/label_bonus_ready_body" />
+
+            <TextView
+                android:id="@+id/bonusBodyLargeText"
+                style="@style/VSlotAccessibleCopy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:importantForAccessibility="no"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/bonus_ready"
+                android:textAlignment="center"
+                android:visibility="gone" />
+
+            <FrameLayout
+                android:layout_width="190dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp">
+
+                <ImageButton
+                    android:id="@+id/claimButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/claim_bonus"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_bonus_claim_selector" />
+
+                <ImageView
+                    android:id="@+id/claimButtonLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/label_claim_bonus" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/bonusCloseButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/close"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_dialog_corner_close_selector" />
+</FrameLayout>

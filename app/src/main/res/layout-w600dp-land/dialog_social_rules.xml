@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="18dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="18dp"
+    android:paddingBottom="8dp"
+    android:tag="dialog_preferred_width_840dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/modal_panel_backplate" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/social_rules_modal_panel" />
+
+    <ImageView
+        android:id="@+id/socialRulesComplianceSeal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/social_rules_compliance_seal"
+        android:visibility="invisible" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="336dp"
+        android:paddingStart="48dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="54dp"
+        android:paddingBottom="16dp">
+
+        <LinearLayout
+            android:id="@+id/socialRulesHeaderColumn"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/socialRulesBadge"
+                android:layout_width="116dp"
+                android:layout_height="116dp"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:src="@drawable/modal_badge_rules" />
+
+            <ImageView
+                android:id="@+id/socialRulesTitle"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:layout_marginTop="12dp"
+                android:contentDescription="@string/social_casino_rules"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/title_social_rules" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/socialRulesHeaderColumn"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/socialRulesBody"
+                android:layout_width="match_parent"
+                android:layout_height="178dp"
+                android:contentDescription="@string/social_casino_rules_body"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/body_social_rules" />
+
+            <TextView
+                android:id="@+id/socialRulesBodyLargeText"
+                style="@style/VSlotAccessibleCopy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:importantForAccessibility="no"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:text="@string/social_casino_rules_body"
+                android:textAlignment="center"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/socialRulesFooter"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/social_casino_rules_footer"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/label_social_rules_footer" />
+
+            <TextView
+                android:id="@+id/socialRulesFooterLargeText"
+                style="@style/VSlotAccessibleCopy.Compact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:importantForAccessibility="no"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/social_casino_rules_footer"
+                android:textAlignment="center"
+                android:visibility="gone" />
+
+            <FrameLayout
+                android:layout_width="180dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="10dp">
+
+                <ImageButton
+                    android:id="@+id/closeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/close"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_modal_close_selector" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/label_close" />
+            </FrameLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

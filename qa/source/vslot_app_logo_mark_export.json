@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "exporter": "tools/export_app_logo_mark.py",
+  "exporter_sha256": "8df08c2580b4d2bee8e98cedb9246e941a346ad4cc218c5481be0ab85e7b99e5",
+  "source": "qa/source/vslot_app_logo_mark_chroma_imagegen.png",
+  "source_sha256": "45d15f1794d1c482168be1b0defb467e39c974a5cb637fc86f5e6e951dc57d8f",
+  "output": "app/src/main/res/drawable-nodpi/app_logo_mark_v2.png",
+  "output_sha256": "d71efd29db85310e8a1c372e1157010131e7f9a9264d741fbc9fbadea08b3eda",
+  "sampled_key_rgb": [
+    12,
+    234,
+    20
+  ],
+  "transparent_threshold": 12.0,
+  "opaque_threshold": 220.0,
+  "despill": true
+}

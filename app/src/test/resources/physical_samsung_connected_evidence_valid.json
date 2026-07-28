@@ -1,0 +1,103 @@
+{
+  "schema_version": 6,
+  "generated_at_utc": "2026-07-18T12:00:00Z",
+  "source": {
+    "git_commit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "device": {
+    "serial_sha256": "1f54ec82c1dc4f9979fb920745faf517e18c923477cf11421a729075b00d010f",
+    "manufacturer": "samsung",
+    "model": "SM-S928B",
+    "android_version": "16",
+    "build_fingerprint": "samsung/e3qxeea/e3q:16/BP2A.250605.031/fixture:user/release-keys",
+    "one_ui_version": "80000",
+    "locale": "ru-RU",
+    "size": "Physical size: 1440x3120;",
+    "density": "Physical density: 505;",
+    "font_scale": "1.0"
+  },
+  "apk": {
+    "file_name": "app-qa.apk",
+    "sha256": "a02d52ed5aa746674728e0c275ddb1d821d4bffa9fc39efe3c3a4cca3598309d",
+    "payload_sha256": "03c514879cda64e33b0613aecba5a6844deac827d7333061d2078c35fc2bb8ff"
+  },
+  "orientations": [
+    {
+      "user_rotation": 1,
+      "observed_orientation": 1,
+      "logical_width": 3120,
+      "logical_height": 1440,
+      "verified_landscape": true,
+      "test_status": "passed"
+    },
+    {
+      "user_rotation": 3,
+      "observed_orientation": 3,
+      "logical_width": 3120,
+      "logical_height": 1440,
+      "verified_landscape": true,
+      "test_status": "passed"
+    }
+  ],
+  "stages": {
+    "portrait_smoke": {
+      "status": "passed",
+      "user_rotation": 0,
+      "display_profile": "captured",
+      "tests": 1,
+      "skipped": 0
+    },
+    "font_scale_2_0_first_launch_legal_notices": {
+      "status": "passed",
+      "user_rotation": 0,
+      "font_scale": "2.0",
+      "tests": 3,
+      "skipped": 0
+    },
+    "compact_portrait_settings": {
+      "status": "passed",
+      "user_rotation": 0,
+      "wm_size": "720x1280",
+      "wm_density": "320",
+      "font_scale": "1.0",
+      "tests": 1,
+      "skipped": 0
+    },
+    "compact_landscape_rotation_1": {
+      "status": "passed",
+      "user_rotation": 1,
+      "wm_size": "720x1080",
+      "wm_density": "320",
+      "tests": 1,
+      "skipped": 0
+    },
+    "compact_landscape_rotation_3": {
+      "status": "passed",
+      "user_rotation": 3,
+      "wm_size": "720x1080",
+      "wm_density": "320",
+      "tests": 1,
+      "skipped": 0
+    },
+    "landscape_rotation_1": {
+      "status": "passed",
+      "user_rotation": 1,
+      "display_profile": "captured",
+      "tests": 62,
+      "skipped": 4
+    },
+    "landscape_rotation_3": {
+      "status": "passed",
+      "user_rotation": 3,
+      "display_profile": "captured",
+      "tests": 62,
+      "skipped": 4
+    }
+  },
+  "result": {
+    "status": "passed",
+    "test_status": "passed",
+    "cleanup_status": "passed",
+    "exit_code": 0
+  }
+}

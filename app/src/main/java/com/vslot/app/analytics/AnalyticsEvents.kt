@@ -1,0 +1,25 @@
+package com.vslot.app.analytics
+
+object AnalyticsEvents {
+    const val AppOpen = "app_open"
+    const val FirstLaunch = "first_launch"
+    const val DisclaimerAccept = "disclaimer_accept"
+    const val HomeView = "home_view"
+    const val SlotSelect = "slot_select"
+    const val SlotScreenView = "slot_screen_view"
+    const val SpinStart = "spin_start"
+    const val SpinResult = "spin_result"
+    const val BonusClaim = "bonus_claim"
+    const val DailyBonusOpen = "daily_bonus_open"
+    const val CoinsLow = "coins_low"
+    const val PaytableOpen = "paytable_open"
+    const val PrivacyOpen = "privacy_open"
+    const val PrivacyLoadSuccess = "privacy_load_success"
+    const val PrivacyLoadError = "privacy_load_error"
+    const val SettingsOpen = "settings_open"
+    const val PushPermissionShown = "push_permission_shown"
+    const val PushPermissionDeferred = "push_permission_deferred"
+    const val PushPermissionGranted = "push_permission_granted"
+    const val PushPermissionDenied = "push_permission_denied"
+    const val PushOpen = "push_open"
+}

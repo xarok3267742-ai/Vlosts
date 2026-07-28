@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="14dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="12dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/top_bar_premium" />
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical|start"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/back"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_back_selector" />
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/title_settings" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/settings_modal_backplate" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/settings_modal_panel_landscape_premium" />
+
+            <ImageView
+                android:id="@+id/settingsControlGlow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                android:src="@drawable/settings_control_console_glow"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/settingsCenterOrnament"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="12dp"
+                android:alpha="0.58"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:scaleType="fitCenter"
+                android:src="@drawable/settings_center_ornament" />
+
+            <ScrollView
+                android:id="@+id/settingsScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="6dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.92"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="16dp">
+
+                    <ImageView
+                        android:id="@+id/settingsBadge"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:contentDescription="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/modal_badge_settings" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:minHeight="30dp">
+
+                        <ImageView
+                            android:id="@+id/versionImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/app_name"
+                            android:paddingStart="26dp"
+                            android:paddingEnd="26dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/label_version_current" />
+
+                        <TextView
+                            android:id="@+id/versionLargeText"
+                            style="@style/VSlotAccessibleCopy.Compact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="6dp"
+                            android:paddingTop="3dp"
+                            android:paddingEnd="6dp"
+                            android:paddingBottom="3dp"
+                            android:text="@string/app_name"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:minHeight="42dp">
+
+                        <ImageView
+                            android:id="@+id/socialDisclaimerImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/social_disclaimer_short"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/label_social_disclaimer_short" />
+
+                        <TextView
+                            android:id="@+id/socialDisclaimerLargeText"
+                            style="@style/VSlotAccessibleCopy.Compact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="6dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="6dp"
+                            android:paddingBottom="4dp"
+                            android:text="@string/social_disclaimer_short"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/settingsSafetyStage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:minHeight="84dp">
+
+                        <ImageView
+                            android:id="@+id/settingsSafetyAnchor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:alpha="0.84"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/settings_safety_anchor" />
+
+                        <ImageView
+                            android:id="@+id/settingsSafetyPanel"
+                            android:layout_width="match_parent"
+                            android:layout_height="84dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/settings_safety_panel"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/settings_safety_panel" />
+
+                        <TextView
+                            android:id="@+id/settingsSafetyLargeText"
+                            style="@style/VSlotAccessibleCopy.Compact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="#F20D1632"
+                            android:gravity="center"
+                            android:minHeight="84dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="6dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="6dp"
+                            android:shadowColor="#FF000000"
+                            android:shadowDx="0"
+                            android:shadowDy="1"
+                            android:shadowRadius="3"
+                            android:text="@string/settings_safety_panel"
+                            android:visibility="gone" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.08"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:baselineAligned="false"
+                        android:minHeight="48dp"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <ImageButton
+                                android:id="@+id/privacyButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:contentDescription="@string/privacy_policy"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/btn_privacy_selector" />
+
+                            <ImageView
+                                android:id="@+id/privacyButtonLabel"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:importantForAccessibility="no"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/label_privacy_policy" />
+
+                            <TextView
+                                android:id="@+id/privacyButtonLargeText"
+                                style="@style/VSlotAccessibleCopy.Compact"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:importantForAccessibility="no"
+                                android:minHeight="48dp"
+                                android:paddingStart="8dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="6dp"
+                                android:text="@string/privacy_policy"
+                                android:visibility="gone" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1">
+
+                            <ImageButton
+                                android:id="@+id/noticesButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:contentDescription="@string/third_party_notices_action"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/btn_privacy_selector" />
+
+                            <ImageView
+                                android:id="@+id/noticesButtonLabel"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:importantForAccessibility="no"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/label_third_party_notices" />
+
+                            <TextView
+                                android:id="@+id/noticesButtonLargeText"
+                                style="@style/VSlotAccessibleCopy.Compact"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:importantForAccessibility="no"
+                                android:minHeight="48dp"
+                                android:paddingStart="8dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="6dp"
+                                android:text="@string/third_party_notices_action"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="1dp"
+                        android:minHeight="48dp">
+
+                        <ImageButton
+                            android:id="@+id/rulesButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:contentDescription="@string/social_casino_rules"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/btn_privacy_selector" />
+
+                        <ImageView
+                            android:id="@+id/rulesButtonLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:paddingStart="22dp"
+                            android:paddingEnd="22dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/label_social_rules" />
+
+                        <TextView
+                            android:id="@+id/rulesButtonLargeText"
+                            style="@style/VSlotAccessibleCopy.Compact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"
+                            android:minHeight="48dp"
+                            android:paddingStart="12dp"
+                            android:paddingTop="6dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="6dp"
+                            android:text="@string/social_casino_rules"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="1dp">
+
+                        <FrameLayout
+                            android:id="@+id/soundToggleButton"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="3dp"
+                            android:clickable="true"
+                            android:contentDescription="@string/settings_sound"
+                            android:focusable="true"
+                            app:layout_constraintEnd_toStartOf="@id/analyticsToggleButton"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:duplicateParentState="true"
+                                android:importantForAccessibility="no"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/btn_privacy_selector" />
+
+                            <ImageView
+                                android:id="@+id/soundToggleIcon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:duplicateParentState="true"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/settings_sound_selector" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/analyticsToggleButton"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginEnd="3dp"
+                            android:clickable="true"
+                            android:contentDescription="@string/settings_analytics"
+                            android:focusable="true"
+                            app:layout_constraintEnd_toStartOf="@id/hapticsToggleButton"
+                            app:layout_constraintStart_toEndOf="@id/soundToggleButton"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:duplicateParentState="true"
+                                android:importantForAccessibility="no"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/btn_privacy_selector" />
+
+                            <ImageView
+                                android:id="@+id/analyticsToggleIcon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:duplicateParentState="true"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/settings_analytics_selector" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/hapticsToggleButton"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="3dp"
+                            android:clickable="true"
+                            android:contentDescription="@string/settings_haptics"
+                            android:focusable="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/analyticsToggleButton"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:duplicateParentState="true"
+                                android:importantForAccessibility="no"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/btn_privacy_selector" />
+
+                            <ImageView
+                                android:id="@+id/hapticsToggleIcon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:duplicateParentState="true"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/settings_haptics_selector" />
+                        </FrameLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="1dp"
+                        android:minHeight="48dp">
+
+                        <ImageButton
+                            android:id="@+id/pushButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:contentDescription="@string/push_prompt_title"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/btn_privacy_selector" />
+
+                        <ImageView
+                            android:id="@+id/pushButtonLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:paddingStart="22dp"
+                            android:paddingEnd="22dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/label_push_unconfigured_action" />
+
+                        <TextView
+                            android:id="@+id/pushButtonLargeText"
+                            style="@style/VSlotAccessibleCopy.Compact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"
+                            android:minHeight="48dp"
+                            android:paddingStart="12dp"
+                            android:paddingTop="6dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="6dp"
+                            android:text="@string/push_unconfigured_status"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/pushStatusStage"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="1dp"
+                        android:contentDescription="@string/push_unconfigured_status"
+                        android:importantForAccessibility="yes"
+                        android:minHeight="32dp">
+
+                        <ImageView
+                            android:id="@+id/pushStatusConsole"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/settings_push_status_console" />
+
+                        <ImageView
+                            android:id="@+id/pushStatusSignalPulse"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center_vertical|start"
+                            android:layout_marginStart="8dp"
+                            android:alpha="0.66"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/settings_push_status_signal_pulse" />
+
+                        <ImageView
+                            android:id="@+id/pushStatusText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:importantForAccessibility="no"
+                            android:paddingStart="42dp"
+                            android:paddingEnd="16dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/label_push_status_unconfigured" />
+
+                        <TextView
+                            android:id="@+id/pushStatusLargeText"
+                            style="@style/VSlotAccessibleCopy.Compact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:importantForAccessibility="no"
+                            android:minHeight="32dp"
+                            android:paddingStart="42dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="5dp"
+                            android:text="@string/push_unconfigured_status"
+                            android:visibility="gone" />
+                    </FrameLayout>
+                </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

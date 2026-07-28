@@ -1,0 +1,42 @@
+{
+  "schema_version": 2,
+  "generated_at_utc": "2026-07-18T12:40:00Z",
+  "qa_profile": "physical_samsung",
+  "source": {
+    "git_commit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "device": {
+    "serial_sha256": "1f54ec82c1dc4f9979fb920745faf517e18c923477cf11421a729075b00d010f",
+    "manufacturer": "samsung",
+    "model": "SM-S928B",
+    "android_version": "16",
+    "build_fingerprint_sha256": "7cc082593adf00fe141410aaeb24974dd4750db3b4e0f54be636f05651ec5019"
+  },
+  "apk": {
+    "file_name": "app-qa.apk",
+    "sha256": "a02d52ed5aa746674728e0c275ddb1d821d4bffa9fc39efe3c3a4cca3598309d",
+    "payload_sha256": "03c514879cda64e33b0613aecba5a6844deac827d7333061d2078c35fc2bb8ff"
+  },
+  "metrics": {
+    "samples": 240,
+    "p50_ms": 15.2,
+    "p95_ms": 33.4,
+    "max_ms": 48.7,
+    "jank_rate_pct": 5.0,
+    "refresh_hz": 60.0,
+    "missed_deadline_threshold_ms": 20.83,
+    "missed_deadline_rate_pct": 8.33,
+    "dropped_callbacks": 0
+  },
+  "limits": {
+    "p95_ms": 50.0,
+    "max_ms": 100.0,
+    "jank_rate_pct": 10.0,
+    "missed_deadline_rate_pct": 20.0
+  },
+  "result": {
+    "status": "passed",
+    "test_status": "passed",
+    "exit_code": 0
+  }
+}

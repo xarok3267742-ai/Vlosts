@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- These legacy rasters are inputs for the reproducible asset-generation scripts in ../tools. -->
+    <issue id="UnusedResources">
+        <ignore path="src/main/res/drawable-nodpi/btn_privacy_default.webp" />
+        <ignore path="src/main/res/drawable-nodpi/btn_privacy_pressed.webp" />
+        <ignore path="src/main/res/drawable-nodpi/daily_bonus_modal_panel.webp" />
+        <ignore path="src/main/res/drawable-nodpi/daily_bonus_ready.webp" />
+        <ignore path="src/main/res/drawable-nodpi/daily_bonus_wait.webp" />
+        <ignore path="src/main/res/drawable-nodpi/low_coins_modal_panel.webp" />
+        <ignore path="src/main/res/drawable-nodpi/modal_panel.webp" />
+        <ignore path="src/main/res/drawable-nodpi/paytable_modal_panel.webp" />
+        <ignore path="src/main/res/drawable-nodpi/privacy_web_panel.webp" />
+        <ignore path="src/main/res/drawable-nodpi/push_permission_modal_panel.webp" />
+        <ignore path="src/main/res/drawable-nodpi/reel_glass_overlay.webp" />
+        <ignore path="src/main/res/drawable-nodpi/reel_landing_spark.webp" />
+        <ignore path="src/main/res/drawable-nodpi/reel_spin_blur.webp" />
+        <ignore path="src/main/res/drawable-nodpi/reel_spin_energy_rim.webp" />
+        <ignore path="src/main/res/drawable-nodpi/reel_stop_flash.webp" />
+        <ignore path="src/main/res/drawable-nodpi/result_modal_panel.webp" />
+        <ignore path="src/main/res/drawable-nodpi/result_modal_panel_neon.webp" />
+        <ignore path="src/main/res/drawable-nodpi/result_modal_panel_ocean.webp" />
+        <ignore path="src/main/res/drawable-nodpi/result_modal_panel_pharaoh.webp" />
+        <ignore path="src/main/res/drawable-nodpi/result_modal_panel_roman.webp" />
+        <ignore path="src/main/res/drawable-nodpi/settings_modal_panel.webp" />
+        <ignore path="src/main/res/drawable-nodpi/slot_big_win_banner.webp" />
+        <ignore path="src/main/res/drawable-nodpi/slot_bonus_free_spins_banner.webp" />
+        <ignore path="src/main/res/drawable-nodpi/symbol_win_halo.webp" />
+        <ignore path="src/main/res/drawable-nodpi/top_bar.webp" />
+        <ignore path="src/main/res/drawable-nodpi/win_glow_sprite.webp" />
+    </issue>
+</lint>

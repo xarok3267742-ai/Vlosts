@@ -1,0 +1,328 @@
+name: Production Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_code:
+        description: Confirm the reviewed Android versionCode
+        required: true
+        type: string
+
+concurrency:
+  group: production-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  vulnerability-scan:
+    name: Scan locked dependencies for known vulnerabilities
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@9a498708959aeaef5ef730655706c5a1df1edbc2 # v2.3.8
+    with:
+      scan-args: |-
+        --lockfile=osv-scanner:osv-scanner-custom.json
+      upload-sarif: false
+      fail-on-vuln: true
+    permissions:
+      contents: read
+
+  managed-device-gate:
+    name: Require managed-device checks for release commit
+    needs: vulnerability-scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - name: Require successful managed-device checks for release commit
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          runs_json="$(
+            gh api --method GET \
+              -H 'X-GitHub-Api-Version: 2022-11-28' \
+              "/repos/$GITHUB_REPOSITORY/actions/workflows/android-ci.yml/runs" \
+              -f head_sha="$GITHUB_SHA" \
+              -f branch=main \
+              -f event=push \
+              -f status=success \
+              -f per_page=100
+          )"
+          run_id="$(
+            printf '%s\n' "$runs_json" | jq --exit-status --raw-output \
+              --arg sha "$GITHUB_SHA" '
+                [
+                  .workflow_runs[]
+                  | select(
+                      .head_sha == $sha
+                      and .head_branch == "main"
+                      and .event == "push"
+                      and .status == "completed"
+                      and .conclusion == "success"
+                    )
+                ]
+                | sort_by(.run_attempt, .id)
+                | last
+                | .id
+              '
+          )"
+          jobs_json="$(
+            gh api --paginate --method GET \
+              -H 'X-GitHub-Api-Version: 2022-11-28' \
+              "/repos/$GITHUB_REPOSITORY/actions/runs/$run_id/jobs" \
+              -f filter=latest \
+              -f per_page=100
+          )"
+
+          if ! printf '%s\n' "$jobs_json" | jq --exit-status --slurp '
+            def passed($name):
+              any(.[].jobs[];
+                .name == $name
+                and .status == "completed"
+                and .conclusion == "success"
+              );
+            passed("Critical QA smoke (managed device)")
+            and passed("Runtime SDK boundary smoke (API 26)")
+            and passed("Runtime SDK boundary smoke (API 36)")
+          ' > /dev/null; then
+            printf 'Required managed-device jobs did not all pass for %s in Android CI run %s:\n' \
+              "$GITHUB_SHA" "$run_id" >&2
+            printf '%s\n' "$jobs_json" | jq --slurp --raw-output '
+              .[].jobs[]
+              | select(
+                  .name == "Critical QA smoke (managed device)"
+                  or (.name | startswith("Runtime SDK boundary smoke (API "))
+                )
+              | "\(.name): \(.conclusion // .status)"
+            ' >&2
+            exit 1
+          fi
+
+          printf 'Android CI run %s passed all required managed-device jobs for %s.\n' \
+            "$run_id" "$GITHUB_SHA"
+
+  bundle:
+    name: Build signed store bundle
+    needs:
+      - vulnerability-scan
+      - managed-device-gate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    env:
+      V_SLOT_PRIVACY_POLICY_URL: ${{ vars.V_SLOT_PRIVACY_POLICY_URL }}
+      V_SLOT_SUPPORT_EMAIL: ${{ vars.V_SLOT_SUPPORT_EMAIL }}
+      V_SLOT_DEVELOPER_LEGAL_NAME: ${{ vars.V_SLOT_DEVELOPER_LEGAL_NAME }}
+      V_SLOT_APPMETRICA_API_KEY_SHA256: ${{ vars.V_SLOT_APPMETRICA_API_KEY_SHA256 }}
+      V_SLOT_FIREBASE_PROJECT_ID: ${{ vars.V_SLOT_FIREBASE_PROJECT_ID }}
+      V_SLOT_FIREBASE_APP_ID: ${{ vars.V_SLOT_FIREBASE_APP_ID }}
+      V_SLOT_DATA_SAFETY_REVIEWED_VERSION_CODE: ${{ inputs.version_code }}
+      V_SLOT_DATA_SAFETY_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-data-safety-evidence.json
+      V_SLOT_DATA_SAFETY_EVIDENCE_SHA256: ${{ vars.V_SLOT_DATA_SAFETY_EVIDENCE_SHA256 }}
+      V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-data-safety-raw-evidence.zip
+      V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256: ${{ vars.V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256 }}
+      V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE: ${{ inputs.version_code }}
+      V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-asset-rights-evidence.json
+      V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256: ${{ vars.V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256 }}
+      V_SLOT_SAMSUNG_QA_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-samsung-qa-evidence.json
+      V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256: ${{ vars.V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256 }}
+      V_SLOT_PROCESS_DEATH_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-process-death-evidence.json
+      V_SLOT_PROCESS_DEATH_EVIDENCE_SHA256: ${{ vars.V_SLOT_PROCESS_DEATH_EVIDENCE_SHA256 }}
+      V_SLOT_FRAME_METRICS_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-frame-metrics-evidence.json
+      V_SLOT_FRAME_METRICS_EVIDENCE_SHA256: ${{ vars.V_SLOT_FRAME_METRICS_EVIDENCE_SHA256 }}
+      V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-physical-samsung-raw-evidence.zip
+      V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_SHA256: ${{ vars.V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_SHA256 }}
+      V_SLOT_RELEASE_STORE_FILE: ${{ runner.temp }}/v-slot-release.jks
+      V_SLOT_RELEASE_KEY_ALIAS: ${{ vars.V_SLOT_RELEASE_KEY_ALIAS }}
+      V_SLOT_RELEASE_CERT_SHA256: ${{ vars.V_SLOT_RELEASE_CERT_SHA256 }}
+      V_SLOT_ANDROID_PLATFORM_36_JAR_SHA256: ${{ vars.V_SLOT_ANDROID_PLATFORM_36_JAR_SHA256 }}
+      V_SLOT_ANDROID_BUILD_TOOLS_36_AAPT2_SHA256: ${{ vars.V_SLOT_ANDROID_BUILD_TOOLS_36_AAPT2_SHA256 }}
+      V_SLOT_ANDROID_BUILD_TOOLS_36_DEXDUMP_SHA256: ${{ vars.V_SLOT_ANDROID_BUILD_TOOLS_36_DEXDUMP_SHA256 }}
+      V_SLOT_BUNDLETOOL_JAR: ${{ runner.temp }}/bundletool-all-1.18.3.jar
+      V_SLOT_OSV_SCAN_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-osv-scan-evidence.txt
+
+    steps:
+      - name: Check out reviewed source
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Require the protected main branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = 'refs/heads/main'
+          test "$GITHUB_REF_PROTECTED" = 'true'
+          test "$(git rev-parse --verify HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Set up Temurin 17
+        uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4
+        with:
+          distribution: temurin
+          java-version: '17.0.19+10'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4
+
+      - name: Install pinned Android build packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/latest/source.properties"
+          test -x "$SDKMANAGER"
+          grep -Fxq 'Pkg.Revision=20.0' "$TOOLS_PROPERTIES"
+          grep -Fxq 'Pkg.Path=cmdline-tools;20.0' "$TOOLS_PROPERTIES"
+          NDK_VERSION='27.0.12077973'
+          "$SDKMANAGER" 'platforms;android-36' 'build-tools;36.0.0' "ndk;$NDK_VERSION"
+          test -f "$ANDROID_HOME/platforms/android-36/android.jar"
+          test -x "$ANDROID_HOME/build-tools/36.0.0/aapt2"
+          test -x "$ANDROID_HOME/build-tools/36.0.0/dexdump"
+          LLVM_READELF="$ANDROID_HOME/ndk/$NDK_VERSION/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-readelf"
+          test -x "$LLVM_READELF"
+          grep -Fxq "Pkg.Revision = $NDK_VERSION" "$ANDROID_HOME/ndk/$NDK_VERSION/source.properties"
+          printf 'V_SLOT_LLVM_READELF=%s\n' "$LLVM_READELF" >> "$GITHUB_ENV"
+          test "$(sha256sum "$ANDROID_HOME/platforms/android-36/android.jar" | awk '{print $1}')" = \
+            "$V_SLOT_ANDROID_PLATFORM_36_JAR_SHA256"
+          test "$(sha256sum "$ANDROID_HOME/build-tools/36.0.0/aapt2" | awk '{print $1}')" = \
+            "$V_SLOT_ANDROID_BUILD_TOOLS_36_AAPT2_SHA256"
+          test "$(sha256sum "$ANDROID_HOME/build-tools/36.0.0/dexdump" | awk '{print $1}')" = \
+            "$V_SLOT_ANDROID_BUILD_TOOLS_36_DEXDUMP_SHA256"
+
+      - name: Install reviewed bundletool
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --proto '=https' --tlsv1.2 --fail --location --silent --show-error \
+            --output "$V_SLOT_BUNDLETOOL_JAR" \
+            https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar
+          test "$(sha256sum "$V_SLOT_BUNDLETOOL_JAR" | awk '{print $1}')" = \
+            a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29
+          chmod 0444 "$V_SLOT_BUNDLETOOL_JAR"
+
+      - name: Materialize protected release files
+        shell: bash
+        env:
+          V_SLOT_GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.V_SLOT_GOOGLE_SERVICES_JSON_BASE64 }}
+          V_SLOT_RELEASE_KEYSTORE_BASE64: ${{ secrets.V_SLOT_RELEASE_KEYSTORE_BASE64 }}
+          V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64 }}
+          V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64: ${{ secrets.V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64 }}
+          V_SLOT_ASSET_RIGHTS_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_ASSET_RIGHTS_EVIDENCE_JSON_BASE64 }}
+          V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64 }}
+          V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64 }}
+          V_SLOT_FRAME_METRICS_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_FRAME_METRICS_EVIDENCE_JSON_BASE64 }}
+          V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_ZIP_BASE64: ${{ secrets.V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_ZIP_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$V_SLOT_GOOGLE_SERVICES_JSON_BASE64"
+          test -n "$V_SLOT_RELEASE_KEYSTORE_BASE64"
+          test -n "$V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64"
+          test -n "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64"
+          test -n "$V_SLOT_ASSET_RIGHTS_EVIDENCE_JSON_BASE64"
+          test -n "$V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64"
+          test -n "$V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64"
+          test -n "$V_SLOT_FRAME_METRICS_EVIDENCE_JSON_BASE64"
+          test -n "$V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_ZIP_BASE64"
+          printf '%s' "$V_SLOT_GOOGLE_SERVICES_JSON_BASE64" | base64 --decode > app/src/release/google-services.json
+          printf '%s' "$V_SLOT_RELEASE_KEYSTORE_BASE64" | base64 --decode > "$V_SLOT_RELEASE_STORE_FILE"
+          printf '%s' "$V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_DATA_SAFETY_EVIDENCE_FILE"
+          printf '%s' "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64" | base64 --decode > "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE"
+          printf '%s' "$V_SLOT_ASSET_RIGHTS_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE"
+          printf '%s' "$V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE"
+          printf '%s' "$V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE"
+          printf '%s' "$V_SLOT_FRAME_METRICS_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_FRAME_METRICS_EVIDENCE_FILE"
+          printf '%s' "$V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_ZIP_BASE64" | base64 --decode > "$V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_FILE"
+          test -s app/src/release/google-services.json
+          test -s "$V_SLOT_RELEASE_STORE_FILE"
+          test -s "$V_SLOT_DATA_SAFETY_EVIDENCE_FILE"
+          test -s "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE"
+          test -s "$V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE"
+          test -s "$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE"
+          test -s "$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE"
+          test -s "$V_SLOT_FRAME_METRICS_EVIDENCE_FILE"
+          test -s "$V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_FILE"
+          chmod 600 app/src/release/google-services.json "$V_SLOT_RELEASE_STORE_FILE" \
+            "$V_SLOT_DATA_SAFETY_EVIDENCE_FILE" "$V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE" \
+            "$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE" \
+            "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE" \
+            "$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE" "$V_SLOT_FRAME_METRICS_EVIDENCE_FILE" \
+            "$V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_FILE"
+
+      - name: Build and verify signed release bundle
+        shell: bash
+        env:
+          V_SLOT_APPMETRICA_API_KEY: ${{ secrets.V_SLOT_APPMETRICA_API_KEY }}
+          V_SLOT_RELEASE_STORE_PASSWORD: ${{ secrets.V_SLOT_RELEASE_STORE_PASSWORD }}
+          V_SLOT_RELEASE_KEY_PASSWORD: ${{ secrets.V_SLOT_RELEASE_KEY_PASSWORD }}
+          V_SLOT_OSV_SCAN_JOB_RESULT: ${{ needs.vulnerability-scan.result }}
+        run: |
+          set -euo pipefail
+          test "$V_SLOT_OSV_SCAN_JOB_RESULT" = success
+          inventory_sha256="$(sha256sum osv-scanner-custom.json | awk '{print $1}')"
+          {
+            printf 'schema=v-slot-osv-scan-evidence-v1\n'
+            printf 'scanner-action-sha=9a498708959aeaef5ef730655706c5a1df1edbc2\n'
+            printf 'result=%s\n' "$V_SLOT_OSV_SCAN_JOB_RESULT"
+            printf 'commit=%s\n' "$GITHUB_SHA"
+            printf 'inventory-sha256=%s\n' "$inventory_sha256"
+            printf 'github-run-id=%s\n' "$GITHUB_RUN_ID"
+            printf 'github-run-attempt=%s\n' "$GITHUB_RUN_ATTEMPT"
+          } > "$V_SLOT_OSV_SCAN_EVIDENCE_FILE"
+          chmod 600 "$V_SLOT_OSV_SCAN_EVIDENCE_FILE"
+          ./gradlew --no-daemon --stacktrace \
+            -Pandroid.aapt2FromMavenOverride="$ANDROID_HOME/build-tools/36.0.0/aapt2" \
+            :app:bundleRelease
+
+      - name: Remove protected release files before external actions
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          rm -f app/src/release/google-services.json "$V_SLOT_RELEASE_STORE_FILE" \
+            "$V_SLOT_DATA_SAFETY_EVIDENCE_FILE" "$V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE" \
+            "$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE" \
+            "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE" \
+            "$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE" "$V_SLOT_FRAME_METRICS_EVIDENCE_FILE" \
+            "$V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_FILE" "$V_SLOT_OSV_SCAN_EVIDENCE_FILE"
+
+      - name: Attest release bundle and security evidence
+        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4
+        with:
+          subject-path: |
+            app/build/outputs/bundle/release/app-release.aab
+            app/build/reports/release-security/release-artifact-evidence.txt
+            app/build/reports/release-security/bundletool-validation.txt
+            app/build/reports/release-security/bundletool-base-manifest.xml
+            app/build/reports/release-security/release-16k-page-size.txt
+            app/build/reports/release-security/release-app-set-id-dex-validation.txt
+            app/build/reports/release-security/asset-rights-evidence.json
+            app/build/reports/release-security/data-safety-raw-evidence.zip
+            app/build/reports/release-security/physical-samsung/raw-evidence.zip
+            build/reports/release-provenance.txt
+            build/reports/release-security/osv-scan-evidence.txt
+
+      - name: Upload immutable release evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: v-slot-production-${{ inputs.version_code }}-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 90
+          path: |
+            app/build/outputs/bundle/release/app-release.aab
+            app/build/outputs/diagnostics/release/*.zip
+            app/build/reports/lint-results-release.*
+            app/build/reports/release-security/
+            app/build/test-results/testReleaseUnitTest/
+            build/reports/release-provenance.txt
+            build/reports/release-security/

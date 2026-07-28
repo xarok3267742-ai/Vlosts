@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="22dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp">
+
+            <ImageView
+                android:id="@+id/privacyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/top_bar_premium" />
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical|start"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/back"
+                android:src="@drawable/btn_back_selector" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
+                android:contentDescription="@null"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/title_privacy_policy" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="14dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/privacy_web_panel_landscape_premium" />
+
+            <ImageView
+                android:id="@+id/privacyGuardDocumentGlow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:alpha="0"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                android:src="@drawable/privacy_guard_document_glow"
+                android:visibility="invisible" />
+
+            <WebView
+                android:id="@+id/privacyWebView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/input_dark" />
+
+            <FrameLayout
+                android:id="@+id/privacyLoadingGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/privacy_loading"
+                android:importantForAccessibility="yes"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/privacyLoadingSweep"
+                    android:layout_width="216dp"
+                    android:layout_height="216dp"
+                    android:layout_gravity="center"
+                    android:alpha="0"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/privacy_loading_sweep"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/privacyLoadingShield"
+                    android:layout_width="206dp"
+                    android:layout_height="206dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/privacy_loading_shield" />
+
+                <ImageView
+                    android:id="@+id/privacyLoadingScanRail"
+                    android:layout_width="184dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="78dp"
+                    android:alpha="0.74"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/privacy_loading_scan_rail" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/errorGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="54dp"
+                android:paddingTop="28dp"
+                android:paddingEnd="54dp"
+                android:paddingBottom="30dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/privacyGuardBadge"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:layout_marginEnd="34dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/privacy_guard_badge" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/errorImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="76dp"
+                        android:contentDescription="@string/privacy_load_error"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/label_privacy_error_load" />
+
+                    <FrameLayout
+                        android:id="@+id/retryButtonGroup"
+                        android:layout_width="180dp"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="18dp">
+
+                        <ImageButton
+                            android:id="@+id/retryButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:contentDescription="@string/retry"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/btn_privacy_retry_selector" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:paddingStart="18dp"
+                            android:paddingEnd="18dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/label_retry" />
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

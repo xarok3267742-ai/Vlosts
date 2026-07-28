@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/splashBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splash_bg" />
+
+    <FrameLayout
+        android:id="@+id/splashStage"
+        android:layout_width="640dp"
+        android:layout_height="310dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/splashLogoAura"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="22dp"
+            android:alpha="0.32"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/splash_logo_aura" />
+
+        <ImageView
+            android:id="@+id/splashIgnitionOverlay"
+            android:layout_width="326dp"
+            android:layout_height="326dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="9dp"
+            android:alpha="0"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/splash_ignition_overlay"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/logoGroup"
+            android:layout_width="292dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="28dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="174dp"
+                android:layout_height="174dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/app_logo_mark_v2" />
+
+            <ImageView
+                android:layout_width="236dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:src="@drawable/logo_v_slot" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/splashLoadingRail"
+            android:layout_width="250dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="36dp"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/splash_loading_rail" />
+
+        <ImageView
+            android:id="@+id/splashLoadingScan"
+            android:layout_width="250dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="36dp"
+            android:alpha="0"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/splash_loading_scan"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/splashStorageErrorGroup"
+            android:layout_width="286dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="18dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:scaleType="fitCenter"
+                android:src="@drawable/privacy_guard_badge" />
+
+            <TextView
+                android:id="@+id/splashStorageErrorMessage"
+                style="@style/VSlotAccessibleCopy.Compact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="@string/player_state_load_error" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp">
+
+                    <ImageButton
+                        android:id="@+id/splashRetryButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/retry"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_privacy_retry_selector" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/label_retry" />
+                </FrameLayout>
+
+                <ImageButton
+                    android:id="@+id/splashAppSettingsButton"
+                    android:layout_width="52dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/open_app_settings"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_settings_selector"
+                    android:tooltipText="@string/open_app_settings" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

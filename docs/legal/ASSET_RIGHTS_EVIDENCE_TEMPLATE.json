@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "application_id": "com.vslot.app",
+  "version_code": 0,
+  "reviewed_commit": "",
+  "reviewed_at_utc": "",
+  "reviewer": "",
+  "inventory_sha256": "",
+  "checks": {
+    "generation_terms_and_owner_attestation_confirmed": false,
+    "every_inventory_entry_reviewed": false,
+    "procedural_audio_confirmed": false,
+    "store_assets_cleared": false,
+    "font_license_and_output_rights_confirmed": false,
+    "names_and_trademarks_cleared": false,
+    "third_party_content_and_notices_cleared": false
+  },
+  "notes": ""
+}

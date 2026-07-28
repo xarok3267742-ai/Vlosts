@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_bg" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            android:minHeight="560dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/modal_panel_backplate" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/disclaimer_modal_panel" />
+
+            <ImageView
+                android:id="@+id/disclaimerSafetyAura"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.48"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                android:src="@drawable/disclaimer_safety_aura" />
+
+            <ImageView
+                android:id="@+id/disclaimerAcceptGlow"
+                android:layout_width="match_parent"
+                android:layout_height="184dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="14dp"
+                android:alpha="0"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                android:src="@drawable/disclaimer_accept_glow"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="30dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/disclaimerBadge"
+                    android:layout_width="104dp"
+                    android:layout_height="104dp"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/modal_badge_rules" />
+
+                <ImageView
+                    android:id="@+id/disclaimerTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/disclaimer_title"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/title_disclaimer_18" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:minHeight="142dp">
+
+                    <ImageView
+                        android:id="@+id/disclaimerBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="142dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/disclaimer_body"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/body_disclaimer" />
+
+                    <TextView
+                        android:id="@+id/disclaimerBodyLargeText"
+                        style="@style/VSlotAccessibleCopy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|start"
+                        android:paddingStart="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="@string/disclaimer_body"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/disclaimerCheckRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/disclaimer_checkbox"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="68dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/disclaimerCheckButton"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:contentDescription="@null"
+                        android:focusable="false"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/disclaimer_check_selector" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:minHeight="68dp">
+
+                        <ImageView
+                            android:id="@+id/disclaimerCheckboxLabelImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="68dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/label_disclaimer_checkbox" />
+
+                        <TextView
+                            android:id="@+id/disclaimerCheckboxLargeText"
+                            style="@style/VSlotAccessibleCopy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical|start"
+                            android:importantForAccessibility="no"
+                            android:paddingStart="4dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="4dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/disclaimer_checkbox"
+                            android:visibility="gone" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="220dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="14dp">
+
+                    <ImageButton
+                        android:id="@+id/continueButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/continue_action"
+                        android:enabled="false"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_play_selector" />
+
+                    <ImageView
+                        android:id="@+id/continueButtonLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/label_continue_action" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+</FrameLayout>

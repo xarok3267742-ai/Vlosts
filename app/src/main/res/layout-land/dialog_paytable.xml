@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:tag="dialog_preferred_width_430dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/modal_panel_backplate" />
+
+    <ImageView
+        android:id="@+id/paytableModalPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/paytable_modal_panel_violet" />
+
+    <ImageView
+        android:id="@+id/paytableCabinetLattice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/paytable_cabinet_lattice" />
+
+    <ImageView
+        android:id="@+id/paytableOddsHeaderGlow"
+        android:layout_width="match_parent"
+        android:layout_height="286dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/paytable_odds_header_glow" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="344dp"
+        android:orientation="vertical"
+        android:paddingStart="14dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/paytableTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@null"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/title_paytable_violet_fortune" />
+
+            <LinearLayout
+                android:id="@+id/paytableBetsGroup"
+                android:layout_width="112dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/paytableBetsLabel"
+                    android:layout_width="70dp"
+                    android:layout_height="12dp"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/label_bets" />
+
+                <com.vslot.app.ui.widget.BitmapNumberView
+                    android:id="@+id/paytableBetsDigits"
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp"
+                    android:layout_marginTop="1dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/paytablePaylineGuide"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/paytable_payline_guide"
+            android:importantForAccessibility="yes"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/paytable_payline_guide" />
+
+        <TextView
+            android:id="@+id/paytablePaylineGuideLargeText"
+            style="@style/VSlotAccessibleCopy.Compact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:importantForAccessibility="no"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:text="@string/paytable_payline_guide"
+            android:textAlignment="center"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:minHeight="206dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="206dp"
+                android:layout_weight="1.5"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/paytableBetExplanation"
+                    android:layout_width="match_parent"
+                    android:layout_height="104dp"
+                    android:contentDescription="@string/paytable_bet_explanation"
+                    android:importantForAccessibility="yes"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/label_paytable_bet_explanation" />
+
+                <TextView
+                    android:id="@+id/paytableBetExplanationLargeText"
+                    style="@style/VSlotAccessibleCopy.Compact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:text="@string/paytable_bet_explanation"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.2"
+                        android:contentDescription="@string/paytable_symbol_header"
+                        android:paddingStart="3dp"
+                        android:paddingEnd="3dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/label_symbol" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <com.vslot.app.ui.widget.BitmapNumberView
+                            android:id="@+id/paytableHeaderThree"
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <com.vslot.app.ui.widget.BitmapNumberView
+                            android:id="@+id/paytableHeaderFour"
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <com.vslot.app.ui.widget.BitmapNumberView
+                            android:id="@+id/paytableHeaderFive"
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/paytableRowsStage"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="2dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <ScrollView
+                        android:id="@+id/paytableScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="false"
+                        android:overScrollMode="never"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/paytableRows"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+                    </ScrollView>
+
+                    <ImageView
+                        android:id="@+id/paytableScrollHint"
+                        android:layout_width="14dp"
+                        android:layout_height="58dp"
+                        android:layout_gravity="end|bottom"
+                        android:layout_marginEnd="-4dp"
+                        android:layout_marginBottom="4dp"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/paytable_scroll_hint" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/paytableFooter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/paytable_footer_violet"
+                android:importantForAccessibility="yes"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/label_paytable_footer_violet" />
+
+            <TextView
+                android:id="@+id/paytableFooterLargeText"
+                style="@style/VSlotAccessibleCopy.Compact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:importantForAccessibility="no"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:text="@string/paytable_footer_violet"
+                android:textAlignment="center"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="144dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp">
+
+            <ImageButton
+                android:id="@+id/closeButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/close"
+                android:scaleType="fitXY"
+                android:src="@drawable/btn_modal_close_selector" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/label_close" />
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

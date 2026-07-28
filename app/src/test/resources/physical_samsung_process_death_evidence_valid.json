@@ -1,0 +1,46 @@
+{
+  "schema_version": 5,
+  "generated_at_utc": "2026-07-18T12:20:00Z",
+  "qa_profile": "physical_samsung",
+  "source": {
+    "git_commit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "device": {
+    "serial_sha256": "1f54ec82c1dc4f9979fb920745faf517e18c923477cf11421a729075b00d010f",
+    "manufacturer": "samsung",
+    "model": "SM-S928B",
+    "android_version": "16",
+    "one_ui_version": "80000"
+  },
+  "apk": {
+    "file_name": "app-qa.apk",
+    "sha256": "a02d52ed5aa746674728e0c275ddb1d821d4bffa9fc39efe3c3a4cca3598309d",
+    "payload_sha256": "03c514879cda64e33b0613aecba5a6844deac827d7333061d2078c35fc2bb8ff"
+  },
+  "fixture": {
+    "settlement_id": "process-death-fixture-0001",
+    "initial_balance": 5000,
+    "reserved_balance": 4900,
+    "expected_balance": 5050,
+    "expected_level_xp": 250,
+    "expected_free_spins": 0,
+    "expected_win": 150
+  },
+  "processes": {
+    "prepare_pid": 4101,
+    "first_restart_pid": 4202,
+    "second_restart_pid": 4303
+  },
+  "verification": {
+    "presentation_observed": true,
+    "first_draw_observed": true,
+    "pending_journal_cleared": true,
+    "second_restart_unchanged": true
+  },
+  "result": {
+    "status": "passed",
+    "test_status": "passed",
+    "cleanup_status": "passed",
+    "exit_code": 0
+  }
+}

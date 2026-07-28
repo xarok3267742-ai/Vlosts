@@ -1,0 +1,2 @@
+# Runtime versions are additionally enforced by vslot_asset_toolchain.py.
+Pillow==11.3.0

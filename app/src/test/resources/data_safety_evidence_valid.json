@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "application_id": "com.vslot.app",
+  "version_code": 1,
+  "reviewed_commit": "0123456789abcdef0123456789abcdef01234567",
+  "reviewed_at_utc": "2026-07-18T00:00:00Z",
+  "privacy_policy_url": "https://privacy.vslot.test/policy",
+  "network_capture_sha256": "e6259256436905ff3d4942cf64cb192d3a8c72563f6c8f03cc0d22cc161b7ac2",
+  "play_console_export_sha256": "33e0311cd81e2e19869402a17a34918bb817b66823cc22db89bd7810c2d7aff3",
+  "privacy_policy_snapshot_sha256": "627bd93696bf912ef8a2b17687a7f012756757942e10c88f290afa552519c694",
+  "evidence_archive_sha256": "2204471194a022b4267409258643757d4a9f3b0432597e6d804a330bfb014129",
+  "checks": {
+    "fresh_install_pre_consent_no_telemetry": true,
+    "analytics_decline_no_telemetry": true,
+    "analytics_opt_in_expected_telemetry_only": true,
+    "analytics_revoke_no_future_telemetry": true,
+    "push_opt_in_expected_registration_only": true,
+    "notification_denied_no_registration": true,
+    "notification_disabled_no_registration": true,
+    "cleartext_absent": true,
+    "advertising_id_absent": true,
+    "location_absent": true,
+    "unexpected_pii_absent": true,
+    "production_dashboard_reviewed": true,
+    "privacy_policy_matches": true,
+    "play_console_preview_reviewed": true
+  }
+}

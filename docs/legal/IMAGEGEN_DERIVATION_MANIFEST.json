@@ -1,0 +1,4171 @@
+{
+  "schema_version": 1,
+  "status": "derivation_integrity_not_legal_clearance",
+  "generated_by": {
+    "path": "tools/generate_imagegen_derivation_manifest.py",
+    "sha256": "c30c8270ea7e273929f1cef0c00b8c54d159cd6602b2900b081c77539f576906"
+  },
+  "toolchain": {
+    "python": "3.9.6",
+    "pillow": "11.3.0",
+    "freetype": "2.13.3",
+    "libwebp": "1.5.0"
+  },
+  "entries": [
+    {
+      "path": "app/src/main/res/drawable-nodpi/bonus_entry_portal_neon.webp",
+      "bytes": 280510,
+      "sha256": "468cbf73ee90533e5fec2dc9da6eb33507a5f44a24f7ee3beba82d9e2cf379d8",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 720
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_bonus_entry_portals_imagegen.png",
+            "sha256": "9e6199d8ecae27255b5eb7e7f6625cb8500e66bbc5d5960f438c43008a828fd9"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_bonus_entry_portals.py",
+          "sha256": "ab31e502bc5887a0363b3aff691da996ef5229bfc28c5c42c94209e38992db01",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_bonus_entry_portals.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "468cbf73ee90533e5fec2dc9da6eb33507a5f44a24f7ee3beba82d9e2cf379d8"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/bonus_entry_portal_ocean.webp",
+      "bytes": 266718,
+      "sha256": "d2dea30a90e658227d9070bace88a42d4164787efb4bcd6459173b99485351e3",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 720
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_bonus_entry_portals_imagegen.png",
+            "sha256": "9e6199d8ecae27255b5eb7e7f6625cb8500e66bbc5d5960f438c43008a828fd9"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_bonus_entry_portals.py",
+          "sha256": "ab31e502bc5887a0363b3aff691da996ef5229bfc28c5c42c94209e38992db01",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_bonus_entry_portals.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "d2dea30a90e658227d9070bace88a42d4164787efb4bcd6459173b99485351e3"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/bonus_entry_portal_pharaoh.webp",
+      "bytes": 250536,
+      "sha256": "b136749745ef3ce65dc1d5c1346c1b353ccf0a5f52d280b9943ec0e7d695aa48",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 720
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_bonus_entry_portals_imagegen.png",
+            "sha256": "9e6199d8ecae27255b5eb7e7f6625cb8500e66bbc5d5960f438c43008a828fd9"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_bonus_entry_portals.py",
+          "sha256": "ab31e502bc5887a0363b3aff691da996ef5229bfc28c5c42c94209e38992db01",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_bonus_entry_portals.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "b136749745ef3ce65dc1d5c1346c1b353ccf0a5f52d280b9943ec0e7d695aa48"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/bonus_entry_portal_roman.webp",
+      "bytes": 234872,
+      "sha256": "c6dfa2290905887a781678fdb1efb5cf3a672642602e8db154236c5f71736530",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 720
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_bonus_entry_portals_imagegen.png",
+            "sha256": "9e6199d8ecae27255b5eb7e7f6625cb8500e66bbc5d5960f438c43008a828fd9"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_bonus_entry_portals.py",
+          "sha256": "ab31e502bc5887a0363b3aff691da996ef5229bfc28c5c42c94209e38992db01",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_bonus_entry_portals.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "c6dfa2290905887a781678fdb1efb5cf3a672642602e8db154236c5f71736530"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/bonus_entry_portal_violet.webp",
+      "bytes": 270108,
+      "sha256": "b61e02b684ec4ac8716d5b7da82a6708c81823521517e13334f4cabd6f4ee441",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 720
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_bonus_entry_portals_imagegen.png",
+            "sha256": "9e6199d8ecae27255b5eb7e7f6625cb8500e66bbc5d5960f438c43008a828fd9"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_bonus_entry_portals.py",
+          "sha256": "ab31e502bc5887a0363b3aff691da996ef5229bfc28c5c42c94209e38992db01",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_bonus_entry_portals.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "b61e02b684ec4ac8716d5b7da82a6708c81823521517e13334f4cabd6f4ee441"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_privacy_default_premium.webp",
+      "bytes": 95396,
+      "sha256": "1617826be04b2e86326f4fe55cf23af125605efc2947ae66768f119dc238298b",
+      "media": {
+        "type": "image/webp",
+        "width": 700,
+        "height": 150
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_btn_privacy_default_premium_imagegen.png",
+            "sha256": "348790fa69ad4f8b0aa5df5d274c5ad7c825a8131c6e0716fb0985913541f656"
+          },
+          {
+            "path": "qa/source/vslot_btn_privacy_pressed_premium_imagegen.png",
+            "sha256": "f01f34b27cc124f30083bab3549e871ee5723b3ca7427f7ca0877e6f370fd5c9"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_privacy_command_buttons.py",
+          "sha256": "c733693d3496d1fd30f1ebd1f37e6042d8606208b494e861cf86d6f1ac33f9e2",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_privacy_command_buttons.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "1617826be04b2e86326f4fe55cf23af125605efc2947ae66768f119dc238298b"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_privacy_pressed_premium.webp",
+      "bytes": 92312,
+      "sha256": "1d43f9cd74fbb34f1952194b6b0b39dd74f9553bb17d6c9251b1bffd8969a216",
+      "media": {
+        "type": "image/webp",
+        "width": 700,
+        "height": 150
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_btn_privacy_default_premium_imagegen.png",
+            "sha256": "348790fa69ad4f8b0aa5df5d274c5ad7c825a8131c6e0716fb0985913541f656"
+          },
+          {
+            "path": "qa/source/vslot_btn_privacy_pressed_premium_imagegen.png",
+            "sha256": "f01f34b27cc124f30083bab3549e871ee5723b3ca7427f7ca0877e6f370fd5c9"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_privacy_command_buttons.py",
+          "sha256": "c733693d3496d1fd30f1ebd1f37e6042d8606208b494e861cf86d6f1ac33f9e2",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_privacy_command_buttons.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "1d43f9cd74fbb34f1952194b6b0b39dd74f9553bb17d6c9251b1bffd8969a216"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/daily_bonus_countdown_charge.webp",
+      "bytes": 24010,
+      "sha256": "d6b6959b48a8dd2ce1124cb8807d7d42dd90175b635c43151d7438361189bc5a",
+      "media": {
+        "type": "image/webp",
+        "width": 540,
+        "height": 144
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_daily_bonus_countdown_charge_imagegen.png",
+            "sha256": "b2191fc8bfee9eaf0b975c4a2527fac89ed338af2c5f45af346211ffcab85563"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_daily_bonus_countdown_charge.py",
+          "sha256": "2fff3865b528277a5c5f9ccddcedb924fc6accef096a1eeb6d8fa672bd3777bf",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_daily_bonus_countdown_charge.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "d6b6959b48a8dd2ce1124cb8807d7d42dd90175b635c43151d7438361189bc5a"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/daily_bonus_modal_panel_premium.webp",
+      "bytes": 110222,
+      "sha256": "dea5aa3d9b2a773cdb8a7c6ae511892bac3fcedc9ffe0c109ecbcdd8fbda0915",
+      "media": {
+        "type": "image/webp",
+        "width": 900,
+        "height": 420
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_daily_bonus_modal_panel_premium_imagegen.png",
+            "sha256": "991b25a8f393e0f61315bbf12ed20eb79bf61881f4f6f1485f7400b474edae3f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_daily_bonus_modal_panel.py",
+          "sha256": "b323cc0fe9484a0b5af5c5f1abe15df7779e9d7f0fae4204fe13e6185e043422",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_daily_bonus_modal_panel.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "dea5aa3d9b2a773cdb8a7c6ae511892bac3fcedc9ffe0c109ecbcdd8fbda0915"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/daily_bonus_ready_imagegen.webp",
+      "bytes": 110254,
+      "sha256": "dac5c94f52dd70a0e026f758654bc4c2afc990fbfd6fa670730ac72334bc0297",
+      "media": {
+        "type": "image/webp",
+        "width": 1600,
+        "height": 276
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_daily_bonus_home_buttons_imagegen.png",
+            "sha256": "ef7de546f08277f9cb9c7079257fcd66255eb3554c0e651177f6088c74ac4302"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_daily_bonus_home_buttons.py",
+          "sha256": "cb1695b0bbd5dca38357ae078dac1f8bfe54ec04511ee23705473fb627eeb67e",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_daily_bonus_home_buttons.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "dac5c94f52dd70a0e026f758654bc4c2afc990fbfd6fa670730ac72334bc0297"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/daily_bonus_wait_imagegen.webp",
+      "bytes": 101348,
+      "sha256": "c8826c9e2da620948b0035720da0f77c6c0e4fd215d974a0385127a055f84cd3",
+      "media": {
+        "type": "image/webp",
+        "width": 1600,
+        "height": 276
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_daily_bonus_home_buttons_imagegen.png",
+            "sha256": "ef7de546f08277f9cb9c7079257fcd66255eb3554c0e651177f6088c74ac4302"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_daily_bonus_home_buttons.py",
+          "sha256": "cb1695b0bbd5dca38357ae078dac1f8bfe54ec04511ee23705473fb627eeb67e",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_daily_bonus_home_buttons.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "c8826c9e2da620948b0035720da0f77c6c0e4fd215d974a0385127a055f84cd3"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/low_coins_modal_panel_premium.webp",
+      "bytes": 108458,
+      "sha256": "0363f59e0432776419eda4a1ed2a32fb3a59fad71c7180a231982722e5e3509b",
+      "media": {
+        "type": "image/webp",
+        "width": 900,
+        "height": 420
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_low_coins_modal_panel_premium_imagegen.png",
+            "sha256": "5783e894bc5b63b5ad96a9d6496535166a2188c14f29a68a4f7bf1b307e4a07e"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_low_coins_modal_panel.py",
+          "sha256": "5aaaaee6d0146947e62d2d9fdd026040b0a4804bbf17dcd8535a0bc905d4cbfc",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_low_coins_modal_panel.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "0363f59e0432776419eda4a1ed2a32fb3a59fad71c7180a231982722e5e3509b"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/paytable_modal_panel_neon.webp",
+      "bytes": 98252,
+      "sha256": "77c1c7c4d009a9ba7e3e1f6517a13b05abea45aba29949e206ff60830efdde62",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 1400
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_paytable_theme_modal_panels_imagegen.png",
+            "sha256": "bc52d1e42ea6e9e8677c281432aae00e10b06c136b4902145d352ad91805b21a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_paytable_modal_panels.py",
+          "sha256": "ca26df327b4419ee8f1a0a027f1659d1d404aae4209a43b35497cd104c7cf1ce",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_paytable_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "77c1c7c4d009a9ba7e3e1f6517a13b05abea45aba29949e206ff60830efdde62"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/paytable_modal_panel_ocean.webp",
+      "bytes": 143932,
+      "sha256": "b3fe75540d9a2f2f8a38588197cd1f020e96742109fe8d443603e9bd1580303a",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 1400
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_paytable_theme_modal_panels_imagegen.png",
+            "sha256": "bc52d1e42ea6e9e8677c281432aae00e10b06c136b4902145d352ad91805b21a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_paytable_modal_panels.py",
+          "sha256": "ca26df327b4419ee8f1a0a027f1659d1d404aae4209a43b35497cd104c7cf1ce",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_paytable_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "b3fe75540d9a2f2f8a38588197cd1f020e96742109fe8d443603e9bd1580303a"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/paytable_modal_panel_pharaoh.webp",
+      "bytes": 122166,
+      "sha256": "5eb89184e22bd62e1ff63838cae235d70454c63b172c3991cca3babe1d59d569",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 1400
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_paytable_theme_modal_panels_imagegen.png",
+            "sha256": "bc52d1e42ea6e9e8677c281432aae00e10b06c136b4902145d352ad91805b21a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_paytable_modal_panels.py",
+          "sha256": "ca26df327b4419ee8f1a0a027f1659d1d404aae4209a43b35497cd104c7cf1ce",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_paytable_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "5eb89184e22bd62e1ff63838cae235d70454c63b172c3991cca3babe1d59d569"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/paytable_modal_panel_roman.webp",
+      "bytes": 110830,
+      "sha256": "99225d0e7c33a7e2d87b12f57cfb8fbe6f5a143970e1d027a83c28ac5c19e76b",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 1400
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_paytable_theme_modal_panels_imagegen.png",
+            "sha256": "bc52d1e42ea6e9e8677c281432aae00e10b06c136b4902145d352ad91805b21a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_paytable_modal_panels.py",
+          "sha256": "ca26df327b4419ee8f1a0a027f1659d1d404aae4209a43b35497cd104c7cf1ce",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_paytable_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "99225d0e7c33a7e2d87b12f57cfb8fbe6f5a143970e1d027a83c28ac5c19e76b"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/paytable_modal_panel_violet.webp",
+      "bytes": 102550,
+      "sha256": "644a5d5f6fcdf55bdd8a1d8fdd76d5ffc4fed9c9655ab47cb8604fa9a1fe8134",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 1400
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_paytable_theme_modal_panels_imagegen.png",
+            "sha256": "bc52d1e42ea6e9e8677c281432aae00e10b06c136b4902145d352ad91805b21a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_paytable_modal_panels.py",
+          "sha256": "ca26df327b4419ee8f1a0a027f1659d1d404aae4209a43b35497cd104c7cf1ce",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_paytable_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "644a5d5f6fcdf55bdd8a1d8fdd76d5ffc4fed9c9655ab47cb8604fa9a1fe8134"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/privacy_loading_scan_rail.webp",
+      "bytes": 36760,
+      "sha256": "f0110b0ed124baa2e999e6234d9a9ccf385381cbbdb71cfd2fa7e619f7820f52",
+      "media": {
+        "type": "image/webp",
+        "width": 620,
+        "height": 180
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_privacy_loading_overlay_imagegen.png",
+            "sha256": "5dc2d9ef1888558fd04c73c346f2a0d37b3ba10aa525d162cd9b8850c37ed952"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_privacy_loading_overlay.py",
+          "sha256": "def6daf257d912c9ee8984b4251e4ea8a6a4a2ff5a503b19dcafbf6fd6cc983b",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_privacy_loading_overlay.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "f0110b0ed124baa2e999e6234d9a9ccf385381cbbdb71cfd2fa7e619f7820f52"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/privacy_loading_shield.webp",
+      "bytes": 135108,
+      "sha256": "ee0b97f2f84eef5ce1328c3657ed9c5bfa1b43894ae93a18b377c17cd34408e8",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_privacy_loading_overlay_imagegen.png",
+            "sha256": "5dc2d9ef1888558fd04c73c346f2a0d37b3ba10aa525d162cd9b8850c37ed952"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_privacy_loading_overlay.py",
+          "sha256": "def6daf257d912c9ee8984b4251e4ea8a6a4a2ff5a503b19dcafbf6fd6cc983b",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_privacy_loading_overlay.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "ee0b97f2f84eef5ce1328c3657ed9c5bfa1b43894ae93a18b377c17cd34408e8"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/privacy_loading_sweep.webp",
+      "bytes": 114362,
+      "sha256": "e1484cc9e0bff6f1b4460aa40c3eb4939a60efc2b93ea66d5a82b13f0d4597db",
+      "media": {
+        "type": "image/webp",
+        "width": 520,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_privacy_loading_sweep_imagegen.png",
+            "sha256": "8a2aa600c1d2fa98491311d2521ff13ea81a0f7ed2daacf1e088fefdc4617c0b"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_privacy_loading_sweep.py",
+          "sha256": "c3c7b561fac960b7db10abcc07d94e8106b5416bfa1aac6df99c04c0f9070c6d",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_privacy_loading_sweep.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "e1484cc9e0bff6f1b4460aa40c3eb4939a60efc2b93ea66d5a82b13f0d4597db"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_anticipation_beam_neon.webp",
+      "bytes": 74554,
+      "sha256": "dba2db0f50812ac964946cd219dccb71370e3b56b751b43ea577c6a5a78ed022",
+      "media": {
+        "type": "image/webp",
+        "width": 280,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_reel_anticipation_beams_imagegen.png",
+            "sha256": "0900cc6eb1099a72dc73d698d26f7d5951396f34b232c5ecadf2d7c904847d31"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_reel_anticipation_beams.py",
+          "sha256": "8dc5d417d4b90c030f925046857da48f49c0025960597c11af04153b770c6689",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_reel_anticipation_beams.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "dba2db0f50812ac964946cd219dccb71370e3b56b751b43ea577c6a5a78ed022"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_anticipation_beam_ocean.webp",
+      "bytes": 84824,
+      "sha256": "e9fc59864d6f7707e71b718fdbd2ec487b3ed4c09074e6f84380e187fc9f32bc",
+      "media": {
+        "type": "image/webp",
+        "width": 280,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_reel_anticipation_beams_imagegen.png",
+            "sha256": "0900cc6eb1099a72dc73d698d26f7d5951396f34b232c5ecadf2d7c904847d31"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_reel_anticipation_beams.py",
+          "sha256": "8dc5d417d4b90c030f925046857da48f49c0025960597c11af04153b770c6689",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_reel_anticipation_beams.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "e9fc59864d6f7707e71b718fdbd2ec487b3ed4c09074e6f84380e187fc9f32bc"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_anticipation_beam_pharaoh.webp",
+      "bytes": 106526,
+      "sha256": "8762d40401e5de6df34427f1c9edd6f6c2bdb9233d628f0815129bcd867bd0ba",
+      "media": {
+        "type": "image/webp",
+        "width": 280,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_reel_anticipation_beams_imagegen.png",
+            "sha256": "0900cc6eb1099a72dc73d698d26f7d5951396f34b232c5ecadf2d7c904847d31"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_reel_anticipation_beams.py",
+          "sha256": "8dc5d417d4b90c030f925046857da48f49c0025960597c11af04153b770c6689",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_reel_anticipation_beams.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "8762d40401e5de6df34427f1c9edd6f6c2bdb9233d628f0815129bcd867bd0ba"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_anticipation_beam_roman.webp",
+      "bytes": 83028,
+      "sha256": "5f0a6a16b4ac8905f4a9e38306078de4828dbb7570e9555a998ea0e6f2d00da8",
+      "media": {
+        "type": "image/webp",
+        "width": 280,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_reel_anticipation_beams_imagegen.png",
+            "sha256": "0900cc6eb1099a72dc73d698d26f7d5951396f34b232c5ecadf2d7c904847d31"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_reel_anticipation_beams.py",
+          "sha256": "8dc5d417d4b90c030f925046857da48f49c0025960597c11af04153b770c6689",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_reel_anticipation_beams.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "5f0a6a16b4ac8905f4a9e38306078de4828dbb7570e9555a998ea0e6f2d00da8"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_anticipation_beam_violet.webp",
+      "bytes": 68622,
+      "sha256": "043921981dc18e9ada6f042cd9dc91e61122b1a078a5dce9d0b828db71bfa918",
+      "media": {
+        "type": "image/webp",
+        "width": 280,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_reel_anticipation_beams_imagegen.png",
+            "sha256": "0900cc6eb1099a72dc73d698d26f7d5951396f34b232c5ecadf2d7c904847d31"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_reel_anticipation_beams.py",
+          "sha256": "8dc5d417d4b90c030f925046857da48f49c0025960597c11af04153b770c6689",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_reel_anticipation_beams.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "043921981dc18e9ada6f042cd9dc91e61122b1a078a5dce9d0b828db71bfa918"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_glass_overlay_neon.webp",
+      "bytes": 271760,
+      "sha256": "05eb9f0c4f84963cf08c407884074012f69cc60ce857c81144b7a6e50d620d25",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_glass_overlays_imagegen.png",
+            "sha256": "ca90e228d0805ce586918471674eb043aea67a6673b6edf4172e88f60be05e7f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_glass_overlays.py",
+          "sha256": "128acd82b8f893aa4a38ea82f8738297e1fca6282107ca9a91833ba6be3d6660",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_glass_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "05eb9f0c4f84963cf08c407884074012f69cc60ce857c81144b7a6e50d620d25"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_glass_overlay_ocean.webp",
+      "bytes": 292470,
+      "sha256": "e9fa0669d4e357a8f0859505924e82719ae4d094ccdde43b5a1679e1d815a56d",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_glass_overlays_imagegen.png",
+            "sha256": "ca90e228d0805ce586918471674eb043aea67a6673b6edf4172e88f60be05e7f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_glass_overlays.py",
+          "sha256": "128acd82b8f893aa4a38ea82f8738297e1fca6282107ca9a91833ba6be3d6660",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_glass_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "e9fa0669d4e357a8f0859505924e82719ae4d094ccdde43b5a1679e1d815a56d"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_glass_overlay_pharaoh.webp",
+      "bytes": 290762,
+      "sha256": "b56a9d408173fe69627c5ac2563511bcb5529679711523441cabab5bf505c186",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_glass_overlays_imagegen.png",
+            "sha256": "ca90e228d0805ce586918471674eb043aea67a6673b6edf4172e88f60be05e7f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_glass_overlays.py",
+          "sha256": "128acd82b8f893aa4a38ea82f8738297e1fca6282107ca9a91833ba6be3d6660",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_glass_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "b56a9d408173fe69627c5ac2563511bcb5529679711523441cabab5bf505c186"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_glass_overlay_roman.webp",
+      "bytes": 258526,
+      "sha256": "67958530abf4246cd57a3c907cff361af0bc71bac45ba36283b7ba4794b24c60",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_glass_overlays_imagegen.png",
+            "sha256": "ca90e228d0805ce586918471674eb043aea67a6673b6edf4172e88f60be05e7f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_glass_overlays.py",
+          "sha256": "128acd82b8f893aa4a38ea82f8738297e1fca6282107ca9a91833ba6be3d6660",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_glass_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "67958530abf4246cd57a3c907cff361af0bc71bac45ba36283b7ba4794b24c60"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_glass_overlay_violet.webp",
+      "bytes": 281866,
+      "sha256": "5b5bc69de77270130ba8c8ce5aa472722646e23235728ecbf631ab2dd1df6834",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_glass_overlays_imagegen.png",
+            "sha256": "ca90e228d0805ce586918471674eb043aea67a6673b6edf4172e88f60be05e7f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_glass_overlays.py",
+          "sha256": "128acd82b8f893aa4a38ea82f8738297e1fca6282107ca9a91833ba6be3d6660",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_glass_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "5b5bc69de77270130ba8c8ce5aa472722646e23235728ecbf631ab2dd1df6834"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_blur_neon.webp",
+      "bytes": 220398,
+      "sha256": "167ba8f44e9e0648694d788180f03fc6f2964aa0f00064ef2564815679760d27",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_spin_blur_imagegen.png",
+            "sha256": "534070d1ae9f097ef338e2f63961c9bba55b292d9f02f52e0a2cd715f9cdbe02"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_spin_blur.py",
+          "sha256": "ed6ee7676273c5b076bead0c907c1e18a0d5d95a1634ab0e724036d6bda99c0d",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_spin_blur.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "167ba8f44e9e0648694d788180f03fc6f2964aa0f00064ef2564815679760d27"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_blur_ocean.webp",
+      "bytes": 212528,
+      "sha256": "8972b91d13929b2d4350893c8ed4fb4f49c342ca915df2da672c3a86b713b866",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_spin_blur_imagegen.png",
+            "sha256": "534070d1ae9f097ef338e2f63961c9bba55b292d9f02f52e0a2cd715f9cdbe02"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_spin_blur.py",
+          "sha256": "ed6ee7676273c5b076bead0c907c1e18a0d5d95a1634ab0e724036d6bda99c0d",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_spin_blur.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "8972b91d13929b2d4350893c8ed4fb4f49c342ca915df2da672c3a86b713b866"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_blur_pharaoh.webp",
+      "bytes": 243498,
+      "sha256": "0fd83336602029561a810973835a0a8b24393b6a1d8ba3fd9d30974df6206c4a",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_spin_blur_imagegen.png",
+            "sha256": "534070d1ae9f097ef338e2f63961c9bba55b292d9f02f52e0a2cd715f9cdbe02"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_spin_blur.py",
+          "sha256": "ed6ee7676273c5b076bead0c907c1e18a0d5d95a1634ab0e724036d6bda99c0d",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_spin_blur.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "0fd83336602029561a810973835a0a8b24393b6a1d8ba3fd9d30974df6206c4a"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_blur_roman.webp",
+      "bytes": 210414,
+      "sha256": "536b03bf1bf105438da977792325c70d7f9351f7e362611c2b41e7f3cc1c66fb",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_spin_blur_imagegen.png",
+            "sha256": "534070d1ae9f097ef338e2f63961c9bba55b292d9f02f52e0a2cd715f9cdbe02"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_spin_blur.py",
+          "sha256": "ed6ee7676273c5b076bead0c907c1e18a0d5d95a1634ab0e724036d6bda99c0d",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_spin_blur.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "536b03bf1bf105438da977792325c70d7f9351f7e362611c2b41e7f3cc1c66fb"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_blur_violet.webp",
+      "bytes": 200228,
+      "sha256": "8c571d47099284c8c11c62dff25a28352affacb88cf72d54c87756573addfb21",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_spin_blur_imagegen.png",
+            "sha256": "534070d1ae9f097ef338e2f63961c9bba55b292d9f02f52e0a2cd715f9cdbe02"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_spin_blur.py",
+          "sha256": "ed6ee7676273c5b076bead0c907c1e18a0d5d95a1634ab0e724036d6bda99c0d",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_spin_blur.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "8c571d47099284c8c11c62dff25a28352affacb88cf72d54c87756573addfb21"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_energy_rim_neon.webp",
+      "bytes": 229944,
+      "sha256": "41df916b22a6f27be7cce93eb698de7d31924e791babe05d8607cd65f7ea2a3e",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_energy_rims_imagegen.png",
+            "sha256": "56beab860af368d69aa35c5ed3b01c9ba48ceb115f4f9ebef2b3045934900a19"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_energy_rims.py",
+          "sha256": "77adfea01e58bdf197a7359cf84bc0d52e01b4b46c54dfb24948fb7e0f4d9039",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_energy_rims.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "41df916b22a6f27be7cce93eb698de7d31924e791babe05d8607cd65f7ea2a3e"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_energy_rim_ocean.webp",
+      "bytes": 275956,
+      "sha256": "de79febfda31ca27f4478bddc892ea0278cf155c0b73a99c30d35b349607b6f8",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_energy_rims_imagegen.png",
+            "sha256": "56beab860af368d69aa35c5ed3b01c9ba48ceb115f4f9ebef2b3045934900a19"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_energy_rims.py",
+          "sha256": "77adfea01e58bdf197a7359cf84bc0d52e01b4b46c54dfb24948fb7e0f4d9039",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_energy_rims.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "de79febfda31ca27f4478bddc892ea0278cf155c0b73a99c30d35b349607b6f8"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_energy_rim_pharaoh.webp",
+      "bytes": 272634,
+      "sha256": "6ab5107387ab6e1e005abd73ecb74e0cabffe8cb6ad501a3d05aa2e7847a0d19",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_energy_rims_imagegen.png",
+            "sha256": "56beab860af368d69aa35c5ed3b01c9ba48ceb115f4f9ebef2b3045934900a19"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_energy_rims.py",
+          "sha256": "77adfea01e58bdf197a7359cf84bc0d52e01b4b46c54dfb24948fb7e0f4d9039",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_energy_rims.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "6ab5107387ab6e1e005abd73ecb74e0cabffe8cb6ad501a3d05aa2e7847a0d19"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_energy_rim_roman.webp",
+      "bytes": 249056,
+      "sha256": "0ea13bc7609f972abb04c5fe0c9b75d75d7f71d6d790be0b32cf1a10c5d791be",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_energy_rims_imagegen.png",
+            "sha256": "56beab860af368d69aa35c5ed3b01c9ba48ceb115f4f9ebef2b3045934900a19"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_energy_rims.py",
+          "sha256": "77adfea01e58bdf197a7359cf84bc0d52e01b4b46c54dfb24948fb7e0f4d9039",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_energy_rims.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "0ea13bc7609f972abb04c5fe0c9b75d75d7f71d6d790be0b32cf1a10c5d791be"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_spin_energy_rim_violet.webp",
+      "bytes": 239482,
+      "sha256": "31f146a20a734fe61999021bbf98904448b96ba16293c0d65ca3ea632e460f95",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 1020
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_energy_rims_imagegen.png",
+            "sha256": "56beab860af368d69aa35c5ed3b01c9ba48ceb115f4f9ebef2b3045934900a19"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_energy_rims.py",
+          "sha256": "77adfea01e58bdf197a7359cf84bc0d52e01b4b46c54dfb24948fb7e0f4d9039",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_energy_rims.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "31f146a20a734fe61999021bbf98904448b96ba16293c0d65ca3ea632e460f95"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_stop_flash_neon.webp",
+      "bytes": 123850,
+      "sha256": "9eaed8f2cad56fe8459d875e6b2546dbc8823c17a101910a2f6cb4c23b723f05",
+      "media": {
+        "type": "image/webp",
+        "width": 320,
+        "height": 1080
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_stop_flashes_imagegen.png",
+            "sha256": "c0679d0aa883018ac128fbc814bf7cebacd948d16a769a75181b8863b9a3769f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_stop_flashes.py",
+          "sha256": "6908448097bccfc9c4bb12d45e11e53664837c7945549cba01b8ef6db6eb10fb",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_stop_flashes.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "9eaed8f2cad56fe8459d875e6b2546dbc8823c17a101910a2f6cb4c23b723f05"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_stop_flash_ocean.webp",
+      "bytes": 157816,
+      "sha256": "88820179baa0a2c7d52528218f488f49fe0927446396e9cddf8627d3e4ab7238",
+      "media": {
+        "type": "image/webp",
+        "width": 320,
+        "height": 1080
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_stop_flashes_imagegen.png",
+            "sha256": "c0679d0aa883018ac128fbc814bf7cebacd948d16a769a75181b8863b9a3769f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_stop_flashes.py",
+          "sha256": "6908448097bccfc9c4bb12d45e11e53664837c7945549cba01b8ef6db6eb10fb",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_stop_flashes.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "88820179baa0a2c7d52528218f488f49fe0927446396e9cddf8627d3e4ab7238"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_stop_flash_pharaoh.webp",
+      "bytes": 175052,
+      "sha256": "2f52a77e52f1a04f7a41963bdb3e8415c9f63be8d3e9ed6da13b14e8e3762227",
+      "media": {
+        "type": "image/webp",
+        "width": 320,
+        "height": 1080
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_stop_flashes_imagegen.png",
+            "sha256": "c0679d0aa883018ac128fbc814bf7cebacd948d16a769a75181b8863b9a3769f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_stop_flashes.py",
+          "sha256": "6908448097bccfc9c4bb12d45e11e53664837c7945549cba01b8ef6db6eb10fb",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_stop_flashes.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "2f52a77e52f1a04f7a41963bdb3e8415c9f63be8d3e9ed6da13b14e8e3762227"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_stop_flash_roman.webp",
+      "bytes": 162444,
+      "sha256": "e0afcaf68f5d5d71af1e90d7970406bebcd37b772f76606a8415be7ca0e8f728",
+      "media": {
+        "type": "image/webp",
+        "width": 320,
+        "height": 1080
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_stop_flashes_imagegen.png",
+            "sha256": "c0679d0aa883018ac128fbc814bf7cebacd948d16a769a75181b8863b9a3769f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_stop_flashes.py",
+          "sha256": "6908448097bccfc9c4bb12d45e11e53664837c7945549cba01b8ef6db6eb10fb",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_stop_flashes.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "e0afcaf68f5d5d71af1e90d7970406bebcd37b772f76606a8415be7ca0e8f728"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/reel_stop_flash_violet.webp",
+      "bytes": 124872,
+      "sha256": "7ced57b0712f83a746ced651af0dfbc0617f1706fd48aab7c1c3802c0a1d559c",
+      "media": {
+        "type": "image/webp",
+        "width": 320,
+        "height": 1080
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_reel_stop_flashes_imagegen.png",
+            "sha256": "c0679d0aa883018ac128fbc814bf7cebacd948d16a769a75181b8863b9a3769f"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_reel_stop_flashes.py",
+          "sha256": "6908448097bccfc9c4bb12d45e11e53664837c7945549cba01b8ef6db6eb10fb",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_reel_stop_flashes.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "7ced57b0712f83a746ced651af0dfbc0617f1706fd48aab7c1c3802c0a1d559c"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/result_modal_panel_neon_premium.webp",
+      "bytes": 102724,
+      "sha256": "87dfbcd41ae5419af92272d510632dc5c23435d038065f2de78116d88bb1df37",
+      "media": {
+        "type": "image/webp",
+        "width": 900,
+        "height": 420
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_result_panel_violet_premium_imagegen.png",
+            "sha256": "27b73f728777cd9b1143102e5f4e9de78e37f1d59bc7a29e8ffef6adbe4dc610"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_roman_premium_imagegen.png",
+            "sha256": "5404966098e67dec34a8fd32b3b08d67ff6de3b091dbb9f0ce0c09276d5c39d2"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_neon_premium_imagegen.png",
+            "sha256": "6acacc8fa0edd062adb4bda1a22d74a4a688830c45e20e73ff5a4f7c1d25199b"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_pharaoh_premium_imagegen.png",
+            "sha256": "db2b9d1c3523ffb7ad7b0d63b87d4766a97e1f6c3e8bed3fd0c7a3c306e0e52e"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_ocean_premium_imagegen.png",
+            "sha256": "6ebfaec06fca148c3f12c08a6b55f73c634e6211baae4dc4d88cb608fca9b2f5"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_result_modal_panels.py",
+          "sha256": "369c2b59be37ecbd87e9a2383fecae3cdae2238b2c5703300242a430e1351444",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_result_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "87dfbcd41ae5419af92272d510632dc5c23435d038065f2de78116d88bb1df37"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/result_modal_panel_ocean_premium.webp",
+      "bytes": 129298,
+      "sha256": "adcd7814aecc2bcca56d9a707b8a3c3201cf361fb23c5fc562f237ee3fa2ade9",
+      "media": {
+        "type": "image/webp",
+        "width": 900,
+        "height": 420
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_result_panel_violet_premium_imagegen.png",
+            "sha256": "27b73f728777cd9b1143102e5f4e9de78e37f1d59bc7a29e8ffef6adbe4dc610"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_roman_premium_imagegen.png",
+            "sha256": "5404966098e67dec34a8fd32b3b08d67ff6de3b091dbb9f0ce0c09276d5c39d2"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_neon_premium_imagegen.png",
+            "sha256": "6acacc8fa0edd062adb4bda1a22d74a4a688830c45e20e73ff5a4f7c1d25199b"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_pharaoh_premium_imagegen.png",
+            "sha256": "db2b9d1c3523ffb7ad7b0d63b87d4766a97e1f6c3e8bed3fd0c7a3c306e0e52e"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_ocean_premium_imagegen.png",
+            "sha256": "6ebfaec06fca148c3f12c08a6b55f73c634e6211baae4dc4d88cb608fca9b2f5"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_result_modal_panels.py",
+          "sha256": "369c2b59be37ecbd87e9a2383fecae3cdae2238b2c5703300242a430e1351444",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_result_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "adcd7814aecc2bcca56d9a707b8a3c3201cf361fb23c5fc562f237ee3fa2ade9"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/result_modal_panel_pharaoh_premium.webp",
+      "bytes": 133082,
+      "sha256": "cc515407830c63dcf31aee773a543c4a15133da5a01dcf102776a7ef46d04f46",
+      "media": {
+        "type": "image/webp",
+        "width": 900,
+        "height": 420
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_result_panel_violet_premium_imagegen.png",
+            "sha256": "27b73f728777cd9b1143102e5f4e9de78e37f1d59bc7a29e8ffef6adbe4dc610"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_roman_premium_imagegen.png",
+            "sha256": "5404966098e67dec34a8fd32b3b08d67ff6de3b091dbb9f0ce0c09276d5c39d2"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_neon_premium_imagegen.png",
+            "sha256": "6acacc8fa0edd062adb4bda1a22d74a4a688830c45e20e73ff5a4f7c1d25199b"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_pharaoh_premium_imagegen.png",
+            "sha256": "db2b9d1c3523ffb7ad7b0d63b87d4766a97e1f6c3e8bed3fd0c7a3c306e0e52e"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_ocean_premium_imagegen.png",
+            "sha256": "6ebfaec06fca148c3f12c08a6b55f73c634e6211baae4dc4d88cb608fca9b2f5"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_result_modal_panels.py",
+          "sha256": "369c2b59be37ecbd87e9a2383fecae3cdae2238b2c5703300242a430e1351444",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_result_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "cc515407830c63dcf31aee773a543c4a15133da5a01dcf102776a7ef46d04f46"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/result_modal_panel_roman_premium.webp",
+      "bytes": 115310,
+      "sha256": "bb07c63ec8bbd3a8fade26db4a2a734ae6c63230e8921c1650f734565733f13c",
+      "media": {
+        "type": "image/webp",
+        "width": 900,
+        "height": 420
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_result_panel_violet_premium_imagegen.png",
+            "sha256": "27b73f728777cd9b1143102e5f4e9de78e37f1d59bc7a29e8ffef6adbe4dc610"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_roman_premium_imagegen.png",
+            "sha256": "5404966098e67dec34a8fd32b3b08d67ff6de3b091dbb9f0ce0c09276d5c39d2"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_neon_premium_imagegen.png",
+            "sha256": "6acacc8fa0edd062adb4bda1a22d74a4a688830c45e20e73ff5a4f7c1d25199b"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_pharaoh_premium_imagegen.png",
+            "sha256": "db2b9d1c3523ffb7ad7b0d63b87d4766a97e1f6c3e8bed3fd0c7a3c306e0e52e"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_ocean_premium_imagegen.png",
+            "sha256": "6ebfaec06fca148c3f12c08a6b55f73c634e6211baae4dc4d88cb608fca9b2f5"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_result_modal_panels.py",
+          "sha256": "369c2b59be37ecbd87e9a2383fecae3cdae2238b2c5703300242a430e1351444",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_result_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "bb07c63ec8bbd3a8fade26db4a2a734ae6c63230e8921c1650f734565733f13c"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/result_modal_panel_violet_premium.webp",
+      "bytes": 125744,
+      "sha256": "19fcafcff7f8b656973d7b3fb0ccfa13a965422496364b582a5ac497f76f5d8d",
+      "media": {
+        "type": "image/webp",
+        "width": 900,
+        "height": 420
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_result_panel_violet_premium_imagegen.png",
+            "sha256": "27b73f728777cd9b1143102e5f4e9de78e37f1d59bc7a29e8ffef6adbe4dc610"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_roman_premium_imagegen.png",
+            "sha256": "5404966098e67dec34a8fd32b3b08d67ff6de3b091dbb9f0ce0c09276d5c39d2"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_neon_premium_imagegen.png",
+            "sha256": "6acacc8fa0edd062adb4bda1a22d74a4a688830c45e20e73ff5a4f7c1d25199b"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_pharaoh_premium_imagegen.png",
+            "sha256": "db2b9d1c3523ffb7ad7b0d63b87d4766a97e1f6c3e8bed3fd0c7a3c306e0e52e"
+          },
+          {
+            "path": "qa/source/vslot_result_panel_ocean_premium_imagegen.png",
+            "sha256": "6ebfaec06fca148c3f12c08a6b55f73c634e6211baae4dc4d88cb608fca9b2f5"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_result_modal_panels.py",
+          "sha256": "369c2b59be37ecbd87e9a2383fecae3cdae2238b2c5703300242a430e1351444",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_result_modal_panels.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "19fcafcff7f8b656973d7b3fb0ccfa13a965422496364b582a5ac497f76f5d8d"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/settings_push_status_console.webp",
+      "bytes": 34010,
+      "sha256": "f6cff89604840bd51067f13105b0086175ca4db432ab48248b0bc4ed45198150",
+      "media": {
+        "type": "image/webp",
+        "width": 760,
+        "height": 164
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_settings_push_status_console_imagegen.png",
+            "sha256": "9c10834cb71c12c61a1c7dfb0a878930d7d1b984e1d0fa45baebbebd2553e487"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_settings_push_status_console.py",
+          "sha256": "bbafb346235d66addcde39a38761dd8118824a61c2bff8842a10dc909cd638ce",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_settings_push_status_console.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "f6cff89604840bd51067f13105b0086175ca4db432ab48248b0bc4ed45198150"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/settings_push_status_signal_pulse.webp",
+      "bytes": 13392,
+      "sha256": "2b56243cbb034831b2348e4ad1104ac08f7debfb26040dacf0947c08fbf01b33",
+      "media": {
+        "type": "image/webp",
+        "width": 220,
+        "height": 220
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_settings_push_status_console_imagegen.png",
+            "sha256": "9c10834cb71c12c61a1c7dfb0a878930d7d1b984e1d0fa45baebbebd2553e487"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_settings_push_status_console.py",
+          "sha256": "bbafb346235d66addcde39a38761dd8118824a61c2bff8842a10dc909cd638ce",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_settings_push_status_console.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "2b56243cbb034831b2348e4ad1104ac08f7debfb26040dacf0947c08fbf01b33"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/slot_level_session_panel.webp",
+      "bytes": 32148,
+      "sha256": "9e6391d25ded43e9c0a275ce900843f7d34aa74cd2fe0e0bf8ec7f2e799e3ef6",
+      "media": {
+        "type": "image/webp",
+        "width": 760,
+        "height": 168
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_slot_level_meter_imagegen.png",
+            "sha256": "970ab0a7afdf2e8e859751810f5c6fe585197036ccc9849edeb455ff447c8623"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_slot_level_meter.py",
+          "sha256": "5db4a98ed2cbe353688dd50b13cab22ec9af00923a4773e87898900c3263d906",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_slot_level_meter.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "9e6391d25ded43e9c0a275ce900843f7d34aa74cd2fe0e0bf8ec7f2e799e3ef6"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_bonus_scatter_halo_neon.webp",
+      "bytes": 176010,
+      "sha256": "9269e7682bf71b7f766228a24e669d12ed173ead1d15785fd2d4f7a763603b43",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "9269e7682bf71b7f766228a24e669d12ed173ead1d15785fd2d4f7a763603b43"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_bonus_scatter_halo_ocean.webp",
+      "bytes": 197550,
+      "sha256": "fc6a6b8a36e141ad2f863acd59b5001e4ec235a149226ec63fed2ab389867baa",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "fc6a6b8a36e141ad2f863acd59b5001e4ec235a149226ec63fed2ab389867baa"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_bonus_scatter_halo_pharaoh.webp",
+      "bytes": 226174,
+      "sha256": "4627f6d44b3c94ba5b961c43698c3aad79703d752ee240a95bcc2e327406f530",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "4627f6d44b3c94ba5b961c43698c3aad79703d752ee240a95bcc2e327406f530"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_bonus_scatter_halo_roman.webp",
+      "bytes": 179038,
+      "sha256": "a5c977aac4d0ef47fa0f1d2e26fcbd37820ee5f28012d1dc687f16cffcc0e060",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "a5c977aac4d0ef47fa0f1d2e26fcbd37820ee5f28012d1dc687f16cffcc0e060"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_bonus_scatter_halo_violet.webp",
+      "bytes": 173566,
+      "sha256": "15685a55c0034cd074bdba827e60e30764c774c8bc8ceb3d525f6fc9efe5f7a3",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "15685a55c0034cd074bdba827e60e30764c774c8bc8ceb3d525f6fc9efe5f7a3"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_win_halo_neon.webp",
+      "bytes": 149942,
+      "sha256": "665807b09925863d1324a8e8dead56614190d72f98a98786e1c520f0ce784caf",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "665807b09925863d1324a8e8dead56614190d72f98a98786e1c520f0ce784caf"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_win_halo_ocean.webp",
+      "bytes": 139028,
+      "sha256": "ab976f2b6db49a907d75d33da6e3b28fef529d88408fd8a3ad1af082b2aed51b",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "ab976f2b6db49a907d75d33da6e3b28fef529d88408fd8a3ad1af082b2aed51b"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_win_halo_pharaoh.webp",
+      "bytes": 187652,
+      "sha256": "a122655c86e169c6bcfff060212c934bf14836058b154fd6d0788d73fa8ae8f1",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "a122655c86e169c6bcfff060212c934bf14836058b154fd6d0788d73fa8ae8f1"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_win_halo_roman.webp",
+      "bytes": 169084,
+      "sha256": "1bc80da00fa2b49ed05be4ea0d1bd671deb06be4eaedfe25153ca0ae0f30b597",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "1bc80da00fa2b49ed05be4ea0d1bd671deb06be4eaedfe25153ca0ae0f30b597"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/symbol_win_halo_violet.webp",
+      "bytes": 150840,
+      "sha256": "cdeb951fe8ecc35290add64f3d5267cf636b8dd49ce1af2e41e34dbcb275c96a",
+      "media": {
+        "type": "image/webp",
+        "width": 640,
+        "height": 640
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_symbol_halos_imagegen.png",
+            "sha256": "b0b8978d15a628b158d5b07bf928cc9fec069bb92f4839ed142cb04c4006c8fa"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_symbol_halos.py",
+          "sha256": "6995da78234948107f28545de97d05a662eb79f10f3745b351cfa23778454585",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_symbol_halos.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "cdeb951fe8ecc35290add64f3d5267cf636b8dd49ce1af2e41e34dbcb275c96a"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_ambient_overlay_neon.webp",
+      "bytes": 359358,
+      "sha256": "238d9747806d88d0b4cfb610b04a7fc0b278835a8be356ade4af6603dc3d8077",
+      "media": {
+        "type": "image/webp",
+        "width": 1200,
+        "height": 860
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_ambient_overlays_imagegen.png",
+            "sha256": "3a550abb9b1bdd99d2d3e32cba132ba6440f2988217c6d23a883a0bae54101d6"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_ambient_overlays.py",
+          "sha256": "cdcd203b4fadff129a7bbfb6ce9cfb2c1a52e330a72186cc51cbf171acbdb7d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_ambient_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "238d9747806d88d0b4cfb610b04a7fc0b278835a8be356ade4af6603dc3d8077"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_ambient_overlay_ocean.webp",
+      "bytes": 502408,
+      "sha256": "0b299399b1c9533f4ea407a3a97f0c5b81e8d3921426789e2860b88440b65160",
+      "media": {
+        "type": "image/webp",
+        "width": 1200,
+        "height": 860
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_ambient_overlays_imagegen.png",
+            "sha256": "3a550abb9b1bdd99d2d3e32cba132ba6440f2988217c6d23a883a0bae54101d6"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_ambient_overlays.py",
+          "sha256": "cdcd203b4fadff129a7bbfb6ce9cfb2c1a52e330a72186cc51cbf171acbdb7d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_ambient_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "0b299399b1c9533f4ea407a3a97f0c5b81e8d3921426789e2860b88440b65160"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_ambient_overlay_pharaoh.webp",
+      "bytes": 439946,
+      "sha256": "c91b04af6b36820c117c5466a736d9e40535af82797fa9693fa7fe5d1d5d380a",
+      "media": {
+        "type": "image/webp",
+        "width": 1200,
+        "height": 860
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_ambient_overlays_imagegen.png",
+            "sha256": "3a550abb9b1bdd99d2d3e32cba132ba6440f2988217c6d23a883a0bae54101d6"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_ambient_overlays.py",
+          "sha256": "cdcd203b4fadff129a7bbfb6ce9cfb2c1a52e330a72186cc51cbf171acbdb7d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_ambient_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "c91b04af6b36820c117c5466a736d9e40535af82797fa9693fa7fe5d1d5d380a"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_ambient_overlay_roman.webp",
+      "bytes": 514248,
+      "sha256": "423cbcad1bd0ae168df66314144f55a78a7ebad77875eb5cba0520d34bfe439e",
+      "media": {
+        "type": "image/webp",
+        "width": 1200,
+        "height": 860
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_ambient_overlays_imagegen.png",
+            "sha256": "3a550abb9b1bdd99d2d3e32cba132ba6440f2988217c6d23a883a0bae54101d6"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_ambient_overlays.py",
+          "sha256": "cdcd203b4fadff129a7bbfb6ce9cfb2c1a52e330a72186cc51cbf171acbdb7d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_ambient_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "423cbcad1bd0ae168df66314144f55a78a7ebad77875eb5cba0520d34bfe439e"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_ambient_overlay_violet.webp",
+      "bytes": 464276,
+      "sha256": "2a6ffe2e1eb20167dcdf415b01ef1349f6f60ca21be8461dae11f7c086f32b0e",
+      "media": {
+        "type": "image/webp",
+        "width": 1200,
+        "height": 860
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_ambient_overlays_imagegen.png",
+            "sha256": "3a550abb9b1bdd99d2d3e32cba132ba6440f2988217c6d23a883a0bae54101d6"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_ambient_overlays.py",
+          "sha256": "cdcd203b4fadff129a7bbfb6ce9cfb2c1a52e330a72186cc51cbf171acbdb7d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_ambient_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "2a6ffe2e1eb20167dcdf415b01ef1349f6f60ca21be8461dae11f7c086f32b0e"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_spin_overlay_neon.webp",
+      "bytes": 361798,
+      "sha256": "034d560a1aa004852893a05ee421a3615fdadc01c63e2b3674ce2afea5144bfb",
+      "media": {
+        "type": "image/webp",
+        "width": 1400,
+        "height": 492
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_overlays_imagegen.png",
+            "sha256": "149a22ef5299adf0b71e6137663ac15d5ed5088986372773327f075742359e0c"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_overlays.py",
+          "sha256": "aa59a68c08242cf0daea5af699935c0793d4a35c130fa0ac1c1bd912b86594c3",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "034d560a1aa004852893a05ee421a3615fdadc01c63e2b3674ce2afea5144bfb"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_spin_overlay_ocean.webp",
+      "bytes": 469424,
+      "sha256": "05cb2b25a5f06b68bcc5c004d36b59761c2804dca2b0e31990b969d8b334eac1",
+      "media": {
+        "type": "image/webp",
+        "width": 1400,
+        "height": 492
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_overlays_imagegen.png",
+            "sha256": "149a22ef5299adf0b71e6137663ac15d5ed5088986372773327f075742359e0c"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_overlays.py",
+          "sha256": "aa59a68c08242cf0daea5af699935c0793d4a35c130fa0ac1c1bd912b86594c3",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "05cb2b25a5f06b68bcc5c004d36b59761c2804dca2b0e31990b969d8b334eac1"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_spin_overlay_pharaoh.webp",
+      "bytes": 518680,
+      "sha256": "34a285299ed82d218378552f4f08e5f86053013315778bea3b002aff6f5ad6df",
+      "media": {
+        "type": "image/webp",
+        "width": 1400,
+        "height": 492
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_overlays_imagegen.png",
+            "sha256": "149a22ef5299adf0b71e6137663ac15d5ed5088986372773327f075742359e0c"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_overlays.py",
+          "sha256": "aa59a68c08242cf0daea5af699935c0793d4a35c130fa0ac1c1bd912b86594c3",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "34a285299ed82d218378552f4f08e5f86053013315778bea3b002aff6f5ad6df"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_spin_overlay_roman.webp",
+      "bytes": 461982,
+      "sha256": "e8566a79019d6b1cc91142710d7b513b009bf82e5708cf90cd1de85ad8668e50",
+      "media": {
+        "type": "image/webp",
+        "width": 1400,
+        "height": 492
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_overlays_imagegen.png",
+            "sha256": "149a22ef5299adf0b71e6137663ac15d5ed5088986372773327f075742359e0c"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_overlays.py",
+          "sha256": "aa59a68c08242cf0daea5af699935c0793d4a35c130fa0ac1c1bd912b86594c3",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "e8566a79019d6b1cc91142710d7b513b009bf82e5708cf90cd1de85ad8668e50"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_spin_overlay_violet.webp",
+      "bytes": 381938,
+      "sha256": "defbac62d2baec48964da6177d91dfcdbca18aa1fa117d55166a40611dc2376e",
+      "media": {
+        "type": "image/webp",
+        "width": 1400,
+        "height": 492
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_spin_overlays_imagegen.png",
+            "sha256": "149a22ef5299adf0b71e6137663ac15d5ed5088986372773327f075742359e0c"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_spin_overlays.py",
+          "sha256": "aa59a68c08242cf0daea5af699935c0793d4a35c130fa0ac1c1bd912b86594c3",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_spin_overlays.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "defbac62d2baec48964da6177d91dfcdbca18aa1fa117d55166a40611dc2376e"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_win_burst_neon.webp",
+      "bytes": 465272,
+      "sha256": "866710f209f44a839b601c7ecb4d64e61069f32b538699f34d890f8e61c6895f",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_bursts_imagegen.png",
+            "sha256": "d4b9d6494774c560cfcd6027c932a572f88fb94e8e5c9488fd6e13384fb36819"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_bursts.py",
+          "sha256": "1f5d3e72991e18e5a618d48f4264ba1d7eeaa04399e7db8d66b6435ab455d0d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_bursts.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "866710f209f44a839b601c7ecb4d64e61069f32b538699f34d890f8e61c6895f"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_win_burst_ocean.webp",
+      "bytes": 514322,
+      "sha256": "d66ecf830d438aee7a515f5299a0a6a2a5a745e82368855f27375c02c2a289a6",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_bursts_imagegen.png",
+            "sha256": "d4b9d6494774c560cfcd6027c932a572f88fb94e8e5c9488fd6e13384fb36819"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_bursts.py",
+          "sha256": "1f5d3e72991e18e5a618d48f4264ba1d7eeaa04399e7db8d66b6435ab455d0d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_bursts.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "d66ecf830d438aee7a515f5299a0a6a2a5a745e82368855f27375c02c2a289a6"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_win_burst_pharaoh.webp",
+      "bytes": 569244,
+      "sha256": "de7b4ae1e9d810d65175cb935d9f714cb0c4cd1ea5d63d43dd1655fd5935d6f7",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_bursts_imagegen.png",
+            "sha256": "d4b9d6494774c560cfcd6027c932a572f88fb94e8e5c9488fd6e13384fb36819"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_bursts.py",
+          "sha256": "1f5d3e72991e18e5a618d48f4264ba1d7eeaa04399e7db8d66b6435ab455d0d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_bursts.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "de7b4ae1e9d810d65175cb935d9f714cb0c4cd1ea5d63d43dd1655fd5935d6f7"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_win_burst_roman.webp",
+      "bytes": 510290,
+      "sha256": "91b0844bbe84769674ff2123beaf0f4a00f8fc630475e7eeeccda4030231bc71",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_bursts_imagegen.png",
+            "sha256": "d4b9d6494774c560cfcd6027c932a572f88fb94e8e5c9488fd6e13384fb36819"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_bursts.py",
+          "sha256": "1f5d3e72991e18e5a618d48f4264ba1d7eeaa04399e7db8d66b6435ab455d0d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_bursts.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "91b0844bbe84769674ff2123beaf0f4a00f8fc630475e7eeeccda4030231bc71"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/theme_win_burst_violet.webp",
+      "bytes": 569080,
+      "sha256": "43e4be7fa315559752889ac46b9c9eacc87ed12fd2f0885889203bcbb3b8b3e3",
+      "media": {
+        "type": "image/webp",
+        "width": 1000,
+        "height": 760
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_bursts_imagegen.png",
+            "sha256": "d4b9d6494774c560cfcd6027c932a572f88fb94e8e5c9488fd6e13384fb36819"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_bursts.py",
+          "sha256": "1f5d3e72991e18e5a618d48f4264ba1d7eeaa04399e7db8d66b6435ab455d0d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_bursts.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "43e4be7fa315559752889ac46b9c9eacc87ed12fd2f0885889203bcbb3b8b3e3"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/win_glow_sprite_neon.webp",
+      "bytes": 304048,
+      "sha256": "2491505506eb7dd0d8c541a892d445c8dc0b98977525676b3c205a6c478c5e0c",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_glow_sprites_imagegen.png",
+            "sha256": "c114c82ddf273212f7d6f2ce2394ae043269a4d1466609d2f2e0ed8d1907cc1a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_glow_sprites.py",
+          "sha256": "e65ba82185732d2f9f7b6ba425cebdb82db6b8be981ded1a1be2bc443fe265d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_glow_sprites.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "2491505506eb7dd0d8c541a892d445c8dc0b98977525676b3c205a6c478c5e0c"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/win_glow_sprite_ocean.webp",
+      "bytes": 289664,
+      "sha256": "001441dce745220668026a6fa50727e29ad7dbcf12acff602356baa70b9da257",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_glow_sprites_imagegen.png",
+            "sha256": "c114c82ddf273212f7d6f2ce2394ae043269a4d1466609d2f2e0ed8d1907cc1a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_glow_sprites.py",
+          "sha256": "e65ba82185732d2f9f7b6ba425cebdb82db6b8be981ded1a1be2bc443fe265d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_glow_sprites.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "001441dce745220668026a6fa50727e29ad7dbcf12acff602356baa70b9da257"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/win_glow_sprite_pharaoh.webp",
+      "bytes": 322820,
+      "sha256": "b5c4cb2c51c112766d7071604d03ebe9bea0db18f2bad75cac0526974fa50139",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_glow_sprites_imagegen.png",
+            "sha256": "c114c82ddf273212f7d6f2ce2394ae043269a4d1466609d2f2e0ed8d1907cc1a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_glow_sprites.py",
+          "sha256": "e65ba82185732d2f9f7b6ba425cebdb82db6b8be981ded1a1be2bc443fe265d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_glow_sprites.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "b5c4cb2c51c112766d7071604d03ebe9bea0db18f2bad75cac0526974fa50139"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/win_glow_sprite_roman.webp",
+      "bytes": 251276,
+      "sha256": "8207bd9797d74cd7dc01d961bb3537bc29492630bae2e63d6ad50cc2456a4843",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_glow_sprites_imagegen.png",
+            "sha256": "c114c82ddf273212f7d6f2ce2394ae043269a4d1466609d2f2e0ed8d1907cc1a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_glow_sprites.py",
+          "sha256": "e65ba82185732d2f9f7b6ba425cebdb82db6b8be981ded1a1be2bc443fe265d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_glow_sprites.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "8207bd9797d74cd7dc01d961bb3537bc29492630bae2e63d6ad50cc2456a4843"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/win_glow_sprite_violet.webp",
+      "bytes": 300460,
+      "sha256": "4a10395f1392ed3d322223098b5d8d8d87639ef0da5c7e5a1ce9b0efe577f0f5",
+      "media": {
+        "type": "image/webp",
+        "width": 960,
+        "height": 960
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_theme_win_glow_sprites_imagegen.png",
+            "sha256": "c114c82ddf273212f7d6f2ce2394ae043269a4d1466609d2f2e0ed8d1907cc1a"
+          }
+        ],
+        "producer": {
+          "path": "tools/slice_imagegen_theme_win_glow_sprites.py",
+          "sha256": "e65ba82185732d2f9f7b6ba425cebdb82db6b8be981ded1a1be2bc443fe265d7",
+          "command": [
+            "python3",
+            "tools/slice_imagegen_theme_win_glow_sprites.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "4a10395f1392ed3d322223098b5d8d8d87639ef0da5c7e5a1ce9b0efe577f0f5"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    }
+  ]
+}

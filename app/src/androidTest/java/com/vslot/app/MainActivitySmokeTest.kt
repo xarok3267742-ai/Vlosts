@@ -1058,7 +1058,7 @@ class MainActivitySmokeTest {
                     R.id.lastWinDigits,
                     "${context.getString(R.string.last_win)} 0"
                 )
-                clickView(R.id.spinButton)
+                clickViewWithoutRenderIdle(R.id.spinButton)
                 waitUntil(SPIN_RESULT_WAIT_TIMEOUT_MS) {
                     val view = findCurrentViewById(R.id.lastWinDigits) as? BitmapNumberView
                         ?: throw AssertionError("Last-win meter is missing.")

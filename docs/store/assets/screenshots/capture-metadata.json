@@ -1,21 +1,21 @@
 {
   "schema_version": 2,
-  "captured_at_utc": "2026-08-03T11:11:57Z",
+  "captured_at_utc": "2026-08-03T11:25:06Z",
   "build_variant": "qa",
   "package_name": "com.vslot.app.qa",
   "version_code": 1,
   "version_name": "1.0.0-qa",
-  "qa_apk_sha256": "96ccb3ddf99e5edb54003740f2c6a67937a45d823c035c187b1be550cdee5398",
+  "qa_apk_sha256": "d937585af5b3108b1bc52cd17be5ba0aedba453ca13aa94b7fc96a599d247525",
   "qa_apk_payload_sha256": "589d9e2e3da81ffdc710e2d0f8e7c318c0843938a3fc4edcc6d528b8424b63c4",
-  "qa_test_apk_sha256": "29dda91029847a908cd901ec26d7c002d57af6a7efd54e64c109e54e7f43b707",
-  "qa_test_apk_payload_sha256": "4be6f29f9aae49006a39dede8699122c6ede45c3a3c8976f465d9dcdae700156",
+  "qa_test_apk_sha256": "50641b1a6199837cce39c4803588e623079aef292f6636b004b56a97da9ffe5e",
+  "qa_test_apk_payload_sha256": "67e288491c477fd26e25d851c47f26b92ee4c2684c6dd1cdd2205c2aa7ce03b9",
   "device": {"avd_name": "VSlot_API36_Clean", "api_level": 36, "locale": "ru-RU", "physical_size": "1080x2400", "physical_density_dpi": 420},
   "capture": {"width": 1080, "height": 1920, "density_dpi": 360, "font_scale": 1.0},
   "screenshot_sha256": {
-    "01-home.png": "0c9ed5d768f70d76c751bfa086b8ef95633bd0555fd9aac50802811085fb9d85",
-    "02-violet-slot.png": "2c69e6c7abcde7ab32fa7fcc167b720159aab75f9b99c45bb8c9d41d92b4d6cd",
+    "01-home.png": "dfbde76434b117b72fcb3f69f75fc66a7c48a1cfdcf45f5d59e1154ad6ca5908",
+    "02-violet-slot.png": "950b3691a67095c8481b34e58935baf2adaa689b3111ae343eecd3069404e428",
     "03-paytable.png": "d49c299c60d69fe7d8fd8d93fba74135a1c96b27b367be0cc4e26bb91a4376a5",
     "04-settings.png": "02c60ae4fb710b565674931b0514e2a35916e66ea06fee0be7ce11591990a438",
-    "05-free-spins.png": "af4e35577ad876b8bc3e309185e69bf9d5535c8161bd933f4af57e3751c843be"
+    "05-free-spins.png": "840a9e64695acec60a40eb6e341afa331c340272afb34f7665839d96bc3dafd8"
   }
 }

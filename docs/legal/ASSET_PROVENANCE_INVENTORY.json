@@ -12917,8 +12917,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/01-home.png",
-      "bytes": 1696777,
-      "sha256": "0c9ed5d768f70d76c751bfa086b8ef95633bd0555fd9aac50802811085fb9d85",
+      "bytes": 1695856,
+      "sha256": "dfbde76434b117b72fcb3f69f75fc66a7c48a1cfdcf45f5d59e1154ad6ca5908",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12932,8 +12932,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/02-violet-slot.png",
-      "bytes": 2691331,
-      "sha256": "2c69e6c7abcde7ab32fa7fcc167b720159aab75f9b99c45bb8c9d41d92b4d6cd",
+      "bytes": 2689612,
+      "sha256": "950b3691a67095c8481b34e58935baf2adaa689b3111ae343eecd3069404e428",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12977,8 +12977,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/05-free-spins.png",
-      "bytes": 2712772,
-      "sha256": "af4e35577ad876b8bc3e309185e69bf9d5535c8161bd933f4af57e3751c843be",
+      "bytes": 2715435,
+      "sha256": "840a9e64695acec60a40eb6e341afa331c340272afb34f7665839d96bc3dafd8",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",

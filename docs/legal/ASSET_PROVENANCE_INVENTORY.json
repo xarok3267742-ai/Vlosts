@@ -12917,8 +12917,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/01-home.png",
-      "bytes": 1695856,
-      "sha256": "dfbde76434b117b72fcb3f69f75fc66a7c48a1cfdcf45f5d59e1154ad6ca5908",
+      "bytes": 1692439,
+      "sha256": "dbf222a241e544906d906871a22698e5eab6c0f396e0d6328fb2619f0ba2e84c",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12932,8 +12932,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/02-violet-slot.png",
-      "bytes": 2689612,
-      "sha256": "950b3691a67095c8481b34e58935baf2adaa689b3111ae343eecd3069404e428",
+      "bytes": 2691187,
+      "sha256": "bd87067fe6b7610dc7006cfab9b394f88ab299cb20e8550047e1e06e6e9d393b",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12947,8 +12947,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/03-paytable.png",
-      "bytes": 2129711,
-      "sha256": "d49c299c60d69fe7d8fd8d93fba74135a1c96b27b367be0cc4e26bb91a4376a5",
+      "bytes": 2116857,
+      "sha256": "be43478d9d9d4ad37240b9a8f1b2114da2bfc8dada25a3dd5b364644ec9a2944",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12962,8 +12962,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/04-settings.png",
-      "bytes": 1758310,
-      "sha256": "02c60ae4fb710b565674931b0514e2a35916e66ea06fee0be7ce11591990a438",
+      "bytes": 1745925,
+      "sha256": "92c8606e1615ce42def602bd12f5b8ff272a78d7778c97f3a55c5d9fcdbb440b",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12977,8 +12977,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/05-free-spins.png",
-      "bytes": 2715435,
-      "sha256": "840a9e64695acec60a40eb6e341afa331c340272afb34f7665839d96bc3dafd8",
+      "bytes": 2716976,
+      "sha256": "d4a1df396c4be03a239c0e5dca9ecc9e9e2fc331385a1d8f58bd890add025e52",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",

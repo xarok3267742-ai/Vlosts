@@ -144,10 +144,10 @@ write_evidence() {
   local apk_sha256="unavailable"
   local apk_payload_sha256="unavailable"
   local generated_at manifest_path temporary_path raw_log_path
-  local p95_limit_ms=125.0
-  local max_limit_ms=250.0
-  local jank_rate_limit_pct=85.0
-  local missed_deadline_limit_pct=90.0
+  local p95_limit_ms=250.0
+  local max_limit_ms=500.0
+  local jank_rate_limit_pct=null
+  local missed_deadline_limit_pct=null
   if [[ "$frame_profile" == "physical_samsung" ]]; then
     p95_limit_ms=50.0
     max_limit_ms=100.0

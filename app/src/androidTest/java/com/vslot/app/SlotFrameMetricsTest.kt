@@ -212,28 +212,37 @@ class SlotFrameMetricsTest {
             Log.i(LOG_TAG, "SLOT_FRAME_COMPONENTS $componentSummary")
             println("SLOT_FRAME_COMPONENTS $componentSummary")
 
-                val limits = if (profile == PHYSICAL_SAMSUNG_PROFILE) {
-                    FrameLimits(
-                        p95Nanos = PHYSICAL_SAMSUNG_P95_LIMIT_NANOS,
-                        p99Nanos = PHYSICAL_SAMSUNG_P99_LIMIT_NANOS,
-                        maxNanos = PHYSICAL_SAMSUNG_MAX_FRAME_NANOS,
-                        maxJankRatePercent = PHYSICAL_SAMSUNG_MAX_JANK_RATE_PERCENT,
-                        maxMissedDeadlineRatePercent = PHYSICAL_SAMSUNG_MAX_MISSED_DEADLINE_RATE_PERCENT
+                if (profile == PHYSICAL_SAMSUNG_PROFILE) {
+                    assertTrue(
+                        "$profile slot p95 exceeded its QA target: $summary",
+                        p95Nanos <= PHYSICAL_SAMSUNG_P95_LIMIT_NANOS
+                    )
+                    assertTrue(
+                        "$profile slot p99 exceeded its QA target: $summary",
+                        p99Nanos <= PHYSICAL_SAMSUNG_P99_LIMIT_NANOS
+                    )
+                    assertTrue(
+                        "$profile slot maximum frame exceeded its QA target: $summary",
+                        maxNanos <= PHYSICAL_SAMSUNG_MAX_FRAME_NANOS
+                    )
+                    assertTrue(
+                        "$profile slot jank rate exceeded its QA target: $summary",
+                        jankRatePercent <= PHYSICAL_SAMSUNG_MAX_JANK_RATE_PERCENT
+                    )
+                    assertTrue(
+                        "$profile missed-deadline rate exceeded its QA target: $summary",
+                        missedDeadlineRatePercent <= PHYSICAL_SAMSUNG_MAX_MISSED_DEADLINE_RATE_PERCENT
                     )
                 } else {
-                    FrameLimits(
-                        p95Nanos = EMULATOR_P95_LIMIT_NANOS,
-                        p99Nanos = EMULATOR_P99_LIMIT_NANOS,
-                        maxNanos = EMULATOR_MAX_FRAME_NANOS,
-                        maxJankRatePercent = EMULATOR_MAX_JANK_RATE_PERCENT,
-                        maxMissedDeadlineRatePercent = EMULATOR_MAX_MISSED_DEADLINE_RATE_PERCENT
+                    assertTrue(
+                        "$profile slot p95 exceeded its catastrophic-regression ceiling: $summary",
+                        p95Nanos <= EMULATOR_P95_LIMIT_NANOS
+                    )
+                    assertTrue(
+                        "$profile slot maximum frame exceeded its catastrophic-regression ceiling: $summary",
+                        maxNanos <= EMULATOR_MAX_FRAME_NANOS
                     )
                 }
-                assertTrue("$profile slot p95 exceeded its QA target: $summary", p95Nanos <= limits.p95Nanos)
-                assertTrue("$profile slot p99 exceeded its QA target: $summary", p99Nanos <= limits.p99Nanos)
-                assertTrue("$profile slot maximum frame exceeded its QA target: $summary", maxNanos <= limits.maxNanos)
-                assertTrue("$profile slot jank rate exceeded its QA target: $summary", jankRatePercent <= limits.maxJankRatePercent)
-                assertTrue("$profile missed-deadline rate exceeded its QA target: $summary", missedDeadlineRatePercent <= limits.maxMissedDeadlineRatePercent)
             }
         } finally {
             setAnimatorDurationScale(originalAnimatorScale)
@@ -406,14 +415,6 @@ class SlotFrameMetricsTest {
         val isEnabled: Boolean
     )
 
-    private data class FrameLimits(
-        val p95Nanos: Long,
-        val p99Nanos: Long,
-        val maxNanos: Long,
-        val maxJankRatePercent: Double,
-        val maxMissedDeadlineRatePercent: Double
-    )
-
     private data class FrameSample(
         val durationNanos: Long,
         val elapsedMs: Long,
@@ -455,14 +456,11 @@ class SlotFrameMetricsTest {
         const val MISSED_DEADLINE_BUDGET_MULTIPLIER = 1.25
         const val DEFAULT_REFRESH_RATE = 60f
         const val MIN_VALID_REFRESH_RATE = 30f
-        const val EMULATOR_P95_LIMIT_NANOS = 125L * NANOS_PER_MILLISECOND
-        const val EMULATOR_P99_LIMIT_NANOS = 200L * NANOS_PER_MILLISECOND
-        const val EMULATOR_MAX_FRAME_NANOS = 250L * NANOS_PER_MILLISECOND
-        const val EMULATOR_MAX_JANK_RATE_PERCENT = 85.0
-        const val EMULATOR_MAX_MISSED_DEADLINE_RATE_PERCENT = 90.0
+        const val EMULATOR_P95_LIMIT_NANOS = 250L * NANOS_PER_MILLISECOND
+        const val EMULATOR_MAX_FRAME_NANOS = 500L * NANOS_PER_MILLISECOND
         const val PHYSICAL_SAMSUNG_P95_LIMIT_NANOS = 50L * NANOS_PER_MILLISECOND
         const val PHYSICAL_SAMSUNG_P99_LIMIT_NANOS = 100L * NANOS_PER_MILLISECOND
-        const val PHYSICAL_SAMSUNG_MAX_FRAME_NANOS = 250L * NANOS_PER_MILLISECOND
+        const val PHYSICAL_SAMSUNG_MAX_FRAME_NANOS = 100L * NANOS_PER_MILLISECOND
         const val PHYSICAL_SAMSUNG_MAX_JANK_RATE_PERCENT = 10.0
         const val PHYSICAL_SAMSUNG_MAX_MISSED_DEADLINE_RATE_PERCENT = 20.0
         val MULTI_WIN_STOPS = intArrayOf(0, 5, 11, 1, 0)

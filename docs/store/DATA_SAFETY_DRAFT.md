@@ -1,6 +1,6 @@
 # Google Play Data safety: production draft for V Slot
 
-Статус: **не отправлять в Play Console без закрытия пунктов ниже**. Черновик составлен по исходному коду и прямым runtime-зависимостям на 2026-07-28. Он не знает production API keys, dashboard settings, privacy-host/CDN logs, договорные роли провайдеров и реальные сетевые ответы release AAB.
+Статус: **не отправлять в Play Console без закрытия пунктов ниже**. Черновик составлен по исходному коду и прямым runtime-зависимостям на 2026-07-28; требования Google Play Data safety повторно сверены 2026-08-03. Он не знает production API keys, dashboard settings, privacy-host/CDN logs, договорные роли провайдеров и реальные сетевые ответы release AAB.
 
 ## Фактическая конфигурация в коде
 

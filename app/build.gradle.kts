@@ -2931,7 +2931,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.activity:activity-ktx:1.13.0")
     implementation("androidx.fragment:fragment-ktx:1.8.9")
-    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.2")
     implementation("androidx.navigation:navigation-fragment-ktx:2.9.8")
     implementation("androidx.navigation:navigation-ui-ktx:2.9.8")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0")
@@ -3960,8 +3960,8 @@ val generatedEmbeddedThirdPartyNoticesDirectory = layout.buildDirectory.dir(
 val generatedEmbeddedThirdPartyNotices = generatedEmbeddedThirdPartyNoticesDirectory.map { directory ->
     directory.file(embeddedThirdPartyNoticesAssetName)
 }
-val thirdPartyNoticesSha256 = "64aa2e43232a2bc633818b4f41a63b006828a3efad79b770dbfefe0ee3ddae2d"
-val embeddedThirdPartyNoticesSha256 = "6d2afbad7ce49a7388fae48e730079e5ef932e6de69e0634d8066ee4ef0600d1"
+val thirdPartyNoticesSha256 = "8d7402bed8d8b08ea1d272f0cf714558c15d10e7a053c4494710ecbfcea58d5d"
+val embeddedThirdPartyNoticesSha256 = "b4cc4bdce0c376c958532f5f508bfc53b01115c136721afab0c97d15268e5dba"
 val licenseManifestStart = "[release-runtime-artifact-licenses-v1]"
 val licenseManifestEnd = "[/release-runtime-artifact-licenses-v1]"
 val allowedRuntimeLicensePolicies = setOf(

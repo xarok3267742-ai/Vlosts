@@ -505,12 +505,22 @@ class MainActivitySmokeTest {
                 assertViewFullyVisible(R.id.slotControlConsole)
                 assertViewFullyVisible(R.id.spinButton)
 
-                clickView(R.id.spinButton)
-                waitForContentDescription(
-                    R.id.spinButton,
-                    context.getString(R.string.spin_slam_stop)
-                )
-                clickView(R.id.spinButton)
+                clickViewWithoutRenderIdle(R.id.spinButton)
+                try {
+                    waitForContentDescription(
+                        R.id.spinButton,
+                        context.getString(R.string.spin_slam_stop)
+                    )
+                } catch (failure: AssertionError) {
+                    val failedState = runBlocking { AppGraph.playerRepository.playerState.first() }
+                    throw AssertionError(
+                        "Slot $slotId did not enter slam-stop state: " +
+                            "balance ${beforeSpin.coinsBalance} -> ${failedState.coinsBalance}, " +
+                            "animatorsEnabled=${ValueAnimator.areAnimatorsEnabled()}.",
+                        failure
+                    )
+                }
+                clickViewWithoutRenderIdle(R.id.spinButton)
                 waitForContentDescription(
                     R.id.spinButton,
                     context.getString(R.string.spin),
@@ -948,15 +958,15 @@ class MainActivitySmokeTest {
     fun backgroundingStopsAutospinBeforeAnotherSpinCanBeScheduled() {
         seedScenario("slot_multi_win")
 
-        launchMain(debugSlotId = "violet_fortune").use { scenario ->
+        launchMain(debugSlotId = "violet_fortune").use {
             val context = ApplicationProvider.getApplicationContext<Context>()
             waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
 
             startPaidAutoSpin(context)
 
-            scenario.moveToState(Lifecycle.State.CREATED)
+            val backgroundedActivity = backgroundCurrentActivityWithoutRenderIdle()
             SystemClock.sleep(BACKGROUND_SETTLE_MS)
-            scenario.moveToState(Lifecycle.State.RESUMED)
+            foregroundMainActivityWithoutRenderIdle(backgroundedActivity)
 
             waitForContentDescription(R.id.autoSpinButton, context.getString(R.string.auto_spin_configure))
         }
@@ -975,10 +985,10 @@ class MainActivitySmokeTest {
                 lines = initialState.freeSpinLinesForSlot(FEATURE_RESUME_SLOT_ID)
             )
         )
-        launchMain(debugSlotId = FEATURE_RESUME_SLOT_ID).use { scenario ->
+        launchMain(debugSlotId = FEATURE_RESUME_SLOT_ID).use {
             waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
             waitForContentDescription(R.id.autoSpinButton, context.getString(R.string.auto_spin_configure))
-            clickView(R.id.autoSpinButton)
+            clickViewWithoutRenderIdle(R.id.autoSpinButton)
             waitForContentDescriptionPrefix(
                 R.id.autoSpinButton,
                 context.dynamicCountPrefix(R.string.auto_spin_stop_free_spins)
@@ -988,7 +998,7 @@ class MainActivitySmokeTest {
                 assertTrue(state.shouldAutoPlayFreeSpinsForSlot(FEATURE_RESUME_SLOT_ID))
             }
 
-            scenario.moveToState(Lifecycle.State.CREATED)
+            val backgroundedActivity = backgroundCurrentActivityWithoutRenderIdle()
             val pausedFreeSpins = runBlocking {
                 AppGraph.playerRepository.playerState.first().freeSpinsForSlot(FEATURE_RESUME_SLOT_ID)
             }
@@ -1000,7 +1010,7 @@ class MainActivitySmokeTest {
                 }
             )
 
-            scenario.moveToState(Lifecycle.State.RESUMED)
+            foregroundMainActivityWithoutRenderIdle(backgroundedActivity)
             waitForContentDescriptionPrefix(
                 R.id.autoSpinButton,
                 context.dynamicCountPrefix(R.string.auto_spin_stop_free_spins)
@@ -1012,7 +1022,7 @@ class MainActivitySmokeTest {
                 assertTrue(remaining < pausedFreeSpins)
             }
 
-            clickView(R.id.autoSpinButton)
+            clickViewWithoutRenderIdle(R.id.autoSpinButton)
             waitForContentDescription(R.id.autoSpinButton, context.getString(R.string.auto_spin_configure))
             waitUntil {
                 val state = runBlocking { AppGraph.playerRepository.playerState.first() }
@@ -1168,9 +1178,16 @@ class MainActivitySmokeTest {
                 View.IMPORTANT_FOR_ACCESSIBILITY_NO,
                 findCurrentViewById(R.id.resultFreeSpinsAwardDigits)?.importantForAccessibility
             )
+            waitUntil {
+                val state = runBlocking { AppGraph.playerRepository.playerState.first() }
+                assertEquals(5, state.freeSpinsForSlot("violet_fortune"))
+            }
 
-            clickViewIfStillDisplayed(R.id.closeButton)
-            waitForContentDescription(R.id.freeSpinsRail, context.getString(R.string.free_spins_remaining, 5))
+            clickViewWithoutRenderIdle(R.id.closeButton)
+            waitForContentDescriptionPrefix(
+                R.id.freeSpinsRail,
+                context.dynamicCountPrefix(R.string.free_spins_remaining)
+            )
             waitForContentDescription(R.id.spinButton, context.getString(R.string.spin_free_spins))
             waitForContentDescriptionPrefix(
                 R.id.autoSpinButton,
@@ -1198,20 +1215,20 @@ class MainActivitySmokeTest {
         )
         val expectedBalance = RECREATE_STARTING_BALANCE - expectedResult.totalBet + expectedResult.winAmount
 
-        launchMain(debugSlotId = RECREATE_SLOT_ID).use { scenario ->
+        launchMain(debugSlotId = RECREATE_SLOT_ID).use {
             waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
             assertEquals(
                 RECREATE_STARTING_BALANCE,
                 runBlocking { AppGraph.playerRepository.playerState.first() }.coinsBalance
             )
-            clickView(R.id.spinButton)
+            clickViewWithoutRenderIdle(R.id.spinButton)
             waitForContentDescription(
                 R.id.spinButton,
                 context.getString(R.string.spin_slam_stop)
             )
             waitForDisabled(R.id.paytableButton)
 
-            scenario.recreate()
+            recreateCurrentActivityWithoutRenderIdle()
 
             waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
             waitForContentDescription(
@@ -1223,13 +1240,13 @@ class MainActivitySmokeTest {
                 R.id.resultFreeSpinsAwardGroup,
                 context.getString(R.string.result_free_spins_award, expectedResult.freeSpinsAwarded)
             )
-            clickView(R.id.closeButton)
+            clickViewWithoutRenderIdle(R.id.closeButton)
             waitForContentDescriptionPrefix(
                 R.id.autoSpinButton,
                 context.dynamicCountPrefix(R.string.auto_spin_stop_free_spins)
             )
             waitForEnabled(R.id.autoSpinButton)
-            clickView(R.id.autoSpinButton)
+            clickViewWithoutRenderIdle(R.id.autoSpinButton)
             waitForEnabled(R.id.paytableButton)
             waitUntil {
                 val state = runBlocking { AppGraph.playerRepository.playerState.first() }
@@ -1523,6 +1540,113 @@ class MainActivitySmokeTest {
         SystemClock.sleep(VIEW_ACTION_SETTLE_MS)
     }
 
+    private fun clickViewWithoutRenderIdle(@IdRes viewId: Int) {
+        waitUntil {
+            val view = findCurrentViewById(viewId)
+                ?: throw AssertionError("View $viewId is missing.")
+            if (!view.isEffectivelyDisplayed()) {
+                throw AssertionError("View $viewId is not displayed.")
+            }
+            if (!view.isEnabled) {
+                throw AssertionError("View $viewId is disabled.")
+            }
+            tapViewWithPointerInput(viewId, waitForRenderIdle = false)
+        }
+    }
+
+    private fun recreateCurrentActivityWithoutRenderIdle() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        var originalActivity: FragmentActivity? = null
+        var failure: Throwable? = null
+        instrumentation.runOnMainSync {
+            try {
+                originalActivity = ActivityLifecycleMonitorRegistry
+                    .getInstance()
+                    .getActivitiesInStage(Stage.RESUMED)
+                    .filterIsInstance<FragmentActivity>()
+                    .lastOrNull()
+                    ?: throw AssertionError("No resumed activity is available for recreation.")
+                originalActivity?.recreate()
+            } catch (throwable: Throwable) {
+                failure = throwable
+            }
+        }
+        failure?.let { throw it }
+        waitUntil {
+            var recreatedActivity: FragmentActivity? = null
+            instrumentation.runOnMainSync {
+                recreatedActivity = ActivityLifecycleMonitorRegistry
+                    .getInstance()
+                    .getActivitiesInStage(Stage.RESUMED)
+                    .filterIsInstance<FragmentActivity>()
+                    .lastOrNull()
+            }
+            if (recreatedActivity == null || recreatedActivity === originalActivity) {
+                throw AssertionError("Recreated activity has not resumed yet.")
+            }
+        }
+    }
+
+    private fun backgroundCurrentActivityWithoutRenderIdle(): FragmentActivity {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        var backgroundedActivity: FragmentActivity? = null
+        var failure: Throwable? = null
+        instrumentation.runOnMainSync {
+            try {
+                backgroundedActivity = ActivityLifecycleMonitorRegistry
+                    .getInstance()
+                    .getActivitiesInStage(Stage.RESUMED)
+                    .filterIsInstance<FragmentActivity>()
+                    .lastOrNull()
+                    ?: throw AssertionError("No resumed activity is available for backgrounding.")
+                if (backgroundedActivity?.moveTaskToBack(true) != true) {
+                    throw AssertionError("Activity task could not be moved to the background.")
+                }
+            } catch (throwable: Throwable) {
+                failure = throwable
+            }
+        }
+        failure?.let { throw it }
+        val activity = backgroundedActivity
+            ?: throw AssertionError("Backgrounded activity is missing.")
+        waitUntil {
+            var isStopped = false
+            instrumentation.runOnMainSync {
+                isStopped = ActivityLifecycleMonitorRegistry
+                    .getInstance()
+                    .getActivitiesInStage(Stage.STOPPED)
+                    .contains(activity)
+            }
+            if (!isStopped) {
+                throw AssertionError("Backgrounded activity has not stopped yet.")
+            }
+        }
+        return activity
+    }
+
+    private fun foregroundMainActivityWithoutRenderIdle(expectedActivity: FragmentActivity) {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        context.startActivity(
+            Intent(context, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        )
+        waitUntil {
+            var resumedActivity: FragmentActivity? = null
+            InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                resumedActivity = ActivityLifecycleMonitorRegistry
+                    .getInstance()
+                    .getActivitiesInStage(Stage.RESUMED)
+                    .filterIsInstance<FragmentActivity>()
+                    .lastOrNull()
+            }
+            if (resumedActivity !== expectedActivity) {
+                throw AssertionError("Backgrounded activity has not returned to the foreground.")
+            }
+        }
+    }
+
     private fun clickViewIfStillDisplayed(@IdRes viewId: Int) {
         val view = findCurrentViewById(viewId)
         if (view?.isEffectivelyDisplayed() != true) return
@@ -1533,7 +1657,10 @@ class MainActivitySmokeTest {
         }
     }
 
-    private fun tapViewWithPointerInput(@IdRes viewId: Int) {
+    private fun tapViewWithPointerInput(
+        @IdRes viewId: Int,
+        waitForRenderIdle: Boolean = true
+    ) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val visibleBounds = Rect()
         var failure: Throwable? = null
@@ -1578,7 +1705,9 @@ class MainActivitySmokeTest {
         } finally {
             upEvent.recycle()
         }
-        instrumentation.waitForIdleSync()
+        if (waitForRenderIdle) {
+            instrumentation.waitForIdleSync()
+        }
     }
 
     private fun findCurrentViewById(@IdRes viewId: Int): View? {

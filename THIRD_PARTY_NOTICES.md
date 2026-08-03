@@ -1,6 +1,6 @@
 # Third-Party Notices
 
-Inventory reviewed: 2026-07-18.
+Inventory reviewed: 2026-08-03.
 
 This inventory is tied to the external artifacts actually resolved from
 `releaseRuntimeClasspath`, not only direct `implementation` declarations.
@@ -32,8 +32,8 @@ androidx.collection:collection-jvm:1.5.0 | Apache-2.0
 androidx.collection:collection-ktx:1.5.0 | Apache-2.0
 androidx.compose.runtime:runtime-annotation-android:1.9.0 | Apache-2.0
 androidx.concurrent:concurrent-futures:1.1.0 | Apache-2.0
-androidx.constraintlayout:constraintlayout-core:1.1.1 | Apache-2.0
-androidx.constraintlayout:constraintlayout:2.2.1 | Apache-2.0
+androidx.constraintlayout:constraintlayout-core:1.1.2 | Apache-2.0
+androidx.constraintlayout:constraintlayout:2.2.2 | Apache-2.0
 androidx.coordinatorlayout:coordinatorlayout:1.1.0 | Apache-2.0
 androidx.core:core-ktx:1.18.0 | Apache-2.0
 androidx.core:core-viewtree:1.0.0 | Apache-2.0

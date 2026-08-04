@@ -19,6 +19,18 @@
 ## 2. Блокеры до создания production-релиза
 
 - [ ] Указать настоящий публичный `V_SLOT_PRIVACY_POLICY_URL`. Страница должна быть HTTPS, без геоблокировки, не PDF, доступна без входа и явно называть V Slot и юридическое лицо/разработчика из store listing. Google требует privacy policy в Play Console и внутри приложения; она должна описывать сбор, использование, передачу, безопасность, сроки хранения и удаление данных: [Google Play User Data policy](https://support.google.com/googleplay/android-developer/answer/17105854?hl=en#privacy_policy).
+  - Проверить полноту шаблона: `python3 tools/render_privacy_policy.py --check-template`.
+  - После подтверждения всех юридических и provider-полей отрендерить production HTML командой `python3 tools/render_privacy_policy.py --output build/release-inputs/privacy-policy.html`. Скрипт принимает значения только из перечисленных им `V_SLOT_*` environment variables, запрещает заглушки и проверяет XHTML, canonical URL, email и обязательные разделы.
+  - HTTPS route для предоставленного сервера хранится в [`nginx-v-slot-privacy.conf`](nginx-v-slot-privacy.conf). Сервер должен использовать отдельного непривилегированного deploy-пользователя с правом атомарной замены файла в `/var/www/v-slot` и заранее проверенный SSH host key. После установки route опубликовать проверенный файл; deployment удерживает удалённую блокировку, повторно скачивает страницу, проверяет canonical URL, XHTML, `Content-Type` и byte-exact SHA-256, а при ошибке сверяет live SHA-256 и восстанавливает предыдущую версию. Если автоматический rollback невозможно подтвердить, backup и lock сохраняются для ручной проверки:
+
+    ```bash
+    V_SLOT_PRIVACY_SSH_TARGET="$V_SLOT_PRIVACY_SSH_TARGET" \
+    V_SLOT_PRIVACY_KNOWN_HOSTS="$V_SLOT_PRIVACY_KNOWN_HOSTS" \
+    V_SLOT_PRIVACY_POLICY_URL="$V_SLOT_PRIVACY_POLICY_URL" \
+    V_SLOT_SUPPORT_EMAIL="$V_SLOT_SUPPORT_EMAIL" \
+    V_SLOT_DEVELOPER_LEGAL_NAME="$V_SLOT_DEVELOPER_LEGAL_NAME" \
+      tools/deploy_privacy_policy.sh build/release-inputs/privacy-policy.html
+    ```
 - [ ] Указать настоящий `V_SLOT_APPMETRICA_API_KEY`, закрепить его через `V_SLOT_APPMETRICA_API_KEY_SHA256` и принять актуальные [AppMetrica Terms](https://yandex.com/legal/metrica_termsofuse/en/) и применимый [DPA](https://yandex.com/legal/metrica_agreement/en/). Не использовать тестовый проект для production-трафика.
 - [ ] Добавить настоящий `app/src/release/google-services.json` с Android-клиентом для `com.vslot.app`, затем закрепить ожидаемые `project_id` и `mobilesdk_app_id` через `V_SLOT_FIREBASE_PROJECT_ID` и `V_SLOT_FIREBASE_APP_ID`. Проверить отдельный production Firebase project, права доступа и владельцев; не переиспользовать его в debug/QA.
 - [ ] Настроить release keystore через `V_SLOT_RELEASE_STORE_FILE`, `V_SLOT_RELEASE_KEY_ALIAS` и ожидаемый `V_SLOT_RELEASE_CERT_SHA256`. Пароли `V_SLOT_RELEASE_STORE_PASSWORD` и `V_SLOT_RELEASE_KEY_PASSWORD` передавать только через environment из secret storage/CI, с резервной копией и документированным доступом.

@@ -14,6 +14,7 @@ import android.widget.ImageView
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.core.view.isVisible
@@ -102,6 +103,16 @@ class HomeFragment : Fragment() {
                 viewModel.onDailyBonusOpen(available)
             }
         }
+        binding.homeSlotScrollView?.let { scrollView ->
+            val bottomVeil = binding.homeScrollBottomVeil ?: return@let
+            scrollView.setOnScrollChangeListener { view, _, _, _, _ ->
+                bottomVeil.isVisible = view.canScrollVertically(1)
+            }
+            scrollView.post {
+                bottomVeil.isVisible = scrollView.canScrollVertically(1)
+            }
+        }
+        binding.homeXpLabel?.isVisible = resources.configuration.screenWidthDp >= XP_LABEL_MIN_WIDTH_DP
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -190,11 +201,12 @@ class HomeFragment : Fragment() {
         bindLevelProgressFill(state)
     }
 
-    private fun homeXpGlyphBaseWidthDp(value: String): Float = when {
-        value.length >= 9 -> 11.2f
-        value.length >= 8 -> 12.4f
-        value.length >= 7 -> 13.4f
-        else -> 15.0f
+    private fun homeXpGlyphBaseWidthDp(value: String): Float {
+        val glyphWeight = value.sumOf { character ->
+            if (character == '/') HOME_XP_SLASH_WEIGHT else 1.0
+        }.coerceAtLeast(1.0)
+        return (HOME_XP_CONTENT_WIDTH_DP / glyphWeight.toFloat())
+            .coerceAtMost(HOME_XP_MAX_GLYPH_BASE_WIDTH_DP)
     }
 
     private fun bindSlotUnlockState(state: PlayerState) {
@@ -354,7 +366,9 @@ class HomeFragment : Fragment() {
         binding.homeXpProgressFill.pivotX = 0f
         binding.homeXpProgressFill.pivotY = binding.homeXpProgressFill.height / 2f
         binding.homeXpProgressFill.scaleX = progress
-        bindLevelProgressMarker(progress)
+        binding.homeXpTrack.doOnLayout {
+            bindLevelProgressMarker(progress)
+        }
     }
 
     private fun bindLevelProgressMarker(progress: Float) {
@@ -898,11 +912,15 @@ class HomeFragment : Fragment() {
     private fun Int.dp(): Int = (this * resources.displayMetrics.density).toInt()
 
     private companion object {
+        const val HOME_XP_CONTENT_WIDTH_DP = 80f
+        const val HOME_XP_MAX_GLYPH_BASE_WIDTH_DP = 15f
+        const val HOME_XP_SLASH_WEIGHT = 0.92
         const val KEY_BONUS_SHOWN = "bonusShown"
         const val DAILY_BONUS_DIALOG_TAG = "daily_bonus"
         const val HOME_SHINE_DURATION_MS = 1_150L
         const val HOME_SHINE_INITIAL_DELAY_MS = 700L
         const val HOME_SHINE_STAGGER_MS = 520L
+        const val XP_LABEL_MIN_WIDTH_DP = 400
         const val HOME_AURA_DURATION_MS = 1_450L
         const val HOME_AURA_INITIAL_DELAY_MS = 450L
         const val HOME_AURA_STAGGER_MS = 820L

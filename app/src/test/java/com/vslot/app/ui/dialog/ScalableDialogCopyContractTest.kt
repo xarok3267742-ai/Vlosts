@@ -61,7 +61,7 @@ class ScalableDialogCopyContractTest {
     }
 
     @Test
-    fun `dialog fragments switch copy through the shared font scale policy`() {
+    fun `dialog fragments use readable scalable copy through the shared policy`() {
         FRAGMENT_COPY_IDS.forEach { (fragment, ids) ->
             val source = source("main/java/com/vslot/app/ui/dialog/$fragment")
             assertTrue("$fragment must use the shared scalable-copy policy", source.contains("bindScalableDialogCopy("))
@@ -71,12 +71,10 @@ class ScalableDialogCopyContractTest {
         }
 
         val helper = source("main/java/com/vslot/app/ui/dialog/DialogWindowPolish.kt")
-        assertTrue(helper.contains("resources.configuration.fontScale > DEFAULT_FONT_SCALE"))
-        assertTrue(helper.contains("DEFAULT_FONT_SCALE = 1.0f"))
-        assertTrue(helper.contains("bitmapCopy.visibility = if (useScalableCopy) View.GONE else View.VISIBLE"))
-        assertTrue(helper.contains("scalableCopy.visibility = if (useScalableCopy) View.VISIBLE else View.GONE"))
-        assertTrue(helper.contains("bitmapCopy.importantForAccessibility = accessibilityImportance(!useScalableCopy)"))
-        assertTrue(helper.contains("scalableCopy.importantForAccessibility = accessibilityImportance(useScalableCopy)"))
+        assertTrue(helper.contains("bitmapCopy.visibility = View.GONE"))
+        assertTrue(helper.contains("scalableCopy.visibility = View.VISIBLE"))
+        assertTrue(helper.contains("bitmapCopy.importantForAccessibility = accessibilityImportance(false)"))
+        assertTrue(helper.contains("scalableCopy.importantForAccessibility = accessibilityImportance(true)"))
     }
 
     @Test

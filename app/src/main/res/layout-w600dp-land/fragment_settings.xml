@@ -253,6 +253,7 @@
                     android:paddingEnd="0dp">
 
                     <LinearLayout
+                        android:id="@+id/settingsLegalActionsRow"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:baselineAligned="false"
@@ -260,6 +261,7 @@
                         android:orientation="horizontal">
 
                         <FrameLayout
+                            android:id="@+id/privacyActionContainer"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
@@ -302,6 +304,7 @@
                         </FrameLayout>
 
                         <FrameLayout
+                            android:id="@+id/noticesActionContainer"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginStart="5dp"
@@ -492,6 +495,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <FrameLayout
+                        android:id="@+id/pushActionStage"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_marginTop="1dp"

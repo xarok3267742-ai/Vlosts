@@ -41,7 +41,7 @@ class SlotResponsiveLayoutContractTest {
             console.dp("layout_marginTop") +
             console.dp("layout_height")
 
-        assertEquals(286, viewportHeight)
+        assertEquals(358, viewportHeight)
         assertEquals(492, minimumContentHeight)
         assertTrue("Short portrait content must overflow instead of shrinking the reels", minimumContentHeight > viewportHeight)
         assertTrue("The viewport must be tall enough to expose the complete console at the scroll end", viewportHeight >= console.dp("layout_height"))

@@ -24,6 +24,20 @@
 
     <style name="VSlotAccessibleCopy.Compact">
         <item name="android:textColor">@color/accessible_copy_secondary</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="VSlotAccessibleCopy.Command" parent="VSlotAccessibleCopy">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:textColor">@color/accessible_copy_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="VSlotAccessibleCopy.Command.Compact" parent="VSlotAccessibleCopy.Command">
+        <item name="android:textSize">13sp</item>
     </style>
 </resources>

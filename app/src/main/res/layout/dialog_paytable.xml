@@ -50,7 +50,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -67,7 +67,7 @@
 
             <LinearLayout
                 android:id="@+id/paytableBetsGroup"
-                android:layout_width="110dp"
+                android:layout_width="126dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="6dp"
                 android:gravity="center"
@@ -75,8 +75,8 @@
 
                 <ImageView
                     android:id="@+id/paytableBetsLabel"
-                    android:layout_width="82dp"
-                    android:layout_height="16dp"
+                    android:layout_width="92dp"
+                    android:layout_height="18dp"
                     android:contentDescription="@null"
                     android:scaleType="fitCenter"
                     android:src="@drawable/label_bets" />
@@ -84,7 +84,7 @@
                 <com.vslot.app.ui.widget.BitmapNumberView
                     android:id="@+id/paytableBetsDigits"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="24dp"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
         </LinearLayout>
@@ -209,7 +209,9 @@
                 android:layout_height="match_parent"
                 android:fillViewport="false"
                 android:overScrollMode="never"
-                android:scrollbars="none">
+                android:fadeScrollbars="false"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical">
 
                 <LinearLayout
                     android:id="@+id/paytableRows"

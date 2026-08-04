@@ -54,7 +54,7 @@ class PaytableDialogFragment : DialogFragment() {
             compactBets,
             spacingPx = 0,
             compactSeparators = true,
-            fixedGlyphBaseWidthDp = 7f
+            fixedGlyphBaseWidthDp = 8f
         )
         binding.paytableBetsDigits.contentDescription = bets
         binding.paytablePaylineGuide.setImageResource(paytablePaylineGuideDrawable())
@@ -83,7 +83,7 @@ class PaytableDialogFragment : DialogFragment() {
         binding.paytableScrollView.setOnScrollChangeListener { _, _, _, _, _ ->
             updatePaytableScrollHint(binding)
         }
-        binding.paytableScrollView.isVerticalScrollBarEnabled = false
+        binding.paytableScrollView.isVerticalScrollBarEnabled = true
 
         return Dialog(requireContext()).apply {
             setContentView(binding.root)
@@ -103,9 +103,8 @@ class PaytableDialogFragment : DialogFragment() {
     private fun adaptCompactLargeFontLayout(binding: DialogPaytableBinding) {
         val configuration = resources.configuration
         if (
-            configuration.fontScale <= 1f ||
-            configuration.orientation != Configuration.ORIENTATION_LANDSCAPE ||
-            configuration.screenWidthDp >= COMPACT_LANDSCAPE_MAX_WIDTH_DP
+            configuration.fontScale < STACKED_COPY_FONT_SCALE ||
+            configuration.orientation != Configuration.ORIENTATION_LANDSCAPE
         ) {
             return
         }
@@ -358,7 +357,7 @@ class PaytableDialogFragment : DialogFragment() {
             layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
-            setPadding(8, 5, 8, 5)
+            setPadding(8.dpPx(), 5.dpPx(), 8.dpPx(), 5.dpPx())
             addView(
                 ImageView(requireContext()).apply {
                     setImageResource(SlotSymbolResources.image(config.theme, symbol))
@@ -379,7 +378,7 @@ class PaytableDialogFragment : DialogFragment() {
             layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
-            setPadding(8, 5, 8, 5)
+            setPadding(8.dpPx(), 5.dpPx(), 8.dpPx(), 5.dpPx())
             addView(
                 bonusSymbolCell(),
                 LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.2f)
@@ -529,17 +528,17 @@ class PaytableDialogFragment : DialogFragment() {
     companion object {
         private const val ARG_SLOT_ID = "slotId"
         private const val PAYTABLE_LATTICE_POLISH_DURATION_MS = 720L
-        private const val PAYTABLE_LATTICE_SETTLED_ALPHA = 0.92f
+        private const val PAYTABLE_LATTICE_SETTLED_ALPHA = 0.72f
         private const val PAYTABLE_BONUS_SYMBOL_HALO_ALPHA = 0.84f
         private const val PAYTABLE_BONUS_LANE_POLISH_DURATION_MS = 680L
         private const val PAYTABLE_BONUS_LANE_SETTLED_ALPHA = 0.32f
         private const val PAYTABLE_BONUS_LANE_PEAK_ALPHA = 0.68f
-        private const val PAYTABLE_BONUS_BADGE_SIZE_DP = 18
+        private const val PAYTABLE_BONUS_BADGE_SIZE_DP = 24
         private const val PAYTABLE_BONUS_BADGE_LEFT_MARGIN_DP = 12
         private const val PAYTABLE_BONUS_BADGE_BOTTOM_MARGIN_DP = 3
         private const val PAYTABLE_BONUS_MULTIPLIER_HEIGHT_DP = 28
         private const val PAYTABLE_MULTIPLIER_HORIZONTAL_MARGIN_DP = 2
-        private const val COMPACT_LANDSCAPE_MAX_WIDTH_DP = 600
+        private const val STACKED_COPY_FONT_SCALE = 1.3f
         private const val PAYTABLE_SCROLL_HINT_POLISH_DURATION_MS = 620L
         private const val PAYTABLE_SCROLL_HINT_SETTLED_ALPHA = 0.64f
 

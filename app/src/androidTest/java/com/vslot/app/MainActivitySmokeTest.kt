@@ -307,7 +307,7 @@ class MainActivitySmokeTest {
 
             waitForEnabled(R.id.paytableButton)
             clickView(R.id.paytableButton)
-            waitForDisplayed(R.id.paytablePaylineGuide)
+            waitForDisplayed(R.id.paytablePaylineGuideLargeText)
             captureStoreScreenshot("03-paytable.png")
             clickView(R.id.closeButton)
             clickView(R.id.backButton)
@@ -390,7 +390,6 @@ class MainActivitySmokeTest {
                 R.id.soundToggleButton,
                 R.id.privacyButton,
                 R.id.rulesButton,
-                R.id.pushButton,
                 R.id.pushStatusStage
             ).forEach { controlId ->
                 scrollViewIntoView(controlId)
@@ -428,13 +427,17 @@ class MainActivitySmokeTest {
             } else {
                 R.id.settingsSafetyPanel
             }
-            val commandIds = listOf(
-                R.id.privacyButton,
-                R.id.noticesButton,
-                R.id.rulesButton,
-                R.id.pushButton,
-                R.id.pushStatusStage
-            )
+            var pushActionVisible = false
+            scenario.onActivity { activity ->
+                pushActionVisible = activity.findViewById<View>(R.id.pushActionStage).visibility == View.VISIBLE
+            }
+            val commandIds = buildList {
+                add(R.id.privacyButton)
+                add(R.id.noticesButton)
+                add(R.id.rulesButton)
+                if (pushActionVisible) add(R.id.pushButton)
+                add(R.id.pushStatusStage)
+            }
             if (screenWidthDp < COMPACT_LANDSCAPE_MAX_WIDTH_DP) {
                 captureLayoutMatrixScreenshot("compact-landscape-04-settings-top.png")
                 commandIds.forEach { commandId ->
@@ -708,7 +711,7 @@ class MainActivitySmokeTest {
             waitForDisplayed(R.id.paytableTitle)
             waitForDisplayed(R.id.closeButton)
             assertViewFullyVisible(R.id.paytableTitle)
-            assertViewFullyVisible(R.id.paytablePaylineGuide)
+            assertViewFullyVisible(R.id.paytablePaylineGuideLargeText)
             assertViewFullyVisible(R.id.closeButton)
         }
     }
@@ -747,7 +750,7 @@ class MainActivitySmokeTest {
             assertViewFullyVisible(R.id.resultTitle)
             assertViewFullyVisible(R.id.winAmountGroup)
             assertViewFullyVisible(R.id.resultFreeSpinsAwardGroup)
-            assertViewFullyVisible(R.id.resultBody)
+            assertViewFullyVisible(R.id.resultBodyLargeText)
             assertViewFullyVisible(R.id.closeButton)
         }
     }
@@ -767,12 +770,12 @@ class MainActivitySmokeTest {
             waitForDisplayed(R.id.rulesButton)
             clickView(R.id.rulesButton)
 
-            waitForDisplayed(R.id.socialRulesBody)
+            waitForDisplayed(R.id.socialRulesBodyLargeText)
             waitForDisplayed(R.id.closeButton)
             assertViewFullyVisible(R.id.socialRulesBadge)
             assertViewFullyVisible(R.id.socialRulesTitle)
-            assertViewFullyVisible(R.id.socialRulesBody)
-            assertViewFullyVisible(R.id.socialRulesFooter)
+            assertViewFullyVisible(R.id.socialRulesBodyLargeText)
+            assertViewFullyVisible(R.id.socialRulesFooterLargeText)
             assertViewFullyVisible(R.id.closeButton)
         }
     }
@@ -790,7 +793,7 @@ class MainActivitySmokeTest {
             waitForDisplayed(R.id.claimButton)
             assertViewFullyVisible(R.id.bonusBadge)
             assertViewFullyVisible(R.id.bonusTitle)
-            assertViewFullyVisible(R.id.bonusBody)
+            assertViewFullyVisible(R.id.bonusBodyLargeText)
             assertViewFullyVisible(R.id.claimButton)
             assertViewFullyVisible(R.id.bonusCloseButton)
         }
@@ -808,7 +811,7 @@ class MainActivitySmokeTest {
             waitForDisplayed(R.id.bonusCooldownTimerRail)
             assertViewFullyVisible(R.id.bonusBadge)
             assertViewFullyVisible(R.id.bonusTitle)
-            assertViewFullyVisible(R.id.bonusBody)
+            assertViewFullyVisible(R.id.bonusBodyLargeText)
             assertViewFullyVisible(R.id.bonusCooldownTimerRail)
             assertViewFullyVisible(R.id.claimButton)
             assertViewFullyVisible(R.id.bonusCloseButton)
@@ -827,7 +830,7 @@ class MainActivitySmokeTest {
             waitForDisplayed(R.id.lowCoinsTitle)
             waitForDisplayed(R.id.actionButton)
             assertViewFullyVisible(R.id.lowCoinsTitle)
-            assertViewFullyVisible(R.id.lowCoinsBody)
+            assertViewFullyVisible(R.id.lowCoinsBodyLargeText)
             assertViewFullyVisible(R.id.actionButton)
         }
     }
@@ -846,7 +849,7 @@ class MainActivitySmokeTest {
             waitForDisplayed(R.id.lowCoinsTitle)
             waitForDisplayed(R.id.lowCoinsCooldownTimerRail)
             assertViewFullyVisible(R.id.lowCoinsTitle)
-            assertViewFullyVisible(R.id.lowCoinsBody)
+            assertViewFullyVisible(R.id.lowCoinsBodyLargeText)
             assertViewFullyVisible(R.id.lowCoinsCooldownTimerRail)
             assertViewFullyVisible(R.id.actionButton)
         }
@@ -874,17 +877,17 @@ class MainActivitySmokeTest {
     @Test
     fun analyticsConsentLandscapeKeepsCopyAndChoicesFullyVisible() {
         launchQaDialog(QA_DIALOG_ANALYTICS).use { scenario ->
-            waitForDisplayed(R.id.analyticsConsentBody)
+            waitForDisplayed(R.id.analyticsConsentBodyLargeText)
             scenario.onActivity { activity ->
                 activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             }
             waitForLandscape()
 
-            waitForDisplayed(R.id.analyticsConsentBody)
+            waitForDisplayed(R.id.analyticsConsentBodyLargeText)
             waitForDisplayed(R.id.allowButton)
             assertViewFullyVisible(R.id.analyticsConsentBadge)
             assertViewFullyVisible(R.id.analyticsConsentTitle)
-            assertViewFullyVisible(R.id.analyticsConsentBody)
+            assertViewFullyVisible(R.id.analyticsConsentBodyLargeText)
             assertViewFullyVisible(R.id.declineButton)
             assertViewFullyVisible(R.id.allowButton)
         }

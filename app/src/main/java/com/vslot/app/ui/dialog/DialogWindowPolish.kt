@@ -60,12 +60,11 @@ internal fun Dialog.applyGameDialogDim(dimAmount: Float) {
 }
 
 internal fun DialogFragment.bindScalableDialogCopy(vararg copyPairs: Pair<View, TextView>) {
-    val useScalableCopy = resources.configuration.fontScale > DEFAULT_FONT_SCALE
     copyPairs.forEach { (bitmapCopy, scalableCopy) ->
-        bitmapCopy.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        scalableCopy.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
-        bitmapCopy.importantForAccessibility = accessibilityImportance(!useScalableCopy)
-        scalableCopy.importantForAccessibility = accessibilityImportance(useScalableCopy)
+        bitmapCopy.visibility = View.GONE
+        scalableCopy.visibility = View.VISIBLE
+        bitmapCopy.importantForAccessibility = accessibilityImportance(false)
+        scalableCopy.importantForAccessibility = accessibilityImportance(true)
     }
 }
 
@@ -207,4 +206,3 @@ private const val COMPACT_DIALOG_WIDTH_TAG = "dialog_preferred_width_430dp"
 private const val COMPACT_DIALOG_PREFERRED_WIDTH_DP = 430
 private const val WIDE_DIALOG_WIDTH_TAG = "dialog_preferred_width_840dp"
 private const val WIDE_DIALOG_PREFERRED_WIDTH_DP = 840
-private const val DEFAULT_FONT_SCALE = 1.0f

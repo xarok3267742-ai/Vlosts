@@ -1974,10 +1974,17 @@ class SlotFragment : Fragment() {
         if (active == freeSpinsStakeLockActive) return
         freeSpinsStakeLockActive = active
         if (active) {
+            setStakeControlsVisible(false)
             startFreeSpinsStakeLockOverlay()
         } else {
             stopFreeSpinsStakeLockOverlay()
         }
+    }
+
+    private fun setStakeControlsVisible(visible: Boolean) {
+        val visibility = if (visible) View.VISIBLE else View.INVISIBLE
+        binding.betStepperGroup.visibility = visibility
+        binding.linesStepperGroup.visibility = visibility
     }
 
     private fun startFreeSpinsStakeLockOverlay() {
@@ -2046,13 +2053,20 @@ class SlotFragment : Fragment() {
         if (immediate || !ValueAnimator.areAnimatorsEnabled()) {
             overlay.alpha = 0f
             overlay.visibility = View.INVISIBLE
+            setStakeControlsVisible(true)
             return
         }
-        if (overlay.visibility != View.VISIBLE && overlay.alpha == 0f) return
+        if (overlay.visibility != View.VISIBLE && overlay.alpha == 0f) {
+            setStakeControlsVisible(true)
+            return
+        }
         overlay.animate()
             .alpha(0f)
             .setDuration(FREE_SPINS_STAKE_LOCK_FADE_DURATION_MS)
-            .withEndAction { overlay.visibility = View.INVISIBLE }
+            .withEndAction {
+                overlay.visibility = View.INVISIBLE
+                setStakeControlsVisible(true)
+            }
             .start()
     }
 

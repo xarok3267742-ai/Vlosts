@@ -16,6 +16,7 @@ import android.provider.Settings as AndroidSettings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -44,6 +45,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
@@ -110,6 +112,7 @@ class SettingsFragment : Fragment() {
         binding.versionImage.setImageResource(R.drawable.label_version_current)
         binding.versionImage.contentDescription = getString(R.string.version_format, visibleVersionName)
         bindScalableCopy(visibleVersionName)
+        adaptLegalActionsLayout()
         binding.backButton.setOnClickListener { popFromSettings() }
         binding.privacyButton.setOnClickListener { navigateFromSettings(R.id.action_settings_to_privacy) }
         binding.noticesButton.setOnClickListener { showThirdPartyNoticesDialog() }
@@ -166,16 +169,16 @@ class SettingsFragment : Fragment() {
         binding.versionLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
         binding.socialDisclaimerImage.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
         binding.socialDisclaimerLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
-        binding.privacyButtonLabel.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        binding.privacyButtonLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
-        binding.noticesButtonLabel.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        binding.noticesButtonLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
-        binding.rulesButtonLabel.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        binding.rulesButtonLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
-        binding.pushButtonLabel.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        binding.pushButtonLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
-        binding.pushStatusText.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        binding.pushStatusLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
+        binding.privacyButtonLabel.visibility = View.GONE
+        binding.privacyButtonLargeText.visibility = View.VISIBLE
+        binding.noticesButtonLabel.visibility = View.GONE
+        binding.noticesButtonLargeText.visibility = View.VISIBLE
+        binding.rulesButtonLabel.visibility = View.GONE
+        binding.rulesButtonLargeText.visibility = View.VISIBLE
+        binding.pushButtonLabel.visibility = View.GONE
+        binding.pushButtonLargeText.visibility = View.VISIBLE
+        binding.pushStatusText.visibility = View.GONE
+        binding.pushStatusLargeText.visibility = View.VISIBLE
         binding.settingsSafetyPanel.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
         binding.settingsSafetyLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
         if (
@@ -200,6 +203,26 @@ class SettingsFragment : Fragment() {
         binding.socialDisclaimerLargeText.importantForAccessibility = accessibilityImportance(useScalableCopy)
         binding.settingsSafetyPanel.importantForAccessibility = accessibilityImportance(!useScalableCopy)
         binding.settingsSafetyLargeText.importantForAccessibility = accessibilityImportance(useScalableCopy)
+    }
+
+    private fun adaptLegalActionsLayout() {
+        val configuration = resources.configuration
+        if (configuration.fontScale < STACKED_ACTIONS_FONT_SCALE && configuration.screenWidthDp >= 360) return
+
+        binding.settingsLegalActionsRow.orientation = LinearLayout.VERTICAL
+        binding.settingsLegalActionsRow.layoutParams = binding.settingsLegalActionsRow.layoutParams.apply {
+            height = ViewGroup.LayoutParams.WRAP_CONTENT
+        }
+        listOf(binding.privacyActionContainer, binding.noticesActionContainer).forEach { action ->
+            action.layoutParams = (action.layoutParams as LinearLayout.LayoutParams).apply {
+                width = ViewGroup.LayoutParams.MATCH_PARENT
+                height = ViewGroup.LayoutParams.WRAP_CONTENT
+                weight = 0f
+                marginStart = 0
+            }
+        }
+        (binding.noticesActionContainer.layoutParams as LinearLayout.LayoutParams).topMargin =
+            (8 * resources.displayMetrics.density).roundToInt()
     }
 
     private fun accessibilityImportance(enabled: Boolean): Int = if (enabled) {
@@ -409,6 +432,7 @@ class SettingsFragment : Fragment() {
         val registrationPending = systemPermissionGranted && registrationStatus == PushRegistrationStatus.Registering
         val registrationFailed = systemPermissionGranted && registrationStatus == PushRegistrationStatus.Failed
         val pushActionEnabled = pushConfigured && !registrationPending
+        binding.pushActionStage.visibility = if (pushConfigured) View.VISIBLE else View.GONE
         binding.pushButton.isEnabled = pushActionEnabled
         binding.pushButton.alpha = if (pushActionEnabled) PUSH_BUTTON_ENABLED_ALPHA else PUSH_BUTTON_UNCONFIGURED_ALPHA
         binding.pushButtonLabel.alpha = if (pushActionEnabled) PUSH_BUTTON_ENABLED_ALPHA else PUSH_BUTTON_UNCONFIGURED_LABEL_ALPHA
@@ -651,6 +675,7 @@ class SettingsFragment : Fragment() {
         const val PUSH_BUTTON_UNCONFIGURED_ALPHA = 0.88f
         const val PUSH_BUTTON_UNCONFIGURED_LABEL_ALPHA = 1f
         const val DEFAULT_FONT_SCALE = 1.0f
+        const val STACKED_ACTIONS_FONT_SCALE = 1.3f
         const val SOCIAL_RULES_DIALOG_TAG = "social_casino_rules"
         const val PUSH_PERMISSION_DIALOG_TAG = "push_permission_pre_prompt"
         const val ANALYTICS_CONSENT_DIALOG_TAG = "analytics_consent"

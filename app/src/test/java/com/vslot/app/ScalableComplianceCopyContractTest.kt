@@ -65,7 +65,7 @@ class ScalableComplianceCopyContractTest {
         assertTrue(styles.contains("name=\"VSlotAccessibleCopy\""))
         assertTrue(styles.contains("name=\"VSlotAccessibleCopy.Compact\""))
         assertTrue(styles.contains("<item name=\"android:textSize\">14sp</item>"))
-        assertTrue(styles.contains("<item name=\"android:textSize\">12sp</item>"))
+        assertTrue(styles.contains("<item name=\"android:textSize\">13sp</item>"))
         assertTrue(!styles.contains("autoSizeTextType"))
         orientationLayouts("fragment_disclaimer.xml").forEach { (_, layout) ->
             assertTrue(!layout.contains("android:maxLines="))

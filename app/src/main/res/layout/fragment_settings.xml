@@ -18,7 +18,7 @@
         android:paddingStart="18dp"
         android:paddingTop="18dp"
         android:paddingEnd="18dp"
-        android:paddingBottom="88dp">
+        android:paddingBottom="16dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1">
 
             <ImageView
@@ -288,14 +288,16 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <LinearLayout
+                            android:id="@+id/settingsLegalActionsRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:baselineAligned="false"
-                            android:minHeight="52dp"
+                            android:minHeight="60dp"
                             android:orientation="horizontal">
 
                             <FrameLayout
+                                android:id="@+id/privacyActionContainer"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1">
@@ -322,13 +324,13 @@
 
                                 <TextView
                                     android:id="@+id/privacyButtonLargeText"
-                                    style="@style/VSlotAccessibleCopy.Compact"
+                                    style="@style/VSlotAccessibleCopy.Command.Compact"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:importantForAccessibility="no"
-                                    android:minHeight="52dp"
+                                    android:minHeight="60dp"
                                     android:paddingStart="10dp"
                                     android:paddingTop="8dp"
                                     android:paddingEnd="10dp"
@@ -338,6 +340,7 @@
                             </FrameLayout>
 
                             <FrameLayout
+                                android:id="@+id/noticesActionContainer"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="6dp"
@@ -365,13 +368,13 @@
 
                                 <TextView
                                     android:id="@+id/noticesButtonLargeText"
-                                    style="@style/VSlotAccessibleCopy.Compact"
+                                    style="@style/VSlotAccessibleCopy.Command.Compact"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:importantForAccessibility="no"
-                                    android:minHeight="52dp"
+                                    android:minHeight="60dp"
                                     android:paddingStart="10dp"
                                     android:paddingTop="8dp"
                                     android:paddingEnd="10dp"
@@ -385,7 +388,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:minHeight="52dp">
+                            android:minHeight="56dp">
 
                             <ImageButton
                                 android:id="@+id/rulesButton"
@@ -409,13 +412,13 @@
 
                             <TextView
                                 android:id="@+id/rulesButtonLargeText"
-                                style="@style/VSlotAccessibleCopy.Compact"
+                                style="@style/VSlotAccessibleCopy.Command"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:importantForAccessibility="no"
-                                android:minHeight="52dp"
+                                android:minHeight="56dp"
                                 android:paddingStart="14dp"
                                 android:paddingTop="8dp"
                                 android:paddingEnd="14dp"
@@ -425,10 +428,11 @@
                         </FrameLayout>
 
                         <FrameLayout
+                            android:id="@+id/pushActionStage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:minHeight="52dp">
+                            android:minHeight="56dp">
 
                             <ImageButton
                                 android:id="@+id/pushButton"
@@ -451,13 +455,13 @@
 
                             <TextView
                                 android:id="@+id/pushButtonLargeText"
-                                style="@style/VSlotAccessibleCopy.Compact"
+                                style="@style/VSlotAccessibleCopy.Command"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:importantForAccessibility="no"
-                                android:minHeight="52dp"
+                                android:minHeight="56dp"
                                 android:paddingStart="14dp"
                                 android:paddingTop="8dp"
                                 android:paddingEnd="14dp"
@@ -473,7 +477,7 @@
                             android:layout_marginTop="6dp"
                             android:contentDescription="@string/push_unconfigured_status"
                             android:importantForAccessibility="yes"
-                            android:minHeight="52dp">
+                            android:minHeight="56dp">
 
                             <ImageView
                                 android:id="@+id/pushStatusConsole"
@@ -509,13 +513,13 @@
 
                             <TextView
                                 android:id="@+id/pushStatusLargeText"
-                                style="@style/VSlotAccessibleCopy.Compact"
+                                style="@style/VSlotAccessibleCopy.Command"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:importantForAccessibility="no"
-                                android:minHeight="52dp"
+                                android:minHeight="56dp"
                                 android:paddingStart="62dp"
                                 android:paddingTop="8dp"
                                 android:paddingEnd="18dp"

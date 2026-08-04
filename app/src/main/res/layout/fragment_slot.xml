@@ -21,7 +21,7 @@
         android:paddingStart="14dp"
         android:paddingTop="18dp"
         android:paddingEnd="14dp"
-        android:paddingBottom="88dp">
+        android:paddingBottom="16dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="62dp"
+                android:paddingStart="56dp"
                 android:paddingEnd="4dp">
 
                 <ImageView
@@ -55,7 +55,7 @@
 
                 <FrameLayout
                     android:id="@+id/slotBalancePanel"
-                    android:layout_width="142dp"
+                    android:layout_width="132dp"
                     android:layout_height="48dp">
 
                     <ImageView
@@ -721,7 +721,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="68dp">
+                    android:layout_height="68dp"
+                    android:background="#E60A1430">
 
                     <ImageView
                         android:id="@+id/betPanelImage"
@@ -862,7 +863,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="68dp"
-                    android:layout_marginTop="6dp">
+                    android:layout_marginTop="6dp"
+                    android:background="#E60A1430">
 
                     <ImageView
                         android:id="@+id/lastWinPanelImage"

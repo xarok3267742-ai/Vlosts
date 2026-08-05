@@ -1191,6 +1191,7 @@
             android:src="@drawable/settings_push_status_console" />
 
         <TextView
+            style="@style/VSlotAccessibleCopy.Compact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -1201,8 +1202,7 @@
             android:paddingEnd="18dp"
             android:paddingBottom="12dp"
             android:text="@string/slot_settlement_recovery_notice"
-            android:textColor="@color/accessible_copy_primary"
-            android:textSize="13sp" />
+            android:textColor="@color/accessible_copy_primary" />
     </FrameLayout>
 
 </FrameLayout>

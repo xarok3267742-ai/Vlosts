@@ -255,7 +255,7 @@
                     <LinearLayout
                         android:id="@+id/settingsLegalActionsRow"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
                         android:baselineAligned="false"
                         android:minHeight="48dp"
                         android:orientation="horizontal">
@@ -288,7 +288,7 @@
 
                             <TextView
                                 android:id="@+id/privacyButtonLargeText"
-                                style="@style/VSlotAccessibleCopy.Compact"
+                                style="@style/VSlotAccessibleCopy.Command.Compact"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -332,7 +332,7 @@
 
                             <TextView
                                 android:id="@+id/noticesButtonLargeText"
-                                style="@style/VSlotAccessibleCopy.Compact"
+                                style="@style/VSlotAccessibleCopy.Command.Compact"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -350,7 +350,7 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:minHeight="48dp">
 
@@ -376,7 +376,7 @@
 
                         <TextView
                             android:id="@+id/rulesButtonLargeText"
-                            style="@style/VSlotAccessibleCopy.Compact"
+                            style="@style/VSlotAccessibleCopy.Command.Compact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -497,7 +497,7 @@
                     <FrameLayout
                         android:id="@+id/pushActionStage"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:minHeight="48dp">
 
@@ -522,7 +522,7 @@
 
                         <TextView
                             android:id="@+id/pushButtonLargeText"
-                            style="@style/VSlotAccessibleCopy.Compact"
+                            style="@style/VSlotAccessibleCopy.Command.Compact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -540,7 +540,7 @@
                     <FrameLayout
                         android:id="@+id/pushStatusStage"
                         android:layout_width="match_parent"
-                        android:layout_height="32dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:contentDescription="@string/push_unconfigured_status"
                         android:importantForAccessibility="yes"
@@ -580,7 +580,7 @@
 
                         <TextView
                             android:id="@+id/pushStatusLargeText"
-                            style="@style/VSlotAccessibleCopy.Compact"
+                            style="@style/VSlotAccessibleCopy.Command.Compact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

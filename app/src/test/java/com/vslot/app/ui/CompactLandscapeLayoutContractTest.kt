@@ -52,7 +52,7 @@ class CompactLandscapeLayoutContractTest {
         val console = document.id("slotControlConsole")
 
         assertEquals("wrap_content", machineStage.attr("layout_height"))
-        assertEquals("320dp", machineStage.attr("layout_width"))
+        assertEquals("match_parent", machineStage.attr("layout_width"))
         assertEquals("220dp", machineStage.attr("minHeight"))
         assertEquals("com.vslot.app.ui.widget.SlotMachineLayout", machineStage.tagName)
         assertEquals("match_parent", machineFrame.attr("layout_height"))

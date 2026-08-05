@@ -331,9 +331,9 @@
                                     android:gravity="center"
                                     android:importantForAccessibility="no"
                                     android:minHeight="60dp"
-                                    android:paddingStart="10dp"
+                                    android:paddingStart="14dp"
                                     android:paddingTop="8dp"
-                                    android:paddingEnd="10dp"
+                                    android:paddingEnd="14dp"
                                     android:paddingBottom="8dp"
                                     android:text="@string/privacy_policy"
                                     android:visibility="gone" />
@@ -375,9 +375,9 @@
                                     android:gravity="center"
                                     android:importantForAccessibility="no"
                                     android:minHeight="60dp"
-                                    android:paddingStart="10dp"
+                                    android:paddingStart="14dp"
                                     android:paddingTop="8dp"
-                                    android:paddingEnd="10dp"
+                                    android:paddingEnd="14dp"
                                     android:paddingBottom="8dp"
                                     android:text="@string/third_party_notices_action"
                                     android:visibility="gone" />

@@ -258,7 +258,7 @@ class ReleaseSecurityGradleContractTest {
         assertTrue(appBuild.contains("document.getElementsByTagName(\"testcase\")"))
         assertTrue(appBuild.contains("\"\$className#\$testName\""))
         assertTrue(appBuild.contains("actualTestIds != expectedTestIds"))
-        assertTrue(appBuild.contains("allTestIds.size == 62"))
+        assertTrue(appBuild.contains("allTestIds.size == 63"))
         assertTrue(appBuild.contains("legacyPrimarySchemasUpgradeInPlaceAndSurviveDurableRewrite"))
         assertTrue(
             appBuild.contains(
@@ -330,7 +330,7 @@ class ReleaseSecurityGradleContractTest {
         assertTrue(appBuild.contains("apk.payload_sha256 must match the release-gated QA APK payload"))
         assertTrue(appBuild.contains("qa_profile physical_samsung required"))
         assertTrue(appBuild.contains("three distinct positive process IDs required"))
-        assertTrue(appBuild.contains("must run all 62 tests"))
+        assertTrue(appBuild.contains("must run all 63 tests"))
         assertTrue(appBuild.contains("physical Samsung frame metrics exceed release limits"))
         assertTrue(appBuild.contains("raw connected stage"))
         assertTrue(appBuild.contains("process-death raw log missing"))

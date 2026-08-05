@@ -18,6 +18,7 @@ import android.os.ParcelFileDescriptor
 import android.os.SystemClock
 import android.provider.MediaStore
 import android.provider.Settings
+import android.text.Layout
 import android.view.MotionEvent
 import android.view.View
 import android.widget.HorizontalScrollView
@@ -139,6 +140,63 @@ class MainActivitySmokeTest {
                 assertEquals(View.GONE, activity.findViewById<View>(R.id.socialDisclaimerImage).visibility)
                 assertEquals(View.GONE, activity.findViewById<View>(R.id.settingsSafetyPanel).visibility)
             }
+        }
+    }
+
+    @Test
+    fun compactScaledLegalAndSettingsCopyStayInsideTheirFrames() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        assumeTrue(
+            "Combined compact-font verification requires portrait, width <= 360dp, and fontScale >= 1.3.",
+            context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT &&
+                context.resources.configuration.screenWidthDp <= COMPACT_SCALED_MAX_WIDTH_DP &&
+                context.resources.configuration.fontScale >= COMPACT_SCALED_MIN_FONT_SCALE
+        )
+        seedScenario("first_launch")
+
+        launchMain().use {
+            waitForDisplayed(R.id.disclaimerBodyLargeText)
+            assertTextFullyLaidOut(R.id.disclaimerBodyLargeText, context.getString(R.string.disclaimer_body))
+            scrollViewIntoView(R.id.disclaimerCheckRow)
+            assertTextFullyLaidOut(
+                R.id.disclaimerCheckboxLargeText,
+                context.getString(R.string.disclaimer_checkbox)
+            )
+            clickView(R.id.disclaimerCheckRow)
+            scrollViewIntoView(R.id.continueButton)
+            assertViewFullyVisible(R.id.continueButton)
+            clickView(R.id.continueButton)
+
+            waitForDisplayed(R.id.bonusCloseButton)
+            clickView(R.id.bonusCloseButton)
+            waitForDisplayed(R.id.settingsButton)
+            clickView(R.id.settingsButton)
+            waitForDisplayed(R.id.settingsSafetyLargeText)
+
+            val settingsCopy = listOf(
+                R.id.versionLargeText to context.getString(
+                    R.string.version_format,
+                    BuildConfig.VERSION_NAME.removeSuffix("-qa")
+                ),
+                R.id.socialDisclaimerLargeText to context.getString(R.string.social_disclaimer_short),
+                R.id.privacyButtonLargeText to context.getString(R.string.privacy_policy),
+                R.id.noticesButtonLargeText to context.getString(R.string.third_party_notices_action),
+                R.id.rulesButtonLargeText to context.getString(R.string.social_casino_rules),
+                R.id.pushStatusLargeText to context.getString(R.string.push_unconfigured_status)
+            )
+            settingsCopy.forEach { (viewId, expectedText) ->
+                scrollViewIntoView(viewId)
+                waitForDisplayed(viewId)
+                assertTextFullyLaidOut(viewId, expectedText)
+                assertViewFullyVisible(viewId)
+                assertViewsDoNotOverlap(viewId, R.id.settingsSafetyLargeText)
+            }
+            assertTextFullyLaidOut(
+                R.id.settingsSafetyLargeText,
+                context.getString(R.string.settings_safety_panel)
+            )
+            assertViewFullyVisible(R.id.settingsSafetyLargeText)
+            captureLayoutMatrixScreenshot("compact-scaled-settings.png")
         }
     }
 
@@ -422,7 +480,7 @@ class MainActivitySmokeTest {
                 screenWidthDp = activity.resources.configuration.screenWidthDp
                 fontScale = activity.resources.configuration.fontScale
             }
-            val safetyId = if (fontScale >= LARGE_FONT_TEST_SCALE) {
+            val safetyId = if (fontScale > 1f) {
                 R.id.settingsSafetyLargeText
             } else {
                 R.id.settingsSafetyPanel
@@ -1986,10 +2044,44 @@ class MainActivitySmokeTest {
                         "TextView $viewId is vertically clipped: height=${textView.height}, required=$requiredHeight.",
                         textView.height >= requiredHeight
                     )
+                    val availableTextWidth =
+                        textView.width - textView.compoundPaddingLeft - textView.compoundPaddingRight
+                    repeat(layout.lineCount) { line ->
+                        val lineStart = layout.getLineStart(line)
+                        val visibleEnd = layout.getLineVisibleEnd(line)
+                        val visibleLineWidth = Layout.getDesiredWidth(
+                            textView.text,
+                            lineStart,
+                            visibleEnd,
+                            textView.paint
+                        )
+                        assertTrue(
+                            "TextView $viewId line $line exceeds its content width: " +
+                                "visibleLineWidth=$visibleLineWidth, available=$availableTextWidth, " +
+                                "text=${textView.text.substring(lineStart, visibleEnd)}.",
+                            visibleLineWidth <= availableTextWidth + TEXT_LAYOUT_TOLERANCE_PX
+                        )
+                    }
+                    val parent = textView.parent as? View
+                    if (parent != null) {
+                        assertTrue(
+                            "TextView $viewId extends past its parent horizontally: " +
+                                "left=${textView.left}, right=${textView.right}, parentWidth=${parent.width}.",
+                            textView.left >= parent.paddingLeft - TEXT_LAYOUT_TOLERANCE_PX &&
+                                textView.right <= parent.width - parent.paddingRight + TEXT_LAYOUT_TOLERANCE_PX
+                        )
+                    }
                     val scaledTextSizeDp = textView.textSize / textView.resources.displayMetrics.density
+                    val minimumRenderedTextDp = if (
+                        textView.resources.configuration.fontScale >= LARGE_FONT_TEST_SCALE
+                    ) {
+                        LARGE_FONT_MIN_RENDERED_TEXT_DP
+                    } else {
+                        COMPACT_SCALED_MIN_RENDERED_TEXT_DP
+                    }
                     assertTrue(
                         "TextView $viewId did not scale with the user font setting: ${scaledTextSizeDp}dp.",
-                        scaledTextSizeDp >= LARGE_FONT_MIN_RENDERED_TEXT_DP
+                        scaledTextSizeDp >= minimumRenderedTextDp
                     )
                 } catch (error: Throwable) {
                     failure = error
@@ -2117,6 +2209,10 @@ class MainActivitySmokeTest {
         const val STORE_SCREENSHOT_DIRECTORY = "VSlotStore"
         const val LAYOUT_MATRIX_SCREENSHOT_ARGUMENT = "capture_layout_matrix"
         const val LAYOUT_MATRIX_SCREENSHOT_DIRECTORY = "VSlotLayoutMatrix"
+        const val COMPACT_SCALED_MAX_WIDTH_DP = 360
+        const val COMPACT_SCALED_MIN_FONT_SCALE = 1.3f
+        const val COMPACT_SCALED_MIN_RENDERED_TEXT_DP = 15f
+        const val TEXT_LAYOUT_TOLERANCE_PX = 2f
         const val STORE_SCREENSHOT_SETTLE_MS = 700L
         const val STORE_RESULT_SCREENSHOT_SETTLE_MS = 1_200L
         const val QA_DIALOG_ACTIVITY = "com.vslot.app.debug.QaResultDialogActivity"

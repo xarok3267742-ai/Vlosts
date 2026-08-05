@@ -113,7 +113,7 @@
                 android:orientation="vertical">
 
                 <com.vslot.app.ui.widget.SlotMachineLayout
-                    android:layout_width="320dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
@@ -1201,9 +1201,11 @@
 
     <FrameLayout
         android:id="@+id/settlementRecoveryNotice"
-        android:layout_width="420dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
         android:accessibilityLiveRegion="assertive"
         android:contentDescription="@string/slot_settlement_recovery_notice"
         android:focusable="true"
@@ -1220,6 +1222,7 @@
             android:src="@drawable/settings_push_status_console" />
 
         <TextView
+            style="@style/VSlotAccessibleCopy.Compact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -1230,7 +1233,6 @@
             android:paddingEnd="20dp"
             android:paddingBottom="10dp"
             android:text="@string/slot_settlement_recovery_notice"
-            android:textColor="@color/accessible_copy_primary"
-            android:textSize="13sp" />
+            android:textColor="@color/accessible_copy_primary" />
     </FrameLayout>
 </FrameLayout>

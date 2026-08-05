@@ -83,15 +83,15 @@
       "status": "passed",
       "user_rotation": 1,
       "display_profile": "captured",
-      "tests": 62,
-      "skipped": 4
+      "tests": 63,
+      "skipped": 5
     },
     "landscape_rotation_3": {
       "status": "passed",
       "user_rotation": 3,
       "display_profile": "captured",
-      "tests": 62,
-      "skipped": 4
+      "tests": 63,
+      "skipped": 5
     }
   },
   "result": {

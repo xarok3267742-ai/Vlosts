@@ -1881,8 +1881,21 @@ class ComplianceCopyTest {
                 homeLayout.split("@+id/homeXpTrack", limit = 2)[1].substringBefore(">").contains("android:layout_width=\"0dp\"") &&
                 homeLayout.contains("app:layout_constraintStart_toEndOf=\"@id/homeXpLabel\"") &&
                 homeLayout.contains("app:layout_constraintEnd_toStartOf=\"@id/homeXpReadoutPlate\"") &&
-                homeLandLayout.contains("android:layout_width=\"206dp\"") &&
-                homeLandLayout.contains("android:layout_width=\"174dp\"") &&
+                homeLandLayout.split("@+id/homeBalancePanel", limit = 2)[1]
+                    .substringBefore(">")
+                    .contains("android:layout_width=\"0dp\"") &&
+                homeLandLayout.split("@+id/homeBalancePanel", limit = 2)[1]
+                    .substringBefore(">")
+                    .contains("android:layout_weight=\"0.45\"") &&
+                homeLandLayout.split("@+id/homeLevelPanel", limit = 2)[1]
+                    .substringBefore(">")
+                    .contains("android:layout_width=\"0dp\"") &&
+                homeLandLayout.split("@+id/homeLevelPanel", limit = 2)[1]
+                    .substringBefore(">")
+                    .contains("android:layout_weight=\"0.55\"") &&
+                homeLandLayout.split("@+id/homeXpTrack", limit = 2)[1]
+                    .substringBefore(">")
+                    .contains("android:layout_width=\"match_parent\"") &&
                 homeLayout.contains("@+id/homeXpDigits") &&
                 homeLayout.split("@+id/homeXpDigits", limit = 2)[1].substringBefore("/>").contains("android:layout_width=\"82dp\"") &&
                 homeLayout.split("@+id/homeXpDigits", limit = 2)[1].substringBefore("/>").contains("android:layout_height=\"22dp\"") &&

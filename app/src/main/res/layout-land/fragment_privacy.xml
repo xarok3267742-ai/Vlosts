@@ -130,70 +130,78 @@
                     android:src="@drawable/privacy_loading_scan_rail" />
             </FrameLayout>
 
-            <LinearLayout
+            <ScrollView
                 android:id="@+id/errorGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:baselineAligned="false"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingStart="54dp"
-                android:paddingTop="28dp"
-                android:paddingEnd="54dp"
-                android:paddingBottom="30dp"
+                android:fillViewport="true"
+                android:overScrollMode="ifContentScrolls"
+                android:scrollbars="none"
                 android:visibility="gone">
 
-                <ImageView
-                    android:id="@+id/privacyGuardBadge"
-                    android:layout_width="128dp"
-                    android:layout_height="128dp"
-                    android:layout_marginEnd="34dp"
-                    android:contentDescription="@null"
-                    android:src="@drawable/privacy_guard_badge" />
-
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:baselineAligned="false"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:paddingStart="54dp"
+                    android:paddingTop="28dp"
+                    android:paddingEnd="54dp"
+                    android:paddingBottom="30dp">
 
                     <ImageView
-                        android:id="@+id/errorImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="76dp"
-                        android:contentDescription="@string/privacy_load_error"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/label_privacy_error_load" />
+                        android:id="@+id/privacyGuardBadge"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginEnd="34dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/privacy_guard_badge" />
 
-                    <FrameLayout
-                        android:id="@+id/retryButtonGroup"
-                        android:layout_width="180dp"
-                        android:layout_height="52dp"
-                        android:layout_marginTop="18dp">
-
-                        <ImageButton
-                            android:id="@+id/retryButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="@string/retry"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/btn_privacy_retry_selector" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/errorImage"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:contentDescription="@null"
-                            android:paddingStart="18dp"
-                            android:paddingEnd="18dp"
+                            android:layout_height="76dp"
+                            android:contentDescription="@string/privacy_load_error"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/label_retry" />
-                    </FrameLayout>
+                            android:src="@drawable/label_privacy_error_load" />
+
+                        <FrameLayout
+                            android:id="@+id/retryButtonGroup"
+                            android:layout_width="180dp"
+                            android:layout_height="52dp"
+                            android:layout_marginTop="18dp">
+
+                            <ImageButton
+                                android:id="@+id/retryButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:contentDescription="@string/retry"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/btn_privacy_retry_selector" />
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:paddingStart="18dp"
+                                android:paddingEnd="18dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/label_retry" />
+                        </FrameLayout>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </ScrollView>
         </FrameLayout>
     </LinearLayout>
 </FrameLayout>

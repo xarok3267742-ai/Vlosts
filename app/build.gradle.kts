@@ -1586,8 +1586,8 @@ fun expectedPhysicalSamsungStageTestIds(): Map<String, Set<String>> {
         }
         .filterNot { testId -> testId.startsWith("com.vslot.app.SlotFrameMetricsTest#") }
         .toSortedSet()
-    require(allTestIds.size == 62) {
-        "Physical Samsung evidence expects exactly 62 non-frame-metrics androidTests; found ${allTestIds.size}."
+    require(allTestIds.size == 63) {
+        "Physical Samsung evidence expects exactly 63 non-frame-metrics androidTests; found ${allTestIds.size}."
     }
     val legacyPrimarySchemaUpgradeTestId =
         "com.vslot.app.data.TransactionalPlayerStateStoreAndroidTest#" +
@@ -1624,6 +1624,7 @@ fun expectedPhysicalSamsungSkippedTestIds(): Map<String, Set<String>> {
     val profileSpecificTests = setOf(
         "com.vslot.app.MainActivitySmokeTest#settingsCompactPortraitKeepsScrollableControlsAboveSafetyFooter",
         "com.vslot.app.MainActivitySmokeTest#compactLandscapeKeepsHomeAndSlotActionsReachable",
+        "com.vslot.app.MainActivitySmokeTest#compactScaledLegalAndSettingsCopyStayInsideTheirFrames",
         "com.vslot.app.MainActivitySmokeTest#largeFontLegalCopyWrapsAndKeepsActionsReachable",
         "com.vslot.app.MainActivitySmokeTest#largeFontDialogCopyWrapsAndKeepsActionsReachable"
     )
@@ -2019,9 +2020,9 @@ fun physicalSamsungEvidenceIssues(
         )
         if (stage == null || stage["status"]?.toString() != "passed" ||
             longValue(stage["user_rotation"]) != rotation || stage["display_profile"]?.toString() != "captured" ||
-            longValue(stage["tests"]) != 62L || longValue(stage["skipped"]) != 4L
+            longValue(stage["tests"]) != 63L || longValue(stage["skipped"]) != 5L
         ) {
-            issues += "$samsungLabel(stage $stageName must run all 62 tests with exactly 4 profile-specific skips on captured rotation $rotation)"
+            issues += "$samsungLabel(stage $stageName must run all 63 tests with exactly 5 profile-specific skips on captured rotation $rotation)"
         }
     }
     requirePassedResult(samsung, samsungLabel, cleanupRequired = true)
@@ -3318,7 +3319,7 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
     val samsungFixture = file("src/test/resources/physical_samsung_connected_evidence_valid.json")
     val processDeathFixture = file("src/test/resources/physical_samsung_process_death_evidence_valid.json")
     val frameMetricsFixture = file("src/test/resources/physical_samsung_frame_metrics_evidence_valid.json")
-    val samsungFixtureSha256 = "de533304aa165d8f6faf53eb3eda665cfcf667e4da0c22b94da0982782d272b2"
+    val samsungFixtureSha256 = "98d2b59128190a2a81664009d74be57d13717f41588bb15bf725a5a1bc4a0d58"
     val processDeathFixtureSha256 = "6497de68786e6b5b4a3c557dea47d37b2755e86a0b7203b899f79aeebfab2a68"
     val frameMetricsFixtureSha256 = "938e3907ac19a5dc24261e1860e06c00bb10a88a4af9e067aedae2885200387f"
     val fixtureCommit = "0123456789abcdef0123456789abcdef01234567"
@@ -3338,11 +3339,11 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
             throw GradleException("Physical Samsung connected evidence contract fixture checksum changed.")
         }
         val samsungFixtureText = samsungFixture.readText(Charsets.UTF_8)
-        require(Regex("\\\"tests\\\": 62").findAll(samsungFixtureText).count() == 2) {
-            "Physical Samsung connected evidence baseline must contain both complete 62-test stages."
+        require(Regex("\\\"tests\\\": 63").findAll(samsungFixtureText).count() == 2) {
+            "Physical Samsung connected evidence baseline must contain both complete 63-test stages."
         }
-        require(Regex("\\\"skipped\\\": 4").findAll(samsungFixtureText).count() == 2) {
-            "Physical Samsung connected evidence baseline must pin four profile-specific skips in both full stages."
+        require(Regex("\\\"skipped\\\": 5").findAll(samsungFixtureText).count() == 2) {
+            "Physical Samsung connected evidence baseline must pin five profile-specific skips in both full stages."
         }
         val currentSamsungFixture = samsungFixture
         val currentSamsungFixtureSha256 = samsungFixtureSha256
@@ -3474,13 +3475,13 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
         val reducedConnectedFixture = temporaryDir.resolve("reduced-connected-tests.json")
         reducedConnectedFixture.writeText(
             currentSamsungFixture.readText(Charsets.UTF_8)
-                .replaceFirst("\"tests\": 62", "\"tests\": 61"),
+                .replaceFirst("\"tests\": 63", "\"tests\": 62"),
             Charsets.UTF_8
         )
         if (validate(
                 samsungFile = reducedConnectedFixture,
                 samsungSha256 = sha256Hex(reducedConnectedFixture)
-            ).none { issue -> issue.contains("must run all 62 tests") }
+            ).none { issue -> issue.contains("must run all 63 tests") }
         ) {
             throw GradleException("Physical Samsung evidence validator accepted a reduced connected suite.")
         }
@@ -3511,7 +3512,7 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
         if (validate(
                 rawFile = counterOnlyRawFixture,
                 rawSha256 = sha256Hex(counterOnlyRawFixture)
-            ).none { issue -> issue.contains("exact 62 testcase IDs") }
+            ).none { issue -> issue.contains("exact 63 testcase IDs") }
         ) {
             throw GradleException("Physical Samsung evidence validator accepted XML counters without testcase IDs.")
         }
@@ -3520,7 +3521,7 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
         if (validate(
                 rawFile = hiddenFailureRawFixture,
                 rawSha256 = sha256Hex(hiddenFailureRawFixture)
-            ).none { issue -> issue.contains("exact 62 testcase IDs") }
+            ).none { issue -> issue.contains("exact 63 testcase IDs") }
         ) {
             throw GradleException("Physical Samsung evidence validator accepted a testcase failure hidden by counters.")
         }

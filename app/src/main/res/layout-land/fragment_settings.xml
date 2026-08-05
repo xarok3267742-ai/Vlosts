@@ -20,16 +20,20 @@
         android:paddingEnd="14dp"
         android:paddingBottom="12dp">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="58dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:contentDescription="@null"
                 android:scaleType="fitXY"
-                android:src="@drawable/top_bar_premium" />
+                android:src="@drawable/top_bar_premium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/backButton"
@@ -39,18 +43,24 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/back"
                 android:scaleType="fitCenter"
-                android:src="@drawable/btn_back_selector" />
+                android:src="@drawable/btn_back_selector"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:contentDescription="@null"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/title_settings" />
-        </FrameLayout>
+                android:src="@drawable/title_settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/backButton"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -287,7 +297,7 @@
 
                             <TextView
                                 android:id="@+id/privacyButtonLargeText"
-                                style="@style/VSlotAccessibleCopy.Compact"
+                                style="@style/VSlotAccessibleCopy.Command.Compact"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -331,7 +341,7 @@
 
                             <TextView
                                 android:id="@+id/noticesButtonLargeText"
-                                style="@style/VSlotAccessibleCopy.Compact"
+                                style="@style/VSlotAccessibleCopy.Command.Compact"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -375,7 +385,7 @@
 
                         <TextView
                             android:id="@+id/rulesButtonLargeText"
-                            style="@style/VSlotAccessibleCopy.Compact"
+                            style="@style/VSlotAccessibleCopy.Command.Compact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -521,7 +531,7 @@
 
                         <TextView
                             android:id="@+id/pushButtonLargeText"
-                            style="@style/VSlotAccessibleCopy.Compact"
+                            style="@style/VSlotAccessibleCopy.Command.Compact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -579,7 +589,7 @@
 
                         <TextView
                             android:id="@+id/pushStatusLargeText"
-                            style="@style/VSlotAccessibleCopy.Compact"
+                            style="@style/VSlotAccessibleCopy.Command.Compact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

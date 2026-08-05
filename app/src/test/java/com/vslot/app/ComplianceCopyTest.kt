@@ -69,18 +69,21 @@ class ComplianceCopyTest {
     @Test
     fun `launcher and Play listing use the production app icon`() {
         val drawableRoot = Path.of("src/main/res/drawable-nodpi")
-        val launcherArtwork = drawableRoot.resolve("app_icon_art_v2.png")
+        val launcherBackground = drawableRoot.resolve("app_icon_art_v2.png")
+        val launcherForeground = drawableRoot.resolve("app_icon_foreground_v2.png")
         val storeArtwork = Path.of("../docs/store/assets/v-slot-icon-512-v2.png")
         val launcherXml = Path.of("src/main/res/mipmap-anydpi/ic_launcher.xml").readText()
         val roundLauncherXml = Path.of("src/main/res/mipmap-anydpi/ic_launcher_round.xml").readText()
         val manifest = Path.of("src/main/AndroidManifest.xml").readText()
 
-        assertTrue("Adaptive launcher artwork must be a padded 432px square", Files.exists(launcherArtwork) && readBitmapSize(launcherArtwork) == BitmapSize(432, 432))
+        assertTrue("Adaptive launcher background must be a 432px square", Files.exists(launcherBackground) && readBitmapSize(launcherBackground) == BitmapSize(432, 432))
+        assertTrue("Adaptive launcher foreground must be a transparent 432px square", Files.exists(launcherForeground) && readBitmapSize(launcherForeground) == BitmapSize(432, 432) && readPngColorType(launcherForeground) == 6)
         assertTrue("Google Play icon must be a 512px square", Files.exists(storeArtwork) && readBitmapSize(storeArtwork) == BitmapSize(512, 512))
         assertTrue("Google Play icon must stay below the 1 MiB upload limit", Files.size(storeArtwork) <= 1_048_576L)
         assertEquals("Google Play icon must be 32-bit RGBA PNG", 6, readPngColorType(storeArtwork))
-        assertTrue("Primary adaptive icon must use the production artwork and retain monochrome support", launcherXml.contains("@drawable/app_icon_art_v2") && launcherXml.contains("@drawable/app_icon_foreground_blank") && launcherXml.contains("@drawable/app_icon_monochrome"))
-        assertTrue("Round adaptive icon must use the same production layers", roundLauncherXml.contains("@drawable/app_icon_art_v2") && roundLauncherXml.contains("@drawable/app_icon_foreground_blank") && roundLauncherXml.contains("@drawable/app_icon_monochrome"))
+        assertTrue("Google Play icon must declare the standard sRGB color space", hasPngChunk(storeArtwork, "sRGB"))
+        assertTrue("Primary adaptive icon must use separate production color layers and retain monochrome support", launcherXml.contains("@drawable/app_icon_art_v2") && launcherXml.contains("@drawable/app_icon_foreground_v2") && launcherXml.contains("@drawable/app_icon_monochrome"))
+        assertTrue("Round adaptive icon must use the same production layers", roundLauncherXml.contains("@drawable/app_icon_art_v2") && roundLauncherXml.contains("@drawable/app_icon_foreground_v2") && roundLauncherXml.contains("@drawable/app_icon_monochrome"))
         assertTrue("Manifest must expose the adaptive launcher resources", manifest.contains("android:icon=\"@mipmap/ic_launcher\"") && manifest.contains("android:roundIcon=\"@mipmap/ic_launcher_round\""))
     }
 
@@ -91,6 +94,7 @@ class ComplianceCopyTest {
         assertTrue("Google Play feature graphic must exist", Files.exists(featureGraphic))
         assertEquals("Google Play feature graphic must be exactly 1024x500", BitmapSize(1_024, 500), readBitmapSize(featureGraphic))
         assertEquals("Google Play feature graphic must be 24-bit RGB PNG without alpha", 2, readPngColorType(featureGraphic))
+        assertTrue("Google Play feature graphic must declare the standard sRGB color space", hasPngChunk(featureGraphic, "sRGB"))
         assertTrue("Google Play feature graphic must contain detailed production artwork", Files.size(featureGraphic) >= 100_000L)
     }
 
@@ -3633,6 +3637,24 @@ class ComplianceCopyTest {
             "$path is not a valid PNG file"
         }
         return bytes[25].toInt() and 0xff
+    }
+
+    private fun hasPngChunk(path: Path, expectedType: String): Boolean {
+        require(expectedType.length == 4)
+        val bytes = Files.readAllBytes(path)
+        require(bytes.size >= 8 && bytes.asAscii(1, 3) == "PNG") {
+            "$path is not a valid PNG file"
+        }
+        var offset = 8
+        while (offset + 12 <= bytes.size) {
+            val length = bytes.readBigEndian32(offset)
+            require(length >= 0 && offset.toLong() + length + 12 <= bytes.size) {
+                "$path contains an invalid PNG chunk"
+            }
+            if (bytes.asAscii(offset + 4, 4) == expectedType) return true
+            offset += length + 12
+        }
+        return false
     }
 
     private fun runtimeLayoutDrawableRefs(): Set<String> {

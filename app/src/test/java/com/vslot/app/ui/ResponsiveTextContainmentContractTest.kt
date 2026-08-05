@@ -13,6 +13,25 @@ import org.w3c.dom.Element
 
 class ResponsiveTextContainmentContractTest {
     @Test
+    fun `activity backdrop fills system insets while navigation content remains safe`() {
+        val activity = resource("layout/activity_main.xml")
+        val background = activity.id("screenBackground")
+        val navHost = activity.id("nav_host_fragment")
+        val source = Path.of("src/main/java/com/vslot/app/MainActivity.kt").readText()
+
+        assertEquals("FrameLayout", activity.documentElement.tagName)
+        assertEquals("match_parent", background.attr("layout_width"))
+        assertEquals("match_parent", background.attr("layout_height"))
+        assertEquals("centerCrop", background.attr("scaleType"))
+        assertEquals("match_parent", navHost.attr("layout_width"))
+        assertEquals("match_parent", navHost.attr("layout_height"))
+        assertTrue(source.contains("val navHostView = binding.navHostFragment"))
+        assertTrue(source.contains("R.id.splashFragment -> R.drawable.splash_bg"))
+        assertTrue(source.contains("R.id.homeFragment -> R.drawable.home_bg"))
+        assertTrue(source.contains("else -> R.drawable.main_bg"))
+    }
+
+    @Test
     fun `every platform text view wraps and uses the shared Russian line breaking policy`() {
         layoutFiles().forEach { path ->
             val document = parse(path)

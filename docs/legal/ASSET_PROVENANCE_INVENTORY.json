@@ -202,8 +202,22 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/app_icon_art_v2.png",
-      "bytes": 159972,
-      "sha256": "0f85871ca3b160a15f5e9260db4d68e23c93d8fb2c02b2361c039b424b5438f9",
+      "bytes": 35131,
+      "sha256": "3def982997674ab609ed964424ede726946dcf23f060270feec7bab15c60fe55",
+      "media_role": "packaged_visual",
+      "source_paths": [
+        "docs/store/assets/v-slot-icon-master-v2.png",
+        "tools/export_store_graphics.py"
+      ],
+      "producer": "tools/export_store_graphics.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/app_icon_foreground_v2.png",
+      "bytes": 55642,
+      "sha256": "bcd682bcb02d1d9924e9191e18c33eeaeb14fbcd7a6c29b77d386adff8efb46e",
       "media_role": "packaged_visual",
       "source_paths": [
         "docs/store/assets/v-slot-icon-master-v2.png",
@@ -12917,8 +12931,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/01-home.png",
-      "bytes": 1561920,
-      "sha256": "69bd5ef5200878a1bf5dedf063aa53e45b86ffecb5049b678dc02d4974739f18",
+      "bytes": 1667085,
+      "sha256": "dfe968882575058501019b1b537298ec6e95bc85975b24b7803a9a1d6e164c29",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12932,8 +12946,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/02-violet-slot.png",
-      "bytes": 2642201,
-      "sha256": "35446ff67b366395d49a82699d1ef3a9024e6e3df4b51066110e8eb8e914d63a",
+      "bytes": 2640934,
+      "sha256": "32bedfee9865b3a2bbc37273146061a48b3da16e3bf76c0f2fee234842160620",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12947,8 +12961,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/03-paytable.png",
-      "bytes": 2042224,
-      "sha256": "4ef43061cb74cd76d39f469cd242cd4f8657039305a6a7ceec16e32f59563793",
+      "bytes": 2042159,
+      "sha256": "90ff5e92b7a9eb9e6f99ba6980c190ae0c0a236f95baecf86d010ac26756117a",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12962,8 +12976,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/04-settings.png",
-      "bytes": 1796417,
-      "sha256": "9f18f296df0887f36a0d8311150e9f0cdd0428d2a742fbd5bb5661aec2455ffb",
+      "bytes": 1825677,
+      "sha256": "ab6929ce7e5a03a9e6689617062cbbfee6eb0e4ef060d9a874f694a3c9c21013",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12977,8 +12991,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/05-free-spins.png",
-      "bytes": 2654624,
-      "sha256": "6ed83bcb576bfd4c922a57fc3efacc8cca45fc788c697d33b5ed41d979ed5a07",
+      "bytes": 2658288,
+      "sha256": "8fdbfd9db61be97ee146294085ec28d0978aaf4d61eed0f3e4fe559dbd1ba819",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12992,8 +13006,8 @@
     },
     {
       "path": "docs/store/assets/v-slot-feature-graphic-1024x500-v1.png",
-      "bytes": 865743,
-      "sha256": "885e9c8cb292805a1fca5f35b5ce301d31d9f16fbf66a6f17672a9f6fb263390",
+      "bytes": 865756,
+      "sha256": "a65a9e8628b669a2a85457a7390a8b9315fe71232beb427ee317281685991731",
       "media_role": "store_feature_graphic_export",
       "source_paths": [
         "docs/store/assets/v-slot-feature-graphic-master-v1.png",
@@ -13019,8 +13033,8 @@
     },
     {
       "path": "docs/store/assets/v-slot-icon-512-v2.png",
-      "bytes": 372286,
-      "sha256": "baf1dc63663b1b36297dae957a44e6996aefc862ff611d39fb164b55b7bc8367",
+      "bytes": 372299,
+      "sha256": "7247403e78ee03733004573351c895086e5bceb70f5481c74d11879ceecaab22",
       "media_role": "store_icon_export",
       "source_paths": [
         "docs/store/assets/v-slot-icon-master-v2.png",

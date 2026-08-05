@@ -1,29 +1,36 @@
 {
   "schema_version": 1,
   "exporter": "tools/export_store_graphics.py",
-  "exporter_sha256": "c89d23a2c31e734680952d96ab61e5ca371d0eaa674d83082c2e020622ce466b",
+  "exporter_sha256": "8cdce626b6b3a94d09cff98bca6e6f1c246f0344c403d190f10d53170b1bef40",
   "resampling": "Pillow LANCZOS",
   "entries": [
     {
-      "kind": "adaptive_icon",
+      "kind": "adaptive_icon_background",
       "source": "docs/store/assets/v-slot-icon-master-v2.png",
       "source_sha256": "1b657b1d7140b27eddc0a523b945fb68265aac857af899b3490273fe13485652",
       "output": "app/src/main/res/drawable-nodpi/app_icon_art_v2.png",
-      "output_sha256": "0f85871ca3b160a15f5e9260db4d68e23c93d8fb2c02b2361c039b424b5438f9"
+      "output_sha256": "3def982997674ab609ed964424ede726946dcf23f060270feec7bab15c60fe55"
+    },
+    {
+      "kind": "adaptive_icon_foreground",
+      "source": "docs/store/assets/v-slot-icon-master-v2.png",
+      "source_sha256": "1b657b1d7140b27eddc0a523b945fb68265aac857af899b3490273fe13485652",
+      "output": "app/src/main/res/drawable-nodpi/app_icon_foreground_v2.png",
+      "output_sha256": "bcd682bcb02d1d9924e9191e18c33eeaeb14fbcd7a6c29b77d386adff8efb46e"
     },
     {
       "kind": "feature_graphic",
       "source": "docs/store/assets/v-slot-feature-graphic-master-v1.png",
       "source_sha256": "c52b016e5473440680601f92ec0f954899b43f772519042742ca8834fc4505dc",
       "output": "docs/store/assets/v-slot-feature-graphic-1024x500-v1.png",
-      "output_sha256": "885e9c8cb292805a1fca5f35b5ce301d31d9f16fbf66a6f17672a9f6fb263390"
+      "output_sha256": "a65a9e8628b669a2a85457a7390a8b9315fe71232beb427ee317281685991731"
     },
     {
       "kind": "store_icon",
       "source": "docs/store/assets/v-slot-icon-master-v2.png",
       "source_sha256": "1b657b1d7140b27eddc0a523b945fb68265aac857af899b3490273fe13485652",
       "output": "docs/store/assets/v-slot-icon-512-v2.png",
-      "output_sha256": "baf1dc63663b1b36297dae957a44e6996aefc862ff611d39fb164b55b7bc8367"
+      "output_sha256": "7247403e78ee03733004573351c895086e5bceb70f5481c74d11879ceecaab22"
     }
   ]
 }

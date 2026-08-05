@@ -2266,6 +2266,7 @@ fun storeGraphicsExportIssues(): List<String> {
     }
     val expectedOutputs = setOf(
         "app/src/main/res/drawable-nodpi/app_icon_art_v2.png",
+        "app/src/main/res/drawable-nodpi/app_icon_foreground_v2.png",
         "docs/store/assets/v-slot-feature-graphic-1024x500-v1.png",
         "docs/store/assets/v-slot-icon-512-v2.png"
     )
@@ -2279,8 +2280,8 @@ fun storeGraphicsExportIssues(): List<String> {
     val entries = manifest["entries"] as? List<*>
     val parsedEntries = entries.orEmpty().mapNotNull { entry -> entry as? Map<*, *> }
     val actualOutputs = parsedEntries.map { entry -> entry["output"]?.toString().orEmpty() }
-    if (entries == null || parsedEntries.size != 3 || actualOutputs.toSet() != expectedOutputs) {
-        issues += "$label(exact three exported assets required)"
+    if (entries == null || parsedEntries.size != 4 || actualOutputs.toSet() != expectedOutputs) {
+        issues += "$label(exact four exported assets required)"
     }
     parsedEntries.forEach { entry ->
         val outputPath = entry["output"]?.toString().orEmpty()

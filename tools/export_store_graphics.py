@@ -9,7 +9,7 @@ import json
 from io import BytesIO
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageChops, ImageFilter, PngImagePlugin
 
 from vslot_asset_toolchain import verify_asset_toolchain
 
@@ -20,7 +20,8 @@ FEATURE_MASTER = ROOT / "docs/store/assets/v-slot-feature-graphic-master-v1.png"
 OUTPUTS = {
     ROOT / "docs/store/assets/v-slot-icon-512-v2.png": "store_icon",
     ROOT / "docs/store/assets/v-slot-feature-graphic-1024x500-v1.png": "feature_graphic",
-    ROOT / "app/src/main/res/drawable-nodpi/app_icon_art_v2.png": "adaptive_icon",
+    ROOT / "app/src/main/res/drawable-nodpi/app_icon_art_v2.png": "adaptive_icon_background",
+    ROOT / "app/src/main/res/drawable-nodpi/app_icon_foreground_v2.png": "adaptive_icon_foreground",
 }
 MANIFEST = ROOT / "docs/store/assets/store-graphics-export-manifest.json"
 
@@ -35,7 +36,15 @@ def sha256_file(path: Path) -> str:
 
 def png_bytes(image: Image.Image) -> bytes:
     output = BytesIO()
-    image.save(output, format="PNG", optimize=False, compress_level=9)
+    png_info = PngImagePlugin.PngInfo()
+    png_info.add(b"sRGB", b"\x00")
+    image.save(
+        output,
+        format="PNG",
+        optimize=False,
+        compress_level=9,
+        pnginfo=png_info,
+    )
     return output.getvalue()
 
 
@@ -48,12 +57,34 @@ def render(kind: str) -> bytes:
         master = Image.open(FEATURE_MASTER).convert("RGB")
         feature = master.resize((1024, 500), Image.Resampling.LANCZOS)
         return png_bytes(feature)
-    if kind == "adaptive_icon":
+    if kind == "adaptive_icon_background":
         master = Image.open(ICON_MASTER).convert("RGB")
-        safe_art = master.resize((352, 352), Image.Resampling.LANCZOS)
-        adaptive = Image.new("RGB", (432, 432), (0, 0, 0))
-        adaptive.paste(safe_art, (40, 40))
-        return png_bytes(adaptive)
+        blurred = master.resize((432, 432), Image.Resampling.LANCZOS).filter(
+            ImageFilter.GaussianBlur(radius=28)
+        )
+        background = Image.blend(
+            blurred,
+            Image.new("RGB", blurred.size, (2, 3, 14)),
+            0.68,
+        )
+        return png_bytes(background)
+    if kind == "adaptive_icon_foreground":
+        master = Image.open(ICON_MASTER).convert("RGB")
+        mark = master.resize((220, 220), Image.Resampling.LANCZOS)
+        red, green, blue = mark.split()
+        intensity = ImageChops.lighter(red, ImageChops.lighter(green, blue))
+        alpha = intensity.point(
+            lambda value: 0
+            if value <= 18
+            else 255
+            if value >= 42
+            else round((value - 18) * 255 / 24)
+        )
+        mark = mark.convert("RGBA")
+        mark.putalpha(alpha)
+        foreground = Image.new("RGBA", (432, 432), (0, 0, 0, 0))
+        foreground.alpha_composite(mark, (106, 97))
+        return png_bytes(foreground)
     raise ValueError(f"Unsupported export kind: {kind}")
 
 

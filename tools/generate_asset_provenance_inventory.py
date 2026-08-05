@@ -143,7 +143,7 @@ def provenance(path: Path) -> dict[str, object]:
             "reproducibility": "deterministic_generator",
             "rights_basis": "generation_terms_and_owner_attestation_required",
         }
-    if relative.endswith("app_icon_art_v2.png"):
+    if relative.endswith(("app_icon_art_v2.png", "app_icon_foreground_v2.png")):
         return {
             "media_role": "packaged_visual",
             "source_paths": [

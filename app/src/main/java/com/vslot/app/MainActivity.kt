@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun installSafeAreaInsets() {
-        val navHostView = binding.root
+        val navHostView = binding.navHostFragment
         val initialPadding = Insets.of(
             navHostView.paddingLeft,
             navHostView.paddingTop,
@@ -134,14 +134,25 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
         val navController = navHostFragment?.navController
         currentDestinationId = navController?.currentDestination?.id
+        updateScreenBackground(currentDestinationId)
         navController?.addOnDestinationChangedListener { _, destination, _ ->
             currentDestinationId = destination.id
+            updateScreenBackground(destination.id)
             ViewCompat.requestApplyInsets(navHostView)
             if (destination.id == R.id.homeFragment) {
                 recoverPendingSpinSettlement(HOME_SETTLEMENT_RECOVERY_DELAY_MS)
             }
         }
         ViewCompat.requestApplyInsets(navHostView)
+    }
+
+    private fun updateScreenBackground(destinationId: Int?) {
+        val drawable = when (destinationId) {
+            R.id.splashFragment -> R.drawable.splash_bg
+            R.id.homeFragment -> R.drawable.home_bg
+            else -> R.drawable.main_bg
+        }
+        binding.screenBackground.setImageResource(drawable)
     }
 
     @Suppress("DEPRECATION")

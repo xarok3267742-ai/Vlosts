@@ -40,6 +40,11 @@ EXPORTS = {
     "spin_button_violet_free_spins_disabled.png": "vslot_btn_spin_disabled.png",
 }
 
+# Reviewed against the canonical PNG source. This large gradient-heavy control
+# uses the same high-quality lossy WebP profile as the themed button exporter.
+HIGH_QUALITY_LOSSY_WEBP_OUTPUTS = frozenset({"spin_button_violet_default.webp"})
+HIGH_QUALITY_LOSSY_WEBP_QUALITY = 94
+
 
 def add_state_treatment(image: Image.Image, output_name: str) -> Image.Image:
     overlay = Image.new("RGBA", image.size, (0, 0, 0, 0))
@@ -77,7 +82,15 @@ def export(output_name: str, source_name: str) -> None:
     with Image.open(source_path) as source:
         image = add_state_treatment(source.convert("RGBA"), output_name)
         if output_path.suffix == ".webp":
-            image.save(output_path, "WEBP", lossless=True, method=6)
+            if output_name in HIGH_QUALITY_LOSSY_WEBP_OUTPUTS:
+                image.save(
+                    output_path,
+                    "WEBP",
+                    quality=HIGH_QUALITY_LOSSY_WEBP_QUALITY,
+                    method=6,
+                )
+            else:
+                image.save(output_path, "WEBP", lossless=True, method=6)
         elif output_path.suffix == ".png":
             image.save(output_path, "PNG", optimize=True)
         else:

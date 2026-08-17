@@ -16487,8 +16487,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_default.webp",
-      "bytes": 33062,
-      "sha256": "2cd9af3bad3cd1155019aa65112c5bed1279ff03227b17b20bba22f2d25b33e2",
+      "bytes": 33196,
+      "sha256": "1712f3b80510d2cdc0f018550cb854c218192a5f91c3b5820f4a87a954458291",
       "media": {
         "type": "image/webp",
         "width": 780,
@@ -16499,7 +16499,7 @@
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
-            "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2"
+            "sha256": "757a37119d575af41b26c8128fdfe03cd13e875ab27c5256dfb4b1c3a8dc8cd1"
           }
         ],
         "producer": {
@@ -16525,7 +16525,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "2cd9af3bad3cd1155019aa65112c5bed1279ff03227b17b20bba22f2d25b33e2"
+        "expected_sha256": "1712f3b80510d2cdc0f018550cb854c218192a5f91c3b5820f4a87a954458291"
       },
       "rights_review": {
         "state": "review_required",
@@ -16781,8 +16781,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_default.webp",
-      "bytes": 31512,
-      "sha256": "87cb60b26acc729f283fc44243fe93bab1c8e05439b21a1966b86de65fb08ac9",
+      "bytes": 31392,
+      "sha256": "70d4204ca79a322f0d11f2a92593dd81ffde69c7efeaa50574354120e8d01a96",
       "media": {
         "type": "image/webp",
         "width": 780,
@@ -16793,7 +16793,7 @@
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
-            "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2"
+            "sha256": "757a37119d575af41b26c8128fdfe03cd13e875ab27c5256dfb4b1c3a8dc8cd1"
           }
         ],
         "producer": {
@@ -16819,7 +16819,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "87cb60b26acc729f283fc44243fe93bab1c8e05439b21a1966b86de65fb08ac9"
+        "expected_sha256": "70d4204ca79a322f0d11f2a92593dd81ffde69c7efeaa50574354120e8d01a96"
       },
       "rights_review": {
         "state": "review_required",
@@ -17075,8 +17075,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_default.webp",
-      "bytes": 33138,
-      "sha256": "febf9dea2cc8a713c139113b1c5318ced0ecc5e17855bd0f931a9681072d50e6",
+      "bytes": 33440,
+      "sha256": "a6a578f9ed9be1d63cb28249df04034cf9d36ecc545e97430f6c9455acb29d98",
       "media": {
         "type": "image/webp",
         "width": 780,
@@ -17087,7 +17087,7 @@
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
-            "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2"
+            "sha256": "757a37119d575af41b26c8128fdfe03cd13e875ab27c5256dfb4b1c3a8dc8cd1"
           }
         ],
         "producer": {
@@ -17113,7 +17113,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "febf9dea2cc8a713c139113b1c5318ced0ecc5e17855bd0f931a9681072d50e6"
+        "expected_sha256": "a6a578f9ed9be1d63cb28249df04034cf9d36ecc545e97430f6c9455acb29d98"
       },
       "rights_review": {
         "state": "review_required",

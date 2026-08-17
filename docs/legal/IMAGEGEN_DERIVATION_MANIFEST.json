@@ -360,7 +360,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -493,7 +493,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -626,7 +626,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -759,7 +759,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -892,7 +892,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -1025,7 +1025,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -1158,7 +1158,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -1291,7 +1291,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -1424,7 +1424,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -1557,7 +1557,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -1690,7 +1690,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -1823,7 +1823,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -1956,7 +1956,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -2089,7 +2089,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -2222,7 +2222,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -2355,7 +2355,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -2839,7 +2839,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -4960,8 +4960,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
-      "bytes": 157992,
-      "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2",
+      "bytes": 27924,
+      "sha256": "757a37119d575af41b26c8128fdfe03cd13e875ab27c5256dfb4b1c3a8dc8cd1",
       "media": {
         "type": "image/webp",
         "width": 780,
@@ -5061,7 +5061,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -5082,7 +5082,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2"
+        "expected_sha256": "757a37119d575af41b26c8128fdfe03cd13e875ab27c5256dfb4b1c3a8dc8cd1"
       },
       "rights_review": {
         "state": "review_required",
@@ -5194,7 +5194,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -5327,7 +5327,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -5460,7 +5460,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -5593,7 +5593,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"
@@ -5726,7 +5726,7 @@
         ],
         "producer": {
           "path": "tools/export_imagegen_slot_controls.py",
-          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "sha256": "097872b50665db9e8da903bf792282a2701e2fa753e220c546f73ec25d6896a6",
           "command": [
             "python3",
             "tools/export_imagegen_slot_controls.py"

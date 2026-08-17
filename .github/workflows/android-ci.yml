@@ -57,8 +57,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/latest/source.properties"
+          BOOTSTRAP_SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          test -x "$BOOTSTRAP_SDKMANAGER"
+          "$BOOTSTRAP_SDKMANAGER" 'cmdline-tools;20.0'
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/20.0/bin/sdkmanager"
+          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/20.0/source.properties"
           test -x "$SDKMANAGER"
           grep -Fxq 'Pkg.Revision=20.0' "$TOOLS_PROPERTIES"
           grep -Fxq 'Pkg.Path=cmdline-tools;20.0' "$TOOLS_PROPERTIES"
@@ -129,8 +132,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/latest/source.properties"
+          BOOTSTRAP_SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          test -x "$BOOTSTRAP_SDKMANAGER"
+          "$BOOTSTRAP_SDKMANAGER" 'cmdline-tools;20.0'
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/20.0/bin/sdkmanager"
+          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/20.0/source.properties"
           test -x "$SDKMANAGER"
           grep -Fxq 'Pkg.Revision=20.0' "$TOOLS_PROPERTIES"
           grep -Fxq 'Pkg.Path=cmdline-tools;20.0' "$TOOLS_PROPERTIES"
@@ -218,8 +224,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/latest/source.properties"
+          BOOTSTRAP_SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          test -x "$BOOTSTRAP_SDKMANAGER"
+          "$BOOTSTRAP_SDKMANAGER" 'cmdline-tools;20.0'
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/20.0/bin/sdkmanager"
+          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/20.0/source.properties"
           test -x "$SDKMANAGER"
           grep -Fxq 'Pkg.Revision=20.0' "$TOOLS_PROPERTIES"
           grep -Fxq 'Pkg.Path=cmdline-tools;20.0' "$TOOLS_PROPERTIES"
@@ -305,8 +314,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/latest/source.properties"
+          BOOTSTRAP_SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          test -x "$BOOTSTRAP_SDKMANAGER"
+          "$BOOTSTRAP_SDKMANAGER" 'cmdline-tools;20.0'
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/20.0/bin/sdkmanager"
+          TOOLS_PROPERTIES="$ANDROID_HOME/cmdline-tools/20.0/source.properties"
           test -x "$SDKMANAGER"
           grep -Fxq 'Pkg.Revision=20.0' "$TOOLS_PROPERTIES"
           grep -Fxq 'Pkg.Path=cmdline-tools;20.0' "$TOOLS_PROPERTIES"

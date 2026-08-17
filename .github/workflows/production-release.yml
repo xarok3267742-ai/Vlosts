@@ -25,7 +25,9 @@ jobs:
       upload-sarif: false
       fail-on-vuln: true
     permissions:
+      actions: read
       contents: read
+      security-events: write
 
   managed-device-gate:
     name: Require managed-device checks for release commit
@@ -119,6 +121,7 @@ jobs:
       id-token: write
       attestations: write
     env:
+      V_SLOT_PROTECTED_DIR: ${{ github.workspace }}/.release-evidence/ci
       V_SLOT_PRIVACY_POLICY_URL: ${{ vars.V_SLOT_PRIVACY_POLICY_URL }}
       V_SLOT_SUPPORT_EMAIL: ${{ vars.V_SLOT_SUPPORT_EMAIL }}
       V_SLOT_DEVELOPER_LEGAL_NAME: ${{ vars.V_SLOT_DEVELOPER_LEGAL_NAME }}
@@ -126,29 +129,29 @@ jobs:
       V_SLOT_FIREBASE_PROJECT_ID: ${{ vars.V_SLOT_FIREBASE_PROJECT_ID }}
       V_SLOT_FIREBASE_APP_ID: ${{ vars.V_SLOT_FIREBASE_APP_ID }}
       V_SLOT_DATA_SAFETY_REVIEWED_VERSION_CODE: ${{ inputs.version_code }}
-      V_SLOT_DATA_SAFETY_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-data-safety-evidence.json
+      V_SLOT_DATA_SAFETY_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-data-safety-evidence.json
       V_SLOT_DATA_SAFETY_EVIDENCE_SHA256: ${{ vars.V_SLOT_DATA_SAFETY_EVIDENCE_SHA256 }}
-      V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-data-safety-raw-evidence.zip
+      V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-data-safety-raw-evidence.zip
       V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256: ${{ vars.V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256 }}
       V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE: ${{ inputs.version_code }}
-      V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-asset-rights-evidence.json
+      V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-asset-rights-evidence.json
       V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256: ${{ vars.V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256 }}
-      V_SLOT_SAMSUNG_QA_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-samsung-qa-evidence.json
+      V_SLOT_SAMSUNG_QA_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-samsung-qa-evidence.json
       V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256: ${{ vars.V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256 }}
-      V_SLOT_PROCESS_DEATH_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-process-death-evidence.json
+      V_SLOT_PROCESS_DEATH_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-process-death-evidence.json
       V_SLOT_PROCESS_DEATH_EVIDENCE_SHA256: ${{ vars.V_SLOT_PROCESS_DEATH_EVIDENCE_SHA256 }}
-      V_SLOT_FRAME_METRICS_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-frame-metrics-evidence.json
+      V_SLOT_FRAME_METRICS_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-frame-metrics-evidence.json
       V_SLOT_FRAME_METRICS_EVIDENCE_SHA256: ${{ vars.V_SLOT_FRAME_METRICS_EVIDENCE_SHA256 }}
-      V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-physical-samsung-raw-evidence.zip
+      V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-physical-samsung-raw-evidence.zip
       V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_SHA256: ${{ vars.V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_SHA256 }}
-      V_SLOT_RELEASE_STORE_FILE: ${{ runner.temp }}/v-slot-release.jks
+      V_SLOT_RELEASE_STORE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-release.jks
       V_SLOT_RELEASE_KEY_ALIAS: ${{ vars.V_SLOT_RELEASE_KEY_ALIAS }}
       V_SLOT_RELEASE_CERT_SHA256: ${{ vars.V_SLOT_RELEASE_CERT_SHA256 }}
       V_SLOT_ANDROID_PLATFORM_36_JAR_SHA256: ${{ vars.V_SLOT_ANDROID_PLATFORM_36_JAR_SHA256 }}
       V_SLOT_ANDROID_BUILD_TOOLS_36_AAPT2_SHA256: ${{ vars.V_SLOT_ANDROID_BUILD_TOOLS_36_AAPT2_SHA256 }}
       V_SLOT_ANDROID_BUILD_TOOLS_36_DEXDUMP_SHA256: ${{ vars.V_SLOT_ANDROID_BUILD_TOOLS_36_DEXDUMP_SHA256 }}
-      V_SLOT_BUNDLETOOL_JAR: ${{ runner.temp }}/bundletool-all-1.18.3.jar
-      V_SLOT_OSV_SCAN_EVIDENCE_FILE: ${{ runner.temp }}/v-slot-osv-scan-evidence.txt
+      V_SLOT_BUNDLETOOL_JAR: ${{ github.workspace }}/.release-evidence/ci/bundletool-all-1.18.3.jar
+      V_SLOT_OSV_SCAN_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-osv-scan-evidence.txt
 
     steps:
       - name: Check out reviewed source
@@ -161,6 +164,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          umask 077
+          mkdir -p "$V_SLOT_PROTECTED_DIR"
           test "$GITHUB_REF" = 'refs/heads/main'
           test "$GITHUB_REF_PROTECTED" = 'true'
           test "$(git rev-parse --verify HEAD)" = "$GITHUB_SHA"

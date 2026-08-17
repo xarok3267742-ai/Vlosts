@@ -160,6 +160,9 @@ class CiWorkflowContractTest {
     @Test
     fun knownVulnerabilitiesBlockCiAndProductionRelease() {
         listOf(androidCi, productionRelease).forEach { workflow ->
+            val scanJob = workflow
+                .substringAfter("  vulnerability-scan:")
+                .substringBefore("\n\n  ")
             assertTrue(
                 workflow.contains(
                     "uses: google/osv-scanner-action/.github/workflows/" +
@@ -173,11 +176,12 @@ class CiWorkflowContractTest {
             assertTrue(workflow.contains("upload-sarif: false"))
             assertTrue(workflow.contains("fail-on-vuln: true"))
             assertTrue(workflow.contains("needs: vulnerability-scan"))
+            assertTrue(scanJob.contains("actions: read"))
+            assertTrue(scanJob.contains("contents: read"))
+            assertTrue(scanJob.contains("security-events: write"))
         }
         assertTrue(androidCi.contains("schedule:"))
         assertTrue(androidCi.contains("cron: '17 4 * * *'"))
-        assertFalse(androidCi.contains("security-events: write"))
-        assertFalse(productionRelease.contains("security-events: write"))
         assertTrue(productionRelease.contains("V_SLOT_OSV_SCAN_JOB_RESULT: \${{ needs.vulnerability-scan.result }}"))
         assertTrue(productionRelease.contains("test \"\$V_SLOT_OSV_SCAN_JOB_RESULT\" = success"))
         assertTrue(productionRelease.contains("schema=v-slot-osv-scan-evidence-v1"))
@@ -196,6 +200,9 @@ class CiWorkflowContractTest {
     fun releaseSecretsAreOnlyMaterializedInsideTheProtectedJob() {
         val jobEnvironment = productionRelease.substringAfter("    env:").substringBefore("\n    steps:")
         assertFalse(jobEnvironment.contains("secrets."))
+        assertFalse(jobEnvironment.contains("runner.temp"))
+        assertTrue(jobEnvironment.contains("\${{ github.workspace }}/.release-evidence/ci"))
+        assertTrue(productionRelease.contains("mkdir -p \"\$V_SLOT_PROTECTED_DIR\""))
         assertTrue(productionRelease.contains("secrets.V_SLOT_GOOGLE_SERVICES_JSON_BASE64"))
         assertTrue(productionRelease.contains("secrets.V_SLOT_RELEASE_KEYSTORE_BASE64"))
         assertTrue(productionRelease.contains("secrets.V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64"))

@@ -26,7 +26,9 @@ jobs:
       upload-sarif: false
       fail-on-vuln: true
     permissions:
+      actions: read
       contents: read
+      security-events: write
 
   verify:
     name: Verify non-production build

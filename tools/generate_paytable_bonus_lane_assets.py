@@ -39,14 +39,6 @@ def asset_name(suffix: str) -> str:
     return f"paytable_bonus_lane_{suffix}.webp" if suffix else "paytable_bonus_lane.webp"
 
 
-def draw_bonus_glints(draw: ImageDraw.ImageDraw, theme: Theme, width: int, height: int) -> None:
-    cy = height // 2
-    for cx in (92, width - 92):
-        draw.rounded_rectangle((cx - 20, cy - 3, cx + 20, cy + 3), radius=3, fill=rgba(theme.accent, 176))
-        draw.rounded_rectangle((cx - 3, cy - 20, cx + 3, cy + 20), radius=3, fill=rgba(theme.accent, 156))
-        draw.ellipse((cx - 12, cy - 12, cx + 12, cy + 12), outline=rgba(theme.primary, 170), width=3)
-
-
 def create_asset(theme: Theme) -> Image.Image:
     width, height = 760, 110
     image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -56,29 +48,19 @@ def create_asset(theme: Theme) -> Image.Image:
     draw.rounded_rectangle(
         (18, 16, width - 18, height - 16),
         radius=34,
-        fill=rgba(theme.dark, 112),
-        outline=rgba(theme.primary, 176),
-        width=5,
-    )
-    draw.rounded_rectangle(
-        (48, 30, width - 48, height - 30),
-        radius=22,
-        outline=rgba(theme.secondary, 132),
+        fill=rgba(theme.dark, 62),
+        outline=rgba(theme.primary, 162),
         width=4,
     )
-    draw.line((126, height // 2, width - 126, height // 2), fill=rgba(theme.primary, 116), width=5)
-    draw.line((174, height // 2 + 19, width - 174, height // 2 + 19), fill=rgba(theme.accent, 88), width=4)
+    draw.rounded_rectangle(
+        (42, 28, width - 42, height - 28),
+        radius=24,
+        outline=rgba(theme.secondary, 108),
+        width=3,
+    )
 
-    for x in (78, 118, width - 78, width - 118):
-        draw.ellipse((x - 10, height // 2 - 10, x + 10, height // 2 + 10), fill=rgba(theme.accent, 220))
-    for x in range(210, width - 180, 76):
-        draw.line((x - 12, height // 2 - 21, x + 12, height // 2 - 21), fill=rgba(theme.secondary, 102), width=3)
-        draw.line((x, height // 2 - 33, x, height // 2 - 9), fill=rgba(theme.secondary, 92), width=3)
-
-    draw_bonus_glints(draw, theme, width, height)
-
-    glow = layer.filter(ImageFilter.GaussianBlur(12))
-    wide_glow = layer.filter(ImageFilter.GaussianBlur(24))
+    glow = layer.filter(ImageFilter.GaussianBlur(10))
+    wide_glow = layer.filter(ImageFilter.GaussianBlur(20))
     image.alpha_composite(wide_glow)
     image.alpha_composite(glow)
     image.alpha_composite(layer)

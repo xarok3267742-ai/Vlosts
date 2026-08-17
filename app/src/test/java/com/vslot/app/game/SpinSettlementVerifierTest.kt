@@ -4,6 +4,7 @@ import com.vslot.app.data.PendingSpinSettlement
 import com.vslot.app.data.PlayerState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SpinSettlementVerifierTest {
@@ -67,12 +68,24 @@ class SpinSettlementVerifierTest {
     }
 
     @Test
-    fun `unknown slot unsupported version and config mismatch fail closed`() {
+    fun `known V5 descriptor rejects tampering while unknown version stays preserved`() {
         val settlement = settlement()
 
         assertNull(verifier.verify(settlement.copy(slotId = "unknown-slot")))
         assertNull(verifier.verify(settlement.copy(mathVersion = SlotMathIdentity.VERSION + 1)))
         assertNull(verifier.verify(settlement.copy(configFingerprint = "0".repeat(64))))
+        assertTrue(
+            verifier.inspect(settlement.copy(slotId = "unknown-slot"))
+                is SpinSettlementVerification.Corrupt
+        )
+        assertTrue(
+            verifier.inspect(settlement.copy(mathVersion = SlotMathIdentity.VERSION + 1))
+                is SpinSettlementVerification.UnsupportedMath
+        )
+        assertTrue(
+            verifier.inspect(settlement.copy(configFingerprint = "0".repeat(64)))
+                is SpinSettlementVerification.Corrupt
+        )
     }
 
     @Test
@@ -87,6 +100,25 @@ class SpinSettlementVerifierTest {
             )
         )
         assertNull(verifier.verify(settlement.copy(levelXpAwarded = settlement.levelXpAwarded + 1)))
+        assertTrue(
+            verifier.inspect(settlement.copy(stopIndexes = listOf(1, 1, 1, 1, 1)))
+                is SpinSettlementVerification.Corrupt
+        )
+        assertTrue(
+            verifier.inspect(settlement.copy(winAmount = settlement.winAmount + 1))
+                is SpinSettlementVerification.Corrupt
+        )
+    }
+
+    @Test
+    fun `unexpected evaluator failure blocks recovery without declaring journal corrupt`() {
+        val unavailableVerifier = SpinSettlementVerifier(catalog, engine) { _, _, _, _, _ ->
+            error("Descriptor unavailable")
+        }
+
+        assertTrue(
+            unavailableVerifier.inspect(settlement()) is SpinSettlementVerification.UnsupportedMath
+        )
     }
 
     private fun settlement(isFreeSpin: Boolean = false): PendingSpinSettlement {

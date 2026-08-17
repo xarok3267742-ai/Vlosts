@@ -14,12 +14,18 @@
     <style name="Theme.VSlot.Launcher" parent="Theme.VSlot" />
 
     <style name="VSlotAccessibleCopy">
+        <item name="android:background">@drawable/vslot_text_capsule</item>
         <item name="android:breakStrategy">high_quality</item>
+        <item name="android:elevation">2dp</item>
         <item name="android:fontFamily">sans</item>
         <item name="android:hyphenationFrequency">full</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingTop">8dp</item>
         <item name="android:textColor">@color/accessible_copy_primary</item>
         <item name="android:textSize">14sp</item>
     </style>
@@ -44,5 +50,47 @@
 
     <style name="VSlotAccessibleCopy.Command.Compact" parent="VSlotAccessibleCopy.Command">
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="VSlotAccessibleCopy.MeterLabel" parent="VSlotAccessibleCopy.Command.Compact">
+        <item name="android:background">@null</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">18dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:textColor">#FFF3C4</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="VSlotAccessibleCopy.PaytableValue" parent="VSlotAccessibleCopy.Command">
+        <item name="android:background">@drawable/vslot_number_orb</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:textColor">#FFFF5A</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="VSlotAccessibleCopy.SpinAction" parent="VSlotAccessibleCopy.Command">
+        <item name="android:background">@null</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:shadowColor">#F0000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:textColor">#FFFFE3A3</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

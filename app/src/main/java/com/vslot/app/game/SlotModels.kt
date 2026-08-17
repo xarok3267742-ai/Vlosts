@@ -51,7 +51,8 @@ data class SpinResult(
     val scatterCount: Int,
     val scatterPositions: List<SymbolPosition>,
     val freeSpinsAwarded: Int = 0,
-    val stopIndexes: List<Int> = emptyList()
+    val stopIndexes: List<Int> = emptyList(),
+    val isFreeSpin: Boolean = false
 )
 
 enum class ResultType {
@@ -59,6 +60,28 @@ enum class ResultType {
     Win,
     Bonus
 }
+
+enum class NetOutcome {
+    Loss,
+    PartialReturn,
+    BreakEven,
+    NetWin,
+    Bonus
+}
+
+val SpinResult.netOutcome: NetOutcome
+    get() = when {
+        resultType == ResultType.Bonus || freeSpinsAwarded > 0 -> NetOutcome.Bonus
+        resultType == ResultType.Lose -> NetOutcome.Loss
+        winAmount <= 0 -> NetOutcome.Loss
+        isFreeSpin -> NetOutcome.NetWin
+        winAmount < totalBet -> NetOutcome.PartialReturn
+        winAmount == totalBet -> NetOutcome.BreakEven
+        else -> NetOutcome.NetWin
+    }
+
+val SpinResult.netAmount: Long
+    get() = winAmount.toLong() - if (isFreeSpin) 0L else totalBet.toLong()
 
 interface SlotRng {
     fun nextInt(bound: Int): Int

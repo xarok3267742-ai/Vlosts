@@ -20,6 +20,55 @@ COMMON_BUILD_INPUTS = (
     ("toolchain_gate", "tools/vslot_asset_toolchain.py"),
     ("python_requirement", "tools/requirements-assets.txt"),
 )
+SLOT_CONTROL_SOURCE_DIR = "qa/source/vslot-controls"
+SLOT_CONTROL_MASTER_NAMES = (
+    "vslot_btn_auto.png",
+    "vslot_btn_auto_disabled.png",
+    "vslot_btn_auto_pressed.png",
+    "vslot_btn_back.png",
+    "vslot_btn_back_disabled.png",
+    "vslot_btn_back_pressed.png",
+    "vslot_btn_max.png",
+    "vslot_btn_max_disabled.png",
+    "vslot_btn_max_pressed.png",
+    "vslot_btn_minus.png",
+    "vslot_btn_minus_disabled.png",
+    "vslot_btn_minus_pressed.png",
+    "vslot_btn_paytable.png",
+    "vslot_btn_paytable_disabled.png",
+    "vslot_btn_paytable_pressed.png",
+    "vslot_btn_plus.png",
+    "vslot_btn_plus_disabled.png",
+    "vslot_btn_plus_pressed.png",
+    "vslot_btn_spin.png",
+    "vslot_btn_spin_disabled.png",
+    "vslot_btn_spin_pressed.png",
+)
+SLOT_CONTROL_OUTPUT_NAMES = (
+    "btn_autospin_default.webp",
+    "btn_autospin_pressed.webp",
+    "btn_autospin_disabled.webp",
+    "btn_autospin_active.webp",
+    "btn_autospin_active_pressed.webp",
+    "btn_bet_minus.webp",
+    "btn_bet_minus_pressed.webp",
+    "btn_bet_minus_disabled.webp",
+    "btn_bet_plus.webp",
+    "btn_bet_plus_pressed.webp",
+    "btn_bet_plus_disabled.webp",
+    "btn_max_lines_default.webp",
+    "btn_max_lines_pressed.webp",
+    "btn_max_lines_disabled.webp",
+    "btn_back_default.webp",
+    "btn_back_pressed.webp",
+    "paytable_button.webp",
+    "spin_button_violet_default.webp",
+    "spin_button_violet_pressed.webp",
+    "spin_button_violet_disabled.webp",
+    "spin_button_violet_free_spins_default.png",
+    "spin_button_violet_free_spins_pressed.png",
+    "spin_button_violet_free_spins_disabled.png",
+)
 
 
 def source(name: str) -> str:
@@ -35,6 +84,13 @@ def themed(prefix: str, suffix: str = ".webp") -> list[str]:
 
 
 OUTPUT_GROUPS: dict[str, tuple[list[str], list[str]]] = {
+    "tools/export_imagegen_slot_controls.py": (
+        [resource(name) for name in SLOT_CONTROL_OUTPUT_NAMES],
+        [
+            "qa/source/vslot_controls_sprite_imagegen.png",
+            *[f"{SLOT_CONTROL_SOURCE_DIR}/{name}" for name in SLOT_CONTROL_MASTER_NAMES],
+        ],
+    ),
     "tools/slice_imagegen_bonus_entry_portals.py": (
         themed("bonus_entry_portal_"),
         [source("vslot_theme_bonus_entry_portals_imagegen.png")],

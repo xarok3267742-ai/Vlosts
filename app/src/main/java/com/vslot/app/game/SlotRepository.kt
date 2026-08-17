@@ -8,16 +8,24 @@ interface SlotCatalog {
     fun getSlotExact(slotId: String): SlotConfig? = getSlot(slotId).takeIf { it.id == slotId }
 }
 
-class SlotRepository(
-    context: Context,
-    parser: SlotConfigParser = SlotConfigParser()
+class SlotRepository private constructor(
+    private val loadSlots: () -> List<SlotConfig>
 ) : SlotCatalog {
-    val slots: List<SlotConfig> by lazy {
-        val json = context.assets.open("slots_config.json")
-            .bufferedReader()
-            .use { it.readText() }
-        parser.parse(json)
-    }
+    constructor(
+        context: Context,
+        parser: SlotConfigParser = SlotConfigParser()
+    ) : this(
+        loadSlots = {
+            val json = context.assets.open("slots_config.json")
+                .bufferedReader()
+                .use { it.readText() }
+            parser.parse(json)
+        }
+    )
+
+    internal constructor(configs: List<SlotConfig>) : this(loadSlots = { configs })
+
+    val slots: List<SlotConfig> by lazy(loadSlots)
 
     override fun getSlot(slotId: String): SlotConfig {
         return getSlotExact(slotId) ?: slots.first()

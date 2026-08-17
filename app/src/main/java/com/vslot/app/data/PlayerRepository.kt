@@ -13,8 +13,7 @@ import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.vslot.app.BuildConfig
 import com.vslot.app.ProcessSession
-import com.vslot.app.game.SlotEngine
-import com.vslot.app.game.SlotRepository
+import com.vslot.app.game.SpinSettlementVerification
 import com.vslot.app.game.SpinSettlementVerifier
 import java.io.IOException
 import kotlinx.coroutines.NonCancellable
@@ -134,6 +133,12 @@ internal suspend fun <T> finishTransientPersistenceIo(
     retryTransientPersistenceIo(operation = operation)
 }
 
+enum class PendingSpinRecoveryStatus {
+    None,
+    Pending,
+    UnsupportedMath
+}
+
 interface PlayerStore {
     val playerState: Flow<PlayerState>
 
@@ -166,12 +171,27 @@ interface PlayerStore {
         createReservation: () -> SpinReservation<T>
     ): SpinReservation<T>?
 
+    suspend fun <T> reserveSpinAttempt(
+        slotId: String,
+        isFreeSpin: Boolean,
+        lineBet: Int,
+        lines: Int,
+        totalBet: Int,
+        selectedBetSnapshot: Int? = null,
+        selectedLinesSnapshot: Int? = null,
+        autoPlayFreeSpins: Boolean = false,
+        createReservation: () -> SpinReservation<T>
+    ): SpinReservationAttempt<T>
+
     suspend fun settleSpin(
         settlement: PendingSpinSettlement,
         presentationConsumerId: String? = null
     ): SpinSettlementReceipt
 
     suspend fun recoverPendingSpinSettlement(currentProcessSessionId: String): Boolean
+
+    suspend fun pendingSpinRecoveryStatus(): PendingSpinRecoveryStatus =
+        PendingSpinRecoveryStatus.None
 
     suspend fun pendingSpinPresentationSlotId(): String? = null
 
@@ -198,10 +218,8 @@ interface DisclaimerStore {
 
 class PlayerRepository(
     context: Context,
-    private val settlementVerifier: SpinSettlementVerifier = SpinSettlementVerifier(
-        SlotRepository(context.applicationContext),
-        SlotEngine()
-    )
+    private val settlementVerifier: SpinSettlementVerifier =
+        SpinSettlementVerifier(context.applicationContext)
 ) : PlayerStore, PlayerSettingsStore, DisclaimerStore {
     private val legacyCheckpointStore = PlayerStateCheckpointRegistry.install(context.applicationContext)
     private val legacyDataStore = context.playerDataStore
@@ -252,6 +270,36 @@ class PlayerRepository(
         autoPlayFreeSpins: Boolean,
         createReservation: () -> SpinReservation<T>
     ): SpinReservation<T>? {
+        return when (
+            val attempt = reserveSpinAttempt(
+                slotId = slotId,
+                isFreeSpin = isFreeSpin,
+                lineBet = lineBet,
+                lines = lines,
+                totalBet = totalBet,
+                selectedBetSnapshot = selectedBetSnapshot,
+                selectedLinesSnapshot = selectedLinesSnapshot,
+                autoPlayFreeSpins = autoPlayFreeSpins,
+                createReservation = createReservation
+            )
+        ) {
+            is SpinReservationAttempt.Reserved -> attempt.reservation
+            is SpinReservationAttempt.BlockedByPendingSpin,
+            SpinReservationAttempt.Rejected -> null
+        }
+    }
+
+    override suspend fun <T> reserveSpinAttempt(
+        slotId: String,
+        isFreeSpin: Boolean,
+        lineBet: Int,
+        lines: Int,
+        totalBet: Int,
+        selectedBetSnapshot: Int?,
+        selectedLinesSnapshot: Int?,
+        autoPlayFreeSpins: Boolean,
+        createReservation: () -> SpinReservation<T>
+    ): SpinReservationAttempt<T> {
         if (
             slotId.isBlank() ||
             lineBet <= 0 ||
@@ -260,15 +308,19 @@ class PlayerRepository(
             (!isFreeSpin && selectedBetSnapshot == null) ||
             (!isFreeSpin && selectedLinesSnapshot == null)
         ) {
-            return null
+            return SpinReservationAttempt.Rejected
         }
         require(!autoPlayFreeSpins || isFreeSpin) {
             "Free-spin autoplay can only be reserved with a free spin."
         }
-        var reservation: SpinReservation<T>? = null
+        var reservationAttempt: SpinReservationAttempt<T> = SpinReservationAttempt.Rejected
         editPlayerState { preferences ->
             preferences.applyPersistedPendingSpinSettlement(ProcessSession.id)
-            if (preferences.contains(Keys.PendingSpinSettlement)) {
+            val pendingSettlement = preferences[Keys.PendingSpinSettlement]
+            if (pendingSettlement != null) {
+                reservationAttempt = SpinReservationAttempt.BlockedByPendingSpin(
+                    pendingSpinRecoveryStatus(pendingSettlement)
+                )
                 return@editPlayerState
             }
             val pendingPresentation = preferences[Keys.PendingSpinPresentation]?.let(
@@ -322,9 +374,9 @@ class PlayerRepository(
                 .toRefundEnvelope()
                 .serialize()
             preferences[Keys.PendingSpinSettlement] = verifiedSettlement.serialize()
-            reservation = candidate
+            reservationAttempt = SpinReservationAttempt.Reserved(candidate)
         }
-        return reservation
+        return reservationAttempt
     }
 
     suspend fun settleSpin(settlement: PendingSpinSettlement): SpinSettlementReceipt {
@@ -347,11 +399,21 @@ class PlayerRepository(
                 outcomeSettled = true
             }
             val serialized = preferences[Keys.PendingSpinSettlement] ?: return@editPlayerState
-            val decodedSettlement = deserializePendingSpinSettlement(serialized)
-            val pendingSettlement = decodedSettlement?.let(settlementVerifier::verify)
-            if (pendingSettlement == null) {
-                preferences.refundAndClearVoidedSpin(decodedSettlement)
-                return@editPlayerState
+            val decodedSettlement = when (val decoded = decodePendingSpinSettlement(serialized)) {
+                is PendingSpinJournalDecode.Decoded -> decoded.settlement
+                is PendingSpinJournalDecode.UnsupportedFormat -> return@editPlayerState
+                PendingSpinJournalDecode.Corrupt -> {
+                    preferences.refundAndClearVoidedSpin(decodedSettlement = null)
+                    return@editPlayerState
+                }
+            }
+            val pendingSettlement = when (val verification = settlementVerifier.inspect(decodedSettlement)) {
+                is SpinSettlementVerification.Verified -> verification.settlement
+                is SpinSettlementVerification.UnsupportedMath -> return@editPlayerState
+                SpinSettlementVerification.Corrupt -> {
+                    preferences.refundAndClearVoidedSpin(decodedSettlement)
+                    return@editPlayerState
+                }
             }
             // A newer reservation can apply this outcome before writing its own journal.
             if (pendingSettlement.id != settlement.id) return@editPlayerState
@@ -378,6 +440,30 @@ class PlayerRepository(
             recovered = preferences.applyPersistedPendingSpinSettlement(currentProcessSessionId)
         }
         return recovered
+    }
+
+    override suspend fun pendingSpinRecoveryStatus(): PendingSpinRecoveryStatus {
+        var status = PendingSpinRecoveryStatus.None
+        editPlayerState { preferences ->
+            val serialized = preferences[Keys.PendingSpinSettlement] ?: return@editPlayerState
+            status = pendingSpinRecoveryStatus(serialized)
+        }
+        return status
+    }
+
+    private fun pendingSpinRecoveryStatus(serialized: String): PendingSpinRecoveryStatus {
+        return when (val decoded = decodePendingSpinSettlement(serialized)) {
+            is PendingSpinJournalDecode.UnsupportedFormat -> PendingSpinRecoveryStatus.UnsupportedMath
+            PendingSpinJournalDecode.Corrupt -> PendingSpinRecoveryStatus.Pending
+            is PendingSpinJournalDecode.Decoded -> when (
+                settlementVerifier.inspect(decoded.settlement)
+            ) {
+                is SpinSettlementVerification.UnsupportedMath ->
+                    PendingSpinRecoveryStatus.UnsupportedMath
+                is SpinSettlementVerification.Verified,
+                SpinSettlementVerification.Corrupt -> PendingSpinRecoveryStatus.Pending
+            }
+        }
     }
 
     override suspend fun pendingSpinPresentationSlotId(): String? {
@@ -490,6 +576,7 @@ class PlayerRepository(
             return@editPlayerState
             }
 
+            val startsNewFeature = !preferences.hasFreeSpinForSlot(slotId)
             val bonuses = mergeAwardedFreeSpinBonus(
                 currentBonuses = preferences.readFreeSpinBonuses(),
                 legacySlotId = preferences[Keys.FreeSpinSlotId].orEmpty(),
@@ -502,6 +589,12 @@ class PlayerRepository(
                 awardLines = lines
             )
             preferences.writeFreeSpinBonuses(bonuses)
+            if (startsNewFeature) {
+                val totalWins = preferences.readFreeSpinFeatureTotalWins().toMutableMap().apply {
+                    this[slotId] = 0
+                }
+                preferences.writeFreeSpinFeatureTotalWins(totalWins)
+            }
         }
     }
 
@@ -704,6 +797,7 @@ class PlayerRepository(
         val FreeSpinSlotId = stringPreferencesKey("freeSpinSlotId")
         val FreeSpinBonuses = stringPreferencesKey("freeSpinBonuses")
         val FreeSpinAutoPlaySlots = stringSetPreferencesKey("freeSpinAutoPlaySlots")
+        val FreeSpinFeatureTotalWins = stringPreferencesKey("freeSpinFeatureTotalWins")
         val LevelXp = intPreferencesKey("levelXp")
         val DisclaimerAccepted = booleanPreferencesKey("disclaimerAccepted")
         val PushPermissionAsked = booleanPreferencesKey("pushPermissionAsked")
@@ -736,6 +830,7 @@ class PlayerRepository(
             freeSpinSlotId = firstBonus?.slotId ?: this[Keys.FreeSpinSlotId].orEmpty(),
             freeSpinBonuses = freeSpinBonuses,
             freeSpinAutoPlaySlots = readFreeSpinAutoPlaySlots(),
+            freeSpinFeatureTotalWins = readFreeSpinFeatureTotalWins(),
             levelXp = this[Keys.LevelXp] ?: 0,
             disclaimerAccepted = this[Keys.DisclaimerAccepted] ?: false,
             pushPermissionAsked = this[Keys.PushPermissionAsked] ?: false,
@@ -837,11 +932,21 @@ class PlayerRepository(
         currentProcessSessionId: String? = null
     ): Boolean {
         val serialized = this[Keys.PendingSpinSettlement] ?: return false
-        val decodedSettlement = deserializePendingSpinSettlement(serialized)
-        val settlement = decodedSettlement?.let(settlementVerifier::verify)
-        if (settlement == null) {
-            refundAndClearVoidedSpin(decodedSettlement)
-            return false
+        val decodedSettlement = when (val decoded = decodePendingSpinSettlement(serialized)) {
+            is PendingSpinJournalDecode.Decoded -> decoded.settlement
+            is PendingSpinJournalDecode.UnsupportedFormat -> return false
+            PendingSpinJournalDecode.Corrupt -> {
+                refundAndClearVoidedSpin(decodedSettlement = null)
+                return false
+            }
+        }
+        val settlement = when (val verification = settlementVerifier.inspect(decodedSettlement)) {
+            is SpinSettlementVerification.Verified -> verification.settlement
+            is SpinSettlementVerification.UnsupportedMath -> return false
+            SpinSettlementVerification.Corrupt -> {
+                refundAndClearVoidedSpin(decodedSettlement)
+                return false
+            }
         }
         if (shouldDeferPendingSpinRecovery(settlement, currentProcessSessionId)) return false
         // Reservation rollover belongs to the spin's process; explicit cross-process recovery is unclaimed.
@@ -859,9 +964,12 @@ class PlayerRepository(
     private fun MutablePreferences.refundAndClearVoidedSpin(
         decodedSettlement: PendingSpinSettlement?
     ) {
-        val refundEnvelope = this[Keys.PendingSpinRefundEnvelope]
+        val persistedRefundEnvelope = this[Keys.PendingSpinRefundEnvelope]
             ?.let(::deserializePendingSpinRefundEnvelope)
-            ?: decodedSettlement?.toRefundEnvelope()
+            ?.takeIf { envelope ->
+                decodedSettlement == null || envelope.settlementId == decodedSettlement.id
+            }
+        val refundEnvelope = persistedRefundEnvelope ?: decodedSettlement?.toRefundEnvelope()
         refundEnvelope?.let { refund -> refundVoidedSpin(refund) }
         remove(Keys.PendingSpinSettlement)
         remove(Keys.PendingSpinRefundEnvelope)
@@ -903,6 +1011,7 @@ class PlayerRepository(
         val updatedBalance = saturatedNonNegativeAdd(currentBalance, settlement.winAmount)
         writePersistedCoinsBalance(updatedBalance)
 
+        val hadFreeSpinsBeforeAward = hasFreeSpinForSlot(settlement.slotId)
         if (settlement.freeSpinsAwarded > 0) {
             val bonuses = mergeAwardedFreeSpinBonus(
                 currentBonuses = readFreeSpinBonuses(),
@@ -917,6 +1026,19 @@ class PlayerRepository(
             )
             writeFreeSpinBonuses(bonuses)
         }
+
+        val featureTotalWins = readFreeSpinFeatureTotalWins().toMutableMap().apply {
+            if (!settlement.isFreeSpin && settlement.freeSpinsAwarded > 0 && !hadFreeSpinsBeforeAward) {
+                this[settlement.slotId] = 0
+            }
+            if (settlement.isFreeSpin) {
+                this[settlement.slotId] = saturatedNonNegativeAdd(
+                    this[settlement.slotId] ?: 0,
+                    settlement.winAmount
+                )
+            }
+        }
+        writeFreeSpinFeatureTotalWins(featureTotalWins)
 
         val autoPlaySlots = readFreeSpinAutoPlaySlots().toMutableSet().apply {
             if (settlement.isFreeSpin && !hasFreeSpinForSlot(settlement.slotId)) {
@@ -999,6 +1121,41 @@ class PlayerRepository(
             .filterTo(mutableSetOf()) { it.isNotBlank() }
     }
 
+    private fun androidx.datastore.preferences.core.Preferences.readFreeSpinFeatureTotalWins(): Map<String, Int> {
+        val serialized = this[Keys.FreeSpinFeatureTotalWins].orEmpty()
+        if (serialized.isBlank()) return emptyMap()
+        return runCatching {
+            val array = JSONArray(serialized)
+            buildMap {
+                for (index in 0 until array.length()) {
+                    val item = array.getJSONObject(index)
+                    val slotId = item.optString("slotId")
+                    val totalWin = item.optInt("totalWin", -1)
+                    if (slotId.isNotBlank() && totalWin >= 0) {
+                        put(slotId, totalWin)
+                    }
+                }
+            }
+        }.getOrDefault(emptyMap())
+    }
+
+    private fun MutablePreferences.writeFreeSpinFeatureTotalWins(totalWins: Map<String, Int>) {
+        val normalizedTotalWins = normalizedFreeSpinFeatureTotalWins(totalWins)
+        if (normalizedTotalWins.isEmpty()) {
+            remove(Keys.FreeSpinFeatureTotalWins)
+            return
+        }
+        this[Keys.FreeSpinFeatureTotalWins] = JSONArray().apply {
+            normalizedTotalWins.forEach { (slotId, totalWin) ->
+                put(
+                    JSONObject()
+                        .put("slotId", slotId)
+                        .put("totalWin", totalWin)
+                )
+            }
+        }.toString()
+    }
+
     private fun MutablePreferences.writeFreeSpinAutoPlaySlots(slots: Set<String>) {
         val normalizedSlots = slots.filterTo(mutableSetOf()) { it.isNotBlank() }
         if (normalizedSlots.isEmpty()) {
@@ -1067,6 +1224,18 @@ class PlayerRepository(
             }
             if (state.freeSpinAutoPlaySlots.isNotEmpty()) {
                 preferences[Keys.FreeSpinAutoPlaySlots] = state.freeSpinAutoPlaySlots
+            }
+            val featureTotalWins = normalizedFreeSpinFeatureTotalWins(state.freeSpinFeatureTotalWins)
+            if (featureTotalWins.isNotEmpty()) {
+                preferences[Keys.FreeSpinFeatureTotalWins] = JSONArray().apply {
+                    featureTotalWins.forEach { (slotId, totalWin) ->
+                        put(
+                            JSONObject()
+                                .put("slotId", slotId)
+                                .put("totalWin", totalWin)
+                        )
+                    }
+                }.toString()
             }
             checkpoint.rawPendingSpinSettlement?.let { serialized ->
                 preferences[Keys.PendingSpinSettlement] = serialized

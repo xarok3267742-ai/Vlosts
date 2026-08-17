@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "generator": "tools/export_store_screenshot_promos.py",
+  "generator_sha256": "fc9c3ad4f3925a137a1321385bfcba3a75ea73dd9d70d80e2217aba78ea3c5c4",
+  "reference_url": "https://play.google.com/store/apps/details?id=com.LevenProduct.CasinoX&hl=ru",
+  "reference_use": "Hierarchy and promotional framing only; no competitor assets are embedded.",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "format": "PNG RGB"
+  },
+  "font": {
+    "path": "tools/fonts/noto-sans/NotoSans[wdth,wght].ttf",
+    "sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
+    "weight": 850,
+    "width": 75
+  },
+  "generated_background": {
+    "path": "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png",
+    "sha256": "9c40a30fdd7b749732cb356cdcf395bc661af8ea209d09e17d660b90e577e15a",
+    "tool": "built-in OpenAI image generation",
+    "prompt": "Original premium 9:16 V Slot promotional background: deep near-black violet space, faceted crystal edge geometry, restrained gold particles and cyan energy accents, with a calm dark center. No text, UI, logos, currency, people, or watermark."
+  },
+  "store_icon": {
+    "path": "docs/store/assets/v-slot-icon-512-v2.png",
+    "sha256": "7247403e78ee03733004573351c895086e5bceb70f5481c74d11879ceecaab22"
+  },
+  "slides": [
+    {
+      "output": "docs/store/assets/screenshots-promo-v2/01-five-themes.png",
+      "output_sha256": "662359d985c1fafda9ca2dcc743940b6a54079ea8f388dd30aeb7e539ce233d4",
+      "source": "docs/store/assets/screenshots/01-home.png",
+      "source_sha256": "780cdc9dbc74fbba31718c97c6a13d9720d66c461fb94d13a73999ffff628fec",
+      "source_crop": null,
+      "copy": [
+        "ПЯТЬ ТЕМ",
+        "ОДНА ИГРА"
+      ],
+      "banner_position": "bottom",
+      "accent_colors": [
+        "#F0047F",
+        "#9A1AFF"
+      ]
+    },
+    {
+      "output": "docs/store/assets/screenshots-promo-v2/02-spin-and-lines.png",
+      "output_sha256": "4ce85c0530c0cb3108382fa7d97c66f5d47a0f4fc6c3e572a9eea14a34cef210",
+      "source": "docs/store/assets/screenshots/02-violet-slot.png",
+      "source_sha256": "98b2f5a03f956d22ef5cf44ba548b7f509fe636d8c04f5e49addfca364de2069",
+      "source_crop": null,
+      "copy": [
+        "КРУТИ БАРАБАНЫ",
+        "ВЫБИРАЙ ЛИНИИ"
+      ],
+      "banner_position": "top",
+      "accent_colors": [
+        "#7E24F2",
+        "#DA168D"
+      ]
+    },
+    {
+      "output": "docs/store/assets/screenshots-promo-v2/03-paytable.png",
+      "output_sha256": "584e3050d8bb341c180cf442f126bc3a679f6a2eedad0499421c24be62194311",
+      "source": "docs/store/assets/screenshots/03-paytable.png",
+      "source_sha256": "6a6aa697e5c651d34075f637cea647305e66c417fa0128869ffdfc7d7f90b651",
+      "source_crop": null,
+      "copy": [
+        "ВСЕ ВЫПЛАТЫ",
+        "ПОД РУКОЙ"
+      ],
+      "banner_position": "bottom",
+      "accent_colors": [
+        "#075FE8",
+        "#08B8F2"
+      ]
+    },
+    {
+      "output": "docs/store/assets/screenshots-promo-v2/04-settings.png",
+      "output_sha256": "773de180b7fc37772d221af790def61fd4311c289629c6b0f87c678ffd4c04fd",
+      "source": "docs/store/assets/screenshots/04-settings.png",
+      "source_sha256": "d0d239dd20d62e82b059c6d235d14df99118a444c7ed287bf556ac02480ed7f1",
+      "source_crop": null,
+      "copy": [
+        "НАСТРОЙ ИГРУ",
+        "ПОД СЕБЯ"
+      ],
+      "banner_position": "top",
+      "accent_colors": [
+        "#1C9AF2",
+        "#7132F5"
+      ]
+    },
+    {
+      "output": "docs/store/assets/screenshots-promo-v2/05-free-spins.png",
+      "output_sha256": "e52bd547c5f52baf63e9a061106135f092fd4ba32a71781e0ea17fb174e2ddbd",
+      "source": "docs/store/assets/screenshots/05-free-spins.png",
+      "source_sha256": "7cfa1e82f695a6e713e0525638ed2a4240f67d8ced4d4dac5350c4582570e2bd",
+      "source_crop": null,
+      "copy": [
+        "ФРИСПИНЫ",
+        "БЕЗ ПОКУПОК"
+      ],
+      "banner_position": "bottom",
+      "accent_colors": [
+        "#FF8A00",
+        "#EC187E"
+      ]
+    }
+  ]
+}

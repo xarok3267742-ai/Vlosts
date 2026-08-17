@@ -3,6 +3,7 @@ package com.vslot.app
 import java.nio.file.Path
 import kotlin.io.path.readText
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -17,15 +18,17 @@ class ScalableComplianceCopyContractTest {
             assertTrue(layout.contains("android:text=\"@string/disclaimer_body\""))
             assertTrue(layout.contains("@+id/disclaimerCheckboxLargeText"))
             assertTrue(layout.contains("android:text=\"@string/disclaimer_checkbox\""))
-            assertTrue(layout.contains("android:visibility=\"gone\""))
+            val body = layout.substringAfter("@+id/disclaimerBodyLargeText").substringBefore("/>")
+            val checkbox = layout.substringAfter("@+id/disclaimerCheckboxLargeText").substringBefore("/>")
+            assertFalse("$path must always show the primary disclaimer text", body.contains("android:visibility=\"gone\""))
+            assertTrue("$path must always show the legally current checkbox copy", checkbox.contains("android:visibility=\"visible\""))
             assertTrue(layout.contains("android:layout_height=\"wrap_content\""))
         }
 
         val fragment = source("main/java/com/vslot/app/ui/disclaimer/DisclaimerFragment.kt")
-        assertTrue(fragment.contains("resources.configuration.fontScale > DEFAULT_FONT_SCALE"))
-        assertTrue(fragment.contains("DEFAULT_FONT_SCALE = 1.0f"))
-        assertTrue(fragment.contains("binding.disclaimerBodyLargeText.visibility"))
-        assertTrue(fragment.contains("binding.disclaimerCheckboxLargeText.visibility"))
+        assertTrue(fragment.contains("binding.disclaimerCheckboxLabelImage.visibility = View.GONE"))
+        assertFalse(fragment.contains("binding.disclaimerBodyLargeText.visibility"))
+        assertTrue(fragment.contains("binding.disclaimerCheckboxLargeText.visibility = View.VISIBLE"))
     }
 
     @Test
@@ -33,7 +36,11 @@ class ScalableComplianceCopyContractTest {
         val layouts = orientationLayouts("fragment_settings.xml")
 
         layouts.forEach { (path, layout) ->
-            assertEquals("$path must declare every scalable text peer", SCALABLE_SETTINGS_IDS.size, Regex("<TextView").findAll(layout).count())
+            assertEquals(
+                "$path must declare scalable peers and visible toggle copy",
+                SCALABLE_SETTINGS_IDS.size + TOGGLE_COPY_IDS.size,
+                Regex("<TextView").findAll(layout).count()
+            )
             SCALABLE_SETTINGS_IDS.forEach { id -> assertTrue("$path is missing $id", layout.contains("@+id/$id")) }
             assertTrue(layout.contains("android:text=\"@string/social_disclaimer_short\""))
             assertTrue(layout.contains("android:text=\"@string/settings_safety_panel\""))
@@ -95,7 +102,16 @@ class ScalableComplianceCopyContractTest {
             "privacy_policy",
             "third_party_notices_action",
             "social_casino_rules",
-            "push_unconfigured_status"
+            "push_reminders_action",
+            "push_not_enabled_status"
+        )
+        val TOGGLE_COPY_IDS = listOf(
+            "soundToggleLabel",
+            "soundToggleState",
+            "analyticsToggleLabel",
+            "analyticsToggleState",
+            "hapticsToggleLabel",
+            "hapticsToggleState"
         )
     }
 }

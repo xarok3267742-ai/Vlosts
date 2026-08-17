@@ -1,6 +1,7 @@
 package com.vslot.app.game
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -262,6 +263,8 @@ class SlotEngineTest {
 
         assertEquals(listOf("wild", "scatter", "a"), paid.reels.first())
         assertEquals(listOf("wild", "b", "a"), free.reels.first())
+        assertFalse(paid.isFreeSpin)
+        assertTrue(free.isFreeSpin)
         assertTrue(paid.reels != free.reels)
     }
 

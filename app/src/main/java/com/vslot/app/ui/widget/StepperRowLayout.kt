@@ -144,17 +144,34 @@ class StepperRowLayout @JvmOverloads constructor(
                 MeasureSpec.makeMeasureSpec(childMeasure.childHeightPx, MeasureSpec.EXACTLY)
             )
         } else {
-            val centerMeasure = calculateStepperCenterMeasure(
-                contentHeightPx = contentHeight,
-                labelDesiredHeightPx = center?.layoutParams?.height ?: 0,
-                valueDesiredHeightPx = centerValue.layoutParams.height
+            val centerWidthSpec = MeasureSpec.makeMeasureSpec(
+                childMeasure.centerWidthPx,
+                MeasureSpec.EXACTLY
             )
             center?.measure(
-                MeasureSpec.makeMeasureSpec(childMeasure.centerWidthPx, MeasureSpec.EXACTLY),
+                centerWidthSpec,
+                MeasureSpec.makeMeasureSpec(contentHeight, MeasureSpec.AT_MOST)
+            )
+            val valueLayoutHeight = centerValue.layoutParams.height
+            centerValue.measure(
+                centerWidthSpec,
+                if (valueLayoutHeight >= 0) {
+                    MeasureSpec.makeMeasureSpec(valueLayoutHeight, MeasureSpec.EXACTLY)
+                } else {
+                    MeasureSpec.makeMeasureSpec(contentHeight, MeasureSpec.AT_MOST)
+                }
+            )
+            val centerMeasure = calculateStepperCenterMeasure(
+                contentHeightPx = contentHeight,
+                labelDesiredHeightPx = center?.measuredHeight ?: 0,
+                valueDesiredHeightPx = centerValue.measuredHeight
+            )
+            center?.measure(
+                centerWidthSpec,
                 MeasureSpec.makeMeasureSpec(centerMeasure.labelHeightPx, MeasureSpec.EXACTLY)
             )
             centerValue.measure(
-                MeasureSpec.makeMeasureSpec(childMeasure.centerWidthPx, MeasureSpec.EXACTLY),
+                centerWidthSpec,
                 MeasureSpec.makeMeasureSpec(centerMeasure.valueHeightPx, MeasureSpec.EXACTLY)
             )
         }

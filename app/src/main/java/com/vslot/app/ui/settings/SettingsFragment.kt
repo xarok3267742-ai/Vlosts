@@ -90,6 +90,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ViewCompat.setAccessibilityHeading(binding.settingsTitleImage, true)
         viewModel.onVisible()
         parentFragmentManager.setFragmentResultListener(PushPermissionDialogFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
             if (bundle.getBoolean(PushPermissionDialogFragment.KEY_ACCEPTED)) {
@@ -179,8 +180,8 @@ class SettingsFragment : Fragment() {
         binding.pushButtonLargeText.visibility = View.VISIBLE
         binding.pushStatusText.visibility = View.GONE
         binding.pushStatusLargeText.visibility = View.VISIBLE
-        binding.settingsSafetyPanel.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        binding.settingsSafetyLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
+        binding.settingsSafetyPanel.visibility = View.GONE
+        binding.settingsSafetyLargeText.visibility = View.VISIBLE
         if (
             useScalableCopy &&
             resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
@@ -201,8 +202,8 @@ class SettingsFragment : Fragment() {
         binding.versionLargeText.importantForAccessibility = accessibilityImportance(useScalableCopy)
         binding.socialDisclaimerImage.importantForAccessibility = accessibilityImportance(!useScalableCopy)
         binding.socialDisclaimerLargeText.importantForAccessibility = accessibilityImportance(useScalableCopy)
-        binding.settingsSafetyPanel.importantForAccessibility = accessibilityImportance(!useScalableCopy)
-        binding.settingsSafetyLargeText.importantForAccessibility = accessibilityImportance(useScalableCopy)
+        binding.settingsSafetyPanel.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        binding.settingsSafetyLargeText.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
     }
 
     private fun adaptLegalActionsLayout() {
@@ -425,27 +426,33 @@ class SettingsFragment : Fragment() {
 
     private fun renderPushState(state: PlayerState, registrationStatus: PushRegistrationStatus) {
         val pushConfigured = arePushNotificationsConfigured()
+        binding.pushActionStage.visibility = if (pushConfigured) View.VISIBLE else View.GONE
+        binding.pushStatusStage.visibility = if (pushConfigured) View.VISIBLE else View.GONE
+        if (!pushConfigured) {
+            binding.pushButton.isEnabled = false
+            stopPushStatusPolish()
+            pushStatusSignature = null
+            return
+        }
         val systemPermissionGranted = pushConfigured &&
             state.pushPermissionAsked &&
             isNotificationPermissionGranted()
         val registered = systemPermissionGranted && registrationStatus == PushRegistrationStatus.Registered
         val registrationPending = systemPermissionGranted && registrationStatus == PushRegistrationStatus.Registering
         val registrationFailed = systemPermissionGranted && registrationStatus == PushRegistrationStatus.Failed
-        val pushActionEnabled = pushConfigured && !registrationPending
-        binding.pushActionStage.visibility = if (pushConfigured) View.VISIBLE else View.GONE
+        val pushActionEnabled = !registrationPending
         binding.pushButton.isEnabled = pushActionEnabled
         binding.pushButton.alpha = if (pushActionEnabled) PUSH_BUTTON_ENABLED_ALPHA else PUSH_BUTTON_UNCONFIGURED_ALPHA
         binding.pushButtonLabel.alpha = if (pushActionEnabled) PUSH_BUTTON_ENABLED_ALPHA else PUSH_BUTTON_UNCONFIGURED_LABEL_ALPHA
         binding.pushButtonLargeText.alpha = if (pushActionEnabled) PUSH_BUTTON_ENABLED_ALPHA else PUSH_BUTTON_UNCONFIGURED_LABEL_ALPHA
         binding.pushButton.setImageResource(
-            if (!pushConfigured || registered || registrationPending) {
+            if (registered || registrationPending) {
                 R.drawable.btn_privacy_selector
             } else {
                 R.drawable.btn_play_selector
             }
         )
         val pushButtonLabel = when {
-            !pushConfigured -> getString(R.string.push_unconfigured_status)
             registered -> getString(R.string.push_enabled_status)
             registrationPending -> getString(R.string.push_registration_pending_status)
             registrationFailed -> getString(R.string.push_registration_retry_action)
@@ -453,7 +460,6 @@ class SettingsFragment : Fragment() {
         }
         binding.pushButtonLabel.setImageResource(
             when {
-                !pushConfigured -> R.drawable.label_push_unconfigured_action
                 registered -> R.drawable.label_push_enabled
                 registrationPending -> R.drawable.label_push_unconfigured_action
                 else -> R.drawable.label_push_reminders
@@ -461,7 +467,6 @@ class SettingsFragment : Fragment() {
         )
         binding.pushButtonLargeText.text = pushButtonLabel
         val pushStatus = when {
-            !pushConfigured -> getString(R.string.push_unconfigured_status) to R.drawable.label_push_status_unconfigured
             registered -> getString(R.string.push_enabled_status) to R.drawable.label_push_status_enabled
             registrationPending -> getString(R.string.push_registration_pending_status) to R.drawable.label_push_status_asked
             registrationFailed -> getString(R.string.push_registration_error_status) to R.drawable.label_push_status_off
@@ -478,12 +483,21 @@ class SettingsFragment : Fragment() {
     private fun renderFeedbackState(state: PlayerState) {
         binding.soundToggleButton.isSelected = state.soundEnabled
         binding.soundToggleIcon.isSelected = state.soundEnabled
+        binding.soundToggleState.text = getString(
+            if (state.soundEnabled) R.string.settings_state_on else R.string.settings_state_off
+        )
         binding.soundToggleButton.contentDescription = getString(R.string.settings_sound)
         binding.hapticsToggleButton.isSelected = state.hapticsEnabled
         binding.hapticsToggleIcon.isSelected = state.hapticsEnabled
+        binding.hapticsToggleState.text = getString(
+            if (state.hapticsEnabled) R.string.settings_state_on else R.string.settings_state_off
+        )
         binding.hapticsToggleButton.contentDescription = getString(R.string.settings_haptics)
         binding.analyticsToggleButton.isSelected = state.analyticsEnabled
         binding.analyticsToggleIcon.isSelected = state.analyticsEnabled
+        binding.analyticsToggleState.text = getString(
+            if (state.analyticsEnabled) R.string.settings_state_on else R.string.settings_state_off
+        )
         binding.analyticsToggleButton.contentDescription = getString(R.string.settings_analytics)
         ViewCompat.setTooltipText(
             binding.analyticsToggleButton,

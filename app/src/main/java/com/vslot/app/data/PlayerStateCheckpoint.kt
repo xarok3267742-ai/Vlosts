@@ -24,7 +24,7 @@ internal data class PlayerStateCheckpoint(
 )
 
 internal object PlayerStateCheckpointCodec {
-    const val CURRENT_SCHEMA_VERSION = 3
+    const val CURRENT_SCHEMA_VERSION = 4
     const val MAX_FILE_BYTES = 512 * 1024
     const val MAX_PENDING_JOURNAL_CHARS = 128 * 1024
     const val MAX_PENDING_JOURNAL_BYTES = 256 * 1024
@@ -138,7 +138,7 @@ internal object PlayerStateCheckpointCodec {
     private fun JSONObject.toCheckpoint(schemaVersion: Int): PlayerStateCheckpoint? {
         val generation = requiredLong(KEY_GENERATION)?.takeIf { it >= 0L } ?: return null
         val stateJson = opt(KEY_PLAYER_STATE) as? JSONObject ?: return null
-        val state = stateJson.toPlayerState() ?: return null
+        val state = stateJson.toPlayerState(schemaVersion) ?: return null
         if (!state.hasValidShape()) return null
         val pendingSettlement = boundedNullableString(KEY_PENDING_SPIN_SETTLEMENT)
         if (!pendingSettlement.isValid) return null
@@ -198,6 +198,18 @@ internal object PlayerStateCheckpointCodec {
                     freeSpinAutoPlaySlots.sorted().forEach(::put)
                 }
             )
+            .put(
+                KEY_FREE_SPIN_FEATURE_TOTAL_WINS,
+                JSONArray().apply {
+                    normalizedFreeSpinFeatureTotalWins(freeSpinFeatureTotalWins).forEach { (slotId, totalWin) ->
+                        put(
+                            JSONObject()
+                                .put(KEY_SLOT_ID, slotId)
+                                .put(KEY_TOTAL_WIN, totalWin)
+                        )
+                    }
+                }
+            )
             .put(KEY_LEVEL_XP, levelXp)
             .put(KEY_DISCLAIMER_ACCEPTED, disclaimerAccepted)
             .put(KEY_PUSH_PERMISSION_ASKED, pushPermissionAsked)
@@ -207,8 +219,13 @@ internal object PlayerStateCheckpointCodec {
             .put(KEY_LAST_PLAYED_SLOT, lastPlayedSlot)
     }
 
-    private fun JSONObject.toPlayerState(): PlayerState? {
-        if (!hasExactly(PLAYER_STATE_KEYS)) return null
+    private fun JSONObject.toPlayerState(schemaVersion: Int): PlayerState? {
+        val expectedKeys = if (schemaVersion >= 4) {
+            PLAYER_STATE_KEYS
+        } else {
+            LEGACY_PLAYER_STATE_KEYS
+        }
+        if (!hasExactly(expectedKeys)) return null
         val bonusesArray = opt(KEY_FREE_SPIN_BONUSES) as? JSONArray ?: return null
         if (bonusesArray.length() > MAX_STATE_COLLECTION_SIZE) return null
         val bonuses = LinkedHashMap<String, FreeSpinBonus>(bonusesArray.length())
@@ -233,6 +250,19 @@ internal object PlayerStateCheckpointCodec {
             if (!autoPlaySlots.add(slotId)) return null
         }
 
+        val featureTotalWins = LinkedHashMap<String, Int>()
+        if (schemaVersion >= 4) {
+            val totalWinsArray = opt(KEY_FREE_SPIN_FEATURE_TOTAL_WINS) as? JSONArray ?: return null
+            if (totalWinsArray.length() > MAX_STATE_COLLECTION_SIZE) return null
+            for (index in 0 until totalWinsArray.length()) {
+                val item = totalWinsArray.opt(index) as? JSONObject ?: return null
+                if (!item.hasExactly(FREE_SPIN_FEATURE_TOTAL_WIN_KEYS)) return null
+                val slotId = item.requiredStateString(KEY_SLOT_ID) ?: return null
+                val totalWin = item.requiredInt(KEY_TOTAL_WIN)?.takeIf { it >= 0 } ?: return null
+                if (featureTotalWins.put(slotId, totalWin) != null) return null
+            }
+        }
+
         return PlayerState(
             coinsBalance = requiredLong(KEY_COINS_BALANCE) ?: return null,
             lastDailyBonusTimestamp = requiredLong(KEY_LAST_DAILY_BONUS_TIMESTAMP) ?: return null,
@@ -244,6 +274,7 @@ internal object PlayerStateCheckpointCodec {
             freeSpinSlotId = requiredStateString(KEY_FREE_SPIN_SLOT_ID) ?: return null,
             freeSpinBonuses = bonuses,
             freeSpinAutoPlaySlots = autoPlaySlots,
+            freeSpinFeatureTotalWins = featureTotalWins,
             levelXp = requiredInt(KEY_LEVEL_XP) ?: return null,
             disclaimerAccepted = requiredBoolean(KEY_DISCLAIMER_ACCEPTED) ?: return null,
             pushPermissionAsked = requiredBoolean(KEY_PUSH_PERMISSION_ASKED) ?: return null,
@@ -269,11 +300,18 @@ internal object PlayerStateCheckpointCodec {
     private fun PlayerState.hasValidShape(): Boolean {
         if (freeSpinBonuses.size > MAX_STATE_COLLECTION_SIZE) return false
         if (freeSpinAutoPlaySlots.size > MAX_STATE_COLLECTION_SIZE) return false
+        if (freeSpinFeatureTotalWins.size > MAX_STATE_COLLECTION_SIZE) return false
         if (!freeSpinSlotId.isValidStateString()) return false
         if (!lastPlayedSlot.isValidStateString()) return false
         if (
             freeSpinBonuses.any { (key, bonus) ->
                 !key.isValidStateString() || !bonus.slotId.isValidStateString()
+            }
+        ) {
+            return false
+        }
+        if (freeSpinFeatureTotalWins.any { (slotId, totalWin) ->
+                !slotId.isValidStateString() || totalWin < 0
             }
         ) {
             return false
@@ -534,6 +572,7 @@ internal object PlayerStateCheckpointCodec {
     private const val KEY_FREE_SPIN_SLOT_ID = "freeSpinSlotId"
     private const val KEY_FREE_SPIN_BONUSES = "freeSpinBonuses"
     private const val KEY_FREE_SPIN_AUTO_PLAY_SLOTS = "freeSpinAutoPlaySlots"
+    private const val KEY_FREE_SPIN_FEATURE_TOTAL_WINS = "freeSpinFeatureTotalWins"
     private const val KEY_LEVEL_XP = "levelXp"
     private const val KEY_DISCLAIMER_ACCEPTED = "disclaimerAccepted"
     private const val KEY_PUSH_PERMISSION_ASKED = "pushPermissionAsked"
@@ -545,6 +584,7 @@ internal object PlayerStateCheckpointCodec {
     private const val KEY_COUNT = "count"
     private const val KEY_LINE_BET = "lineBet"
     private const val KEY_LINES = "lines"
+    private const val KEY_TOTAL_WIN = "totalWin"
 
     private val ENVELOPE_KEYS = setOf(KEY_SCHEMA_VERSION, KEY_PAYLOAD, KEY_CHECKSUM)
     private val SUPPORTED_SCHEMA_VERSIONS = 1..CURRENT_SCHEMA_VERSION
@@ -562,7 +602,7 @@ internal object PlayerStateCheckpointCodec {
         KEY_PENDING_SPIN_PRESENTATION
     )
     private val PAYLOAD_KEYS = VERSION_2_PAYLOAD_KEYS + KEY_MIGRATION_COMPLETE
-    private val PLAYER_STATE_KEYS = setOf(
+    private val LEGACY_PLAYER_STATE_KEYS = setOf(
         KEY_COINS_BALANCE,
         KEY_LAST_DAILY_BONUS_TIMESTAMP,
         KEY_SELECTED_BET,
@@ -581,7 +621,9 @@ internal object PlayerStateCheckpointCodec {
         KEY_ANALYTICS_ENABLED,
         KEY_LAST_PLAYED_SLOT
     )
+    private val PLAYER_STATE_KEYS = LEGACY_PLAYER_STATE_KEYS + KEY_FREE_SPIN_FEATURE_TOTAL_WINS
     private val FREE_SPIN_BONUS_KEYS = setOf(KEY_SLOT_ID, KEY_COUNT, KEY_LINE_BET, KEY_LINES)
+    private val FREE_SPIN_FEATURE_TOTAL_WIN_KEYS = setOf(KEY_SLOT_ID, KEY_TOTAL_WIN)
 }
 
 internal class PlayerStateCheckpointStore(

@@ -270,7 +270,7 @@
 
                     <FrameLayout
                         android:id="@+id/violetCard"
-                        android:layout_width="248dp"
+                        android:layout_width="228dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:clickable="true"
@@ -309,7 +309,7 @@
 
                     <FrameLayout
                         android:id="@+id/romanCard"
-                        android:layout_width="248dp"
+                        android:layout_width="228dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:clickable="true"
@@ -348,7 +348,7 @@
 
                     <FrameLayout
                         android:id="@+id/neonCard"
-                        android:layout_width="248dp"
+                        android:layout_width="228dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:clickable="true"
@@ -419,7 +419,7 @@
 
                     <FrameLayout
                         android:id="@+id/pharaohCard"
-                        android:layout_width="248dp"
+                        android:layout_width="228dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:clickable="true"
@@ -490,7 +490,7 @@
 
                     <FrameLayout
                         android:id="@+id/oceanCard"
-                        android:layout_width="248dp"
+                        android:layout_width="228dp"
                         android:layout_height="match_parent"
                         android:clickable="true"
                         android:contentDescription="@string/home_play_ocean_slot"
@@ -571,11 +571,18 @@
                     android:src="@drawable/home_scroll_right_veil" />
             </FrameLayout>
 
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="168dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:fillViewport="true"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                 <FrameLayout
                     android:id="@+id/dailyBonusButton"
@@ -700,7 +707,8 @@
                     android:contentDescription="@string/social_disclaimer_short"
                     android:scaleType="fitCenter"
                     android:src="@drawable/label_social_disclaimer_short" />
-            </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

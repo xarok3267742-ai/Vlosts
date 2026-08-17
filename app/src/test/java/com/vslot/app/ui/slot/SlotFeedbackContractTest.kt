@@ -3,6 +3,7 @@ package com.vslot.app.ui.slot
 import java.nio.file.Files
 import java.nio.file.Path
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -35,7 +36,7 @@ class SlotFeedbackContractTest {
         assertTrue(slotFragment.contains("startReelSpinLoop()"))
         assertTrue(slotFragment.contains("stopReelSpinLoop()"))
         assertTrue(slotFragment.contains("SlotSoundCue.ReelStop"))
-        assertTrue(slotFragment.contains("SlotSoundCue.Payout"))
+        assertFalse(slotFragment.contains("SlotSoundCue.Payout"))
         assertTrue(slotFragment.contains("SlotSoundCue.Win"))
         assertTrue(slotFragment.contains("SlotSoundCue.Bonus"))
         assertTrue(slotFragment.contains("slotSoundPlayer?.release()"))

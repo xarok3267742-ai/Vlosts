@@ -41,9 +41,14 @@ class SlotAutoSpinContractTest {
             assertTrue(layout.contains("@+id/autoSpinOption10"))
             assertTrue(layout.contains("@+id/autoSpinOption25"))
             assertTrue(layout.contains("@+id/autoSpinOption50"))
+            assertTrue(layout.contains("@+id/autoSpinSafeguards"))
+            assertTrue(layout.contains("@string/auto_spin_safeguards"))
         }
         assertTrue(strings.contains("auto_spin_count_action\">Запустить %1\$d автоспинов"))
         assertTrue(strings.contains("auto_spin_stop_remaining\">Остановить автоспин, осталось %1\$d"))
+        assertTrue(strings.contains("Лимит потерь — 10 ставок"))
+        assertTrue(strings.contains("остановится при выплате 10× общей ставки или больше"))
+        assertTrue(strings.contains("при запуске бонуса"))
     }
 
     @Test

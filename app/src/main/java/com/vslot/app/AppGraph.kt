@@ -10,6 +10,7 @@ import com.vslot.app.analytics.NoOpAnalyticsTracker
 import com.vslot.app.data.PlayerRepository
 import com.vslot.app.game.SlotEngine
 import com.vslot.app.game.SlotRng
+import com.vslot.app.game.ReleasedSlotMathRegistry
 import com.vslot.app.game.SlotRepository
 import com.vslot.app.game.SpinSettlementVerifier
 
@@ -39,11 +40,12 @@ object AppGraph {
         this.analyticsTracker = analyticsTracker
         this.analyticsConsentController = analyticsConsentController
         this.analyticsRevocationGuard = analyticsRevocationGuard
-        slotRepository = SlotRepository(appContext)
+        val releasedMathRegistry = ReleasedSlotMathRegistry.fromAssets(appContext)
+        slotRepository = SlotRepository(releasedMathRegistry.currentConfigs())
         slotEngine = debugSlotEngineOverride(appContext) ?: SlotEngine()
         playerRepository = PlayerRepository(
             appContext,
-            SpinSettlementVerifier(slotRepository, slotEngine)
+            SpinSettlementVerifier(releasedMathRegistry)
         )
     }
 

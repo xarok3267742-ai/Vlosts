@@ -33,14 +33,62 @@ class CompactLandscapeLayoutContractTest {
             "oceanCard"
         ).forEach { id ->
             assertTrue("$id must remain reachable through the compact card carousel", cardScroll.contains(document.id(id)))
+            assertEquals("228dp", document.id(id).attr("layout_width"))
         }
         assertEquals(1, document.elements("HorizontalScrollView").size)
         assertEquals("96dp", cardScroll.singleElementChild().attr("paddingEnd"))
-        assertEquals("168dp", (document.id("dailyBonusButton").parentNode as Element).attr("layout_width"))
+        val actionColumn = document.id("dailyBonusButton").parentNode as Element
+        val actionScroll = actionColumn.parentNode as Element
+        assertEquals("androidx.core.widget.NestedScrollView", actionScroll.tagName)
+        assertEquals("168dp", actionScroll.attr("layout_width"))
+        assertEquals("true", actionScroll.attr("fillViewport"))
         assertTrue("Settings must stay pinned outside the card carousel", !cardScroll.contains(document.id("settingsButton")))
         assertTrue("Daily bonus must stay pinned outside the card carousel", !cardScroll.contains(document.id("dailyBonusButton")))
         assertTrue("Privacy must stay pinned outside the card carousel", !cardScroll.contains(document.id("privacyButton")))
         assertTouchTargets(document, HOME_ACTION_IDS)
+    }
+
+    @Test
+    fun `compact 320dp high home keeps locked cards and daily bonus contained`() {
+        val document = layout("layout-land/fragment_home.xml")
+        val dailyBonus = document.id("dailyBonusButton")
+        val actionColumn = dailyBonus.parentNode as Element
+        val actionScroll = actionColumn.parentNode as Element
+        val contentRow = actionScroll.parentNode as Element
+        val screenColumn = contentRow.parentNode as Element
+        val topBar = screenColumn.elementChildren().first()
+        val availableContentHeight = COMPACT_LANDSCAPE_HEIGHT_DP -
+            screenColumn.attr("paddingTop").dp() -
+            screenColumn.attr("paddingBottom").dp() -
+            topBar.attr("layout_height").dp() -
+            contentRow.attr("layout_marginTop").dp()
+        val actionStackHeight = actionColumn.elementChildren().sumOf { child ->
+            child.attr("layout_height").dp() +
+                child.attr("layout_marginTop").dp() +
+                child.attr("layout_marginBottom").dp()
+        }
+
+        assertEquals("168dp", actionScroll.attr("layout_width"))
+        assertEquals("match_parent", actionColumn.attr("layout_width"))
+        assertEquals("wrap_content", actionColumn.attr("layout_height"))
+        assertTrue(actionScroll.contains(document.id("dailyBonusButton")))
+        assertTrue(actionScroll.contains(document.id("privacyButton")))
+        assertTrue(
+            "Pinned actions occupy ${actionStackHeight}dp inside a ${availableContentHeight}dp compact viewport",
+            actionStackHeight <= availableContentHeight
+        )
+        assertEndAlignedChildFits(document.id("dailyBonusClaimPlate"), actionScroll.attr("layout_width").dp())
+        assertEndAlignedChildFits(document.id("dailyBonusCountdownRail"), actionScroll.attr("layout_width").dp())
+
+        val cardScroll = document.id("homeSlotHorizontalScrollView")
+        LOCKED_CARD_OVERLAYS.forEach { (cardId, overlayId) ->
+            val card = document.id(cardId)
+            val overlay = document.id(overlayId)
+            assertTrue("$cardId must remain reachable through the compact carousel", cardScroll.contains(card))
+            assertTrue("$overlayId must stay inside $cardId", card.contains(overlay))
+            assertEquals("match_parent", overlay.attr("layout_width"))
+            assertEquals("match_parent", overlay.attr("layout_height"))
+        }
     }
 
     @Test
@@ -85,7 +133,7 @@ class CompactLandscapeLayoutContractTest {
         assertEquals("262dp", sideBySideContent.attr("minHeight"))
         assertTrue("Wide reels must stay inside the reachable side-by-side content", slotScroll.contains(slot.id("slotMachineFrame")))
         assertTrue("Wide controls must stay inside the reachable side-by-side content", slotScroll.contains(slot.id("slotControlConsole")))
-        assertEquals("290dp", slot.id("slotControlConsole").attr("layout_width"))
+        assertEquals("340dp", slot.id("slotControlConsole").attr("layout_width"))
         assertEquals("match_parent", slot.id("slotControlConsole").attr("layout_height"))
     }
 
@@ -147,6 +195,10 @@ class CompactLandscapeLayoutContractTest {
             .single()
     }
 
+    private fun Element.elementChildren(): List<Element> = (0 until childNodes.length)
+        .map(childNodes::item)
+        .filterIsInstance<Element>()
+
     private fun Element.contains(descendant: Node): Boolean {
         var current: Node? = descendant
         while (current != null) {
@@ -169,6 +221,16 @@ class CompactLandscapeLayoutContractTest {
         return null
     }
 
+    private fun assertEndAlignedChildFits(child: Element, parentWidthDp: Int) {
+        val occupiedWidth = child.attr("layout_width").dp() + child.attr("layout_marginEnd").dp()
+        assertTrue(
+            "${child.getAttribute("android:id")} occupies ${occupiedWidth}dp inside ${parentWidthDp}dp",
+            occupiedWidth <= parentWidthDp
+        )
+    }
+
+    private fun String.dp(): Int = if (isBlank()) 0 else removeSuffix("dp").toInt()
+
     private companion object {
         val HOME_ACTION_IDS = listOf(
             "settingsButton",
@@ -189,6 +251,12 @@ class CompactLandscapeLayoutContractTest {
             "spinButton",
             "autoSpinButton",
             "maxLinesButton"
+        )
+        const val COMPACT_LANDSCAPE_HEIGHT_DP = 320
+        val LOCKED_CARD_OVERLAYS = mapOf(
+            "neonCard" to "neonLockedOverlay",
+            "pharaohCard" to "pharaohLockedOverlay",
+            "oceanCard" to "oceanLockedOverlay"
         )
         val DP_VALUE = Regex("(\\d+)dp")
     }

@@ -1,6 +1,7 @@
 package com.vslot.app.data
 
 import com.vslot.app.SlotRules
+import com.vslot.app.game.ReleasedSlotMathV5
 
 data class PlayerState(
     val coinsBalance: Long = STARTING_BALANCE,
@@ -13,6 +14,7 @@ data class PlayerState(
     val freeSpinSlotId: String = "",
     val freeSpinBonuses: Map<String, FreeSpinBonus> = emptyMap(),
     val freeSpinAutoPlaySlots: Set<String> = emptySet(),
+    val freeSpinFeatureTotalWins: Map<String, Int> = emptyMap(),
     val levelXp: Int = 0,
     val disclaimerAccepted: Boolean = false,
     val pushPermissionAsked: Boolean = false,
@@ -96,10 +98,7 @@ data class PlayerState(
         }
 
         fun xpForSpin(totalBet: Int, isFreeSpin: Boolean, winAmount: Int): Int {
-            val stakeXp = (totalBet / 50).coerceIn(1, 40)
-            val winXp = (winAmount / 250).coerceIn(0, 20)
-            val baseXp = if (isFreeSpin) 4 else 8
-            return baseXp + stakeXp + winXp
+            return ReleasedSlotMathV5.xpForSpin(totalBet, isFreeSpin, winAmount)
         }
     }
 
@@ -120,6 +119,10 @@ data class PlayerState(
 
     fun shouldAutoPlayFreeSpinsForSlot(slotId: String): Boolean {
         return slotId.isNotBlank() && slotId in freeSpinAutoPlaySlots
+    }
+
+    fun freeSpinFeatureTotalWinForSlot(slotId: String): Int? {
+        return freeSpinFeatureTotalWins[slotId]?.coerceAtLeast(0)
     }
 
     fun freeSpinBetForSlot(slotId: String): Int {
@@ -149,6 +152,14 @@ internal fun normalizedFreeSpinBonuses(bonuses: Map<String, FreeSpinBonus>): Lis
         .filter { it.slotId.isNotBlank() && it.count > 0 && it.lineBet > 0 && it.lines > 0 }
         .map { it.copy(lines = it.lines.coerceIn(PlayerState.MIN_LINES, PlayerState.MAX_LINES)) }
         .sortedBy { it.slotId }
+}
+
+internal fun normalizedFreeSpinFeatureTotalWins(totalWins: Map<String, Int>): Map<String, Int> {
+    return totalWins.entries
+        .asSequence()
+        .filter { (slotId, totalWin) -> slotId.isNotBlank() && totalWin >= 0 }
+        .sortedBy(Map.Entry<String, Int>::key)
+        .associateTo(linkedMapOf()) { it.key to it.value }
 }
 
 internal fun saturatedNonNegativeSum(values: Iterable<Int>): Int {
@@ -244,6 +255,7 @@ internal fun PlayerState.normalized(): PlayerState {
         freeSpinSlotId = firstBonus?.slotId ?: freeSpinSlotId.takeIf { normalizedFreeSpinsBalance > 0 }.orEmpty(),
         freeSpinBonuses = normalizedBonuses.associateBy { it.slotId },
         freeSpinAutoPlaySlots = freeSpinAutoPlaySlots.filterTo(mutableSetOf()) { it.isNotBlank() },
+        freeSpinFeatureTotalWins = normalizedFreeSpinFeatureTotalWins(freeSpinFeatureTotalWins),
         levelXp = levelXp.coerceIn(0, PlayerState.maxLevelXp()),
         lastPlayedSlot = PlayerState.normalizedLastPlayedSlot(lastPlayedSlot)
     )

@@ -10,6 +10,21 @@ import kotlin.math.sqrt
 
 class SlotMathBalanceTest {
     @Test
+    fun `published math balance report mirrors current exact metrics`() {
+        val report = Path.of("../qa/slot_math_balance.md").toFile().readText()
+
+        listOf(
+            "| Neon Nights | Low | 86.2452% | 94.9975% |",
+            "| Ocean Pearl | Medium-low | 86.2418% | 94.9984% |",
+            "| Violet Fortune | Medium | 86.1379% | 94.9323% |",
+            "| Roman Reels | Medium-high | 86.1818% | 94.9922% |",
+            "| Pharaoh Gold | High | 86.2228% | 94.9999% |"
+        ).forEach { expectedRow ->
+            assertTrue("Math report is stale: $expectedRow", report.contains(expectedRow))
+        }
+    }
+
+    @Test
     fun `test slot config mirrors production asset`() {
         assertEquals(
             Path.of("src/main/assets/slots_config.json").toFile().readText(),
@@ -27,7 +42,7 @@ class SlotMathBalanceTest {
 
         slots.forEach { slot ->
             val metricsByLineCount = sampledMetricsByLineCount(slot, engine)
-            var previousHitRate = 0.0
+            var previousPayoutHitRate = 0.0
 
             (1..slot.paylines).forEach { lineCount ->
                 val metrics = metricsByLineCount.getValue(lineCount)
@@ -38,20 +53,43 @@ class SlotMathBalanceTest {
                 )
                 assertTrue(
                     "${slot.id} $lineCount-line direct RTP should stay below all-in RTP because free spins have expected value",
-                    metrics.directRtp < metrics.allInRtp
+                    metrics.paidDirectRtp < metrics.allInRtp
                 )
-                assertTrue("${slot.id} $lineCount-line exact bonus rate is too low: ${metrics.bonusRate}", metrics.bonusRate >= 0.005)
-                assertTrue("${slot.id} $lineCount-line exact bonus rate is too high: ${metrics.bonusRate}", metrics.bonusRate <= 0.03)
                 assertTrue(
-                    "${slot.id} hit rate should not fall when active lines increase",
-                    metrics.hitRate >= previousHitRate
+                    "${slot.id} $lineCount-line free-spin direct RTP must exceed paid direct RTP",
+                    metrics.freeSpinDirectRtp > metrics.paidDirectRtp
                 )
-                previousHitRate = metrics.hitRate
+                assertTrue("${slot.id} $lineCount-line exact paid bonus rate is too low: ${metrics.paidBonusRate}", metrics.paidBonusRate >= 0.005)
+                assertTrue("${slot.id} $lineCount-line exact paid bonus rate is too high: ${metrics.paidBonusRate}", metrics.paidBonusRate <= 0.03)
+                assertTrue(
+                    "${slot.id} payout hit rate should not fall when active lines increase",
+                    metrics.payoutHitRate >= previousPayoutHitRate
+                )
+                previousPayoutHitRate = metrics.payoutHitRate
+                assertEquals(
+                    "${slot.id} paid payout classes must partition payout hits",
+                    metrics.payoutHitRate,
+                    metrics.partialReturnRate + metrics.breakEvenRate + metrics.netWinRate,
+                    RATE_EPSILON
+                )
             }
 
             val maxLineMetrics = metricsByLineCount.getValue(slot.paylines)
-            assertTrue("${slot.id} exact hit rate is too low: ${maxLineMetrics.hitRate}", maxLineMetrics.hitRate >= 0.30)
-            assertTrue("${slot.id} exact hit rate is too high: ${maxLineMetrics.hitRate}", maxLineMetrics.hitRate <= 0.46)
+            assertTrue("${slot.id} exact payout hit rate is too low: ${maxLineMetrics.payoutHitRate}", maxLineMetrics.payoutHitRate >= 0.30)
+            assertTrue("${slot.id} exact payout hit rate is too high: ${maxLineMetrics.payoutHitRate}", maxLineMetrics.payoutHitRate <= 0.46)
+            assertTrue("${slot.id} exact net win rate is too low: ${maxLineMetrics.netWinRate}", maxLineMetrics.netWinRate >= 0.20)
+            assertTrue("${slot.id} exact net win rate is too high: ${maxLineMetrics.netWinRate}", maxLineMetrics.netWinRate <= 0.36)
+            println(
+                "${slot.id}: allInRtp=${maxLineMetrics.allInRtp}, " +
+                    "paidDirectRtp=${maxLineMetrics.paidDirectRtp}, " +
+                    "freeSpinDirectRtp=${maxLineMetrics.freeSpinDirectRtp}, " +
+                    "payoutHitRate=${maxLineMetrics.payoutHitRate}, " +
+                    "partialReturnRate=${maxLineMetrics.partialReturnRate}, " +
+                    "breakEvenRate=${maxLineMetrics.breakEvenRate}, " +
+                    "netWinRate=${maxLineMetrics.netWinRate}, " +
+                    "paidBonusRate=${maxLineMetrics.paidBonusRate}, " +
+                    "freeSpinRetriggerRate=${maxLineMetrics.freeSpinBonusRate}"
+            )
             assertEquals(
                 "${slot.id} maximum single-spin payout changed",
                 MAXIMUM_WIN_AT_MINIMUM_LINE_BET.getValue(slot.id),
@@ -104,13 +142,21 @@ class SlotMathBalanceTest {
         val metrics = slots.associate { slot ->
             slot.id to sampledFullRoundMetrics(slot, FULL_ROUND_SAMPLE_SEED)
         }
+        println(
+            metrics.entries.joinToString(separator = "\n") { (slotId, value) ->
+                "$slotId: fullRoundRtp=${value.meanPayout}, " +
+                    "fullRoundStdDev=${value.payoutStandardDeviation}, " +
+                    "freeSpinsPlayed=${value.freeSpinsPlayed}, " +
+                    "freeSpinRetriggers=${value.freeSpinRetriggers}"
+            }
+        )
 
         val orderedProfiles = listOf(
-            "neon_nights" to 1.90..2.05,
-            "ocean_pearl" to 1.95..2.12,
-            "violet_fortune" to 2.00..2.18,
-            "roman_reels" to 2.10..2.32,
-            "pharaoh_gold" to 2.30..2.60
+            "neon_nights" to 2.02..2.10,
+            "ocean_pearl" to 2.07..2.15,
+            "violet_fortune" to 2.10..2.19,
+            "roman_reels" to 2.18..2.28,
+            "pharaoh_gold" to 2.50..2.62
         )
         orderedProfiles.forEach { (slotId, expectedStandardDeviation) ->
             val slotMetrics = metrics.getValue(slotId)
@@ -242,9 +288,14 @@ class SlotMathBalanceTest {
         val bet = slot.bets.first()
         var spins = 0
         val totalBets = LongArray(slot.paylines + 1)
-        val totalWins = LongArray(slot.paylines + 1)
-        val wins = IntArray(slot.paylines + 1)
-        val bonuses = IntArray(slot.paylines + 1)
+        val paidTotalWins = LongArray(slot.paylines + 1)
+        val freeSpinTotalWins = LongArray(slot.paylines + 1)
+        val payoutHits = IntArray(slot.paylines + 1)
+        val partialReturns = IntArray(slot.paylines + 1)
+        val breakEvens = IntArray(slot.paylines + 1)
+        val netWins = IntArray(slot.paylines + 1)
+        val paidBonuses = IntArray(slot.paylines + 1)
+        val freeSpinBonuses = IntArray(slot.paylines + 1)
         val maximumWins = IntArray(slot.paylines + 1)
 
         forEachStopCombination(slot.reelStrips) { stops ->
@@ -290,23 +341,41 @@ class SlotMathBalanceTest {
                     throw AssertionError("Exact free-spin maximum calculator diverged from SlotEngine for ${slot.id}.")
                 }
                 totalBets[lineCount] += totalBet.toLong()
-                totalWins[lineCount] += totalWin.toLong()
+                paidTotalWins[lineCount] += totalWin.toLong()
+                freeSpinTotalWins[lineCount] += freeSpinTotalWin.toLong()
                 maximumWins[lineCount] = maxOf(maximumWins[lineCount], totalWin, freeSpinTotalWin)
-                if (totalWin > 0) wins[lineCount] += 1
-                if (maxLineResult.resultType == ResultType.Bonus) bonuses[lineCount] += 1
+                if (totalWin > 0) payoutHits[lineCount] += 1
+                when {
+                    totalWin in 1 until totalBet -> partialReturns[lineCount] += 1
+                    totalWin == totalBet -> breakEvens[lineCount] += 1
+                    totalWin > totalBet -> netWins[lineCount] += 1
+                }
+                if (maxLineResult.resultType == ResultType.Bonus) paidBonuses[lineCount] += 1
+                if (freeSpinMaxLineResult.resultType == ResultType.Bonus) {
+                    freeSpinBonuses[lineCount] += 1
+                }
             }
         }
 
         return (1..slot.paylines).associateWith { lineCount ->
-            val directRtp = totalWins[lineCount].toDouble() / totalBets[lineCount].toDouble()
-            val bonusRate = bonuses[lineCount].toDouble() / spins.toDouble()
-            val freeSpinsRetriggerRate = metricsFreeSpinAwardRate(bonusRate)
+            val paidDirectRtp = paidTotalWins[lineCount].toDouble() / totalBets[lineCount].toDouble()
+            val freeSpinDirectRtp = freeSpinTotalWins[lineCount].toDouble() / totalBets[lineCount].toDouble()
+            val paidBonusRate = paidBonuses[lineCount].toDouble() / spins.toDouble()
+            val freeSpinBonusRate = freeSpinBonuses[lineCount].toDouble() / spins.toDouble()
+            val freeSpinsRetriggerRate = metricsFreeSpinAwardRate(freeSpinBonusRate)
+            val expectedFreeSpinsPerPaidSpin = SlotEngine.FREE_SPINS_BONUS_AWARD * paidBonusRate /
+                (1.0 - freeSpinsRetriggerRate)
 
             SlotMetrics(
-                directRtp = directRtp,
-                allInRtp = directRtp / (1.0 - freeSpinsRetriggerRate),
-                hitRate = wins[lineCount].toDouble() / spins.toDouble(),
-                bonusRate = bonusRate,
+                paidDirectRtp = paidDirectRtp,
+                freeSpinDirectRtp = freeSpinDirectRtp,
+                allInRtp = paidDirectRtp + expectedFreeSpinsPerPaidSpin * freeSpinDirectRtp,
+                payoutHitRate = payoutHits[lineCount].toDouble() / spins.toDouble(),
+                partialReturnRate = partialReturns[lineCount].toDouble() / spins.toDouble(),
+                breakEvenRate = breakEvens[lineCount].toDouble() / spins.toDouble(),
+                netWinRate = netWins[lineCount].toDouble() / spins.toDouble(),
+                paidBonusRate = paidBonusRate,
+                freeSpinBonusRate = freeSpinBonusRate,
                 maximumWin = maximumWins[lineCount]
             )
         }
@@ -370,10 +439,15 @@ class SlotMathBalanceTest {
     }
 
     private data class SlotMetrics(
-        val directRtp: Double,
+        val paidDirectRtp: Double,
+        val freeSpinDirectRtp: Double,
         val allInRtp: Double,
-        val hitRate: Double,
-        val bonusRate: Double,
+        val payoutHitRate: Double,
+        val partialReturnRate: Double,
+        val breakEvenRate: Double,
+        val netWinRate: Double,
+        val paidBonusRate: Double,
+        val freeSpinBonusRate: Double,
         val maximumWin: Int
     )
 
@@ -403,14 +477,15 @@ class SlotMathBalanceTest {
         const val MAX_SPINS_PER_ROUND = 1_000
         const val TARGET_RTP = 0.95
         const val RTP_TOLERANCE = 0.0025
-        const val MIN_BALANCED_LINE_RTP = 0.785
-        const val MAX_BALANCED_LINE_RTP = 0.790
+        const val RATE_EPSILON = 1e-12
+        const val MIN_BALANCED_LINE_RTP = 0.773
+        const val MAX_BALANCED_LINE_RTP = 0.777
         val MAXIMUM_WIN_AT_MINIMUM_LINE_BET = mapOf(
             "violet_fortune" to 3_920,
-            "roman_reels" to 4_530,
+            "roman_reels" to 5_170,
             "neon_nights" to 3_600,
-            "pharaoh_gold" to 11_080,
-            "ocean_pearl" to 6_990
+            "pharaoh_gold" to 11_060,
+            "ocean_pearl" to 6_970
         )
     }
 }

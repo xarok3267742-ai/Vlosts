@@ -24,6 +24,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.getSystemService
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -54,6 +55,7 @@ class PrivacyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ViewCompat.setAccessibilityHeading(binding.privacyTitle, true)
         binding.privacyLoadingGroup.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE
         binding.errorImage.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE
         requireActivity().onBackPressedDispatcher.addCallback(

@@ -28,7 +28,13 @@ class ScalableDialogCopyContractTest {
                 )
                 assertEquals("@string/${spec.stringName}", scalableCopy.getAttribute("android:text"))
                 assertEquals("wrap_content", scalableCopy.getAttribute("android:layout_height"))
-                assertEquals("gone", scalableCopy.getAttribute("android:visibility"))
+                assertEquals(
+                    if (spec.scalableByDefault) "visible" else "gone",
+                    scalableCopy.getAttribute("android:visibility")
+                )
+                if (spec.scalableByDefault) {
+                    assertEquals("gone", bitmapCopy.getAttribute("android:visibility"))
+                }
                 assertEquals("no", scalableCopy.getAttribute("android:importantForAccessibility"))
                 assertTrue(scalableCopy.getAttribute("style").startsWith("@style/VSlotAccessibleCopy"))
                 assertFalse("$path scalable copy must not ellipsize", scalableCopy.hasAttribute("android:ellipsize"))
@@ -136,7 +142,8 @@ class ScalableDialogCopyContractTest {
         val layout: String,
         val bitmapId: String,
         val textId: String,
-        val stringName: String
+        val stringName: String,
+        val scalableByDefault: Boolean = false
     )
 
     private companion object {
@@ -159,8 +166,8 @@ class ScalableDialogCopyContractTest {
             CopySpec("dialog_low_coins.xml", "lowCoinsBody", "lowCoinsBodyLargeText", "low_coins_bonus_body"),
             CopySpec("dialog_result.xml", "resultBody", "resultBodyLargeText", "result_win_body"),
             CopySpec("dialog_paytable.xml", "paytablePaylineGuide", "paytablePaylineGuideLargeText", "paytable_payline_guide"),
-            CopySpec("dialog_paytable.xml", "paytableBetExplanation", "paytableBetExplanationLargeText", "paytable_bet_explanation"),
-            CopySpec("dialog_paytable.xml", "paytableFooter", "paytableFooterLargeText", "paytable_footer_violet")
+            CopySpec("dialog_paytable.xml", "paytableBetExplanation", "paytableBetExplanationLargeText", "paytable_bet_explanation", scalableByDefault = true),
+            CopySpec("dialog_paytable.xml", "paytableFooter", "paytableFooterLargeText", "paytable_footer_violet", scalableByDefault = true)
         )
         val FRAGMENT_COPY_IDS = mapOf(
             "AnalyticsConsentDialogFragment.kt" to listOf("analyticsConsentBody", "analyticsConsentBodyLargeText"),

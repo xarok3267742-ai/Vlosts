@@ -14,6 +14,7 @@ import com.vslot.app.data.PlayerStateCheckpointStore
 import com.vslot.app.data.SpinReservation
 import com.vslot.app.data.deserializePendingSpinPresentation
 import com.vslot.app.data.deserializePendingSpinSettlement
+import com.vslot.app.data.serialize
 import com.vslot.app.game.SlotEngine
 import com.vslot.app.game.SlotMathIdentity
 import com.vslot.app.game.SlotRng
@@ -85,6 +86,16 @@ class QaStateReceiver : BroadcastReceiver() {
                 repository.acceptDisclaimer()
                 drainBalance(repository)
             }
+            SCENARIO_LOW_REDUCE -> {
+                val repository = resetPlayerState()
+                repository.acceptDisclaimer()
+                repository.claimDailyBonus()
+                drainBalance(repository)
+                repository.creditSpinWin(DEBUG_REDUCIBLE_BALANCE)
+                repository.updateSelectedBet(DEBUG_QA_BET)
+                repository.updateSelectedLines(DEBUG_QA_LINES)
+                repository.updateLastPlayedSlot(DEBUG_QA_SLOT_ID)
+            }
             SCENARIO_FREE_SPINS -> {
                 val repository = resetPlayerState()
                 repository.acceptDisclaimer()
@@ -98,8 +109,27 @@ class QaStateReceiver : BroadcastReceiver() {
                 seedPlayableSlotState(intent)
                 AppGraph.persistSlotEngineOverrideForDebug(context, DEBUG_BONUS_STOPS)
             }
+            SCENARIO_SLOT_PARTIAL_RETURN -> {
+                seedPlayableSlotState(
+                    intent,
+                    defaultSlotId = DEBUG_RETURN_SLOT_ID,
+                    defaultBet = DEBUG_RETURN_BET
+                )
+                AppGraph.persistSlotEngineOverrideForDebug(context, DEBUG_PARTIAL_RETURN_STOPS)
+            }
+            SCENARIO_SLOT_BREAK_EVEN -> {
+                seedPlayableSlotState(
+                    intent,
+                    defaultSlotId = DEBUG_RETURN_SLOT_ID,
+                    defaultBet = DEBUG_RETURN_BET
+                )
+                AppGraph.persistSlotEngineOverrideForDebug(context, DEBUG_BREAK_EVEN_STOPS)
+            }
             SCENARIO_PENDING_SPIN_RECOVERY -> {
                 seedPendingSpinRecovery()
+            }
+            SCENARIO_UNSUPPORTED_MATH -> {
+                seedPendingSpinRecovery(unsupportedMath = true)
             }
         }
     }
@@ -244,14 +274,18 @@ class QaStateReceiver : BroadcastReceiver() {
         it.resetForDebug()
     }
 
-    private suspend fun seedPlayableSlotState(intent: Intent) {
+    private suspend fun seedPlayableSlotState(
+        intent: Intent,
+        defaultSlotId: String = DEBUG_QA_SLOT_ID,
+        defaultBet: Int = DEBUG_QA_BET
+    ) {
         val repository = resetPlayerState()
         repository.acceptDisclaimer()
         repository.claimDailyBonus()
         drainBalance(repository)
-        repository.updateSelectedBet(intent.getIntExtra(EXTRA_SELECTED_BET, DEBUG_QA_BET).coerceToDebugBet())
+        repository.updateSelectedBet(intent.getIntExtra(EXTRA_SELECTED_BET, defaultBet).coerceToDebugBet())
         repository.updateSelectedLines(intent.getIntExtra(EXTRA_SELECTED_LINES, DEBUG_QA_LINES).coerceToDebugLines())
-        repository.updateLastPlayedSlot(intent.getStringExtra(EXTRA_LAST_SLOT).orEmpty().ifBlank { DEBUG_QA_SLOT_ID })
+        repository.updateLastPlayedSlot(intent.getStringExtra(EXTRA_LAST_SLOT).orEmpty().ifBlank { defaultSlotId })
         repository.awardLevelXp(intent.getIntExtra(EXTRA_LEVEL_XP, 0).coerceAtLeast(0))
         repeat(repository.playerState.first().freeSpinsBalance) {
             repository.consumeFreeSpin(DEBUG_QA_SLOT_ID)
@@ -259,7 +293,7 @@ class QaStateReceiver : BroadcastReceiver() {
         repository.creditSpinWin(DEBUG_BALANCE_TOP_UP)
     }
 
-    private suspend fun seedPendingSpinRecovery() {
+    private suspend fun seedPendingSpinRecovery(unsupportedMath: Boolean = false) {
         val repository = resetPlayerState()
         repository.acceptDisclaimer()
         repository.updateSelectedBet(DEBUG_QA_BET)
@@ -272,6 +306,22 @@ class QaStateReceiver : BroadcastReceiver() {
             isFreeSpin = false,
             winAmount = result.winAmount
         )
+        val settlement = PendingSpinSettlement(
+            id = "qa-pending-spin",
+            processSessionId = ProcessSession.id,
+            slotId = DEBUG_QA_SLOT_ID,
+            isFreeSpin = false,
+            lineBet = result.bet,
+            lines = result.lines,
+            totalBet = result.totalBet,
+            winAmount = result.winAmount,
+            freeSpinsAwarded = result.freeSpinsAwarded,
+            levelXpAwarded = levelXpAwarded,
+            mathVersion = SlotMathIdentity.VERSION,
+            configFingerprint = SlotMathIdentity.fingerprint(config),
+            stopIndexes = result.stopIndexes,
+            visualResult = result
+        )
         checkNotNull(
             repository.reserveSpin(
                 slotId = DEBUG_QA_SLOT_ID,
@@ -282,27 +332,14 @@ class QaStateReceiver : BroadcastReceiver() {
                 selectedBetSnapshot = DEBUG_QA_BET,
                 selectedLinesSnapshot = DEBUG_QA_LINES
             ) {
-                SpinReservation(
-                    settlement = PendingSpinSettlement(
-                        id = "qa-pending-spin",
-                        processSessionId = ProcessSession.id,
-                        slotId = DEBUG_QA_SLOT_ID,
-                        isFreeSpin = false,
-                        lineBet = result.bet,
-                        lines = result.lines,
-                        totalBet = result.totalBet,
-                        winAmount = result.winAmount,
-                        freeSpinsAwarded = result.freeSpinsAwarded,
-                        levelXpAwarded = levelXpAwarded,
-                        mathVersion = SlotMathIdentity.VERSION,
-                        configFingerprint = SlotMathIdentity.fingerprint(config),
-                        stopIndexes = result.stopIndexes,
-                        visualResult = result
-                    ),
-                    value = Unit
-                )
+                SpinReservation(settlement = settlement, value = Unit)
             }
         )
+        if (unsupportedMath) {
+            repository.replacePendingSpinJournalForDebug(
+                settlement.copy(mathVersion = SlotMathIdentity.VERSION + 1).serialize()
+            )
+        }
     }
 
     private suspend fun drainBalance(repository: PlayerRepository) {
@@ -349,18 +386,25 @@ class QaStateReceiver : BroadcastReceiver() {
         const val SCENARIO_LOW_WAIT = "low_wait"
         const val SCENARIO_DAILY_WAIT = "daily_wait"
         const val SCENARIO_LOW_BONUS = "low_bonus"
+        const val SCENARIO_LOW_REDUCE = "low_reduce"
         const val SCENARIO_FREE_SPINS = "free_spins"
         const val SCENARIO_SLOT_MULTI_WIN = "slot_multi_win"
         const val SCENARIO_SLOT_BONUS = "slot_bonus"
+        const val SCENARIO_SLOT_PARTIAL_RETURN = "slot_partial_return"
+        const val SCENARIO_SLOT_BREAK_EVEN = "slot_break_even"
         const val SCENARIO_PENDING_SPIN_RECOVERY = "pending_spin_recovery"
+        const val SCENARIO_UNSUPPORTED_MATH = "unsupported_math"
         const val COMMAND_PREPARE_PROCESS_DEATH = "prepare_process_death"
         const val COMMAND_INSPECT_PROCESS_DEATH = "inspect_process_death"
         const val COMMAND_ACK_PROCESS_DEATH = "ack_process_death_presentation"
         const val DEBUG_QA_SLOT_ID = "violet_fortune"
+        const val DEBUG_RETURN_SLOT_ID = "roman_reels"
         const val DEBUG_QA_BET = 25
+        const val DEBUG_RETURN_BET = 10
         const val DEBUG_QA_LINES = 10
         val DEBUG_QA_BETS = setOf(10, 25, 50, 100, 250)
         const val DEBUG_BALANCE_TOP_UP = 10_000
+        const val DEBUG_REDUCIBLE_BALANCE = 50
         const val DEBUG_FREE_SPINS = 5
         const val DEBUG_PROCESS_DEATH_SETTLEMENT_ID = "qa-process-death-spin-v1"
         const val DEBUG_BIG_WIN_MULTIPLIER = 10
@@ -368,6 +412,8 @@ class QaStateReceiver : BroadcastReceiver() {
         val RESPONSE_TOKEN = Regex("[A-Za-z0-9_.:-]+")
         val DEBUG_MULTI_WIN_STOPS = intArrayOf(0, 5, 11, 1, 0)
         val DEBUG_BONUS_STOPS = intArrayOf(0, 0, 17, 20, 15)
+        val DEBUG_PARTIAL_RETURN_STOPS = intArrayOf(0, 0, 9, 0, 0)
+        val DEBUG_BREAK_EVEN_STOPS = intArrayOf(0, 0, 4, 1, 0)
         val DEBUG_PROCESS_DEATH_STOPS = intArrayOf(0, 0, 12, 4, 2)
     }
 }

@@ -6,9 +6,11 @@ import com.vslot.app.analytics.AnalyticsTracker
 import com.vslot.app.analytics.FakeAnalyticsTracker
 import com.vslot.app.data.FreeSpinBonus
 import com.vslot.app.data.PendingSpinSettlement
+import com.vslot.app.data.PendingSpinRecoveryStatus
 import com.vslot.app.data.PlayerState
 import com.vslot.app.data.PlayerStore
 import com.vslot.app.data.SpinReservation
+import com.vslot.app.data.SpinReservationAttempt
 import com.vslot.app.data.SpinSettlementReceipt
 import com.vslot.app.data.matchesReservation
 import com.vslot.app.data.mergeAwardedFreeSpinBonus
@@ -46,6 +48,55 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SlotViewModelFreeSpinsTest {
+    @Test
+    fun `unsupported pending math blocks play without reporting low coins`() = runTest {
+        Dispatchers.setMain(StandardTestDispatcher(testScheduler))
+        try {
+            val unsupportedLockedStake = FreeSpinBonus(
+                slotId = CONFIG.id,
+                count = 2,
+                lineBet = 10,
+                lines = 10
+            )
+            val playerStore = FakePlayerStore(
+                initialState = PlayerState(
+                    disclaimerAccepted = true,
+                    freeSpinBonuses = mapOf(CONFIG.id to unsupportedLockedStake)
+                ),
+                pendingSpinRecoveryStatus = PendingSpinRecoveryStatus.UnsupportedMath
+            )
+            val viewModel = SlotViewModel(
+                slotId = CONFIG.id,
+                playerRepository = playerStore,
+                slotRepository = FakeSlotCatalog(CONFIG),
+                slotEngine = SlotEngine(OneRng),
+                analyticsTracker = FakeAnalyticsTracker()
+            )
+            val blockedState = async {
+                viewModel.uiState.first { state -> state.isSettlementRecoveryBlockedByMath }
+            }
+
+            advanceUntilIdle()
+
+            val state = blockedState.await()
+            assertTrue(state.isSettlementRecoveryPending)
+            assertFalse(state.isSpinStartReserved)
+            assertFalse(state.isAutoSpinEnabled)
+
+            viewModel.spin()
+            advanceUntilIdle()
+
+            assertFalse(playerStore.operations.any { it.startsWith("reserve") })
+            assertFalse(playerStore.operations.any { it.startsWith("reconcile_free_spin") })
+            assertEquals(
+                unsupportedLockedStake,
+                playerStore.current.freeSpinBonuses[CONFIG.id]
+            )
+        } finally {
+            resetMainDispatcher()
+        }
+    }
+
     @Test
     fun `missing or unknown restored slot id falls back without crashing`() = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
@@ -1088,6 +1139,7 @@ class SlotViewModelFreeSpinsTest {
                     freeSpinBet = 10,
                     freeSpinLines = 5,
                     freeSpinSlotId = CONFIG.id,
+                    freeSpinFeatureTotalWins = mapOf(CONFIG.id to 725),
                     disclaimerAccepted = true
                 )
             )
@@ -1100,16 +1152,28 @@ class SlotViewModelFreeSpinsTest {
                 slotEngine = SlotEngine(OneRng),
                 analyticsTracker = analyticsTracker
             )
+            val resultEvent = async { viewModel.events.first { it is SlotEvent.ResultReady } }
             advanceUntilIdle()
 
             viewModel.spin()
             advanceUntilIdle()
+
+            val completedEvent = resultEvent.await() as SlotEvent.ResultReady
 
             assertEquals(0, playerStore.current.freeSpinsBalance)
             assertEquals(0, playerStore.current.freeSpinBet)
             assertEquals(0, playerStore.current.freeSpinLines)
             assertEquals("", playerStore.current.freeSpinSlotId)
             assertEquals(1, playerStore.operations.count { it == "consume_free_spin" })
+            assertEquals(725 + completedEvent.result.winAmount, completedEvent.freeSpinsTotalWin)
+
+            viewModel.onResultDialogDismissed(completedEvent.presentationId)
+            advanceUntilIdle()
+            advanceTimeBy(AUTO_SPIN_NEXT_DELAY_MS * 2)
+            runCurrent()
+
+            assertFalse(viewModel.uiState.value.isAutoSpinEnabled)
+            assertEquals(0, playerStore.operations.count { it == "debit:250" })
         } finally {
             resetMainDispatcher()
         }
@@ -1890,6 +1954,111 @@ class SlotViewModelFreeSpinsTest {
     }
 
     @Test
+    fun `recovered final free spin presents durable feature total`() = runTest {
+        Dispatchers.setMain(StandardTestDispatcher(testScheduler))
+        try {
+            val expectedResult = SlotEngine(OneRng).spin(CONFIG, bet = 25, lines = 10)
+            val recoveredSettlement = PendingSpinSettlement(
+                id = "recovered-final-free-spin",
+                processSessionId = "previous-process",
+                slotId = CONFIG.id,
+                isFreeSpin = true,
+                lineBet = expectedResult.bet,
+                lines = expectedResult.lines,
+                totalBet = expectedResult.totalBet,
+                winAmount = expectedResult.winAmount,
+                freeSpinsAwarded = 0,
+                levelXpAwarded = 1,
+                mathVersion = SlotMathIdentity.VERSION,
+                configFingerprint = SlotMathIdentity.fingerprint(CONFIG),
+                stopIndexes = expectedResult.stopIndexes,
+                visualResult = expectedResult
+            )
+            val playerStore = FakePlayerStore(
+                initialState = PlayerState(
+                    coinsBalance = 10_000,
+                    selectedBet = 25,
+                    selectedLines = 10,
+                    freeSpinFeatureTotalWins = mapOf(CONFIG.id to 1_125),
+                    disclaimerAccepted = true
+                ),
+                recoveredPresentation = recoveredSettlement
+            )
+            val viewModel = SlotViewModel(
+                slotId = CONFIG.id,
+                playerRepository = playerStore,
+                slotRepository = FakeSlotCatalog(CONFIG),
+                slotEngine = SlotEngine(OneRng),
+                analyticsTracker = FakeAnalyticsTracker()
+            )
+            val resultEvent = async { viewModel.events.first { it is SlotEvent.ResultReady } }
+            val summaryState = async {
+                viewModel.uiState.first { it.pendingFreeSpinsTotalWin != null }
+            }
+
+            advanceUntilIdle()
+
+            assertEquals(1_125, (resultEvent.await() as SlotEvent.ResultReady).freeSpinsTotalWin)
+            assertEquals(1_125, summaryState.await().pendingFreeSpinsTotalWin)
+        } finally {
+            resetMainDispatcher()
+        }
+    }
+
+    @Test
+    fun `pending presentation recovery continues after transient read attempts fail`() = runTest {
+        Dispatchers.setMain(StandardTestDispatcher(testScheduler))
+        try {
+            val expectedResult = SlotEngine(OneRng).spin(CONFIG, bet = 25, lines = 10)
+            val recoveredSettlement = PendingSpinSettlement(
+                id = "retry-recovered-presentation",
+                processSessionId = "previous-process",
+                slotId = CONFIG.id,
+                isFreeSpin = false,
+                lineBet = expectedResult.bet,
+                lines = expectedResult.lines,
+                totalBet = expectedResult.totalBet,
+                winAmount = expectedResult.winAmount,
+                freeSpinsAwarded = expectedResult.freeSpinsAwarded,
+                levelXpAwarded = 1,
+                mathVersion = SlotMathIdentity.VERSION,
+                configFingerprint = SlotMathIdentity.fingerprint(CONFIG),
+                stopIndexes = expectedResult.stopIndexes,
+                visualResult = expectedResult
+            )
+            val playerStore = FakePlayerStore(
+                initialState = PlayerState(disclaimerAccepted = true),
+                presentationClaimIoFailuresRemaining = 2,
+                recoveredPresentation = recoveredSettlement
+            )
+            val viewModel = SlotViewModel(
+                slotId = CONFIG.id,
+                playerRepository = playerStore,
+                slotRepository = FakeSlotCatalog(CONFIG),
+                slotEngine = SlotEngine(OneRng),
+                analyticsTracker = FakeAnalyticsTracker()
+            )
+            val recoveredState = async {
+                viewModel.uiState.first { it.pendingPresentationId == recoveredSettlement.id }
+            }
+
+            runCurrent()
+            advanceTimeBy(100L)
+            runCurrent()
+            assertEquals(2, playerStore.operations.count { it == "claim_presentation_io_failed" })
+
+            advanceTimeBy(350L)
+            runCurrent()
+
+            assertEquals(recoveredSettlement.id, recoveredState.await().pendingPresentationId)
+            assertTrue(playerStore.operations.contains("claim_presentation:${recoveredSettlement.id}"))
+            advanceUntilIdle()
+        } finally {
+            resetMainDispatcher()
+        }
+    }
+
+    @Test
     fun `paid autospin batches reserve exactly the selected count and never one more`() = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         try {
@@ -1984,7 +2153,7 @@ class SlotViewModelFreeSpinsTest {
     }
 
     @Test
-    fun `paid autospin pauses for a big win dialog then resumes the selected batch`() = runTest {
+    fun `paid autospin stops after a big win dialog`() = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         try {
             val bigWinConfig = CONFIG.copy(
@@ -2008,24 +2177,27 @@ class SlotViewModelFreeSpinsTest {
                 analyticsTracker = FakeAnalyticsTracker()
             )
             advanceUntilIdle()
+            val stopEvent = async {
+                viewModel.events.first { it is SlotEvent.AutoSpinStopped }
+            }
 
             viewModel.startAutoSpin(10)
             advanceUntilIdle()
 
             assertEquals(1, playerStore.operations.count { it == "debit:250" })
-            assertTrue(viewModel.uiState.first { it.isAutoSpinEnabled }.isAutoSpinEnabled)
+            assertFalse(viewModel.uiState.value.isAutoSpinEnabled)
+            assertEquals(
+                AutoSpinStopReason.BigWin,
+                (stopEvent.await() as SlotEvent.AutoSpinStopped).reason
+            )
             renderCurrentSpinPresentation(viewModel, playerStore)
             viewModel.onResultDialogDismissed()
-            advanceUntilIdleRenderingSpinPresentations(
-                viewModel,
-                playerStore,
-                maximumPresentations = 9
-            )
+            advanceUntilIdle()
 
-            assertEquals(10, playerStore.operations.count { it == "debit:250" })
+            assertEquals(1, playerStore.operations.count { it == "debit:250" })
             advanceTimeBy(AUTO_SPIN_NEXT_DELAY_MS * 2)
             runCurrent()
-            assertEquals(10, playerStore.operations.count { it == "debit:250" })
+            assertEquals(1, playerStore.operations.count { it == "debit:250" })
         } finally {
             resetMainDispatcher()
         }
@@ -2063,7 +2235,7 @@ class SlotViewModelFreeSpinsTest {
     }
 
     @Test
-    fun `paid bonus pauses free spins then resumes the remaining paid autospins`() = runTest {
+    fun `paid bonus finishes awarded free spins without resuming paid autospins`() = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         try {
             val playerStore = FakePlayerStore(
@@ -2106,7 +2278,7 @@ class SlotViewModelFreeSpinsTest {
             )
 
             assertEquals(0, playerStore.current.freeSpinsBalance)
-            assertEquals(10, playerStore.operations.count { it == "debit:250" })
+            assertEquals(1, playerStore.operations.count { it == "debit:250" })
             assertEquals(PlayerState.FREE_SPINS_BONUS_AWARD, playerStore.operations.count { it == "consume_free_spin" })
             assertFalse(playerStore.current.shouldAutoPlayFreeSpinsForSlot(CONFIG.id))
             assertFalse(
@@ -2115,6 +2287,50 @@ class SlotViewModelFreeSpinsTest {
             )
         } finally {
             advanceUntilIdle()
+            resetMainDispatcher()
+        }
+    }
+
+    @Test
+    fun `paid autospin stops after losing ten starting bets`() = runTest {
+        Dispatchers.setMain(StandardTestDispatcher(testScheduler))
+        try {
+            val losingConfig = CONFIG.copy(payouts = emptyMap())
+            val playerStore = FakePlayerStore(
+                PlayerState(
+                    coinsBalance = 10_000,
+                    selectedBet = 25,
+                    selectedLines = 10,
+                    disclaimerAccepted = true
+                )
+            )
+            val viewModel = SlotViewModel(
+                slotId = losingConfig.id,
+                playerRepository = playerStore,
+                slotRepository = FakeSlotCatalog(losingConfig),
+                slotEngine = SlotEngine(OneRng),
+                analyticsTracker = FakeAnalyticsTracker()
+            )
+            advanceUntilIdle()
+            val stopEvent = async {
+                viewModel.events.first { it is SlotEvent.AutoSpinStopped }
+            }
+
+            viewModel.startAutoSpin(25)
+            advanceUntilIdleRenderingSpinPresentations(
+                viewModel,
+                playerStore,
+                maximumPresentations = 12
+            )
+
+            assertEquals(10, playerStore.operations.count { it == "debit:250" })
+            assertEquals(7_500L, playerStore.current.coinsBalance)
+            assertFalse(viewModel.uiState.value.isAutoSpinEnabled)
+            assertEquals(
+                AutoSpinStopReason.LossLimit,
+                (stopEvent.await() as SlotEvent.AutoSpinStopped).reason
+            )
+        } finally {
             resetMainDispatcher()
         }
     }
@@ -2225,15 +2441,26 @@ class SlotViewModelFreeSpinsTest {
                 slotEngine = SlotEngine(OneRng),
                 analyticsTracker = analyticsTracker
             )
+            val resultEvent = async { viewModel.events.first { it is SlotEvent.ResultReady } }
             advanceUntilIdle()
 
             viewModel.toggleAutoSpin()
             advanceUntilIdle()
 
+            val completedEvent = resultEvent.await() as SlotEvent.ResultReady
+
             assertFalse(viewModel.uiState.value.isAutoSpinEnabled)
-            assertFalse(viewModel.uiState.value.isResultPending)
+            assertEquals(completedEvent.result.winAmount, completedEvent.freeSpinsTotalWin)
             assertEquals(0, playerStore.current.freeSpinsBalance)
             assertEquals(1, playerStore.operations.count { it == "consume_free_spin" })
+            assertEquals(0, playerStore.operations.count { it == "debit:250" })
+
+            viewModel.onResultDialogDismissed(completedEvent.presentationId)
+            advanceUntilIdle()
+            advanceTimeBy(AUTO_SPIN_NEXT_DELAY_MS * 2)
+            runCurrent()
+
+            assertFalse(viewModel.uiState.value.isAutoSpinEnabled)
             assertEquals(0, playerStore.operations.count { it == "debit:250" })
         } finally {
             resetMainDispatcher()
@@ -2435,7 +2662,7 @@ class SlotViewModelFreeSpinsTest {
     }
 
     @Test
-    fun `explicit stop ends paid batch but preserves awarded free spins feature`() = runTest {
+    fun `explicit stop preserves awarded free spins but leaves them in manual mode`() = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         try {
             val settlementStarted = CompletableDeferred<Unit>()
@@ -2468,20 +2695,21 @@ class SlotViewModelFreeSpinsTest {
 
             viewModel.stopAutoSpin()
             runCurrent()
-            assertTrue(playerStore.current.shouldAutoPlayFreeSpinsForSlot(CONFIG.id))
+            assertFalse(playerStore.current.shouldAutoPlayFreeSpinsForSlot(CONFIG.id))
 
-            val featureState = async {
-                viewModel.uiState.first { state -> state.isFreeSpinAutoPlay }
-            }
-            runCurrent()
             releaseSettlement.complete(Unit)
             advanceUntilIdle()
 
             assertEquals(PlayerState.FREE_SPINS_BONUS_AWARD, playerStore.current.freeSpinsForSlot(CONFIG.id))
-            assertTrue(playerStore.current.shouldAutoPlayFreeSpinsForSlot(CONFIG.id))
-            assertTrue(featureState.await().isAutoSpinEnabled)
-            viewModel.pauseAutoSpin()
-            advanceUntilIdle()
+            assertFalse(playerStore.current.shouldAutoPlayFreeSpinsForSlot(CONFIG.id))
+            assertFalse(viewModel.uiState.value.isAutoSpinEnabled)
+            assertFalse(viewModel.uiState.value.isFreeSpinAutoPlay)
+
+            renderCurrentSpinPresentation(viewModel, playerStore, dismissResultDialog = true)
+            advanceTimeBy(5_001L)
+            runCurrent()
+
+            assertEquals(0, playerStore.operations.count { it == "consume_free_spin" })
         } finally {
             resetMainDispatcher()
         }
@@ -2572,6 +2800,10 @@ class SlotViewModelFreeSpinsTest {
         val presentationId = checkNotNull(playerStore.latestSettledPresentationId)
         check(presentationId !in playerStore.acknowledgedPresentationIds)
         if (
+            (
+                playerStore.latestSettledPresentationIsFreeSpin &&
+                    !playerStore.current.hasFreeSpinsForSlot(CONFIG.id)
+                ) ||
             playerStore.latestSettledPresentationResult
                 ?.let(SlotResultPresentationPolicy::shouldShowResultDialog) == true
         ) {
@@ -2616,12 +2848,14 @@ class SlotViewModelFreeSpinsTest {
         private var reservationCommitIoFailuresRemaining: Int = 0,
         private var settlementIoFailuresRemaining: Int = 0,
         private var acknowledgementIoFailuresRemaining: Int = 0,
+        private var presentationClaimIoFailuresRemaining: Int = 0,
         private var reconciliationIoFailuresRemaining: Int = 0,
         private var voidNextSettlement: Boolean = false,
         private var selectedBetIoFailuresRemaining: Int = 0,
         private var recoverBonusBeforeReservation: Boolean = false,
         private var persistStakeBeforeReservation: Pair<Int, Int>? = null,
         private var recoveredPresentation: PendingSpinSettlement? = null,
+        private val pendingSpinRecoveryStatus: PendingSpinRecoveryStatus = PendingSpinRecoveryStatus.None,
         private val presentationClaimGate: Pair<CompletableDeferred<Unit>, CompletableDeferred<Unit>>? = null,
         private val playerStateCollectionGate: Pair<CompletableDeferred<Unit>, CompletableDeferred<Unit>>? = null,
         private val selectedBetWriteGate: Pair<CompletableDeferred<Unit>, CompletableDeferred<Unit>>? = null,
@@ -2639,6 +2873,8 @@ class SlotViewModelFreeSpinsTest {
             get() = latestSettledPresentation?.id
         val latestSettledPresentationResult
             get() = latestSettledPresentation?.visualResult
+        val latestSettledPresentationIsFreeSpin: Boolean
+            get() = latestSettledPresentation?.isFreeSpin == true
         private var selectedBetWriteWasBlocked = false
         private var settlementWriteWasBlocked = false
         val current: PlayerState get() = state.value
@@ -2849,6 +3085,10 @@ class SlotViewModelFreeSpinsTest {
             autoPlayFreeSpins: Boolean,
             createReservation: () -> SpinReservation<T>
         ): SpinReservation<T>? {
+            if (pendingSpinRecoveryStatus == PendingSpinRecoveryStatus.UnsupportedMath) {
+                operations += "reserve_blocked_unsupported_math"
+                return null
+            }
             if (reservationIoFailuresRemaining > 0) {
                 reservationIoFailuresRemaining -= 1
                 operations += "reserve_io_failed"
@@ -2942,6 +3182,31 @@ class SlotViewModelFreeSpinsTest {
             return reservation
         }
 
+        override suspend fun <T> reserveSpinAttempt(
+            slotId: String,
+            isFreeSpin: Boolean,
+            lineBet: Int,
+            lines: Int,
+            totalBet: Int,
+            selectedBetSnapshot: Int?,
+            selectedLinesSnapshot: Int?,
+            autoPlayFreeSpins: Boolean,
+            createReservation: () -> SpinReservation<T>
+        ): SpinReservationAttempt<T> {
+            return reserveSpin(
+                slotId = slotId,
+                isFreeSpin = isFreeSpin,
+                lineBet = lineBet,
+                lines = lines,
+                totalBet = totalBet,
+                selectedBetSnapshot = selectedBetSnapshot,
+                selectedLinesSnapshot = selectedLinesSnapshot,
+                autoPlayFreeSpins = autoPlayFreeSpins,
+                createReservation = createReservation
+            )?.let { reservation -> SpinReservationAttempt.Reserved(reservation) }
+                ?: SpinReservationAttempt.Rejected
+        }
+
         override suspend fun settleSpin(
             settlement: PendingSpinSettlement,
             presentationConsumerId: String?
@@ -2979,6 +3244,8 @@ class SlotViewModelFreeSpinsTest {
                     outcomeSettled = false
                 )
             }
+            val totalWinsBeforeSettlement = state.value.freeSpinFeatureTotalWins
+            val hadFreeSpinsBeforeAward = state.value.hasFreeSpinsForSlot(settlement.slotId)
             creditSpinWin(settlement.winAmount)
             awardFreeSpins(
                 count = settlement.freeSpinsAwarded,
@@ -2993,7 +3260,21 @@ class SlotViewModelFreeSpinsTest {
                     remove(settlement.slotId)
                 }
             }
-            state.value = settledState.copy(freeSpinAutoPlaySlots = autoPlaySlots)
+            val featureTotalWins = totalWinsBeforeSettlement.toMutableMap().apply {
+                if (!settlement.isFreeSpin && settlement.freeSpinsAwarded > 0 && !hadFreeSpinsBeforeAward) {
+                    this[settlement.slotId] = 0
+                }
+                if (settlement.isFreeSpin) {
+                    this[settlement.slotId] = ((this[settlement.slotId] ?: 0).toLong() +
+                        settlement.winAmount.toLong())
+                        .coerceAtMost(Int.MAX_VALUE.toLong())
+                        .toInt()
+                }
+            }
+            state.value = settledState.copy(
+                freeSpinAutoPlaySlots = autoPlaySlots,
+                freeSpinFeatureTotalWins = featureTotalWins
+            )
             latestSettledPresentation = settlement
             return SpinSettlementReceipt(
                 updatedState = state.value,
@@ -3012,6 +3293,9 @@ class SlotViewModelFreeSpinsTest {
 
         override suspend fun recoverPendingSpinSettlement(currentProcessSessionId: String): Boolean = false
 
+        override suspend fun pendingSpinRecoveryStatus(): PendingSpinRecoveryStatus =
+            pendingSpinRecoveryStatus
+
         override suspend fun pendingSpinPresentationSlotId(): String? {
             return recoveredPresentation?.slotId ?: latestSettledPresentation?.slotId
         }
@@ -3020,6 +3304,11 @@ class SlotViewModelFreeSpinsTest {
             slotId: String,
             currentProcessSessionId: String
         ): PendingSpinSettlement? {
+            if (presentationClaimIoFailuresRemaining > 0) {
+                presentationClaimIoFailuresRemaining -= 1
+                operations += "claim_presentation_io_failed"
+                throw IOException("test presentation claim failure")
+            }
             presentationClaimGate?.let { (started, release) ->
                 started.complete(Unit)
                 release.await()

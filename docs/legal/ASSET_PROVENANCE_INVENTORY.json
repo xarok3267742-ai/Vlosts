@@ -431,19 +431,6 @@
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
-      "path": "app/src/main/res/drawable-nodpi/body_disclaimer.webp",
-      "bytes": 132124,
-      "sha256": "f854ff32ddd11ad7ee24957795afc2017f753ad3bc5f0120b6f112aaf1eb87d9",
-      "media_role": "packaged_visual",
-      "source_paths": [
-        "app/src/main/res/drawable-nodpi/body_disclaimer.webp"
-      ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
-      "evidence_id": "release_asset_rights_signoff_v1"
-    },
-    {
       "path": "app/src/main/res/drawable-nodpi/body_push_prompt.webp",
       "bytes": 50042,
       "sha256": "c55b1f7427d7c6ebb202d93167cc0903e8a019456941a1662efc992225d9665d",
@@ -556,60 +543,160 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_active.webp",
-      "bytes": 12622,
-      "sha256": "33f590253f1ce5fd726ff921941bdc70781813b386d70b2c3489a7369785438a",
+      "bytes": 102076,
+      "sha256": "6b7ab8f334a4473828bb9200294e0110b5393b10111920d96c0e9bd72fc43bba",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_autospin_active.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp",
-      "bytes": 12618,
-      "sha256": "b06df2627fea4f42af6cee689f77215335b8e200d40c3721243635369ef7d225",
+      "bytes": 96910,
+      "sha256": "307444cef8bd064cce953d66575ea4a5a5011a8feff9f68edc17a83ba133f9d5",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_default.webp",
-      "bytes": 12344,
-      "sha256": "f41da28c1576fe57e9088b23e9a89d0e5276c68f189706b2558ce8e58245b172",
+      "bytes": 87670,
+      "sha256": "df82532dea243fd234aff057459099aaf21d3eb25f8b38d1265c53e8c682bb6c",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_autospin_default.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp",
-      "bytes": 10420,
-      "sha256": "bcfb00fff147d95857163dd58d97ff09bf8de1824d7798184746257c6afe46b9",
+      "bytes": 33144,
+      "sha256": "7ead0103e7e44afbf59e077d29c0a9496b2c2bbfc1373d9f89b17cf9c5cb2f41",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_active.webp",
-      "bytes": 16858,
-      "sha256": "a0318472ebdae4fa6e13d5667887c715507abdc1f140c62451436af14e4600cc",
+      "bytes": 37970,
+      "sha256": "f9dda3f9d5b83e1762e2e9d647885e898419e56371f48604fdb5c7bee43831e4",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_active.webp",
@@ -625,8 +712,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_active_pressed.webp",
-      "bytes": 16660,
-      "sha256": "53e46801a851fb4aa70a8027d89e6123349e1e12b8b33b83852c365d9e457dba",
+      "bytes": 35216,
+      "sha256": "d8bd0b1058c9b90bcb8c6dd6c4d50fe11866d010829c94d5f54e3f7b36f10d53",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp",
@@ -642,8 +729,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_default.webp",
-      "bytes": 16000,
-      "sha256": "15bb043c04e93ae590fe86f5c31850fd8f564d60e2def1417f047155434c3e59",
+      "bytes": 31606,
+      "sha256": "0b9dc82c87ed2399cac3353a16a55b3168acc9d98c900bf422852c2d5e920ebc",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_default.webp",
@@ -659,8 +746,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_disabled.webp",
-      "bytes": 13800,
-      "sha256": "b6cdf56a28c647624114369846487dffed2dd6bad920b1c6b4f868d930e77c62",
+      "bytes": 27044,
+      "sha256": "918261bd032cad6e8c5fe36eb03aeb79aa5498daab4a3cf8fa5905612cf8bd45",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp",
@@ -676,8 +763,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_pressed.webp",
-      "bytes": 16034,
-      "sha256": "3cc9f4d4c1ef600cd550aab96e5cbf1db8ce8ec6cb747f8166f82c1e0d84125f",
+      "bytes": 28904,
+      "sha256": "818f61b24db8f9f6337990244bb289c260ec33165f90b629df89ccdb2eb56802",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp",
@@ -693,8 +780,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_active.webp",
-      "bytes": 16280,
-      "sha256": "5045524c3a12562941140ee548f8d480998bbe9499def2d8ff25b49cc29a6071",
+      "bytes": 37400,
+      "sha256": "76edb899082e350d8d8a677e6e8e19c75d46a51f7bb5992d64a7bc4d25a689fa",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_active.webp",
@@ -710,8 +797,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_active_pressed.webp",
-      "bytes": 16288,
-      "sha256": "b26c7d527641c573a1f01dc89aac6a6ab3b34c2043dba40e01fe5abe0469279e",
+      "bytes": 35216,
+      "sha256": "1a0502ae12851731b98d89a83f7dfc7c91027217dd93978e2b006f9bfbd91883",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp",
@@ -727,8 +814,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_default.webp",
-      "bytes": 15814,
-      "sha256": "085b8b1efcc807f300b66d66ae687cd576e76471aef1f4f1c7586d6237a84fa8",
+      "bytes": 30392,
+      "sha256": "f32440ec3729b72e0678769f83a3c0bdb03827dcdd6908b7ef009c1d386f081a",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_default.webp",
@@ -744,8 +831,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_disabled.webp",
-      "bytes": 13962,
-      "sha256": "3c642fa2da2262fd3f79d394d37c874e6cb5e9681e2041d701d978e57924344f",
+      "bytes": 26740,
+      "sha256": "16fe784372d6695d15ea5c35f39cc2e460d6f449593feac759b91a48c0c06b26",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp",
@@ -761,8 +848,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_pressed.webp",
-      "bytes": 15820,
-      "sha256": "266abfcc3cbaeb87fd13b6ca799a37169078175b872dd3afa019108e2337894c",
+      "bytes": 28352,
+      "sha256": "57ad061fa2ef13f12afd5a8167eac8f6d6c919314733da86eb94c98dadcd4ce8",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp",
@@ -778,8 +865,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_active.webp",
-      "bytes": 16314,
-      "sha256": "7f1f8f6ee9214777fab5461671737ed5f5b4bdc400ede621f6e4b18f574b1dce",
+      "bytes": 38652,
+      "sha256": "fb9ab43a6a846a6449e2d5dd5023b8bdfdcafcfe5a6beb529df85cf2cb576765",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_active.webp",
@@ -795,8 +882,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_active_pressed.webp",
-      "bytes": 16344,
-      "sha256": "04b3337343755a03f64f8980c600719de233f3cf601de02213a975b0979f2aa7",
+      "bytes": 36962,
+      "sha256": "c1509f0e1eb532b360379ef7edd6d002bd59da10dd1579c6d43b7d126d0e6769",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp",
@@ -812,8 +899,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_default.webp",
-      "bytes": 16272,
-      "sha256": "42f88f077e4f5e9123f3831229a95f25fc332145b3ff9237fd87938402d9c906",
+      "bytes": 30930,
+      "sha256": "f858057175304a5856726953d84d5a498c17853e8dd15786986eb0a8cdb608ae",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_default.webp",
@@ -829,8 +916,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_disabled.webp",
-      "bytes": 13616,
-      "sha256": "a602bd86aae56e215acc97f0eca9489fd1ca2ddc8dc69484c105fc1b3fe69f25",
+      "bytes": 26258,
+      "sha256": "5718d08a1cc09249517515643d22cc4e62a56a391e6ea3873c21c3c773b1fcae",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp",
@@ -846,8 +933,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_pressed.webp",
-      "bytes": 16330,
-      "sha256": "9d1c556323096103dba619e9d54d06594063e8a38a332926d1ee75279e8d86fe",
+      "bytes": 29136,
+      "sha256": "f3aad803907b2e07f2fdedee45f2460e9bf8ee90a15471a0c445ac7903009802",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp",
@@ -863,15 +950,40 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp",
-      "bytes": 12328,
-      "sha256": "887150479f67636684b19977afed4d567b82fc8529a547bb958ea9db9ce32f1a",
+      "bytes": 81342,
+      "sha256": "6f4a6de2f4973621be277ffc6b4a91483cc5ac52ffeaef8867073118e5a40c65",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
@@ -941,60 +1053,160 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_back_default.webp",
-      "bytes": 14534,
-      "sha256": "2f10351fce20360a326b6a60a591977730b38416309c8ca27c4c6edd56cd7373",
+      "bytes": 81074,
+      "sha256": "9a4e1735b515596a0ec4422adf776c9e77dbe1856d1737d8a6bd3540484b94e9",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_back_default.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_back_pressed.webp",
-      "bytes": 10358,
-      "sha256": "8fd0e48423b2ffbdc9ea693d9f0880c112cb8facbcd261d5ad12e9ba99933ac5",
+      "bytes": 75102,
+      "sha256": "ebf923e1e7e0421c4fc207bd37ec769cc998b3da330b4fda524d470ca78c0096",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_back_pressed.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus.webp",
-      "bytes": 29536,
-      "sha256": "de485b078d82c96b8cda0e5be7b6803dac679fb7ad73ebc62547b263662bd865",
+      "bytes": 78382,
+      "sha256": "67c684b49dcbd9dcd1337fc3a480936568d4faa5aa2c05e672ee012190147fc2",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_bet_minus.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp",
-      "bytes": 9924,
-      "sha256": "87d0f6c80316462518477b717a5e187d3277d4cb822a87f742ad3be5d3b94824",
+      "bytes": 29838,
+      "sha256": "70a4a82ce2af839602963588d9eb3a45e9dc5cccad9f197778edab105e4f3f9a",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_neon.webp",
-      "bytes": 15124,
-      "sha256": "39e69fe3541e1363731443af18cab17360c532e03d5ed9c4c68731452dece971",
+      "bytes": 25680,
+      "sha256": "18d28a45bcc50d8da5816bbb678529fa5e1c0747327c008ea3393af0d808fbac",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus.webp",
@@ -1010,8 +1222,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_neon_disabled.webp",
-      "bytes": 10724,
-      "sha256": "31a9c56badb764a4c095d5d1c690bbae06033aeff0d2913af8bbd9fbfa104b37",
+      "bytes": 23508,
+      "sha256": "b0e304c948aa5eff68cbfca6ca074b21dd6ac8bdfb97171862e54424bb1b0d47",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp",
@@ -1027,8 +1239,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_neon_pressed.webp",
-      "bytes": 14422,
-      "sha256": "0558568abbb9fde3f33916c5c4ae5ca514be5be47f2eefef4dd237dbaf49ffb8",
+      "bytes": 23628,
+      "sha256": "59b96e139782a22286caf702a3bf7bf6a38fd141d4dbe7613cb1689e6437786a",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp",
@@ -1044,8 +1256,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_ocean.webp",
-      "bytes": 15114,
-      "sha256": "565f11d5dafaaa26e71293c3b994ef118084c1e56eef64734d95716d7c97af14",
+      "bytes": 24602,
+      "sha256": "6f36e5296df005bb400746482e22042d36dbae13b44b5c5820ee9f3c1b67c115",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus.webp",
@@ -1061,8 +1273,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_ocean_disabled.webp",
-      "bytes": 10638,
-      "sha256": "4975cd1fa1f5e6eda579fea8b75d397902e5dc75a09dabb73e0bd4e5dd5f06c7",
+      "bytes": 23230,
+      "sha256": "32dcfc5459584dcf55ad419f0f148cd978200356db477870c42978328fd96e68",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp",
@@ -1078,8 +1290,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_ocean_pressed.webp",
-      "bytes": 14440,
-      "sha256": "90e9c9783f8cb756355faa30f468d3231a5233110c8ab3d2ecedfec931c43adb",
+      "bytes": 23444,
+      "sha256": "a270772e91cafea72aab447c62874b9ded6ea9d478d62c991a1851c97e99df3e",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp",
@@ -1095,8 +1307,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pharaoh.webp",
-      "bytes": 14822,
-      "sha256": "7a348a02055436d3b09ee610909f2626bd9e980b093a67313fb820ee8f605943",
+      "bytes": 25490,
+      "sha256": "d561cca19db2fa5a427aef8b007a18ac524ef62c2e0954c6a8815f5cdb78dd24",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus.webp",
@@ -1112,8 +1324,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pharaoh_disabled.webp",
-      "bytes": 10700,
-      "sha256": "06b6967b9c634c65952241c844c084fc19d5e37bcb6623907bd7643735f8cd0f",
+      "bytes": 22844,
+      "sha256": "0910f105da4ee635a67363fe48b75b8240636c6939c5cf5c415f8fc114366070",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp",
@@ -1129,8 +1341,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pharaoh_pressed.webp",
-      "bytes": 14324,
-      "sha256": "bc4f4f4486e49dc2165c48ae269e3b0aae3045e59d85fcd6b2648476dc43b4a9",
+      "bytes": 24164,
+      "sha256": "06fb9db67eb47a6773f7953ec5baeaef1ff36420b3033fe08851645215a6e0f8",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp",
@@ -1146,15 +1358,40 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp",
-      "bytes": 14260,
-      "sha256": "97349bbc484232aa0b48d0da66deb3bf8a8374ec1d0b5c11d210c8d285c8df19",
+      "bytes": 73686,
+      "sha256": "4ce32bc18c03bcf55f6f3e462fa00f326d27210a58b1e21c068f7869b07ffa07",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
@@ -1198,34 +1435,84 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus.webp",
-      "bytes": 30358,
-      "sha256": "1dbf334618efd30026acde9fb118236acc8a011e140355531eca1be1f3de32d1",
+      "bytes": 79566,
+      "sha256": "79fcd5cbd025b58f20c0f7614e4597a527a4c0d41a5515eb152983dd2577b0e9",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_bet_plus.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp",
-      "bytes": 10236,
-      "sha256": "5235d177a45b788ef775fed700f2a6e449c69286adb02a58ff796b9bb58e30e0",
+      "bytes": 30512,
+      "sha256": "d7a0e2f49c1cb93e8056582e2c28410b6b3d5bc07b0be629a945838def390605",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_neon.webp",
-      "bytes": 15776,
-      "sha256": "6c7f402ab45754213a8979942a8c8b2df049900804e330b1112c64cc0f9e9a7a",
+      "bytes": 27016,
+      "sha256": "5f30b1b42c0904674c66deb92e0006419e582163e28cd081879e1145bf644a2c",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus.webp",
@@ -1241,8 +1528,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_neon_disabled.webp",
-      "bytes": 11010,
-      "sha256": "d55dbb02e2e3a804c965ea450a6849a0fc2e7c5aae28d3cf3e62cb2ecbd45daf",
+      "bytes": 23804,
+      "sha256": "b77e0553e91cfe3ae834d340fc3f3a98a4fbd3b98b7e31847f7b9ef139f6cb5e",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp",
@@ -1258,8 +1545,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_neon_pressed.webp",
-      "bytes": 15098,
-      "sha256": "9959a71652922c368a35e949c7d8e515954ef3bacc1ea6c18c30eb1c1374c4e3",
+      "bytes": 24454,
+      "sha256": "c8cabf6268f3768bebdc5927ee9c2453396ea0ebfe63b21a82e3c302927c9d12",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp",
@@ -1275,8 +1562,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_ocean.webp",
-      "bytes": 15586,
-      "sha256": "9988e0bc6cca97d0f1a6ff6c25d30b3d3852953d51557a23927a964f5e145f1a",
+      "bytes": 25820,
+      "sha256": "c256e9d10979f04537bf1bdee5b0ff3d75a2514f60e191e3638486430664596d",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus.webp",
@@ -1292,8 +1579,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_ocean_disabled.webp",
-      "bytes": 10972,
-      "sha256": "df11a13a64e668380d8bdc2d3807d2f797f3e367a7b0dc1aae48b9f888481bd1",
+      "bytes": 23400,
+      "sha256": "ed1d6607841857a16b9c82803e954dab45d2f22bdd131afb975e441809314029",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp",
@@ -1309,8 +1596,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_ocean_pressed.webp",
-      "bytes": 15154,
-      "sha256": "f7355faee524dc7ff5776d3a1255f22b301e62ece7f6deb4af763db928893546",
+      "bytes": 24198,
+      "sha256": "7ac65e5684f84d2cb20d437cb5e699e08e4cd3e04c84cd90efb6b5d05c86e255",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp",
@@ -1326,8 +1613,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pharaoh.webp",
-      "bytes": 15430,
-      "sha256": "ecaf034acbcda1f6c479bd4de4261be1fb6fdf21af071b24041acda35e5aec3d",
+      "bytes": 26490,
+      "sha256": "d75186d497065ca37803b979c4e23666ae16647e9056ed8bd1382690a259038f",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus.webp",
@@ -1343,8 +1630,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pharaoh_disabled.webp",
-      "bytes": 11018,
-      "sha256": "bc94e3e2e4c4008e0064066372357dd970ebeb3397f2f0beec7087f767b28d7b",
+      "bytes": 23074,
+      "sha256": "3de540b3bd3e08453a6e4d7ca1102f34ba5b111483086b40a46c12cb9bd35268",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp",
@@ -1360,8 +1647,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pharaoh_pressed.webp",
-      "bytes": 15024,
-      "sha256": "dce12d858b3b0c157c43cc87195a537ddfcaf5924fbb90dde65c96306dd60086",
+      "bytes": 24870,
+      "sha256": "534bdfce8fc6326e8dd793fc7af06c758c3d648f60988084751a283e68cafa09",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp",
@@ -1377,15 +1664,40 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp",
-      "bytes": 14928,
-      "sha256": "cd1b098ac7240d57929363f04f5f771085741910f8dcfa3c60044102f2b4e78c",
+      "bytes": 73870,
+      "sha256": "15cc299965a5c7701e6e0231f9196d6f7f737d196db9d2433c2d8255d3050a99",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
@@ -1481,34 +1793,84 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp",
-      "bytes": 13376,
-      "sha256": "e7bd42a4b4d179840613a1dea1fc1bff472506a5e83fc294096ad11e9036c157",
+      "bytes": 82362,
+      "sha256": "9c5d17044e99033b1b1eeaaa1fc6579d3fe1b18a270e5874116b6730943a9f15",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp",
-      "bytes": 18310,
-      "sha256": "3d050be8cd1c8bcc410c25dd15adb471c979a458168050e4c21bbf7feb5f1692",
+      "bytes": 31536,
+      "sha256": "8ffcac9fa5b595f2cc8d203ae8956ab05203a0c4d8a2886723ce2536d465aa3e",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_neon_default.webp",
-      "bytes": 15868,
-      "sha256": "4aa91b446a5c2fcb3b308fed309002924f28a94c3a8df0ccc1707aac0212bdab",
+      "bytes": 28482,
+      "sha256": "1fdd2359e6dd6166f4549abf8853784e8ea8631e5a1e8aeb2356474f2c235578",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp",
@@ -1524,8 +1886,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_neon_disabled.webp",
-      "bytes": 16428,
-      "sha256": "1c2e099a5259081ac33fe6575e45a3fe737e5a66e673b25dac3a4f5062092eb0",
+      "bytes": 24740,
+      "sha256": "b8b4e9434bb0f6176224bbd9f352bf64f9e0971ed1c79d436bbb043629233784",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp",
@@ -1541,8 +1903,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_neon_pressed.webp",
-      "bytes": 18524,
-      "sha256": "6cb8fb13884776ab3224f168134f803d6ebec23b901ff54476e288a03efcf508",
+      "bytes": 25648,
+      "sha256": "3986280b75a2cd7ce8097ffaaf50b9404b92bed8f64424d36bf4cebac8346a9c",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp",
@@ -1558,8 +1920,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_ocean_default.webp",
-      "bytes": 15752,
-      "sha256": "4a9df4b77a8453be918c745cefce8fcb647074fb62aff1c652723756be75d224",
+      "bytes": 27594,
+      "sha256": "3dd6f8a16893a0b7ec2ed4d03775a152f7dc3d7df28fd1380c56ec6218d181a7",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp",
@@ -1575,8 +1937,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_ocean_disabled.webp",
-      "bytes": 16740,
-      "sha256": "ddb48abab0ef5b28ad8026a20fc1032557c0f79fa4c6446ffe40cba792a765dc",
+      "bytes": 24504,
+      "sha256": "d87e1537e5787295af71ae420f6a9e86cc8500c6709f7a04da3ae913daebdcc8",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp",
@@ -1592,8 +1954,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_ocean_pressed.webp",
-      "bytes": 18478,
-      "sha256": "f04afa1a265821ab949dc0f7e1ab75436d7f6db117a06115ce653a8a358b52c9",
+      "bytes": 25520,
+      "sha256": "2794a27f428e9f63dc9b522914b58af9d7dcfdb310c229be5da8cff9f6c12b9f",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp",
@@ -1609,8 +1971,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pharaoh_default.webp",
-      "bytes": 15788,
-      "sha256": "1f293255fc1cd30a6ffa776b5b33c08b75e9e05e8d37241bbe7fdb21a5b14ac5",
+      "bytes": 27868,
+      "sha256": "72327b18b894508190969d1be0bb29011d8cf8786e08bf18a99ab15e92c29d57",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp",
@@ -1626,8 +1988,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pharaoh_disabled.webp",
-      "bytes": 16320,
-      "sha256": "c3d1d56c93fa4ea6526e7a43bb59b18d4ae188c1ec9cfe85a1e205012a7cfad7",
+      "bytes": 24110,
+      "sha256": "3cef02e0d92325a17bd91e10a43811e0fd47ac59eff4ee70855c2b8e585aa318",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp",
@@ -1643,8 +2005,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pharaoh_pressed.webp",
-      "bytes": 18652,
-      "sha256": "776bdc7aa7e2aff12c2cb9787916abeb73b74a658b44a71e7e698317add3be3b",
+      "bytes": 26044,
+      "sha256": "cee19244752d3101a84541f3d503536fe05d9bea82dac0aced03a6018702bb56",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp",
@@ -1660,15 +2022,40 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp",
-      "bytes": 18328,
-      "sha256": "431b76bb5b2b297df33f4c9662811fa6305534b1f1f6149fe664d4b2621824db",
+      "bytes": 76562,
+      "sha256": "b54376f947e6b188672e75a069a4d0d58f8c2ecfdb9580d5fa566f638d06426c",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
@@ -3798,19 +4185,6 @@
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/label_push_status_off.webp"
-      ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
-      "evidence_id": "release_asset_rights_signoff_v1"
-    },
-    {
-      "path": "app/src/main/res/drawable-nodpi/label_push_status_unconfigured.webp",
-      "bytes": 23484,
-      "sha256": "8e45ac94d83aad9b2c2181849ec0d75e15cc9aa0c29604d4346b7b2863079cff",
-      "media_role": "packaged_visual",
-      "source_paths": [
-        "app/src/main/res/drawable-nodpi/label_push_status_unconfigured.webp"
       ],
       "producer": "authoritative_checked_in_master",
       "reproducibility": "authoritative_master",
@@ -6556,8 +6930,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane.webp",
-      "bytes": 13640,
-      "sha256": "14887e0866c69ae05c190987274aa4f48fc24d19b04405c526c51a257a132642",
+      "bytes": 6902,
+      "sha256": "9713924bb4e32e08323374a1cb64dc1c72a0d145450933661ab9ccf73fb936e6",
       "media_role": "packaged_visual",
       "source_paths": [
         "docs/legal/RASTER_DERIVATION_MANIFEST.json",
@@ -6572,8 +6946,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane_neon.webp",
-      "bytes": 13674,
-      "sha256": "54f1c65e5a2bbd72351a518530eb782ec2b8512c551c40f9ea4fb883aad8ca92",
+      "bytes": 7000,
+      "sha256": "62552dc3a6a280c2e2213dd4b1cf7c3107b39855659fdac95caae2893457095b",
       "media_role": "packaged_visual",
       "source_paths": [
         "docs/legal/RASTER_DERIVATION_MANIFEST.json",
@@ -6588,8 +6962,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane_ocean.webp",
-      "bytes": 13506,
-      "sha256": "7b28c7b3e0b85d8ff84f9079451af946711807fd7ceb331ac3b6820606c59801",
+      "bytes": 7192,
+      "sha256": "cfcf6984bac0e437c4474ea82cfbc9e4fba1065b252c2917e1b0321d7b2c5764",
       "media_role": "packaged_visual",
       "source_paths": [
         "docs/legal/RASTER_DERIVATION_MANIFEST.json",
@@ -6604,8 +6978,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane_pharaoh.webp",
-      "bytes": 13554,
-      "sha256": "318c75c554ec63c2d58ac4e5d2911a4a3eba51f97ed6e53d2d8a59655c960de7",
+      "bytes": 7294,
+      "sha256": "4d58b109d7e94ab2712b34c0d30bb623bfd79482be6907e5e1f20322db65ba2f",
       "media_role": "packaged_visual",
       "source_paths": [
         "docs/legal/RASTER_DERIVATION_MANIFEST.json",
@@ -6620,8 +6994,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane_roman.webp",
-      "bytes": 13264,
-      "sha256": "227acde43d7c37b3ba25ee397cb15b079ea90c1b0d5188f8c14577da364b2592",
+      "bytes": 7116,
+      "sha256": "e11ecb9553820c47c454a6ee83941741d8cebd4b324e868a3861da341ade9c1b",
       "media_role": "packaged_visual",
       "source_paths": [
         "docs/legal/RASTER_DERIVATION_MANIFEST.json",
@@ -6636,21 +7010,46 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_button.webp",
-      "bytes": 34422,
-      "sha256": "dc4891eabd2f53e58e68cc66e84a552f3b035f429b96484b627c4be4d761674b",
+      "bytes": 83678,
+      "sha256": "d0555e6bf6bddc717c220c362b237644a183b59ac578d7377849ae18bca18498",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/paytable_button.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_button_neon.webp",
-      "bytes": 18442,
-      "sha256": "ebb14c9fca01ed99bc59361638c9a0c9ca62a2cbc27e72a9f397c442bad009ac",
+      "bytes": 30418,
+      "sha256": "6d7ed9fc513106a084c1d51a3bb9bc58c086daad6aadfefc9759e6c1cc7fd3e7",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/paytable_button.webp",
@@ -6666,8 +7065,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_button_ocean.webp",
-      "bytes": 18274,
-      "sha256": "f8d564e891beca037b516e1c829c345e9d15c201bd5be6d901aa43a114082241",
+      "bytes": 29042,
+      "sha256": "c87dcebd1802680d3c42d2939f84d8181b6392aecd9ee3e84276d820413618b8",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/paytable_button.webp",
@@ -6683,8 +7082,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_button_pharaoh.webp",
-      "bytes": 18270,
-      "sha256": "c42864fce4d3a3c89d4b4ca55c43999b1ed0596b5564ee60232eaf875aab01fd",
+      "bytes": 29660,
+      "sha256": "cd07227a31c08f222975bcb7ab8574295e902518597f1a29ff3e2ef7efdc6de5",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/paytable_button.webp",
@@ -10908,35 +11307,9 @@
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
-      "path": "app/src/main/res/drawable-nodpi/spin_button_default.webp",
-      "bytes": 13422,
-      "sha256": "a378be912d014351b5b36661a07ad50b0219738f30f36ac2b7ad66bd92c8e70d",
-      "media_role": "packaged_visual",
-      "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_default.webp"
-      ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
-      "evidence_id": "release_asset_rights_signoff_v1"
-    },
-    {
-      "path": "app/src/main/res/drawable-nodpi/spin_button_disabled.webp",
-      "bytes": 12440,
-      "sha256": "7931563ce43658d97f2bf4eaa51a3a27ede54ae9c319e5543fc5be3413738f06",
-      "media_role": "packaged_visual",
-      "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_disabled.webp"
-      ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
-      "evidence_id": "release_asset_rights_signoff_v1"
-    },
-    {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_default.webp",
-      "bytes": 33532,
-      "sha256": "36eb7c1c200c2145ee4922c31caf6b297de3c9d40f24ba8e206da136ed1b7ce0",
+      "bytes": 33062,
+      "sha256": "2cd9af3bad3cd1155019aa65112c5bed1279ff03227b17b20bba22f2d25b33e2",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
@@ -10952,8 +11325,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_disabled.webp",
-      "bytes": 24782,
-      "sha256": "b89dc12177c0cdeae6e0f5a0266b9bdb6612022872bda02301dc653bf1d49b8b",
+      "bytes": 25932,
+      "sha256": "e6250a4d8cec216a1594ddf3b004e2d728eb6a6e5849398d577e75dd84c62731",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp",
@@ -10969,8 +11342,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_free_spins_default.webp",
-      "bytes": 39566,
-      "sha256": "32d24ea91c0694414474dfe787c53c4acf46ee3d64f4ff18c67e27f902cf8385",
+      "bytes": 32918,
+      "sha256": "7b1fde7db64c65c4358ec57faa7ff92c8d36909123246d138b9af6c11d43e3c2",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png",
@@ -10986,8 +11359,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_free_spins_disabled.webp",
-      "bytes": 30972,
-      "sha256": "6c1750edff9f954eb9c22e1460934fb8ccb4e51ad48cee50293595160923a47b",
+      "bytes": 30878,
+      "sha256": "94260c76cbc4ec92ca3cc98dfaf0db3ec5756c5ed2b213104038df7bcc4c93bb",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png",
@@ -11003,8 +11376,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_free_spins_pressed.webp",
-      "bytes": 40284,
-      "sha256": "840fc3fbd69c19e6b2b38592b79f78a0d0890e49c9903d397d5eb67b483a5bdd",
+      "bytes": 29410,
+      "sha256": "b308a7156289add05c856f6bae01f484d20d4bb32b65e08d0f0f8b1aa895535e",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png",
@@ -11020,8 +11393,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_pressed.webp",
-      "bytes": 34136,
-      "sha256": "390706a1e28c7e92fff44209ec52d1af650d0c27822203271dabce34eed16624",
+      "bytes": 29576,
+      "sha256": "1b3c54907309f3a34f8d0b60653bac43c64259b041c741a4be0fe6e31b5152c2",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp",
@@ -11037,8 +11410,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_default.webp",
-      "bytes": 32696,
-      "sha256": "cbdc07ef9ff88b5b7a20529ea8161b53d48e4e0d0654a8705614cf35ee5aef49",
+      "bytes": 31512,
+      "sha256": "87cb60b26acc729f283fc44243fe93bab1c8e05439b21a1966b86de65fb08ac9",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
@@ -11054,8 +11427,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_disabled.webp",
-      "bytes": 25008,
-      "sha256": "8da888a31a8a2afcc05cab5df8690de98fbef9232932c8a92608a492621b0e88",
+      "bytes": 26056,
+      "sha256": "416f1f8af71c86eb9f9f0cb0e59e0ed4b51b9d77e80fb053ab073756352dcdcc",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp",
@@ -11071,8 +11444,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_free_spins_default.webp",
-      "bytes": 39118,
-      "sha256": "24c9d934cf30bedae566306ee9fea83b94471f1b45361bdb3b9a11a390916406",
+      "bytes": 31734,
+      "sha256": "cd63b80e5c810f9c5299dc8287492ae6cf91ae09cc5a7fb356f4501bfd448b14",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png",
@@ -11088,8 +11461,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_free_spins_disabled.webp",
-      "bytes": 30818,
-      "sha256": "41a58ea9647aa5f53430d08f99d104e00a37e06403eee9994cb4b7dcb80dc1e1",
+      "bytes": 31242,
+      "sha256": "769441c614e62bee4baaf34e98f3308a4fa721b426a02c301557707931c98ef1",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png",
@@ -11105,8 +11478,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_free_spins_pressed.webp",
-      "bytes": 40312,
-      "sha256": "df47351b7f2ec8dfdda1bcd59fc13d50b50862d5fce46abad91ac570aed4cf39",
+      "bytes": 28838,
+      "sha256": "ea3e81a8970087e5826dce90db4d23a267a89a6588c2a2c2c6811028b6a611d8",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png",
@@ -11122,8 +11495,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_pressed.webp",
-      "bytes": 32990,
-      "sha256": "e2c0b8fc507bd24feb69602374c214df2cf171ef2fd1712b377b93d241adeb8b",
+      "bytes": 28272,
+      "sha256": "ac98aa53074a290844cba199b5b7eb4fcddb656d3badab645e46d33764da1d97",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp",
@@ -11139,8 +11512,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_default.webp",
-      "bytes": 32824,
-      "sha256": "97015a65ad6ed7d7dbbe83d16e2ac49c862deeb48c1c3e5cae58e3831affb163",
+      "bytes": 33138,
+      "sha256": "febf9dea2cc8a713c139113b1c5318ced0ecc5e17855bd0f931a9681072d50e6",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
@@ -11156,8 +11529,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_disabled.webp",
-      "bytes": 24918,
-      "sha256": "cd1823300654ac5fc953a10b1c3623aa16dac47835c3bf9c927acfc317c46717",
+      "bytes": 25646,
+      "sha256": "18349c7897b04d59b1e8f37b4a9a63aafce19033ae1e7fdc9ced443b13a77655",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp",
@@ -11173,8 +11546,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_free_spins_default.webp",
-      "bytes": 38402,
-      "sha256": "26f678b1ae56d61164e223295a128afe9a4ba5f21b6dbf549fd965d5b8900bd2",
+      "bytes": 33458,
+      "sha256": "4f64e06ac2a3e33947d54d5d85cdeaf7074f7c5b23ccca681624b9b69f363bab",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png",
@@ -11190,8 +11563,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_free_spins_disabled.webp",
-      "bytes": 30664,
-      "sha256": "e0c7302add287f6e585eefcf63ca35e234a43d4ebb4ca0da762ab4c03652b31b",
+      "bytes": 30478,
+      "sha256": "c386ac48ebab2e82f145a8f000d58f59c9dbf8e8786eda8f32ca3645a3b6047d",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png",
@@ -11207,8 +11580,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_free_spins_pressed.webp",
-      "bytes": 39760,
-      "sha256": "14d9af9b92d6b20ea44244351dea5a22b41f5100506a2fc0873e402e75f9209c",
+      "bytes": 29820,
+      "sha256": "b86a0c9ee3683cedb76b24efeb84e597c03909361b89bc94f439f1026bfd733c",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png",
@@ -11224,8 +11597,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_pressed.webp",
-      "bytes": 33314,
-      "sha256": "300b4080954a060d2514c43fbc5d16ec560acf97823784a7c3318a9c76c5ba71",
+      "bytes": 29914,
+      "sha256": "1a188ab4d8d4c47aa43f8e3921b66f46ddf426a8686e4a50a98a31f6c4ad4396",
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp",
@@ -11237,19 +11610,6 @@
       "producer": "tools/generate_theme_slot_buttons.py",
       "reproducibility": "deterministic_generator",
       "rights_basis": "project_procedural_source_and_owner_attestation_required",
-      "evidence_id": "release_asset_rights_signoff_v1"
-    },
-    {
-      "path": "app/src/main/res/drawable-nodpi/spin_button_pressed.webp",
-      "bytes": 13096,
-      "sha256": "423c397e758c5ecf363f4d7dd3f608e9607f29c339cd4c44f78f6ce0ae6e350a",
-      "media_role": "packaged_visual",
-      "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_pressed.webp"
-      ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
@@ -11422,80 +11782,230 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
-      "bytes": 31160,
-      "sha256": "41cebba057b91628e6e1114e2bb6c4fae82743901c4b833168c4363163400583",
+      "bytes": 157992,
+      "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp",
-      "bytes": 24406,
-      "sha256": "305b4e45f4470598195084ee9936091b78cbe7431314e964cd42b76c0d13f1d4",
+      "bytes": 60478,
+      "sha256": "2e6f3c921e66e5bed2753761efb3f8e323f6487ec8b49d0f73b5f45838a94345",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png",
-      "bytes": 101951,
-      "sha256": "e5b253b9e4aa51376a7ba9d9cb927d31e975f5c1d4fe9b801a6f458dc75d2eae",
+      "bytes": 217305,
+      "sha256": "f7bcd9577edd45b8e854971f08d89f5a3c636a4a64dfebc9e7bc523facf7d3f5",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png",
-      "bytes": 78461,
-      "sha256": "718fd9589917eac63bb0e4fdbc6a1f582182c16e60b8482dd944f3c28004c464",
+      "bytes": 154116,
+      "sha256": "7b4e36e000edbbeb93ff3312aec6779fd81a100756f6bbc182f3e63cca9da210",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png",
-      "bytes": 98414,
-      "sha256": "57f3aae89097327b31dcce4d0ba7970b7a27dfe121264dd73c8648115d199c49",
+      "bytes": 200555,
+      "sha256": "9a4ce5e01656e9216d0e7e3f08f00516b12b3a44065afa2736ca9b7b92965122",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp",
-      "bytes": 31370,
-      "sha256": "1c1dc3cbd371be6f15547be98f2520a3430e41007d9058c350bff1ddef2ac2f2",
+      "bytes": 146130,
+      "sha256": "9d61ccd8758d6ab8c92300ea5c702f56c4b14929e461b6f9443172ee60458040",
       "media_role": "packaged_visual",
       "source_paths": [
-        "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp"
+        "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json",
+        "qa/source/vslot-controls/vslot_btn_auto.png",
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_back.png",
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_max.png",
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_minus.png",
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_paytable.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_plus.png",
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+        "qa/source/vslot-controls/vslot_btn_spin.png",
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+        "qa/source/vslot_controls_sprite_imagegen.png",
+        "tools/export_imagegen_slot_controls.py",
+        "tools/requirements-assets.txt",
+        "tools/vslot_asset_toolchain.py"
       ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
+      "producer": "tools/export_imagegen_slot_controls.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
@@ -11637,19 +12147,6 @@
       "media_role": "packaged_visual",
       "source_paths": [
         "app/src/main/res/drawable-nodpi/splash_logo_aura.webp"
-      ],
-      "producer": "authoritative_checked_in_master",
-      "reproducibility": "authoritative_master",
-      "rights_basis": "owner_attestation_and_per_asset_review_required",
-      "evidence_id": "release_asset_rights_signoff_v1"
-    },
-    {
-      "path": "app/src/main/res/drawable-nodpi/symbol_bonus_scatter_halo.webp",
-      "bytes": 91524,
-      "sha256": "2ef6c3fdd56e2b78d5d802df69339a1b123fd3832d54bf1342ff6a1a946dcd95",
-      "media_role": "packaged_visual",
-      "source_paths": [
-        "app/src/main/res/drawable-nodpi/symbol_bonus_scatter_halo.webp"
       ],
       "producer": "authoritative_checked_in_master",
       "reproducibility": "authoritative_master",
@@ -12930,9 +13427,108 @@
       "evidence_id": "release_asset_rights_signoff_v1"
     },
     {
+      "path": "docs/store/assets/screenshots-promo-v2/01-five-themes.png",
+      "bytes": 1821983,
+      "sha256": "662359d985c1fafda9ca2dcc743940b6a54079ea8f388dd30aeb7e539ce233d4",
+      "media_role": "packaged_visual",
+      "source_paths": [
+        "docs/store/assets/screenshots-promo-v2/manifest.json",
+        "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png",
+        "docs/store/assets/screenshots/01-home.png",
+        "docs/store/assets/v-slot-icon-512-v2.png",
+        "tools/export_store_screenshot_promos.py"
+      ],
+      "producer": "tools/export_store_screenshot_promos.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "application_ui_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "docs/store/assets/screenshots-promo-v2/02-spin-and-lines.png",
+      "bytes": 1973450,
+      "sha256": "4ce85c0530c0cb3108382fa7d97c66f5d47a0f4fc6c3e572a9eea14a34cef210",
+      "media_role": "packaged_visual",
+      "source_paths": [
+        "docs/store/assets/screenshots-promo-v2/manifest.json",
+        "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png",
+        "docs/store/assets/screenshots/02-violet-slot.png",
+        "docs/store/assets/v-slot-icon-512-v2.png",
+        "tools/export_store_screenshot_promos.py"
+      ],
+      "producer": "tools/export_store_screenshot_promos.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "application_ui_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "docs/store/assets/screenshots-promo-v2/03-paytable.png",
+      "bytes": 1848557,
+      "sha256": "584e3050d8bb341c180cf442f126bc3a679f6a2eedad0499421c24be62194311",
+      "media_role": "packaged_visual",
+      "source_paths": [
+        "docs/store/assets/screenshots-promo-v2/manifest.json",
+        "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png",
+        "docs/store/assets/screenshots/03-paytable.png",
+        "docs/store/assets/v-slot-icon-512-v2.png",
+        "tools/export_store_screenshot_promos.py"
+      ],
+      "producer": "tools/export_store_screenshot_promos.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "application_ui_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "docs/store/assets/screenshots-promo-v2/04-settings.png",
+      "bytes": 1828236,
+      "sha256": "773de180b7fc37772d221af790def61fd4311c289629c6b0f87c678ffd4c04fd",
+      "media_role": "packaged_visual",
+      "source_paths": [
+        "docs/store/assets/screenshots-promo-v2/manifest.json",
+        "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png",
+        "docs/store/assets/screenshots/04-settings.png",
+        "docs/store/assets/v-slot-icon-512-v2.png",
+        "tools/export_store_screenshot_promos.py"
+      ],
+      "producer": "tools/export_store_screenshot_promos.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "application_ui_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "docs/store/assets/screenshots-promo-v2/05-free-spins.png",
+      "bytes": 1937538,
+      "sha256": "e52bd547c5f52baf63e9a061106135f092fd4ba32a71781e0ea17fb174e2ddbd",
+      "media_role": "packaged_visual",
+      "source_paths": [
+        "docs/store/assets/screenshots-promo-v2/manifest.json",
+        "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png",
+        "docs/store/assets/screenshots/05-free-spins.png",
+        "docs/store/assets/v-slot-icon-512-v2.png",
+        "tools/export_store_screenshot_promos.py"
+      ],
+      "producer": "tools/export_store_screenshot_promos.py",
+      "reproducibility": "deterministic_generator",
+      "rights_basis": "application_ui_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png",
+      "bytes": 1536417,
+      "sha256": "9c40a30fdd7b749732cb356cdcf395bc661af8ea209d09e17d660b90e577e15a",
+      "media_role": "store_source_master",
+      "source_paths": [
+        "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png",
+        "docs/store/assets/screenshots-promo-v2/manifest.json"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
       "path": "docs/store/assets/screenshots/01-home.png",
-      "bytes": 1667085,
-      "sha256": "dfe968882575058501019b1b537298ec6e95bc85975b24b7803a9a1d6e164c29",
+      "bytes": 1668947,
+      "sha256": "780cdc9dbc74fbba31718c97c6a13d9720d66c461fb94d13a73999ffff628fec",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12946,8 +13542,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/02-violet-slot.png",
-      "bytes": 2640934,
-      "sha256": "32bedfee9865b3a2bbc37273146061a48b3da16e3bf76c0f2fee234842160620",
+      "bytes": 1968147,
+      "sha256": "98b2f5a03f956d22ef5cf44ba548b7f509fe636d8c04f5e49addfca364de2069",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12961,8 +13557,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/03-paytable.png",
-      "bytes": 2042159,
-      "sha256": "90ff5e92b7a9eb9e6f99ba6980c190ae0c0a236f95baecf86d010ac26756117a",
+      "bytes": 1573644,
+      "sha256": "6a6aa697e5c651d34075f637cea647305e66c417fa0128869ffdfc7d7f90b651",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12976,8 +13572,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/04-settings.png",
-      "bytes": 1825677,
-      "sha256": "ab6929ce7e5a03a9e6689617062cbbfee6eb0e4ef060d9a874f694a3c9c21013",
+      "bytes": 1576163,
+      "sha256": "d0d239dd20d62e82b059c6d235d14df99118a444c7ed287bf556ac02480ed7f1",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -12991,8 +13587,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/05-free-spins.png",
-      "bytes": 2658288,
-      "sha256": "8fdbfd9db61be97ee146294085ec28d0978aaf4d61eed0f3e4fe559dbd1ba819",
+      "bytes": 2042023,
+      "sha256": "7cfa1e82f695a6e713e0525638ed2a4240f67d8ced4d4dac5350c4582570e2bd",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -13052,6 +13648,279 @@
       "media_role": "store_source_master",
       "source_paths": [
         "docs/store/assets/v-slot-icon-master-v2.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+      "bytes": 133051,
+      "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_auto.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+      "bytes": 68197,
+      "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_auto_disabled.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+      "bytes": 125232,
+      "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_auto_pressed.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_back.png",
+      "bytes": 125017,
+      "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_back.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+      "bytes": 64515,
+      "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_back_disabled.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+      "bytes": 117221,
+      "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_back_pressed.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_max.png",
+      "bytes": 124982,
+      "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_max.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+      "bytes": 63918,
+      "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_max_disabled.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+      "bytes": 116947,
+      "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_max_pressed.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+      "bytes": 119385,
+      "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_minus.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+      "bytes": 61510,
+      "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_minus_disabled.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+      "bytes": 112226,
+      "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_minus_pressed.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+      "bytes": 127091,
+      "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_paytable.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+      "bytes": 64814,
+      "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_paytable_disabled.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+      "bytes": 119170,
+      "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_paytable_pressed.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+      "bytes": 120658,
+      "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_plus.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+      "bytes": 62097,
+      "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_plus_disabled.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+      "bytes": 113168,
+      "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_plus_pressed.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+      "bytes": 244321,
+      "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_spin.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+      "bytes": 121481,
+      "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_spin_disabled.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+      "bytes": 226843,
+      "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot-controls/vslot_btn_spin_pressed.png"
       ],
       "producer": "openai_image_generation",
       "reproducibility": "authoritative_master",
@@ -13156,6 +14025,19 @@
       "media_role": "retained_imagegen_source_master",
       "source_paths": [
         "qa/source/vslot_btn_privacy_pressed_premium_imagegen.png"
+      ],
+      "producer": "openai_image_generation",
+      "reproducibility": "authoritative_master",
+      "rights_basis": "generation_terms_and_owner_attestation_required",
+      "evidence_id": "release_asset_rights_signoff_v1"
+    },
+    {
+      "path": "qa/source/vslot_controls_sprite_imagegen.png",
+      "bytes": 1643224,
+      "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63",
+      "media_role": "retained_imagegen_source_master",
+      "source_paths": [
+        "qa/source/vslot_controls_sprite_imagegen.png"
       ],
       "producer": "openai_image_generation",
       "reproducibility": "authoritative_master",

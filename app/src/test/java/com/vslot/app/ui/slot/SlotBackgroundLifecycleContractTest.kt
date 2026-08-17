@@ -11,6 +11,9 @@ class SlotBackgroundLifecycleContractTest {
         val fragment = Path.of("src/main/java/com/vslot/app/ui/slot/SlotFragment.kt").readText()
         val viewModel = Path.of("src/main/java/com/vslot/app/ui/slot/SlotViewModel.kt").readText()
         val soundPlayer = Path.of("src/main/java/com/vslot/app/ui/slot/SlotSoundPlayer.kt").readText()
+        val backgroundCleanup = fragment
+            .substringAfter("private fun stopBackgroundFeedback()")
+            .substringBefore("override fun onDestroyView()")
 
         val onStop = fragment.indexOf("override fun onStop()")
         val pauseAutoSpin = fragment.indexOf("viewModel.pauseAutoSpin()", onStop)
@@ -26,16 +29,20 @@ class SlotBackgroundLifecycleContractTest {
             onStart >= 0 && fragment.indexOf("viewModel.resumeFreeSpinsFeatureIfNeeded()", onStart) > onStart
         )
         assertTrue(
+            "Slot must retry a durable pending presentation on foreground entry",
+            onStart >= 0 && fragment.indexOf("viewModel.retryPendingPresentationRecovery()", onStart) > onStart
+        )
+        assertTrue(
             "Background cleanup must cancel reel, infinite overlay, carousel and delayed dialog work",
-            fragment.contains("slotSoundPlayer?.stopAll()") &&
-                fragment.indexOf("wasSpinning = false", fragment.indexOf("private fun stopBackgroundFeedback()")) >
-                fragment.indexOf("slotSoundPlayer?.stopAll()", fragment.indexOf("private fun stopBackgroundFeedback()")) &&
-                fragment.contains("stopSpinPreview()") &&
-                fragment.contains("stopSpinReadyGlow(immediate = true)") &&
-                fragment.contains("stopCabinetLights()") &&
-                fragment.contains("stopThemeAmbientOverlay()") &&
-                fragment.contains("winningPaylineCarouselJob?.cancel()") &&
-                fragment.contains("autoSpinResultDismissJob?.cancel()")
+            backgroundCleanup.contains("slotSoundPlayer?.stopAll()") &&
+                backgroundCleanup.indexOf("wasSpinning = false") >
+                backgroundCleanup.indexOf("slotSoundPlayer?.stopAll()") &&
+                backgroundCleanup.contains("stopSpinPreview()") &&
+                backgroundCleanup.contains("stopSpinReadyGlow(immediate = true)") &&
+                backgroundCleanup.contains("stopCabinetLights()") &&
+                backgroundCleanup.contains("stopThemeAmbientOverlay()") &&
+                backgroundCleanup.contains("winningPaylineCarouselJob?.cancel()") &&
+                backgroundCleanup.contains("autoSpinResultDismissJob?.cancel()")
         )
         assertTrue(
             "Autospin stop must clear mode and cancel its delayed next-spin job",
@@ -54,5 +61,30 @@ class SlotBackgroundLifecycleContractTest {
                 soundPlayer.contains("soundPool.stop(streamId)") &&
                 soundPlayer.indexOf("stopAll()") < soundPlayer.indexOf("released = true")
         )
+    }
+
+    @Test
+    fun `transient result animations are cancelled in background and view teardown`() {
+        val fragment = Path.of("src/main/java/com/vslot/app/ui/slot/SlotFragment.kt").readText()
+        val backgroundCleanup = fragment
+            .substringAfter("private fun stopBackgroundFeedback()")
+            .substringBefore("override fun onDestroyView()")
+        val destroyView = fragment
+            .substringAfter("override fun onDestroyView()")
+            .substringBefore("private fun stopWinGlowOverlay")
+        val hideBanner = fragment
+            .substringAfter("private fun hideBigWinBanner")
+            .substringBefore("private fun startSpinBlurOverlay")
+
+        assertTrue(backgroundCleanup.contains("hideSpinImpactFlash(immediate = true)"))
+        assertTrue(backgroundCleanup.contains("hideBigWinBanner(immediate = true)"))
+        assertTrue(backgroundCleanup.contains("hideThemeWinBurst(immediate = true)"))
+        assertTrue(backgroundCleanup.contains("hideBonusEntryPortal(immediate = true)"))
+        assertTrue(backgroundCleanup.contains("hideReelStopFlashLayer(immediate = true)"))
+        assertTrue(backgroundCleanup.contains("hideWinningPaylineOverlay(immediate = true)"))
+        assertTrue(destroyView.contains("hideBigWinBanner(immediate = true)"))
+        assertTrue(hideBanner.contains("bigWinBannerAnimator?.cancel()"))
+        assertTrue(hideBanner.contains("bigWinBannerAnimator = null"))
+        assertTrue(hideBanner.contains("banner.animate().cancel()"))
     }
 }

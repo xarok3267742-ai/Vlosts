@@ -40,10 +40,9 @@ class ResponsiveDialogLayoutContractTest {
     }
 
     @Test
-    fun `compact landscape dialogs expose a responsive root with the existing width preference`() {
+    fun `compact landscape dialogs expose responsive roots with appropriate width preferences`() {
         listOf(
             "layout-land/dialog_auto_spin_count.xml",
-            "layout-land/dialog_paytable.xml",
             "layout-land/dialog_result.xml"
         ).forEach { relativePath ->
             val layout = resource(relativePath).readText()
@@ -52,6 +51,14 @@ class ResponsiveDialogLayoutContractTest {
             assertTrue("$relativePath root must fill the bounded dialog window", root.contains("android:layout_width=\"match_parent\""))
             assertTrue("$relativePath must retain its roomy-window width preference", root.contains("android:tag=\"dialog_preferred_width_430dp\""))
             assertFalse("$relativePath must not force a 430dp root", root.contains("android:layout_width=\"430dp\""))
+        }
+
+        listOf(
+            "layout-land/dialog_paytable.xml",
+            "layout-w600dp-land/dialog_paytable.xml"
+        ).forEach { relativePath ->
+            val root = resource(relativePath).readText().substringAfter("?>").substringBefore('>')
+            assertTrue("$relativePath must use the available landscape width", root.contains("android:tag=\"dialog_preferred_width_840dp\""))
         }
     }
 

@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "docs/legal/ASSET_PROVENANCE_INVENTORY.json"
 RASTER_DERIVATION_MANIFEST = ROOT / "docs/legal/RASTER_DERIVATION_MANIFEST.json"
 IMAGEGEN_DERIVATION_MANIFEST = ROOT / "docs/legal/IMAGEGEN_DERIVATION_MANIFEST.json"
+PROMO_SCREENSHOT_DIR = ROOT / "docs/store/assets/screenshots-promo-v2"
+PROMO_SCREENSHOT_MANIFEST = PROMO_SCREENSHOT_DIR / "manifest.json"
 MEDIA_SUFFIXES = {".png", ".webp", ".wav"}
 
 
@@ -42,6 +44,43 @@ def sha256(path: Path) -> str:
 
 def provenance(path: Path) -> dict[str, object]:
     relative = path.relative_to(ROOT).as_posix()
+    promo_relative = PROMO_SCREENSHOT_DIR.relative_to(ROOT).as_posix()
+    promo_manifest_relative = PROMO_SCREENSHOT_MANIFEST.relative_to(ROOT).as_posix()
+    if relative == f"{promo_relative}/sources/v-slot-promo-background-v1.png":
+        return {
+            "media_role": "store_source_master",
+            "source_paths": [relative, promo_manifest_relative],
+            "producer": "openai_image_generation",
+            "reproducibility": "authoritative_master",
+            "rights_basis": "generation_terms_and_owner_attestation_required",
+        }
+    if relative.startswith(f"{promo_relative}/sources/"):
+        return {
+            "media_role": "store_screenshot",
+            "source_paths": [relative, promo_manifest_relative],
+            "producer": "android_runtime_capture",
+            "reproducibility": "instrumentation_capture",
+            "rights_basis": "application_ui_and_owner_attestation_required",
+        }
+    if relative.startswith(f"{promo_relative}/"):
+        manifest = json.loads(PROMO_SCREENSHOT_MANIFEST.read_text(encoding="utf-8"))
+        slide = next(
+            entry for entry in manifest["slides"] if entry["output"] == relative
+        )
+        source_paths = [
+            "tools/export_store_screenshot_promos.py",
+            promo_manifest_relative,
+            manifest["generated_background"]["path"],
+            manifest["store_icon"]["path"],
+            slide["source"],
+        ]
+        return {
+            "media_role": "packaged_visual",
+            "source_paths": sorted(set(source_paths)),
+            "producer": "tools/export_store_screenshot_promos.py",
+            "reproducibility": "deterministic_generator",
+            "rights_basis": "application_ui_and_owner_attestation_required",
+        }
     derivation = RASTER_DERIVATIONS.get(relative) or IMAGEGEN_DERIVATIONS.get(relative)
     if derivation is not None:
         origin = derivation["origin"]

@@ -9,6 +9,7 @@ import com.vslot.app.AppGraph
 import com.vslot.app.MainActivity
 import com.vslot.app.ProcessSession
 import com.vslot.app.game.ResultType
+import com.vslot.app.game.ReleasedSlotMathV5
 import com.vslot.app.game.SlotEngine
 import com.vslot.app.game.SlotMathIdentity
 import com.vslot.app.game.SpinResult
@@ -31,6 +32,9 @@ class PlayerRepositoryRecoveryTest {
     @Test
     fun paidSpinOutcomeRecoversExactlyOnceFromDataStoreJournal() = runBlocking {
         val repository = AppGraph.playerRepository
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val releasedAsset = context.assets.open(ReleasedSlotMathV5.ASSET_PATH).use { it.readBytes() }
+        ReleasedSlotMathV5.verifyReleasedAsset(releasedAsset)
         repository.recoverPendingSpinSettlement(ProcessSession.id)
         repository.resetForDebug()
         repository.updateSelectedBet(25)
@@ -60,7 +64,6 @@ class PlayerRepositoryRecoveryTest {
             assertEquals(0, reservedState.freeSpinsBalance)
             assertEquals(0, reservedState.levelXp)
 
-            val context = ApplicationProvider.getApplicationContext<Context>()
             ActivityScenario.launch<MainActivity>(
                 Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             ).use {
@@ -132,7 +135,7 @@ class PlayerRepositoryRecoveryTest {
     }
 
     @Test
-    fun invalidJournalsAreClearedAndVerifierRejectedWagersAreRefunded() = runBlocking {
+    fun corruptJournalsRefundButUnsupportedMathIsPreservedAndBlocksNewWagers() = runBlocking {
         val repository = AppGraph.playerRepository
         val context = ApplicationProvider.getApplicationContext<Context>()
         val base = settlementForStops(
@@ -143,12 +146,14 @@ class PlayerRepositoryRecoveryTest {
         )
         val invalidJournals = listOf(
             "not-json",
-            """{"version":2,"id":"legacy"}""",
-            base.copy(slotId = "unknown-slot").serialize(),
-            base.copy(mathVersion = SlotMathIdentity.VERSION + 1).serialize(),
-            base.copy(configFingerprint = "0".repeat(64)).serialize(),
             base.copy(stopIndexes = NO_WIN_STOPS).serialize(),
-            base.copy(winAmount = base.winAmount + 1).serialize()
+            base.copy(winAmount = base.winAmount + 1).serialize(),
+            base.copy(slotId = "unknown-slot").serialize(),
+            base.copy(configFingerprint = "0".repeat(64)).serialize()
+        )
+        val unsupportedMathJournals = listOf(
+            """{"version":2,"id":"legacy"}""",
+            base.copy(mathVersion = SlotMathIdentity.VERSION + 1).serialize()
         )
 
         try {
@@ -179,6 +184,55 @@ class PlayerRepositoryRecoveryTest {
                     ).read()?.rawPendingSpinSettlement
                 )
             }
+
+            unsupportedMathJournals.forEachIndexed { index, unsupportedJournal ->
+                repository.resetForDebug()
+                repository.updateSelectedBet(base.lineBet)
+                assertNotNull(
+                    repository.reserveSpin(
+                        slotId = base.slotId,
+                        isFreeSpin = false,
+                        lineBet = base.lineBet,
+                        lines = base.lines,
+                        totalBet = base.totalBet,
+                        selectedBetSnapshot = base.lineBet,
+                        selectedLinesSnapshot = base.lines
+                    ) {
+                        SpinReservation(base.copy(id = "unsupported-recovery-$index"), Unit)
+                    }
+                )
+                repository.replacePendingSpinJournalForDebug(unsupportedJournal)
+                val reservedBalance = PlayerState.STARTING_BALANCE - base.totalBet
+
+                assertFalse(repository.recoverPendingSpinSettlement("unsupported-math-$index"))
+                assertEquals(PendingSpinRecoveryStatus.UnsupportedMath, repository.pendingSpinRecoveryStatus())
+                assertEquals(reservedBalance, repository.playerState.first().coinsBalance)
+                assertEquals(
+                    unsupportedJournal,
+                    PlayerStateCheckpointStore(
+                        context.noBackupFilesDir,
+                        PlayerStateCheckpointStore.PRIMARY_FILE_NAME
+                    ).read()?.rawPendingSpinSettlement
+                )
+
+                val secondReservation = repository.reserveSpinAttempt<Unit>(
+                    slotId = base.slotId,
+                    isFreeSpin = false,
+                    lineBet = base.lineBet,
+                    lines = base.lines,
+                    totalBet = base.totalBet,
+                    selectedBetSnapshot = base.lineBet,
+                    selectedLinesSnapshot = base.lines
+                ) {
+                    error("Unsupported pending math must block a new outcome.")
+                }
+                assertTrue(secondReservation is SpinReservationAttempt.BlockedByPendingSpin)
+                assertEquals(
+                    PendingSpinRecoveryStatus.UnsupportedMath,
+                    (secondReservation as SpinReservationAttempt.BlockedByPendingSpin).recoveryStatus
+                )
+                assertEquals(reservedBalance, repository.playerState.first().coinsBalance)
+            }
         } finally {
             repository.resetForDebug()
         }
@@ -206,6 +260,60 @@ class PlayerRepositoryRecoveryTest {
             assertEquals(1, state.freeSpinsForSlot(SLOT_ID))
             assertEquals(25, state.freeSpinBetForSlot(SLOT_ID))
             assertEquals(10, state.freeSpinLinesForSlot(SLOT_ID))
+            assertFreeSpinFeatureTotalSurvivesRepositoryRestartAndIncludesFinalSpin()
+        } finally {
+            repository.resetForDebug()
+        }
+    }
+
+    private suspend fun assertFreeSpinFeatureTotalSurvivesRepositoryRestartAndIncludesFinalSpin() {
+        val repository = AppGraph.playerRepository
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        repository.resetForDebug()
+        repository.awardFreeSpins(count = 2, lineBet = 25, lines = 10, slotId = SLOT_ID)
+        val firstSettlement = settlementForStops(
+            id = "instrumented-free-total-first",
+            processSessionId = ProcessSession.id,
+            isFreeSpin = true,
+            stops = WIN_STOPS
+        )
+        val finalSettlement = firstSettlement.copy(id = "instrumented-free-total-final")
+
+        try {
+            assertEquals(0, repository.playerState.first().freeSpinFeatureTotalWinForSlot(SLOT_ID))
+            assertNotNull(
+                repository.reserveSpin(
+                    slotId = SLOT_ID,
+                    isFreeSpin = true,
+                    lineBet = 25,
+                    lines = 10,
+                    totalBet = 250
+                ) { SpinReservation(firstSettlement, Unit) }
+            )
+            repository.settleSpin(firstSettlement)
+            repository.acknowledgeSpinPresentation(firstSettlement.id)
+            assertEquals(
+                firstSettlement.winAmount,
+                repository.playerState.first().freeSpinFeatureTotalWinForSlot(SLOT_ID)
+            )
+
+            assertNotNull(
+                repository.reserveSpin(
+                    slotId = SLOT_ID,
+                    isFreeSpin = true,
+                    lineBet = 25,
+                    lines = 10,
+                    totalBet = 250
+                ) { SpinReservation(finalSettlement, Unit) }
+            )
+            repository.settleSpin(finalSettlement)
+
+            val restartedState = PlayerRepository(context).playerState.first()
+            assertEquals(0, restartedState.freeSpinsForSlot(SLOT_ID))
+            assertEquals(
+                firstSettlement.winAmount + finalSettlement.winAmount,
+                restartedState.freeSpinFeatureTotalWinForSlot(SLOT_ID)
+            )
         } finally {
             repository.resetForDebug()
         }

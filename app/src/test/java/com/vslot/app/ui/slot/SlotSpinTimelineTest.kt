@@ -2,6 +2,7 @@ package com.vslot.app.ui.slot
 
 import com.vslot.app.game.ResultType
 import com.vslot.app.game.SlotConfig
+import com.vslot.app.game.SlotConfigParser
 import com.vslot.app.game.SlotTheme
 import com.vslot.app.game.SpinResult
 import com.vslot.app.game.SymbolPosition
@@ -58,6 +59,53 @@ class SlotSpinTimelineTest {
             SlotSpinTimeline.stopAtMs(config(), withoutThirdScatter, column = 2),
             SlotSpinTimeline.stopAtMs(config(), withThirdScatter, column = 2)
         )
+    }
+
+    @Test
+    fun `scatter chase requires scatters on the first two reels`() {
+        val misplacedScatters = result(listOf(SymbolPosition(0, 0), SymbolPosition(2, 1)))
+        val lateScatters = result(listOf(SymbolPosition(1, 0), SymbolPosition(2, 1)))
+
+        (0 until config().reels).forEach { column ->
+            assertFalse(SlotSpinTimeline.hasScatterChase(config(), misplacedScatters, column))
+            assertFalse(SlotSpinTimeline.hasScatterChase(config(), lateScatters, column))
+        }
+    }
+
+    @Test
+    fun `losing scatter chase stays below one per bonus trigger`() {
+        bundledConfigs().forEach { slot ->
+            val scatterVisibleStops = slot.reelStrips.map { strip ->
+                strip.indices.count { stop ->
+                    (0 until slot.rows).any { row ->
+                        strip[(stop + row) % strip.size] == slot.scatter
+                    }
+                }
+            }
+            var losingChaseWeight = 0L
+            var bonusWeight = 0L
+            for (mask in 0 until (1 shl slot.reels)) {
+                var weight = 1L
+                for (reel in 0 until slot.reels) {
+                    val scatterStops = scatterVisibleStops[reel]
+                    val selectedStops = if (mask and (1 shl reel) != 0) {
+                        scatterStops
+                    } else {
+                        slot.reelStrips[reel].size - scatterStops
+                    }
+                    weight *= selectedStops.toLong()
+                }
+                val scatterCount = Integer.bitCount(mask)
+                if (scatterCount >= 3) bonusWeight += weight
+                if (mask and 0b11 == 0b11 && scatterCount < 3) losingChaseWeight += weight
+            }
+
+            val ratio = losingChaseWeight.toDouble() / bonusWeight.toDouble()
+            assertTrue(
+                "${slot.id} losing chase/bonus ratio is too high: $ratio",
+                ratio <= MAX_LOSING_CHASE_PER_BONUS
+            )
+        }
     }
 
     @Test
@@ -147,4 +195,15 @@ class SlotSpinTimelineTest {
         scatterCount = scatterPositions.size,
         scatterPositions = scatterPositions
     )
+
+    private fun bundledConfigs(): List<SlotConfig> {
+        val json = checkNotNull(javaClass.classLoader?.getResourceAsStream("slots_config.json")) {
+            "slots_config.json test resource missing"
+        }.bufferedReader().use { it.readText() }
+        return SlotConfigParser().parse(json)
+    }
+
+    private companion object {
+        const val MAX_LOSING_CHASE_PER_BONUS = 1.0
+    }
 }

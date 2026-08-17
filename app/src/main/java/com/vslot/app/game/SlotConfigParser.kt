@@ -101,12 +101,49 @@ class SlotConfigParser {
         validateReelStripSet(slot, slot.reelStrips, "paid")
         validateReelStripSet(slot, slot.freeSpinReelStrips, "free-spin")
         slot.reelStrips.zip(slot.freeSpinReelStrips).forEachIndexed { reelIndex, (paid, free) ->
-            require(paid.size == free.size && paid.groupingBy { it }.eachCount() == free.groupingBy { it }.eachCount()) {
-                "Slot ${slot.id} free-spin reel $reelIndex must preserve the reviewed paid-reel symbol weights."
-            }
+            validateFreeSpinFeatureWeights(slot, reelIndex, paid, free)
         }
         require(slot.freeSpinReelStrips != slot.reelStrips) {
             "Slot ${slot.id} must define a distinct physical free-spin reel order."
+        }
+    }
+
+    private fun validateFreeSpinFeatureWeights(
+        slot: SlotConfig,
+        reelIndex: Int,
+        paid: List<String>,
+        free: List<String>
+    ) {
+        require(paid.size == free.size) {
+            "Slot ${slot.id} free-spin reel $reelIndex must preserve the paid-reel length."
+        }
+        val paidCounts = paid.groupingBy { it }.eachCount()
+        val freeCounts = free.groupingBy { it }.eachCount()
+        if (reelIndex != FREE_SPIN_ENHANCED_WILD_REEL_INDEX) {
+            require(paidCounts == freeCounts) {
+                "Slot ${slot.id} free-spin reel $reelIndex must preserve the reviewed paid-reel symbol weights."
+            }
+            return
+        }
+
+        require(freeCounts.getValue(slot.wild) == paidCounts.getValue(slot.wild) + FREE_SPIN_EXTRA_WILDS) {
+            "Slot ${slot.id} enhanced free-spin reel must contain exactly one additional wild."
+        }
+        require(freeCounts.getValue(slot.scatter) == paidCounts.getValue(slot.scatter)) {
+            "Slot ${slot.id} enhanced free-spin reel must preserve the scatter weight."
+        }
+        val reducedSymbols = slot.symbols.filter { symbol ->
+            symbol != slot.wild && freeCounts.getValue(symbol) == paidCounts.getValue(symbol) - 1
+        }
+        require(reducedSymbols.size == 1 && reducedSymbols.single() != slot.scatter) {
+            "Slot ${slot.id} enhanced free-spin reel must replace one ordinary symbol with the extra wild."
+        }
+        val replacedSymbol = reducedSymbols.single()
+        require(slot.symbols.all { symbol ->
+            symbol == slot.wild || symbol == replacedSymbol ||
+                freeCounts.getValue(symbol) == paidCounts.getValue(symbol)
+        }) {
+            "Slot ${slot.id} enhanced free-spin reel contains an unreviewed symbol-weight change."
         }
     }
 
@@ -206,6 +243,8 @@ class SlotConfigParser {
         const val SUPPORTED_REELS = 5
         const val SUPPORTED_ROWS = 3
         const val EXPECTED_SCATTER_PER_STRIP = 1
+        const val FREE_SPIN_ENHANCED_WILD_REEL_INDEX = 2
+        const val FREE_SPIN_EXTRA_WILDS = 1
         val PAYOUT_COUNTS = setOf(3, 4, 5)
     }
 }

@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="248dp"
         android:layout_marginTop="18dp"
+        android:alpha="0.35"
         android:contentDescription="@null"
         android:importantForAccessibility="no"
         android:scaleType="fitXY"
@@ -41,7 +42,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="700dp"
+        android:minHeight="620dp"
         android:orientation="vertical"
         android:paddingStart="24dp"
         android:paddingTop="22dp"
@@ -81,11 +82,13 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/label_bets" />
 
-                <com.vslot.app.ui.widget.BitmapNumberView
+                <TextView
                     android:id="@+id/paytableBetsDigits"
+                    style="@style/VSlotAccessibleCopy.PaytableValue"
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="2dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -125,7 +128,8 @@
             android:paddingStart="2dp"
             android:paddingEnd="2dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/label_paytable_bet_explanation" />
+            android:src="@drawable/label_paytable_bet_explanation"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/paytableBetExplanationLargeText"
@@ -139,7 +143,8 @@
             android:paddingEnd="2dp"
             android:text="@string/paytable_bet_explanation"
             android:textAlignment="center"
-            android:visibility="gone" />
+            android:textSize="12sp"
+            android:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,11 +168,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <com.vslot.app.ui.widget.BitmapNumberView
+                <TextView
                     android:id="@+id/paytableHeaderThree"
-                    android:layout_width="48dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center" />
+                    style="@style/VSlotAccessibleCopy.PaytableValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/paytable_header_three"
+                    android:textSize="15sp" />
             </FrameLayout>
 
             <FrameLayout
@@ -175,11 +183,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <com.vslot.app.ui.widget.BitmapNumberView
+                <TextView
                     android:id="@+id/paytableHeaderFour"
-                    android:layout_width="48dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center" />
+                    style="@style/VSlotAccessibleCopy.PaytableValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/paytable_header_four"
+                    android:textSize="15sp" />
             </FrameLayout>
 
             <FrameLayout
@@ -187,18 +198,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <com.vslot.app.ui.widget.BitmapNumberView
+                <TextView
                     android:id="@+id/paytableHeaderFive"
-                    android:layout_width="48dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center" />
+                    style="@style/VSlotAccessibleCopy.PaytableValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/paytable_header_five"
+                    android:textSize="15sp" />
             </FrameLayout>
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/paytableRowsStage"
             android:layout_width="match_parent"
-            android:layout_height="216dp"
+            android:layout_height="240dp"
             android:layout_marginTop="5dp"
             android:clipChildren="false"
             android:clipToPadding="false">
@@ -243,7 +257,8 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/label_paytable_footer_violet" />
+            android:src="@drawable/label_paytable_footer_violet"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/paytableFooterLargeText"
@@ -257,7 +272,8 @@
             android:paddingEnd="4dp"
             android:text="@string/paytable_footer_violet"
             android:textAlignment="center"
-            android:visibility="gone" />
+            android:textSize="12sp"
+            android:visibility="visible" />
 
         <FrameLayout
             android:layout_width="180dp"

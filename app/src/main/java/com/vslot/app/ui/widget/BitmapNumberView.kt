@@ -18,6 +18,7 @@ class BitmapNumberView @JvmOverloads constructor(
     private var lastSpacingPx = Int.MIN_VALUE
     private var lastCompactSeparators = false
     private var lastFixedGlyphBaseWidthDp: Float? = null
+    private var autoGlyphBaseWidthDp: Float? = null
     var displayedCharacters: String = ""
         private set
 
@@ -68,6 +69,28 @@ class BitmapNumberView @JvmOverloads constructor(
         lastSpacingPx = spacingPx
         lastCompactSeparators = compactSeparators
         lastFixedGlyphBaseWidthDp = fixedGlyphBaseWidthDp
+        if (fixedGlyphBaseWidthDp == null) {
+            autoGlyphBaseWidthDp = calculateAutoGlyphBaseWidthDp(value, compactSeparators)
+        }
+        renderCharacters(value, spacingPx, compactSeparators, fixedGlyphBaseWidthDp ?: autoGlyphBaseWidthDp)
+    }
+
+    override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
+        super.onSizeChanged(width, height, oldWidth, oldHeight)
+        if (lastFixedGlyphBaseWidthDp != null || width <= 0 || height <= 0) return
+        val value = lastCharacters ?: return
+        val nextBaseWidthDp = calculateAutoGlyphBaseWidthDp(value, lastCompactSeparators) ?: return
+        if (nextBaseWidthDp == autoGlyphBaseWidthDp) return
+        autoGlyphBaseWidthDp = nextBaseWidthDp
+        renderCharacters(value, lastSpacingPx, lastCompactSeparators, nextBaseWidthDp)
+    }
+
+    private fun renderCharacters(
+        value: String,
+        spacingPx: Int,
+        compactSeparators: Boolean,
+        fixedGlyphBaseWidthDp: Float?
+    ) {
         var glyphIndex = 0
         value.forEach { character ->
             val glyph = character.toGlyph(compactSeparators) ?: return@forEach
@@ -88,6 +111,21 @@ class BitmapNumberView @JvmOverloads constructor(
         if (childCount > glyphIndex) {
             removeViews(glyphIndex, childCount - glyphIndex)
         }
+    }
+
+    private fun calculateAutoGlyphBaseWidthDp(value: String, compactSeparators: Boolean): Float? {
+        if (width <= 0 || height <= 0) return null
+        val glyphWeight = value.sumOf { character ->
+            character.toGlyph(compactSeparators)?.weight?.toDouble() ?: 0.0
+        }.toFloat()
+        if (glyphWeight <= 0f) return null
+        val density = resources.displayMetrics.density
+        val contentWidthPx = (width - paddingStart - paddingEnd).coerceAtLeast(1)
+        val spacingWidthPx = value.length * lastSpacingPx.coerceAtLeast(0) * 2
+        val widthBoundDp = ((contentWidthPx - spacingWidthPx).coerceAtLeast(1) / glyphWeight) / density
+        val heightBoundDp = ((height - paddingTop - paddingBottom).coerceAtLeast(1) / density) *
+            AUTO_GLYPH_WIDTH_TO_HEIGHT_RATIO
+        return minOf(widthBoundDp, heightBoundDp).coerceAtLeast(MIN_AUTO_GLYPH_WIDTH_DP)
     }
 
     private fun createGlyphView(): ImageView {
@@ -168,6 +206,8 @@ class BitmapNumberView @JvmOverloads constructor(
     }
 
     private companion object {
+        const val AUTO_GLYPH_WIDTH_TO_HEIGHT_RATIO = 0.68f
+        const val MIN_AUTO_GLYPH_WIDTH_DP = 4f
         val DIGIT_GLYPHS = arrayOf(
             Glyph(R.drawable.digit_0),
             Glyph(R.drawable.digit_1),

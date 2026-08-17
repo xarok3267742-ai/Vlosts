@@ -71,6 +71,14 @@ class BitmapNumberViewContractTest {
         assertFalse(source.contains("value.toInt()"))
     }
 
+    @Test
+    fun `automatic glyph width is bounded by both meter height and available width`() {
+        assertTrue(source.contains("override fun onSizeChanged("))
+        assertTrue(source.contains("calculateAutoGlyphBaseWidthDp"))
+        assertTrue(source.contains("AUTO_GLYPH_WIDTH_TO_HEIGHT_RATIO"))
+        assertTrue(source.contains("minOf(widthBoundDp, heightBoundDp)"))
+    }
+
     private companion object {
         val source: String = Path.of(
             "src/main/java/com/vslot/app/ui/widget/BitmapNumberView.kt"

@@ -76,6 +76,15 @@ class ReelStripViewTest {
         val setupSpinStripLayer = fragmentSource
             .substringAfter("private fun setupReelSpinStripLayer()")
             .substringBefore("private fun setupReelBrakeLayer()")
+        val animateSpinStripColumn = fragmentSource
+            .substringAfter("private fun animateSpinStripColumn(")
+            .substringBefore("private fun animateSpinStripColumnStop")
+        val startSpinPreview = fragmentSource
+            .substringAfter("private fun startSpinPreview(")
+            .substringBefore("private fun reelSpinPreviewFrameDelayMs")
+        val spinPreload = fragmentSource
+            .substringAfter("private fun preloadSpinPresentationResources")
+            .substringBefore("private fun preloadDrawables")
 
         assertTrue(setupSpinStripLayer.contains("ReelStripView(requireContext(), drawableCache)"))
         assertFalse(setupSpinStripLayer.contains("ImageView("))
@@ -114,12 +123,16 @@ class ReelStripViewTest {
                 "!ValueAnimator.areAnimatorsEnabled() || !shouldUseRichSpinEffects()"
             )
         )
-        assertTrue(
-            fragmentSource.contains(
-                "strip.scaleY = if (richEffects) reelSpinStartScaleY(phase) else REEL_SPIN_SYMBOL_BLUR_SCALE_Y"
-            )
-        )
+        assertTrue(animateSpinStripColumn.contains("strip.alpha = 1f"))
+        assertTrue(animateSpinStripColumn.contains("strip.scaleY = 1f"))
+        assertFalse(animateSpinStripColumn.contains(".alpha(reelSpinEndAlpha"))
+        assertFalse(animateSpinStripColumn.contains(".scaleY(reelSpinEndScaleY"))
         assertTrue(fragmentSource.contains("val motion = strip.animate()"))
+        assertTrue(startSpinPreview.contains("startThemeSpinOverlay(config.theme)"))
+        assertFalse(startSpinPreview.contains("startSpinBlurOverlay()"))
+        assertFalse(startSpinPreview.contains("startSpinEnergyOverlay()"))
+        assertFalse(spinPreload.contains("reelSpinBlurDrawable(config.theme)"))
+        assertFalse(spinPreload.contains("spinEnergyOverlayDrawable(config.theme)"))
         assertTrue(fragmentSource.contains("val shouldAnimateHighlights = shouldUseRichSpinEffects() &&"))
         assertTrue(fragmentSource.contains("val shouldAnimate = animate &&"))
         assertTrue(fragmentSource.contains("shouldUseRichSpinEffects() &&"))

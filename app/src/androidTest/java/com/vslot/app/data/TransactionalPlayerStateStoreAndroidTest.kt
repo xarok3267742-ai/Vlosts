@@ -25,7 +25,7 @@ class TransactionalPlayerStateStoreAndroidTest {
     @Test
     fun legacyPrimarySchemasUpgradeInPlaceAndSurviveDurableRewrite() = runBlocking {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        for (schemaVersion in 1..2) {
+        for (schemaVersion in 1..3) {
             val file = uniquePrimaryFile(context, "schema-$schemaVersion").apply {
                 parentFile?.mkdirs()
             }
@@ -195,10 +195,15 @@ class TransactionalPlayerStateStoreAndroidTest {
     }
 
     private fun legacyEncoding(checkpoint: PlayerStateCheckpoint, schemaVersion: Int): String {
-        require(schemaVersion in 1..2)
+        require(schemaVersion in 1..3)
         val envelope = JSONObject(PlayerStateCheckpointCodec.encode(checkpoint))
         val payload = envelope.getJSONObject("payload")
-        payload.remove("migrationComplete")
+        payload.getJSONObject("playerState").remove("freeSpinFeatureTotalWins")
+        if (schemaVersion < 3) {
+            payload.remove("migrationComplete")
+        } else {
+            payload.put("migrationComplete", true)
+        }
         if (schemaVersion < 2) payload.remove("pendingSpinRefundEnvelope")
         val canonicalPayload = PlayerStateCheckpointCodec.canonicalJson(payload)
         val checksum = MessageDigest.getInstance("SHA-256")

@@ -5,3 +5,7 @@
 *.webp binary
 *.ttf binary
 *.jar binary
+*.zip binary
+app/src/main/java/com/vslot/app/game/ReleasedSlotMathV5.kt text eol=lf
+app/src/main/java/com/vslot/app/game/SlotModels.kt text eol=lf
+app/src/main/assets/released_math/v5/*.json text eol=lf

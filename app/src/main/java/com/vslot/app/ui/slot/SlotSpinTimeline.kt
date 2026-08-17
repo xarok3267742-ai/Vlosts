@@ -50,13 +50,14 @@ object SlotSpinTimeline {
 
     fun hasScatterChase(config: SlotConfig, result: SpinResult?, column: Int): Boolean {
         val threshold = scatterTriggerThreshold(config)
-        if (threshold > config.reels) return false
+        if (threshold != SCATTER_CHASE_TRIGGER_COUNT || column < REQUIRED_SCATTER_CHASE_REELS.size) {
+            return false
+        }
         val landedScatterColumns = result?.scatterPositions.orEmpty()
             .asSequence()
             .map { it.reel }
             .toSet()
-        val previousScatterColumns = landedScatterColumns.count { it < column }
-        return previousScatterColumns >= threshold - 1
+        return REQUIRED_SCATTER_CHASE_REELS.all(landedScatterColumns::contains)
     }
 
     fun scatterAnticipationHoldMs(config: SlotConfig, result: SpinResult?, column: Int): Long {
@@ -156,6 +157,9 @@ object SlotSpinTimeline {
             ?.coerceIn(1, config.reels + 1)
             ?: Int.MAX_VALUE
     }
+
+    private const val SCATTER_CHASE_TRIGGER_COUNT = 3
+    private val REQUIRED_SCATTER_CHASE_REELS = setOf(0, 1)
 
     private fun latestRequiredScatterLandedAtMs(
         config: SlotConfig,

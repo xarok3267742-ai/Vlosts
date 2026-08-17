@@ -84,15 +84,15 @@ class SlotMathIdentityTest {
     private companion object {
         val GOLDEN_FINGERPRINTS = mapOf(
             "violet_fortune" to
-                "e27f4ab51821de2a7098c23c947968638ad8d3aba29df461733edb60b65806d3",
+                "9c58810a2ac85df677f7c0028aace90c8e6ae5547c1e9beae36d7c50f580ec55",
             "roman_reels" to
-                "a25c1e8b691aef3df8c01c338518692636e15780d55f398ecea8b4af2af0c29a",
+                "b104067b0c2e7718ea0123f548bf96eefa6ce033291d85deeee331d57e23c914",
             "neon_nights" to
-                "b6e13b266d8f388e55ffbfd8e8b5d4c8c3af7bb71697eef9cb3d89525a1762de",
+                "7ca72d5f5d199ed4078ad11516d133b9078b0b33c349ec95a7fbed1f2ebd258e",
             "pharaoh_gold" to
-                "19af9ae48b0c39b813bab1abede66390d08a05c204be67535606433c4cab87d1",
+                "dcc3c0a787f4e6c0b3981ea4596bf4cb9c161c924e35decb5f9c77fa5677235f",
             "ocean_pearl" to
-                "3ea2c0e96dd4a05798dce9ed79e8099bc34ade64113d099bbe64ff363f8b03ee"
+                "2d06622d2f9a7c166852e216f255d7e608accc408fbb13688224b7834e87eac8"
         )
     }
 }

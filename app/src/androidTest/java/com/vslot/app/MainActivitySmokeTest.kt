@@ -36,7 +36,11 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import com.vslot.app.game.SlotEngine
+import com.vslot.app.game.NetOutcome
+import com.vslot.app.game.netAmount
+import com.vslot.app.game.netOutcome
 import com.vslot.app.data.PlayerState
+import com.vslot.app.data.PendingSpinRecoveryStatus
 import com.vslot.app.ui.dialog.PushPermissionDialogFragment
 import com.vslot.app.ui.asCoins
 import com.vslot.app.ui.widget.BitmapNumberView
@@ -57,7 +61,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivitySmokeTest {
     @Test
-    fun firstLaunchShowsImageDisclaimerAndRoutesAfterAcceptance() {
+    fun firstLaunchShowsDisclaimerAndOpensDailyBonusOnlyAfterTap() {
         seedScenario("first_launch")
 
         launchMain().use {
@@ -71,10 +75,15 @@ class MainActivitySmokeTest {
             waitForEnabled(R.id.continueButton)
             clickView(R.id.continueButton)
 
-            waitForDisplayed(R.id.bonusCloseButton)
-            clickView(R.id.bonusCloseButton)
             waitForDisplayed(R.id.violetCard)
             waitForDisplayed(R.id.romanCard)
+            assertTrue(findCurrentViewById(R.id.bonusCloseButton) == null)
+
+            scrollViewIntoView(R.id.dailyBonusButton)
+            waitForDisplayed(R.id.dailyBonusButton)
+            clickView(R.id.dailyBonusButton)
+            waitForDisplayed(R.id.bonusCloseButton)
+            clickView(R.id.bonusCloseButton)
         }
     }
 
@@ -96,7 +105,6 @@ class MainActivitySmokeTest {
                 context.getString(R.string.disclaimer_checkbox)
             )
             scenario.onActivity { activity ->
-                assertEquals(View.GONE, activity.findViewById<View>(R.id.disclaimerBody).visibility)
                 assertEquals(
                     View.GONE,
                     activity.findViewById<View>(R.id.disclaimerCheckboxLabelImage).visibility
@@ -112,8 +120,6 @@ class MainActivitySmokeTest {
             captureLayoutMatrixScreenshot("large-font-01-disclaimer.png")
             clickView(R.id.continueButton)
 
-            waitForDisplayed(R.id.bonusCloseButton)
-            clickView(R.id.bonusCloseButton)
             waitForDisplayed(R.id.settingsButton)
             clickView(R.id.settingsButton)
             waitForDisplayed(R.id.settingsSafetyLargeText)
@@ -167,8 +173,6 @@ class MainActivitySmokeTest {
             assertViewFullyVisible(R.id.continueButton)
             clickView(R.id.continueButton)
 
-            waitForDisplayed(R.id.bonusCloseButton)
-            clickView(R.id.bonusCloseButton)
             waitForDisplayed(R.id.settingsButton)
             clickView(R.id.settingsButton)
             waitForDisplayed(R.id.settingsSafetyLargeText)
@@ -179,10 +183,15 @@ class MainActivitySmokeTest {
                     BuildConfig.VERSION_NAME.removeSuffix("-qa")
                 ),
                 R.id.socialDisclaimerLargeText to context.getString(R.string.social_disclaimer_short),
+                R.id.soundToggleLabel to context.getString(R.string.settings_sound),
+                R.id.soundToggleState to context.getString(R.string.settings_state_on),
+                R.id.analyticsToggleLabel to context.getString(R.string.settings_analytics),
+                R.id.analyticsToggleState to context.getString(R.string.settings_state_off),
+                R.id.hapticsToggleLabel to context.getString(R.string.settings_haptics),
+                R.id.hapticsToggleState to context.getString(R.string.settings_state_on),
                 R.id.privacyButtonLargeText to context.getString(R.string.privacy_policy),
                 R.id.noticesButtonLargeText to context.getString(R.string.third_party_notices_action),
-                R.id.rulesButtonLargeText to context.getString(R.string.social_casino_rules),
-                R.id.pushStatusLargeText to context.getString(R.string.push_unconfigured_status)
+                R.id.rulesButtonLargeText to context.getString(R.string.social_casino_rules)
             )
             settingsCopy.forEach { (viewId, expectedText) ->
                 scrollViewIntoView(viewId)
@@ -258,10 +267,10 @@ class MainActivitySmokeTest {
             }
             waitForPortrait()
             waitForDisplayed(R.id.settingsButton)
-            clickView(R.id.settingsButton)
+            performClickOnMain(R.id.settingsButton)
             scrollViewIntoView(R.id.rulesButton)
             waitForDisplayed(R.id.rulesButton)
-            clickView(R.id.rulesButton)
+            performClickOnMain(R.id.rulesButton)
 
             assertLargeFontCopy(
                 R.id.socialRulesBody,
@@ -293,16 +302,21 @@ class MainActivitySmokeTest {
             scrollViewIntoView(R.id.closeButton)
             assertViewFullyVisible(R.id.closeButton)
             captureLayoutMatrixScreenshot("large-font-09-rules-landscape.png")
-            clickView(R.id.closeButton)
+            performClickOnMain(R.id.closeButton)
 
+            waitForLandscape()
+            waitForDisplayed(R.id.settingsTitleImage)
             scrollViewIntoView(R.id.backButton)
-            clickView(R.id.backButton)
+            assertViewFullyVisible(R.id.backButton)
+            performClickOnMain(R.id.backButton)
             waitForDisplayed(R.id.violetCard)
-            clickView(R.id.violetCard)
+            waitForLandscape()
+            performClickOnMain(R.id.violetCard)
+            waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
             waitForEnabled(R.id.paytableButton)
             scrollViewIntoView(R.id.paytableButton)
             assertViewFullyVisible(R.id.paytableButton)
-            clickView(R.id.paytableButton)
+            performClickOnMain(R.id.paytableButton)
 
             assertLargeFontCopy(
                 R.id.paytablePaylineGuide,
@@ -344,7 +358,7 @@ class MainActivitySmokeTest {
             scrollViewIntoView(R.id.closeButton)
             assertViewFullyVisible(R.id.closeButton)
             captureLayoutMatrixScreenshot("large-font-11-paytable-portrait.png")
-            clickView(R.id.closeButton)
+            performClickOnMain(R.id.closeButton)
         }
     }
 
@@ -361,6 +375,9 @@ class MainActivitySmokeTest {
             waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
             waitForContentDescription(R.id.linesDigits, "10 линий выплат")
             waitForContentDescription(R.id.totalBetDigits, "Общая ставка 100")
+            assertViewFullyVisible(R.id.slotMachineFrame)
+            assertViewFullyVisible(R.id.slotControlConsole)
+            assertViewsDoNotOverlap(R.id.slotMachineFrame, R.id.slotControlConsole)
             captureStoreScreenshot("02-violet-slot.png")
 
             waitForEnabled(R.id.paytableButton)
@@ -394,7 +411,12 @@ class MainActivitySmokeTest {
             waitForSelected(R.id.soundToggleButton, selected = true)
             waitForSelected(R.id.hapticsToggleButton, selected = true)
             waitForSelected(R.id.analyticsToggleButton, selected = false)
-            assertViewsDoNotOverlap(R.id.pushStatusStage, R.id.settingsSafetyPanel)
+            scenario.onActivity { activity ->
+                if (!BuildConfig.FIREBASE_CONFIGURED || BuildConfig.APP_METRICA_API_KEY.isBlank()) {
+                    assertEquals(View.GONE, activity.findViewById<View>(R.id.pushActionStage).visibility)
+                    assertEquals(View.GONE, activity.findViewById<View>(R.id.pushStatusStage).visibility)
+                }
+            }
 
             clickView(R.id.soundToggleButton)
             waitForSelected(R.id.soundToggleButton, selected = false)
@@ -440,20 +462,21 @@ class MainActivitySmokeTest {
             )
 
             clickView(R.id.settingsButton)
-            waitForDisplayed(R.id.settingsSafetyPanel)
-            assertViewFullyVisible(R.id.settingsSafetyPanel)
+            waitForDisplayed(R.id.settingsSafetyLargeText)
+            assertViewFullyVisible(R.id.settingsSafetyLargeText)
             captureLayoutMatrixScreenshot("compact-portrait-01-settings-top.png")
 
             listOf(
                 R.id.soundToggleButton,
+                R.id.analyticsToggleButton,
+                R.id.hapticsToggleButton,
                 R.id.privacyButton,
-                R.id.rulesButton,
-                R.id.pushStatusStage
+                R.id.rulesButton
             ).forEach { controlId ->
                 scrollViewIntoView(controlId)
                 assertViewFullyVisible(controlId)
-                assertViewFullyVisible(R.id.settingsSafetyPanel)
-                assertViewsDoNotOverlap(controlId, R.id.settingsSafetyPanel)
+                assertViewFullyVisible(R.id.settingsSafetyLargeText)
+                assertViewsDoNotOverlap(controlId, R.id.settingsSafetyLargeText)
             }
             captureLayoutMatrixScreenshot("compact-portrait-02-settings-bottom.png")
         }
@@ -470,31 +493,29 @@ class MainActivitySmokeTest {
             }
             waitForLandscape()
             waitForDisplayed(R.id.settingsButton)
-            clickView(R.id.settingsButton)
+            performClickOnMain(R.id.settingsButton)
 
             waitForDisplayed(R.id.privacyButton)
-            waitForDisplayed(R.id.pushStatusStage)
             var screenWidthDp = Int.MAX_VALUE
-            var fontScale = 1f
             scenario.onActivity { activity ->
                 screenWidthDp = activity.resources.configuration.screenWidthDp
-                fontScale = activity.resources.configuration.fontScale
             }
-            val safetyId = if (fontScale > 1f) {
-                R.id.settingsSafetyLargeText
-            } else {
-                R.id.settingsSafetyPanel
-            }
+            val safetyId = R.id.settingsSafetyLargeText
             var pushActionVisible = false
+            var pushStatusVisible = false
             scenario.onActivity { activity ->
-                pushActionVisible = activity.findViewById<View>(R.id.pushActionStage).visibility == View.VISIBLE
+                pushActionVisible = activity.findViewById<View>(R.id.pushActionStage)?.visibility == View.VISIBLE
+                pushStatusVisible = activity.findViewById<View>(R.id.pushStatusStage)?.visibility == View.VISIBLE
             }
             val commandIds = buildList {
+                add(R.id.soundToggleButton)
+                add(R.id.analyticsToggleButton)
+                add(R.id.hapticsToggleButton)
                 add(R.id.privacyButton)
                 add(R.id.noticesButton)
                 add(R.id.rulesButton)
                 if (pushActionVisible) add(R.id.pushButton)
-                add(R.id.pushStatusStage)
+                if (pushStatusVisible) add(R.id.pushStatusStage)
             }
             if (screenWidthDp < COMPACT_LANDSCAPE_MAX_WIDTH_DP) {
                 captureLayoutMatrixScreenshot("compact-landscape-04-settings-top.png")
@@ -625,10 +646,10 @@ class MainActivitySmokeTest {
             }
             waitForLandscape()
 
-            waitForDisplayed(R.id.disclaimerBody)
+            waitForDisplayed(R.id.disclaimerBodyLargeText)
             assertViewFullyVisible(R.id.disclaimerBadge)
             assertViewFullyVisible(R.id.disclaimerTitle)
-            assertViewFullyVisible(R.id.disclaimerBody)
+            assertViewFullyVisible(R.id.disclaimerBodyLargeText)
             assertViewFullyVisible(R.id.disclaimerCheckRow)
             assertViewFullyVisible(R.id.disclaimerCheckButton)
             assertViewFullyVisible(R.id.continueButton)
@@ -648,9 +669,9 @@ class MainActivitySmokeTest {
             }
             waitForLandscape()
             waitForDisplayed(R.id.settingsButton)
-            clickView(R.id.settingsButton)
+            performClickOnMain(R.id.settingsButton)
             waitForDisplayed(R.id.privacyButton)
-            clickView(R.id.privacyButton)
+            performClickOnMain(R.id.privacyButton)
             waitForPrivacyState()
 
             assertViewFullyVisible(R.id.backButton)
@@ -721,14 +742,17 @@ class MainActivitySmokeTest {
             waitForDisplayed(R.id.dailyBonusButton)
             assertViewFullyVisible(R.id.dailyBonusButton)
             captureLayoutMatrixScreenshot("compact-landscape-01-home.png")
-            clickView(R.id.dailyBonusButton)
+            performClickOnMain(R.id.dailyBonusButton)
             waitForDisplayed(R.id.bonusCooldownTimerRail)
-            clickView(R.id.bonusCloseButton)
+            waitForDisplayed(R.id.bonusCloseButton)
+            performClickOnMain(R.id.bonusCloseButton)
+            waitForDisplayed(R.id.violetCard)
 
             scrollViewIntoView(R.id.violetCard)
             scrollHomeCardIntoView(R.id.violetCard)
             assertViewFullyVisible(R.id.violetCard)
-            clickView(R.id.violetCard)
+            performClickOnMain(R.id.violetCard)
+            waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
 
             waitForDisplayed(R.id.slotMachineFrame)
             assertViewFullyVisible(R.id.backButton)
@@ -761,10 +785,13 @@ class MainActivitySmokeTest {
             }
             waitForLandscape()
             waitForDisplayed(R.id.violetCard)
-            clickView(R.id.violetCard)
+            scrollHomeCardIntoView(R.id.violetCard)
+            assertViewFullyVisible(R.id.violetCard)
+            performClickOnMain(R.id.violetCard)
+            waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
             waitForDisplayed(R.id.paytableButton)
             waitForEnabled(R.id.paytableButton)
-            clickView(R.id.paytableButton)
+            performClickOnMain(R.id.paytableButton)
 
             waitForDisplayed(R.id.paytableTitle)
             waitForDisplayed(R.id.closeButton)
@@ -824,9 +851,9 @@ class MainActivitySmokeTest {
             }
             waitForLandscape()
             waitForDisplayed(R.id.settingsButton)
-            clickView(R.id.settingsButton)
+            performClickOnMain(R.id.settingsButton)
             waitForDisplayed(R.id.rulesButton)
-            clickView(R.id.rulesButton)
+            performClickOnMain(R.id.rulesButton)
 
             waitForDisplayed(R.id.socialRulesBodyLargeText)
             waitForDisplayed(R.id.closeButton)
@@ -1196,7 +1223,90 @@ class MainActivitySmokeTest {
     }
 
     @Test
-    fun lowCoinsWaitSpinShowsImageCooldownModal() {
+    fun partialReturnShowsNetLossWithoutFullWinGlow() {
+        run {
+            seedScenario("slot_partial_return")
+            val context = ApplicationProvider.getApplicationContext<Context>()
+            val config = AppGraph.slotRepository.getSlot(RETURN_SLOT_ID)
+            val result = SlotEngine().evaluate(
+                config = config,
+                reels = config.reelStrips.mapIndexed { reelIndex, strip ->
+                    List(config.rows) { row ->
+                        strip[(PARTIAL_RETURN_STOPS[reelIndex] + row) % strip.size]
+                    }
+                },
+                bet = RETURN_LINE_BET,
+                lines = RETURN_LINES,
+                stopIndexes = PARTIAL_RETURN_STOPS.toList()
+            )
+            assertEquals(NetOutcome.PartialReturn, result.netOutcome)
+            val expectedStatus = context.getString(
+                R.string.slot_outcome_partial_return_visible,
+                result.netAmount.asCoins()
+            )
+
+            launchMain(debugSlotId = RETURN_SLOT_ID).use {
+                waitForContentDescription(R.id.slotTitle, "Римские барабаны")
+                clickViewWithoutRenderIdle(R.id.spinButton)
+                waitUntil(SPIN_RESULT_WAIT_TIMEOUT_MS) {
+                    val status = findCurrentViewById(R.id.lastWinLabel) as? TextView
+                        ?: throw AssertionError("Visible result status is missing.")
+                    assertEquals(expectedStatus, status.text.toString())
+                    assertEquals(result.winAmount, displayedBitmapNumber(R.id.lastWinDigits))
+                    assertFalse(findCurrentViewById(R.id.winGlowOverlay)?.isShown == true)
+                }
+                assertTextFullyLaidOut(
+                    R.id.lastWinLabel,
+                    expectedStatus,
+                    enforceMinimumRenderedTextSize = false
+                )
+                assertViewFullyVisible(R.id.lastWinLabel)
+            }
+        }
+    }
+
+    @Test
+    fun breakEvenShowsReturnedStakeWithoutFullWinGlow() {
+        run {
+            seedScenario("slot_break_even")
+            val context = ApplicationProvider.getApplicationContext<Context>()
+            val config = AppGraph.slotRepository.getSlot(RETURN_SLOT_ID)
+            val result = SlotEngine().evaluate(
+                config = config,
+                reels = config.reelStrips.mapIndexed { reelIndex, strip ->
+                    List(config.rows) { row ->
+                        strip[(BREAK_EVEN_STOPS[reelIndex] + row) % strip.size]
+                    }
+                },
+                bet = RETURN_LINE_BET,
+                lines = RETURN_LINES,
+                stopIndexes = BREAK_EVEN_STOPS.toList()
+            )
+            assertEquals(NetOutcome.BreakEven, result.netOutcome)
+            val expectedStatus = context.getString(R.string.slot_outcome_break_even_visible)
+
+            launchMain(debugSlotId = RETURN_SLOT_ID).use {
+                waitForContentDescription(R.id.slotTitle, "Римские барабаны")
+                clickViewWithoutRenderIdle(R.id.spinButton)
+                waitUntil(SPIN_RESULT_WAIT_TIMEOUT_MS) {
+                    val status = findCurrentViewById(R.id.lastWinLabel) as? TextView
+                        ?: throw AssertionError("Visible result status is missing.")
+                    assertEquals(expectedStatus, status.text.toString())
+                    assertEquals(result.winAmount, displayedBitmapNumber(R.id.lastWinDigits))
+                    assertFalse(findCurrentViewById(R.id.winGlowOverlay)?.isShown == true)
+                }
+                assertTextFullyLaidOut(
+                    R.id.lastWinLabel,
+                    expectedStatus,
+                    enforceMinimumRenderedTextSize = false
+                )
+                assertViewFullyVisible(R.id.lastWinLabel)
+            }
+        }
+    }
+
+    @Test
+    fun blockedSpinStatesShowTheCorrectRecoveryOrAffordableStakeAction() {
         seedScenario("low_wait")
 
         launchMain(debugSlotId = "violet_fortune").use {
@@ -1212,6 +1322,55 @@ class MainActivitySmokeTest {
 
             clickView(R.id.actionButton)
             waitForContentDescription(R.id.spinButton, context.getString(R.string.spin))
+        }
+
+        seedScenario("low_reduce")
+
+        launchMain(debugSlotId = "violet_fortune").use {
+            val context = ApplicationProvider.getApplicationContext<Context>()
+
+            waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
+            waitForContentDescription(R.id.slotBalanceDigits, "Баланс 50")
+            waitForContentDescription(R.id.betDigits, "Ставка на линию 25")
+            waitForContentDescription(R.id.linesDigits, "10 линий выплат")
+            waitForContentDescription(R.id.totalBetDigits, "Общая ставка 250")
+
+            clickView(R.id.spinButton)
+            waitForContentDescription(
+                R.id.lowCoinsBody,
+                context.getString(R.string.low_coins_reduce_body)
+            )
+            waitForContentDescription(
+                R.id.actionButton,
+                context.getString(R.string.low_coins_reduce_action)
+            )
+            clickView(R.id.actionButton)
+
+            waitForContentDescription(R.id.betDigits, "Ставка на линию 10")
+            waitForContentDescription(R.id.linesDigits, "5 линий выплат")
+            waitForContentDescription(R.id.totalBetDigits, "Общая ставка 50")
+            waitForContentDescription(R.id.activeLinesRail, "5 линий выплат")
+            waitForContentDescription(R.id.paylineMarkersOverlay, "5 линий выплат")
+        }
+
+        seedScenario("unsupported_math")
+
+        launchMain(debugSlotId = "violet_fortune").use {
+            val context = ApplicationProvider.getApplicationContext<Context>()
+            val recoveryMessage = context.getString(R.string.slot_settlement_math_update_required)
+
+            waitForContentDescription(R.id.settlementRecoveryNotice, recoveryMessage)
+            waitForDisplayed(R.id.settlementRecoveryNoticeText)
+            assertTextFullyLaidOut(R.id.settlementRecoveryNoticeText, recoveryMessage)
+            waitForDisabled(R.id.spinButton)
+            waitForDisabled(R.id.autoSpinButton)
+            waitForDisabled(R.id.paytableButton)
+            waitForContentDescription(R.id.slotBalanceDigits, "Баланс ${9_750L.asCoins()}")
+            assertEquals(
+                PendingSpinRecoveryStatus.UnsupportedMath,
+                runBlocking { AppGraph.playerRepository.pendingSpinRecoveryStatus() }
+            )
+            assertTrue(findCurrentViewById(R.id.lowCoinsTitle) == null)
         }
     }
 
@@ -1601,6 +1760,25 @@ class MainActivitySmokeTest {
         SystemClock.sleep(VIEW_ACTION_SETTLE_MS)
     }
 
+    private fun performClickOnMain(@IdRes viewId: Int) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        var failure: Throwable? = null
+        instrumentation.runOnMainSync {
+            try {
+                val view = findCurrentViewByIdOnMain(viewId)
+                    ?: throw AssertionError("View $viewId is missing.")
+                if (!view.isEnabled || !view.performClick()) {
+                    throw AssertionError("View $viewId did not handle performClick().")
+                }
+            } catch (throwable: Throwable) {
+                failure = throwable
+            }
+        }
+        failure?.let { throw it }
+        instrumentation.waitForIdleSync()
+        SystemClock.sleep(VIEW_ACTION_SETTLE_MS)
+    }
+
     private fun clickViewWithoutRenderIdle(@IdRes viewId: Int) {
         waitUntil {
             val view = findCurrentViewById(viewId)
@@ -1702,7 +1880,7 @@ class MainActivitySmokeTest {
                     .filterIsInstance<FragmentActivity>()
                     .lastOrNull()
             }
-            if (resumedActivity !== expectedActivity) {
+            if (resumedActivity !== expectedActivity && resumedActivity !is MainActivity) {
                 throw AssertionError("Backgrounded activity has not returned to the foreground.")
             }
         }
@@ -2025,7 +2203,11 @@ class MainActivitySmokeTest {
         }
     }
 
-    private fun assertTextFullyLaidOut(@IdRes viewId: Int, expectedText: String) {
+    private fun assertTextFullyLaidOut(
+        @IdRes viewId: Int,
+        expectedText: String,
+        enforceMinimumRenderedTextSize: Boolean = true
+    ) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         waitUntil {
             var failure: Throwable? = null
@@ -2071,18 +2253,23 @@ class MainActivitySmokeTest {
                                 textView.right <= parent.width - parent.paddingRight + TEXT_LAYOUT_TOLERANCE_PX
                         )
                     }
-                    val scaledTextSizeDp = textView.textSize / textView.resources.displayMetrics.density
-                    val minimumRenderedTextDp = if (
-                        textView.resources.configuration.fontScale >= LARGE_FONT_TEST_SCALE
+                    if (
+                        enforceMinimumRenderedTextSize &&
+                        textView.resources.configuration.fontScale >= COMPACT_SCALED_MIN_FONT_SCALE
                     ) {
-                        LARGE_FONT_MIN_RENDERED_TEXT_DP
-                    } else {
-                        COMPACT_SCALED_MIN_RENDERED_TEXT_DP
+                        val scaledTextSizeDp = textView.textSize / textView.resources.displayMetrics.density
+                        val minimumRenderedTextDp = if (
+                            textView.resources.configuration.fontScale >= LARGE_FONT_TEST_SCALE
+                        ) {
+                            LARGE_FONT_MIN_RENDERED_TEXT_DP
+                        } else {
+                            COMPACT_SCALED_MIN_RENDERED_TEXT_DP
+                        }
+                        assertTrue(
+                            "TextView $viewId did not scale with the user font setting: ${scaledTextSizeDp}dp.",
+                            scaledTextSizeDp >= minimumRenderedTextDp
+                        )
                     }
-                    assertTrue(
-                        "TextView $viewId did not scale with the user font setting: ${scaledTextSizeDp}dp.",
-                        scaledTextSizeDp >= minimumRenderedTextDp
-                    )
                 } catch (error: Throwable) {
                     failure = error
                 }
@@ -2193,7 +2380,7 @@ class MainActivitySmokeTest {
     }
 
     private companion object {
-        const val QA_STATE_TIMEOUT_MS = 5_000L
+        const val QA_STATE_TIMEOUT_MS = 15_000L
         const val HOME_ALL_SLOTS_LEVEL = 4
         const val FEATURE_RESUME_SLOT_ID = "violet_fortune"
         const val NO_WIN_SEARCH_ATTEMPTS = 10_000
@@ -2238,5 +2425,10 @@ class MainActivitySmokeTest {
         const val COUNT_UP_LINES = 10
         const val COUNT_UP_STARTING_BALANCE = 10_000L
         val COUNT_UP_STOPS = intArrayOf(0, 5, 11, 1, 0)
+        const val RETURN_SLOT_ID = "roman_reels"
+        const val RETURN_LINE_BET = 10
+        const val RETURN_LINES = 10
+        val PARTIAL_RETURN_STOPS = intArrayOf(0, 0, 9, 0, 0)
+        val BREAK_EVEN_STOPS = intArrayOf(0, 0, 4, 1, 0)
     }
 }

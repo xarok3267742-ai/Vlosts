@@ -7,6 +7,8 @@
 .cxx/
 .externalNativeBuild/
 build/
+tmp/
+design/imagegen/vslot-controls/
 captures/
 output/
 qa-screenshots/

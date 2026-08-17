@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="disclaimer_body">V Slot — игра с виртуальными монетами. Здесь нет ставок на реальные деньги, денежных призов и вывода средств. Виртуальные монеты не имеют денежной стоимости.</string>
+    <string name="privacy_not_configured">Политика конфиденциальности сейчас недоступна.</string>
+</resources>

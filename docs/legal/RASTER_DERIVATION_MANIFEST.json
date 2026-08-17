@@ -3,7 +3,7 @@
   "status": "derivation_integrity_not_legal_clearance",
   "generated_by": {
     "path": "tools/generate_raster_derivation_manifest.py",
-    "sha256": "65b376a30a4f34e0be4ab6c87032c4433dc986bb9fa8d3157b451718f03fa1c8"
+    "sha256": "054f60aaf0a48d6bb6529ba07d16fba121a78be4dc90574e32fa6057ec25ef6d"
   },
   "toolchain": {
     "python": "3.9.6",
@@ -568,7 +568,7 @@
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -617,7 +617,7 @@
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -666,7 +666,7 @@
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -909,24 +909,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_active.webp",
-      "bytes": 16858,
-      "sha256": "a0318472ebdae4fa6e13d5667887c715507abdc1f140c62451436af14e4600cc",
+      "bytes": 37970,
+      "sha256": "f9dda3f9d5b83e1762e2e9d647885e898419e56371f48604fdb5c7bee43831e4",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_active.webp",
-            "sha256": "33f590253f1ce5fd726ff921941bdc70781813b386d70b2c3489a7369785438a"
+            "sha256": "6b7ab8f334a4473828bb9200294e0110b5393b10111920d96c0e9bd72fc43bba"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -947,7 +947,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "a0318472ebdae4fa6e13d5667887c715507abdc1f140c62451436af14e4600cc"
+        "expected_sha256": "f9dda3f9d5b83e1762e2e9d647885e898419e56371f48604fdb5c7bee43831e4"
       },
       "rights_review": {
         "state": "review_required",
@@ -958,24 +958,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_active_pressed.webp",
-      "bytes": 16660,
-      "sha256": "53e46801a851fb4aa70a8027d89e6123349e1e12b8b33b83852c365d9e457dba",
+      "bytes": 35216,
+      "sha256": "d8bd0b1058c9b90bcb8c6dd6c4d50fe11866d010829c94d5f54e3f7b36f10d53",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp",
-            "sha256": "b06df2627fea4f42af6cee689f77215335b8e200d40c3721243635369ef7d225"
+            "sha256": "307444cef8bd064cce953d66575ea4a5a5011a8feff9f68edc17a83ba133f9d5"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -996,7 +996,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "53e46801a851fb4aa70a8027d89e6123349e1e12b8b33b83852c365d9e457dba"
+        "expected_sha256": "d8bd0b1058c9b90bcb8c6dd6c4d50fe11866d010829c94d5f54e3f7b36f10d53"
       },
       "rights_review": {
         "state": "review_required",
@@ -1007,24 +1007,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_default.webp",
-      "bytes": 16000,
-      "sha256": "15bb043c04e93ae590fe86f5c31850fd8f564d60e2def1417f047155434c3e59",
+      "bytes": 31606,
+      "sha256": "0b9dc82c87ed2399cac3353a16a55b3168acc9d98c900bf422852c2d5e920ebc",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_default.webp",
-            "sha256": "f41da28c1576fe57e9088b23e9a89d0e5276c68f189706b2558ce8e58245b172"
+            "sha256": "df82532dea243fd234aff057459099aaf21d3eb25f8b38d1265c53e8c682bb6c"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1045,7 +1045,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "15bb043c04e93ae590fe86f5c31850fd8f564d60e2def1417f047155434c3e59"
+        "expected_sha256": "0b9dc82c87ed2399cac3353a16a55b3168acc9d98c900bf422852c2d5e920ebc"
       },
       "rights_review": {
         "state": "review_required",
@@ -1056,24 +1056,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_disabled.webp",
-      "bytes": 13800,
-      "sha256": "b6cdf56a28c647624114369846487dffed2dd6bad920b1c6b4f868d930e77c62",
+      "bytes": 27044,
+      "sha256": "918261bd032cad6e8c5fe36eb03aeb79aa5498daab4a3cf8fa5905612cf8bd45",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp",
-            "sha256": "bcfb00fff147d95857163dd58d97ff09bf8de1824d7798184746257c6afe46b9"
+            "sha256": "7ead0103e7e44afbf59e077d29c0a9496b2c2bbfc1373d9f89b17cf9c5cb2f41"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1094,7 +1094,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "b6cdf56a28c647624114369846487dffed2dd6bad920b1c6b4f868d930e77c62"
+        "expected_sha256": "918261bd032cad6e8c5fe36eb03aeb79aa5498daab4a3cf8fa5905612cf8bd45"
       },
       "rights_review": {
         "state": "review_required",
@@ -1105,24 +1105,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_neon_pressed.webp",
-      "bytes": 16034,
-      "sha256": "3cc9f4d4c1ef600cd550aab96e5cbf1db8ce8ec6cb747f8166f82c1e0d84125f",
+      "bytes": 28904,
+      "sha256": "818f61b24db8f9f6337990244bb289c260ec33165f90b629df89ccdb2eb56802",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp",
-            "sha256": "887150479f67636684b19977afed4d567b82fc8529a547bb958ea9db9ce32f1a"
+            "sha256": "6f4a6de2f4973621be277ffc6b4a91483cc5ac52ffeaef8867073118e5a40c65"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1143,7 +1143,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "3cc9f4d4c1ef600cd550aab96e5cbf1db8ce8ec6cb747f8166f82c1e0d84125f"
+        "expected_sha256": "818f61b24db8f9f6337990244bb289c260ec33165f90b629df89ccdb2eb56802"
       },
       "rights_review": {
         "state": "review_required",
@@ -1154,24 +1154,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_active.webp",
-      "bytes": 16280,
-      "sha256": "5045524c3a12562941140ee548f8d480998bbe9499def2d8ff25b49cc29a6071",
+      "bytes": 37400,
+      "sha256": "76edb899082e350d8d8a677e6e8e19c75d46a51f7bb5992d64a7bc4d25a689fa",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_active.webp",
-            "sha256": "33f590253f1ce5fd726ff921941bdc70781813b386d70b2c3489a7369785438a"
+            "sha256": "6b7ab8f334a4473828bb9200294e0110b5393b10111920d96c0e9bd72fc43bba"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1192,7 +1192,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "5045524c3a12562941140ee548f8d480998bbe9499def2d8ff25b49cc29a6071"
+        "expected_sha256": "76edb899082e350d8d8a677e6e8e19c75d46a51f7bb5992d64a7bc4d25a689fa"
       },
       "rights_review": {
         "state": "review_required",
@@ -1203,24 +1203,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_active_pressed.webp",
-      "bytes": 16288,
-      "sha256": "b26c7d527641c573a1f01dc89aac6a6ab3b34c2043dba40e01fe5abe0469279e",
+      "bytes": 35216,
+      "sha256": "1a0502ae12851731b98d89a83f7dfc7c91027217dd93978e2b006f9bfbd91883",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp",
-            "sha256": "b06df2627fea4f42af6cee689f77215335b8e200d40c3721243635369ef7d225"
+            "sha256": "307444cef8bd064cce953d66575ea4a5a5011a8feff9f68edc17a83ba133f9d5"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1241,7 +1241,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "b26c7d527641c573a1f01dc89aac6a6ab3b34c2043dba40e01fe5abe0469279e"
+        "expected_sha256": "1a0502ae12851731b98d89a83f7dfc7c91027217dd93978e2b006f9bfbd91883"
       },
       "rights_review": {
         "state": "review_required",
@@ -1252,24 +1252,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_default.webp",
-      "bytes": 15814,
-      "sha256": "085b8b1efcc807f300b66d66ae687cd576e76471aef1f4f1c7586d6237a84fa8",
+      "bytes": 30392,
+      "sha256": "f32440ec3729b72e0678769f83a3c0bdb03827dcdd6908b7ef009c1d386f081a",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_default.webp",
-            "sha256": "f41da28c1576fe57e9088b23e9a89d0e5276c68f189706b2558ce8e58245b172"
+            "sha256": "df82532dea243fd234aff057459099aaf21d3eb25f8b38d1265c53e8c682bb6c"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1290,7 +1290,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "085b8b1efcc807f300b66d66ae687cd576e76471aef1f4f1c7586d6237a84fa8"
+        "expected_sha256": "f32440ec3729b72e0678769f83a3c0bdb03827dcdd6908b7ef009c1d386f081a"
       },
       "rights_review": {
         "state": "review_required",
@@ -1301,24 +1301,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_disabled.webp",
-      "bytes": 13962,
-      "sha256": "3c642fa2da2262fd3f79d394d37c874e6cb5e9681e2041d701d978e57924344f",
+      "bytes": 26740,
+      "sha256": "16fe784372d6695d15ea5c35f39cc2e460d6f449593feac759b91a48c0c06b26",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp",
-            "sha256": "bcfb00fff147d95857163dd58d97ff09bf8de1824d7798184746257c6afe46b9"
+            "sha256": "7ead0103e7e44afbf59e077d29c0a9496b2c2bbfc1373d9f89b17cf9c5cb2f41"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1339,7 +1339,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "3c642fa2da2262fd3f79d394d37c874e6cb5e9681e2041d701d978e57924344f"
+        "expected_sha256": "16fe784372d6695d15ea5c35f39cc2e460d6f449593feac759b91a48c0c06b26"
       },
       "rights_review": {
         "state": "review_required",
@@ -1350,24 +1350,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_ocean_pressed.webp",
-      "bytes": 15820,
-      "sha256": "266abfcc3cbaeb87fd13b6ca799a37169078175b872dd3afa019108e2337894c",
+      "bytes": 28352,
+      "sha256": "57ad061fa2ef13f12afd5a8167eac8f6d6c919314733da86eb94c98dadcd4ce8",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp",
-            "sha256": "887150479f67636684b19977afed4d567b82fc8529a547bb958ea9db9ce32f1a"
+            "sha256": "6f4a6de2f4973621be277ffc6b4a91483cc5ac52ffeaef8867073118e5a40c65"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1388,7 +1388,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "266abfcc3cbaeb87fd13b6ca799a37169078175b872dd3afa019108e2337894c"
+        "expected_sha256": "57ad061fa2ef13f12afd5a8167eac8f6d6c919314733da86eb94c98dadcd4ce8"
       },
       "rights_review": {
         "state": "review_required",
@@ -1399,24 +1399,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_active.webp",
-      "bytes": 16314,
-      "sha256": "7f1f8f6ee9214777fab5461671737ed5f5b4bdc400ede621f6e4b18f574b1dce",
+      "bytes": 38652,
+      "sha256": "fb9ab43a6a846a6449e2d5dd5023b8bdfdcafcfe5a6beb529df85cf2cb576765",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_active.webp",
-            "sha256": "33f590253f1ce5fd726ff921941bdc70781813b386d70b2c3489a7369785438a"
+            "sha256": "6b7ab8f334a4473828bb9200294e0110b5393b10111920d96c0e9bd72fc43bba"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1437,7 +1437,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "7f1f8f6ee9214777fab5461671737ed5f5b4bdc400ede621f6e4b18f574b1dce"
+        "expected_sha256": "fb9ab43a6a846a6449e2d5dd5023b8bdfdcafcfe5a6beb529df85cf2cb576765"
       },
       "rights_review": {
         "state": "review_required",
@@ -1448,24 +1448,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_active_pressed.webp",
-      "bytes": 16344,
-      "sha256": "04b3337343755a03f64f8980c600719de233f3cf601de02213a975b0979f2aa7",
+      "bytes": 36962,
+      "sha256": "c1509f0e1eb532b360379ef7edd6d002bd59da10dd1579c6d43b7d126d0e6769",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp",
-            "sha256": "b06df2627fea4f42af6cee689f77215335b8e200d40c3721243635369ef7d225"
+            "sha256": "307444cef8bd064cce953d66575ea4a5a5011a8feff9f68edc17a83ba133f9d5"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1486,7 +1486,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "04b3337343755a03f64f8980c600719de233f3cf601de02213a975b0979f2aa7"
+        "expected_sha256": "c1509f0e1eb532b360379ef7edd6d002bd59da10dd1579c6d43b7d126d0e6769"
       },
       "rights_review": {
         "state": "review_required",
@@ -1497,24 +1497,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_default.webp",
-      "bytes": 16272,
-      "sha256": "42f88f077e4f5e9123f3831229a95f25fc332145b3ff9237fd87938402d9c906",
+      "bytes": 30930,
+      "sha256": "f858057175304a5856726953d84d5a498c17853e8dd15786986eb0a8cdb608ae",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_default.webp",
-            "sha256": "f41da28c1576fe57e9088b23e9a89d0e5276c68f189706b2558ce8e58245b172"
+            "sha256": "df82532dea243fd234aff057459099aaf21d3eb25f8b38d1265c53e8c682bb6c"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1535,7 +1535,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "42f88f077e4f5e9123f3831229a95f25fc332145b3ff9237fd87938402d9c906"
+        "expected_sha256": "f858057175304a5856726953d84d5a498c17853e8dd15786986eb0a8cdb608ae"
       },
       "rights_review": {
         "state": "review_required",
@@ -1546,24 +1546,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_disabled.webp",
-      "bytes": 13616,
-      "sha256": "a602bd86aae56e215acc97f0eca9489fd1ca2ddc8dc69484c105fc1b3fe69f25",
+      "bytes": 26258,
+      "sha256": "5718d08a1cc09249517515643d22cc4e62a56a391e6ea3873c21c3c773b1fcae",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp",
-            "sha256": "bcfb00fff147d95857163dd58d97ff09bf8de1824d7798184746257c6afe46b9"
+            "sha256": "7ead0103e7e44afbf59e077d29c0a9496b2c2bbfc1373d9f89b17cf9c5cb2f41"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1584,7 +1584,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "a602bd86aae56e215acc97f0eca9489fd1ca2ddc8dc69484c105fc1b3fe69f25"
+        "expected_sha256": "5718d08a1cc09249517515643d22cc4e62a56a391e6ea3873c21c3c773b1fcae"
       },
       "rights_review": {
         "state": "review_required",
@@ -1595,24 +1595,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_autospin_pharaoh_pressed.webp",
-      "bytes": 16330,
-      "sha256": "9d1c556323096103dba619e9d54d06594063e8a38a332926d1ee75279e8d86fe",
+      "bytes": 29136,
+      "sha256": "f3aad803907b2e07f2fdedee45f2460e9bf8ee90a15471a0c445ac7903009802",
       "media": {
         "type": "image/webp",
-        "width": 180,
-        "height": 180
+        "width": 360,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp",
-            "sha256": "887150479f67636684b19977afed4d567b82fc8529a547bb958ea9db9ce32f1a"
+            "sha256": "6f4a6de2f4973621be277ffc6b4a91483cc5ac52ffeaef8867073118e5a40c65"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1633,7 +1633,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "9d1c556323096103dba619e9d54d06594063e8a38a332926d1ee75279e8d86fe"
+        "expected_sha256": "f3aad803907b2e07f2fdedee45f2460e9bf8ee90a15471a0c445ac7903009802"
       },
       "rights_review": {
         "state": "review_required",
@@ -1644,24 +1644,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_neon.webp",
-      "bytes": 15124,
-      "sha256": "39e69fe3541e1363731443af18cab17360c532e03d5ed9c4c68731452dece971",
+      "bytes": 25680,
+      "sha256": "18d28a45bcc50d8da5816bbb678529fa5e1c0747327c008ea3393af0d808fbac",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus.webp",
-            "sha256": "de485b078d82c96b8cda0e5be7b6803dac679fb7ad73ebc62547b263662bd865"
+            "sha256": "67c684b49dcbd9dcd1337fc3a480936568d4faa5aa2c05e672ee012190147fc2"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1682,7 +1682,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "39e69fe3541e1363731443af18cab17360c532e03d5ed9c4c68731452dece971"
+        "expected_sha256": "18d28a45bcc50d8da5816bbb678529fa5e1c0747327c008ea3393af0d808fbac"
       },
       "rights_review": {
         "state": "review_required",
@@ -1693,24 +1693,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_neon_disabled.webp",
-      "bytes": 10724,
-      "sha256": "31a9c56badb764a4c095d5d1c690bbae06033aeff0d2913af8bbd9fbfa104b37",
+      "bytes": 23508,
+      "sha256": "b0e304c948aa5eff68cbfca6ca074b21dd6ac8bdfb97171862e54424bb1b0d47",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp",
-            "sha256": "87d0f6c80316462518477b717a5e187d3277d4cb822a87f742ad3be5d3b94824"
+            "sha256": "70a4a82ce2af839602963588d9eb3a45e9dc5cccad9f197778edab105e4f3f9a"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1731,7 +1731,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "31a9c56badb764a4c095d5d1c690bbae06033aeff0d2913af8bbd9fbfa104b37"
+        "expected_sha256": "b0e304c948aa5eff68cbfca6ca074b21dd6ac8bdfb97171862e54424bb1b0d47"
       },
       "rights_review": {
         "state": "review_required",
@@ -1742,24 +1742,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_neon_pressed.webp",
-      "bytes": 14422,
-      "sha256": "0558568abbb9fde3f33916c5c4ae5ca514be5be47f2eefef4dd237dbaf49ffb8",
+      "bytes": 23628,
+      "sha256": "59b96e139782a22286caf702a3bf7bf6a38fd141d4dbe7613cb1689e6437786a",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp",
-            "sha256": "97349bbc484232aa0b48d0da66deb3bf8a8374ec1d0b5c11d210c8d285c8df19"
+            "sha256": "4ce32bc18c03bcf55f6f3e462fa00f326d27210a58b1e21c068f7869b07ffa07"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1780,7 +1780,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "0558568abbb9fde3f33916c5c4ae5ca514be5be47f2eefef4dd237dbaf49ffb8"
+        "expected_sha256": "59b96e139782a22286caf702a3bf7bf6a38fd141d4dbe7613cb1689e6437786a"
       },
       "rights_review": {
         "state": "review_required",
@@ -1791,24 +1791,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_ocean.webp",
-      "bytes": 15114,
-      "sha256": "565f11d5dafaaa26e71293c3b994ef118084c1e56eef64734d95716d7c97af14",
+      "bytes": 24602,
+      "sha256": "6f36e5296df005bb400746482e22042d36dbae13b44b5c5820ee9f3c1b67c115",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus.webp",
-            "sha256": "de485b078d82c96b8cda0e5be7b6803dac679fb7ad73ebc62547b263662bd865"
+            "sha256": "67c684b49dcbd9dcd1337fc3a480936568d4faa5aa2c05e672ee012190147fc2"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1829,7 +1829,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "565f11d5dafaaa26e71293c3b994ef118084c1e56eef64734d95716d7c97af14"
+        "expected_sha256": "6f36e5296df005bb400746482e22042d36dbae13b44b5c5820ee9f3c1b67c115"
       },
       "rights_review": {
         "state": "review_required",
@@ -1840,24 +1840,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_ocean_disabled.webp",
-      "bytes": 10638,
-      "sha256": "4975cd1fa1f5e6eda579fea8b75d397902e5dc75a09dabb73e0bd4e5dd5f06c7",
+      "bytes": 23230,
+      "sha256": "32dcfc5459584dcf55ad419f0f148cd978200356db477870c42978328fd96e68",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp",
-            "sha256": "87d0f6c80316462518477b717a5e187d3277d4cb822a87f742ad3be5d3b94824"
+            "sha256": "70a4a82ce2af839602963588d9eb3a45e9dc5cccad9f197778edab105e4f3f9a"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1878,7 +1878,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "4975cd1fa1f5e6eda579fea8b75d397902e5dc75a09dabb73e0bd4e5dd5f06c7"
+        "expected_sha256": "32dcfc5459584dcf55ad419f0f148cd978200356db477870c42978328fd96e68"
       },
       "rights_review": {
         "state": "review_required",
@@ -1889,24 +1889,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_ocean_pressed.webp",
-      "bytes": 14440,
-      "sha256": "90e9c9783f8cb756355faa30f468d3231a5233110c8ab3d2ecedfec931c43adb",
+      "bytes": 23444,
+      "sha256": "a270772e91cafea72aab447c62874b9ded6ea9d478d62c991a1851c97e99df3e",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp",
-            "sha256": "97349bbc484232aa0b48d0da66deb3bf8a8374ec1d0b5c11d210c8d285c8df19"
+            "sha256": "4ce32bc18c03bcf55f6f3e462fa00f326d27210a58b1e21c068f7869b07ffa07"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1927,7 +1927,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "90e9c9783f8cb756355faa30f468d3231a5233110c8ab3d2ecedfec931c43adb"
+        "expected_sha256": "a270772e91cafea72aab447c62874b9ded6ea9d478d62c991a1851c97e99df3e"
       },
       "rights_review": {
         "state": "review_required",
@@ -1938,24 +1938,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pharaoh.webp",
-      "bytes": 14822,
-      "sha256": "7a348a02055436d3b09ee610909f2626bd9e980b093a67313fb820ee8f605943",
+      "bytes": 25490,
+      "sha256": "d561cca19db2fa5a427aef8b007a18ac524ef62c2e0954c6a8815f5cdb78dd24",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus.webp",
-            "sha256": "de485b078d82c96b8cda0e5be7b6803dac679fb7ad73ebc62547b263662bd865"
+            "sha256": "67c684b49dcbd9dcd1337fc3a480936568d4faa5aa2c05e672ee012190147fc2"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -1976,7 +1976,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "7a348a02055436d3b09ee610909f2626bd9e980b093a67313fb820ee8f605943"
+        "expected_sha256": "d561cca19db2fa5a427aef8b007a18ac524ef62c2e0954c6a8815f5cdb78dd24"
       },
       "rights_review": {
         "state": "review_required",
@@ -1987,24 +1987,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pharaoh_disabled.webp",
-      "bytes": 10700,
-      "sha256": "06b6967b9c634c65952241c844c084fc19d5e37bcb6623907bd7643735f8cd0f",
+      "bytes": 22844,
+      "sha256": "0910f105da4ee635a67363fe48b75b8240636c6939c5cf5c415f8fc114366070",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp",
-            "sha256": "87d0f6c80316462518477b717a5e187d3277d4cb822a87f742ad3be5d3b94824"
+            "sha256": "70a4a82ce2af839602963588d9eb3a45e9dc5cccad9f197778edab105e4f3f9a"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2025,7 +2025,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "06b6967b9c634c65952241c844c084fc19d5e37bcb6623907bd7643735f8cd0f"
+        "expected_sha256": "0910f105da4ee635a67363fe48b75b8240636c6939c5cf5c415f8fc114366070"
       },
       "rights_review": {
         "state": "review_required",
@@ -2036,24 +2036,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pharaoh_pressed.webp",
-      "bytes": 14324,
-      "sha256": "bc4f4f4486e49dc2165c48ae269e3b0aae3045e59d85fcd6b2648476dc43b4a9",
+      "bytes": 24164,
+      "sha256": "06fb9db67eb47a6773f7953ec5baeaef1ff36420b3033fe08851645215a6e0f8",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 345,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp",
-            "sha256": "97349bbc484232aa0b48d0da66deb3bf8a8374ec1d0b5c11d210c8d285c8df19"
+            "sha256": "4ce32bc18c03bcf55f6f3e462fa00f326d27210a58b1e21c068f7869b07ffa07"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2074,7 +2074,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "bc4f4f4486e49dc2165c48ae269e3b0aae3045e59d85fcd6b2648476dc43b4a9"
+        "expected_sha256": "06fb9db67eb47a6773f7953ec5baeaef1ff36420b3033fe08851645215a6e0f8"
       },
       "rights_review": {
         "state": "review_required",
@@ -2085,24 +2085,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_neon.webp",
-      "bytes": 15776,
-      "sha256": "6c7f402ab45754213a8979942a8c8b2df049900804e330b1112c64cc0f9e9a7a",
+      "bytes": 27016,
+      "sha256": "5f30b1b42c0904674c66deb92e0006419e582163e28cd081879e1145bf644a2c",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus.webp",
-            "sha256": "1dbf334618efd30026acde9fb118236acc8a011e140355531eca1be1f3de32d1"
+            "sha256": "79fcd5cbd025b58f20c0f7614e4597a527a4c0d41a5515eb152983dd2577b0e9"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2123,7 +2123,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "6c7f402ab45754213a8979942a8c8b2df049900804e330b1112c64cc0f9e9a7a"
+        "expected_sha256": "5f30b1b42c0904674c66deb92e0006419e582163e28cd081879e1145bf644a2c"
       },
       "rights_review": {
         "state": "review_required",
@@ -2134,24 +2134,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_neon_disabled.webp",
-      "bytes": 11010,
-      "sha256": "d55dbb02e2e3a804c965ea450a6849a0fc2e7c5aae28d3cf3e62cb2ecbd45daf",
+      "bytes": 23804,
+      "sha256": "b77e0553e91cfe3ae834d340fc3f3a98a4fbd3b98b7e31847f7b9ef139f6cb5e",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp",
-            "sha256": "5235d177a45b788ef775fed700f2a6e449c69286adb02a58ff796b9bb58e30e0"
+            "sha256": "d7a0e2f49c1cb93e8056582e2c28410b6b3d5bc07b0be629a945838def390605"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2172,7 +2172,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "d55dbb02e2e3a804c965ea450a6849a0fc2e7c5aae28d3cf3e62cb2ecbd45daf"
+        "expected_sha256": "b77e0553e91cfe3ae834d340fc3f3a98a4fbd3b98b7e31847f7b9ef139f6cb5e"
       },
       "rights_review": {
         "state": "review_required",
@@ -2183,24 +2183,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_neon_pressed.webp",
-      "bytes": 15098,
-      "sha256": "9959a71652922c368a35e949c7d8e515954ef3bacc1ea6c18c30eb1c1374c4e3",
+      "bytes": 24454,
+      "sha256": "c8cabf6268f3768bebdc5927ee9c2453396ea0ebfe63b21a82e3c302927c9d12",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp",
-            "sha256": "cd1b098ac7240d57929363f04f5f771085741910f8dcfa3c60044102f2b4e78c"
+            "sha256": "15cc299965a5c7701e6e0231f9196d6f7f737d196db9d2433c2d8255d3050a99"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2221,7 +2221,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "9959a71652922c368a35e949c7d8e515954ef3bacc1ea6c18c30eb1c1374c4e3"
+        "expected_sha256": "c8cabf6268f3768bebdc5927ee9c2453396ea0ebfe63b21a82e3c302927c9d12"
       },
       "rights_review": {
         "state": "review_required",
@@ -2232,24 +2232,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_ocean.webp",
-      "bytes": 15586,
-      "sha256": "9988e0bc6cca97d0f1a6ff6c25d30b3d3852953d51557a23927a964f5e145f1a",
+      "bytes": 25820,
+      "sha256": "c256e9d10979f04537bf1bdee5b0ff3d75a2514f60e191e3638486430664596d",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus.webp",
-            "sha256": "1dbf334618efd30026acde9fb118236acc8a011e140355531eca1be1f3de32d1"
+            "sha256": "79fcd5cbd025b58f20c0f7614e4597a527a4c0d41a5515eb152983dd2577b0e9"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2270,7 +2270,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "9988e0bc6cca97d0f1a6ff6c25d30b3d3852953d51557a23927a964f5e145f1a"
+        "expected_sha256": "c256e9d10979f04537bf1bdee5b0ff3d75a2514f60e191e3638486430664596d"
       },
       "rights_review": {
         "state": "review_required",
@@ -2281,24 +2281,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_ocean_disabled.webp",
-      "bytes": 10972,
-      "sha256": "df11a13a64e668380d8bdc2d3807d2f797f3e367a7b0dc1aae48b9f888481bd1",
+      "bytes": 23400,
+      "sha256": "ed1d6607841857a16b9c82803e954dab45d2f22bdd131afb975e441809314029",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp",
-            "sha256": "5235d177a45b788ef775fed700f2a6e449c69286adb02a58ff796b9bb58e30e0"
+            "sha256": "d7a0e2f49c1cb93e8056582e2c28410b6b3d5bc07b0be629a945838def390605"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2319,7 +2319,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "df11a13a64e668380d8bdc2d3807d2f797f3e367a7b0dc1aae48b9f888481bd1"
+        "expected_sha256": "ed1d6607841857a16b9c82803e954dab45d2f22bdd131afb975e441809314029"
       },
       "rights_review": {
         "state": "review_required",
@@ -2330,24 +2330,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_ocean_pressed.webp",
-      "bytes": 15154,
-      "sha256": "f7355faee524dc7ff5776d3a1255f22b301e62ece7f6deb4af763db928893546",
+      "bytes": 24198,
+      "sha256": "7ac65e5684f84d2cb20d437cb5e699e08e4cd3e04c84cd90efb6b5d05c86e255",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp",
-            "sha256": "cd1b098ac7240d57929363f04f5f771085741910f8dcfa3c60044102f2b4e78c"
+            "sha256": "15cc299965a5c7701e6e0231f9196d6f7f737d196db9d2433c2d8255d3050a99"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2368,7 +2368,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "f7355faee524dc7ff5776d3a1255f22b301e62ece7f6deb4af763db928893546"
+        "expected_sha256": "7ac65e5684f84d2cb20d437cb5e699e08e4cd3e04c84cd90efb6b5d05c86e255"
       },
       "rights_review": {
         "state": "review_required",
@@ -2379,24 +2379,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pharaoh.webp",
-      "bytes": 15430,
-      "sha256": "ecaf034acbcda1f6c479bd4de4261be1fb6fdf21af071b24041acda35e5aec3d",
+      "bytes": 26490,
+      "sha256": "d75186d497065ca37803b979c4e23666ae16647e9056ed8bd1382690a259038f",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus.webp",
-            "sha256": "1dbf334618efd30026acde9fb118236acc8a011e140355531eca1be1f3de32d1"
+            "sha256": "79fcd5cbd025b58f20c0f7614e4597a527a4c0d41a5515eb152983dd2577b0e9"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2417,7 +2417,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "ecaf034acbcda1f6c479bd4de4261be1fb6fdf21af071b24041acda35e5aec3d"
+        "expected_sha256": "d75186d497065ca37803b979c4e23666ae16647e9056ed8bd1382690a259038f"
       },
       "rights_review": {
         "state": "review_required",
@@ -2428,24 +2428,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pharaoh_disabled.webp",
-      "bytes": 11018,
-      "sha256": "bc94e3e2e4c4008e0064066372357dd970ebeb3397f2f0beec7087f767b28d7b",
+      "bytes": 23074,
+      "sha256": "3de540b3bd3e08453a6e4d7ca1102f34ba5b111483086b40a46c12cb9bd35268",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp",
-            "sha256": "5235d177a45b788ef775fed700f2a6e449c69286adb02a58ff796b9bb58e30e0"
+            "sha256": "d7a0e2f49c1cb93e8056582e2c28410b6b3d5bc07b0be629a945838def390605"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2466,7 +2466,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "bc94e3e2e4c4008e0064066372357dd970ebeb3397f2f0beec7087f767b28d7b"
+        "expected_sha256": "3de540b3bd3e08453a6e4d7ca1102f34ba5b111483086b40a46c12cb9bd35268"
       },
       "rights_review": {
         "state": "review_required",
@@ -2477,24 +2477,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pharaoh_pressed.webp",
-      "bytes": 15024,
-      "sha256": "dce12d858b3b0c157c43cc87195a537ddfcaf5924fbb90dde65c96306dd60086",
+      "bytes": 24870,
+      "sha256": "534bdfce8fc6326e8dd793fc7af06c758c3d648f60988084751a283e68cafa09",
       "media": {
         "type": "image/webp",
-        "width": 150,
-        "height": 150
+        "width": 340,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp",
-            "sha256": "cd1b098ac7240d57929363f04f5f771085741910f8dcfa3c60044102f2b4e78c"
+            "sha256": "15cc299965a5c7701e6e0231f9196d6f7f737d196db9d2433c2d8255d3050a99"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2515,7 +2515,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "dce12d858b3b0c157c43cc87195a537ddfcaf5924fbb90dde65c96306dd60086"
+        "expected_sha256": "534bdfce8fc6326e8dd793fc7af06c758c3d648f60988084751a283e68cafa09"
       },
       "rights_review": {
         "state": "review_required",
@@ -2526,24 +2526,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_neon_default.webp",
-      "bytes": 15868,
-      "sha256": "4aa91b446a5c2fcb3b308fed309002924f28a94c3a8df0ccc1707aac0212bdab",
+      "bytes": 28482,
+      "sha256": "1fdd2359e6dd6166f4549abf8853784e8ea8631e5a1e8aeb2356474f2c235578",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp",
-            "sha256": "e7bd42a4b4d179840613a1dea1fc1bff472506a5e83fc294096ad11e9036c157"
+            "sha256": "9c5d17044e99033b1b1eeaaa1fc6579d3fe1b18a270e5874116b6730943a9f15"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2564,7 +2564,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "4aa91b446a5c2fcb3b308fed309002924f28a94c3a8df0ccc1707aac0212bdab"
+        "expected_sha256": "1fdd2359e6dd6166f4549abf8853784e8ea8631e5a1e8aeb2356474f2c235578"
       },
       "rights_review": {
         "state": "review_required",
@@ -2575,24 +2575,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_neon_disabled.webp",
-      "bytes": 16428,
-      "sha256": "1c2e099a5259081ac33fe6575e45a3fe737e5a66e673b25dac3a4f5062092eb0",
+      "bytes": 24740,
+      "sha256": "b8b4e9434bb0f6176224bbd9f352bf64f9e0971ed1c79d436bbb043629233784",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp",
-            "sha256": "3d050be8cd1c8bcc410c25dd15adb471c979a458168050e4c21bbf7feb5f1692"
+            "sha256": "8ffcac9fa5b595f2cc8d203ae8956ab05203a0c4d8a2886723ce2536d465aa3e"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2613,7 +2613,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "1c2e099a5259081ac33fe6575e45a3fe737e5a66e673b25dac3a4f5062092eb0"
+        "expected_sha256": "b8b4e9434bb0f6176224bbd9f352bf64f9e0971ed1c79d436bbb043629233784"
       },
       "rights_review": {
         "state": "review_required",
@@ -2624,24 +2624,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_neon_pressed.webp",
-      "bytes": 18524,
-      "sha256": "6cb8fb13884776ab3224f168134f803d6ebec23b901ff54476e288a03efcf508",
+      "bytes": 25648,
+      "sha256": "3986280b75a2cd7ce8097ffaaf50b9404b92bed8f64424d36bf4cebac8346a9c",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp",
-            "sha256": "431b76bb5b2b297df33f4c9662811fa6305534b1f1f6149fe664d4b2621824db"
+            "sha256": "b54376f947e6b188672e75a069a4d0d58f8c2ecfdb9580d5fa566f638d06426c"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2662,7 +2662,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "6cb8fb13884776ab3224f168134f803d6ebec23b901ff54476e288a03efcf508"
+        "expected_sha256": "3986280b75a2cd7ce8097ffaaf50b9404b92bed8f64424d36bf4cebac8346a9c"
       },
       "rights_review": {
         "state": "review_required",
@@ -2673,24 +2673,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_ocean_default.webp",
-      "bytes": 15752,
-      "sha256": "4a9df4b77a8453be918c745cefce8fcb647074fb62aff1c652723756be75d224",
+      "bytes": 27594,
+      "sha256": "3dd6f8a16893a0b7ec2ed4d03775a152f7dc3d7df28fd1380c56ec6218d181a7",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp",
-            "sha256": "e7bd42a4b4d179840613a1dea1fc1bff472506a5e83fc294096ad11e9036c157"
+            "sha256": "9c5d17044e99033b1b1eeaaa1fc6579d3fe1b18a270e5874116b6730943a9f15"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2711,7 +2711,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "4a9df4b77a8453be918c745cefce8fcb647074fb62aff1c652723756be75d224"
+        "expected_sha256": "3dd6f8a16893a0b7ec2ed4d03775a152f7dc3d7df28fd1380c56ec6218d181a7"
       },
       "rights_review": {
         "state": "review_required",
@@ -2722,24 +2722,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_ocean_disabled.webp",
-      "bytes": 16740,
-      "sha256": "ddb48abab0ef5b28ad8026a20fc1032557c0f79fa4c6446ffe40cba792a765dc",
+      "bytes": 24504,
+      "sha256": "d87e1537e5787295af71ae420f6a9e86cc8500c6709f7a04da3ae913daebdcc8",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp",
-            "sha256": "3d050be8cd1c8bcc410c25dd15adb471c979a458168050e4c21bbf7feb5f1692"
+            "sha256": "8ffcac9fa5b595f2cc8d203ae8956ab05203a0c4d8a2886723ce2536d465aa3e"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2760,7 +2760,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "ddb48abab0ef5b28ad8026a20fc1032557c0f79fa4c6446ffe40cba792a765dc"
+        "expected_sha256": "d87e1537e5787295af71ae420f6a9e86cc8500c6709f7a04da3ae913daebdcc8"
       },
       "rights_review": {
         "state": "review_required",
@@ -2771,24 +2771,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_ocean_pressed.webp",
-      "bytes": 18478,
-      "sha256": "f04afa1a265821ab949dc0f7e1ab75436d7f6db117a06115ce653a8a358b52c9",
+      "bytes": 25520,
+      "sha256": "2794a27f428e9f63dc9b522914b58af9d7dcfdb310c229be5da8cff9f6c12b9f",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp",
-            "sha256": "431b76bb5b2b297df33f4c9662811fa6305534b1f1f6149fe664d4b2621824db"
+            "sha256": "b54376f947e6b188672e75a069a4d0d58f8c2ecfdb9580d5fa566f638d06426c"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2809,7 +2809,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "f04afa1a265821ab949dc0f7e1ab75436d7f6db117a06115ce653a8a358b52c9"
+        "expected_sha256": "2794a27f428e9f63dc9b522914b58af9d7dcfdb310c229be5da8cff9f6c12b9f"
       },
       "rights_review": {
         "state": "review_required",
@@ -2820,24 +2820,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pharaoh_default.webp",
-      "bytes": 15788,
-      "sha256": "1f293255fc1cd30a6ffa776b5b33c08b75e9e05e8d37241bbe7fdb21a5b14ac5",
+      "bytes": 27868,
+      "sha256": "72327b18b894508190969d1be0bb29011d8cf8786e08bf18a99ab15e92c29d57",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp",
-            "sha256": "e7bd42a4b4d179840613a1dea1fc1bff472506a5e83fc294096ad11e9036c157"
+            "sha256": "9c5d17044e99033b1b1eeaaa1fc6579d3fe1b18a270e5874116b6730943a9f15"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2858,7 +2858,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "1f293255fc1cd30a6ffa776b5b33c08b75e9e05e8d37241bbe7fdb21a5b14ac5"
+        "expected_sha256": "72327b18b894508190969d1be0bb29011d8cf8786e08bf18a99ab15e92c29d57"
       },
       "rights_review": {
         "state": "review_required",
@@ -2869,24 +2869,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pharaoh_disabled.webp",
-      "bytes": 16320,
-      "sha256": "c3d1d56c93fa4ea6526e7a43bb59b18d4ae188c1ec9cfe85a1e205012a7cfad7",
+      "bytes": 24110,
+      "sha256": "3cef02e0d92325a17bd91e10a43811e0fd47ac59eff4ee70855c2b8e585aa318",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp",
-            "sha256": "3d050be8cd1c8bcc410c25dd15adb471c979a458168050e4c21bbf7feb5f1692"
+            "sha256": "8ffcac9fa5b595f2cc8d203ae8956ab05203a0c4d8a2886723ce2536d465aa3e"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2907,7 +2907,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "c3d1d56c93fa4ea6526e7a43bb59b18d4ae188c1ec9cfe85a1e205012a7cfad7"
+        "expected_sha256": "3cef02e0d92325a17bd91e10a43811e0fd47ac59eff4ee70855c2b8e585aa318"
       },
       "rights_review": {
         "state": "review_required",
@@ -2918,24 +2918,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pharaoh_pressed.webp",
-      "bytes": 18652,
-      "sha256": "776bdc7aa7e2aff12c2cb9787916abeb73b74a658b44a71e7e698317add3be3b",
+      "bytes": 26044,
+      "sha256": "cee19244752d3101a84541f3d503536fe05d9bea82dac0aced03a6018702bb56",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 350
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp",
-            "sha256": "431b76bb5b2b297df33f4c9662811fa6305534b1f1f6149fe664d4b2621824db"
+            "sha256": "b54376f947e6b188672e75a069a4d0d58f8c2ecfdb9580d5fa566f638d06426c"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -2956,7 +2956,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "776bdc7aa7e2aff12c2cb9787916abeb73b74a658b44a71e7e698317add3be3b"
+        "expected_sha256": "cee19244752d3101a84541f3d503536fe05d9bea82dac0aced03a6018702bb56"
       },
       "rights_review": {
         "state": "review_required",
@@ -4411,7 +4411,7 @@
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -4460,7 +4460,7 @@
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -4509,7 +4509,7 @@
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -10145,8 +10145,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane.webp",
-      "bytes": 13640,
-      "sha256": "14887e0866c69ae05c190987274aa4f48fc24d19b04405c526c51a257a132642",
+      "bytes": 6902,
+      "sha256": "9713924bb4e32e08323374a1cb64dc1c72a0d145450933661ab9ccf73fb936e6",
       "media": {
         "type": "image/webp",
         "width": 760,
@@ -10157,7 +10157,7 @@
         "sources": [],
         "producer": {
           "path": "tools/generate_paytable_bonus_lane_assets.py",
-          "sha256": "9215a594609ef69488cf62716609f78867f5d85768b79eb544204c40ade3736f",
+          "sha256": "37701fde2f4542e3c931c45e24ef1dafcbbff528464da5e43585a092d3b74a48",
           "command": [
             "python3",
             "tools/generate_paytable_bonus_lane_assets.py"
@@ -10178,7 +10178,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "14887e0866c69ae05c190987274aa4f48fc24d19b04405c526c51a257a132642"
+        "expected_sha256": "9713924bb4e32e08323374a1cb64dc1c72a0d145450933661ab9ccf73fb936e6"
       },
       "rights_review": {
         "state": "review_required",
@@ -10189,8 +10189,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane_neon.webp",
-      "bytes": 13674,
-      "sha256": "54f1c65e5a2bbd72351a518530eb782ec2b8512c551c40f9ea4fb883aad8ca92",
+      "bytes": 7000,
+      "sha256": "62552dc3a6a280c2e2213dd4b1cf7c3107b39855659fdac95caae2893457095b",
       "media": {
         "type": "image/webp",
         "width": 760,
@@ -10201,7 +10201,7 @@
         "sources": [],
         "producer": {
           "path": "tools/generate_paytable_bonus_lane_assets.py",
-          "sha256": "9215a594609ef69488cf62716609f78867f5d85768b79eb544204c40ade3736f",
+          "sha256": "37701fde2f4542e3c931c45e24ef1dafcbbff528464da5e43585a092d3b74a48",
           "command": [
             "python3",
             "tools/generate_paytable_bonus_lane_assets.py"
@@ -10222,7 +10222,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "54f1c65e5a2bbd72351a518530eb782ec2b8512c551c40f9ea4fb883aad8ca92"
+        "expected_sha256": "62552dc3a6a280c2e2213dd4b1cf7c3107b39855659fdac95caae2893457095b"
       },
       "rights_review": {
         "state": "review_required",
@@ -10233,8 +10233,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane_ocean.webp",
-      "bytes": 13506,
-      "sha256": "7b28c7b3e0b85d8ff84f9079451af946711807fd7ceb331ac3b6820606c59801",
+      "bytes": 7192,
+      "sha256": "cfcf6984bac0e437c4474ea82cfbc9e4fba1065b252c2917e1b0321d7b2c5764",
       "media": {
         "type": "image/webp",
         "width": 760,
@@ -10245,7 +10245,7 @@
         "sources": [],
         "producer": {
           "path": "tools/generate_paytable_bonus_lane_assets.py",
-          "sha256": "9215a594609ef69488cf62716609f78867f5d85768b79eb544204c40ade3736f",
+          "sha256": "37701fde2f4542e3c931c45e24ef1dafcbbff528464da5e43585a092d3b74a48",
           "command": [
             "python3",
             "tools/generate_paytable_bonus_lane_assets.py"
@@ -10266,7 +10266,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "7b28c7b3e0b85d8ff84f9079451af946711807fd7ceb331ac3b6820606c59801"
+        "expected_sha256": "cfcf6984bac0e437c4474ea82cfbc9e4fba1065b252c2917e1b0321d7b2c5764"
       },
       "rights_review": {
         "state": "review_required",
@@ -10277,8 +10277,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane_pharaoh.webp",
-      "bytes": 13554,
-      "sha256": "318c75c554ec63c2d58ac4e5d2911a4a3eba51f97ed6e53d2d8a59655c960de7",
+      "bytes": 7294,
+      "sha256": "4d58b109d7e94ab2712b34c0d30bb623bfd79482be6907e5e1f20322db65ba2f",
       "media": {
         "type": "image/webp",
         "width": 760,
@@ -10289,7 +10289,7 @@
         "sources": [],
         "producer": {
           "path": "tools/generate_paytable_bonus_lane_assets.py",
-          "sha256": "9215a594609ef69488cf62716609f78867f5d85768b79eb544204c40ade3736f",
+          "sha256": "37701fde2f4542e3c931c45e24ef1dafcbbff528464da5e43585a092d3b74a48",
           "command": [
             "python3",
             "tools/generate_paytable_bonus_lane_assets.py"
@@ -10310,7 +10310,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "318c75c554ec63c2d58ac4e5d2911a4a3eba51f97ed6e53d2d8a59655c960de7"
+        "expected_sha256": "4d58b109d7e94ab2712b34c0d30bb623bfd79482be6907e5e1f20322db65ba2f"
       },
       "rights_review": {
         "state": "review_required",
@@ -10321,8 +10321,8 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_bonus_lane_roman.webp",
-      "bytes": 13264,
-      "sha256": "227acde43d7c37b3ba25ee397cb15b079ea90c1b0d5188f8c14577da364b2592",
+      "bytes": 7116,
+      "sha256": "e11ecb9553820c47c454a6ee83941741d8cebd4b324e868a3861da341ade9c1b",
       "media": {
         "type": "image/webp",
         "width": 760,
@@ -10333,7 +10333,7 @@
         "sources": [],
         "producer": {
           "path": "tools/generate_paytable_bonus_lane_assets.py",
-          "sha256": "9215a594609ef69488cf62716609f78867f5d85768b79eb544204c40ade3736f",
+          "sha256": "37701fde2f4542e3c931c45e24ef1dafcbbff528464da5e43585a092d3b74a48",
           "command": [
             "python3",
             "tools/generate_paytable_bonus_lane_assets.py"
@@ -10354,7 +10354,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "227acde43d7c37b3ba25ee397cb15b079ea90c1b0d5188f8c14577da364b2592"
+        "expected_sha256": "e11ecb9553820c47c454a6ee83941741d8cebd4b324e868a3861da341ade9c1b"
       },
       "rights_review": {
         "state": "review_required",
@@ -10365,24 +10365,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_button_neon.webp",
-      "bytes": 18442,
-      "sha256": "ebb14c9fca01ed99bc59361638c9a0c9ca62a2cbc27e72a9f397c442bad009ac",
+      "bytes": 30418,
+      "sha256": "6d7ed9fc513106a084c1d51a3bb9bc58c086daad6aadfefc9759e6c1cc7fd3e7",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/paytable_button.webp",
-            "sha256": "dc4891eabd2f53e58e68cc66e84a552f3b035f429b96484b627c4be4d761674b"
+            "sha256": "d0555e6bf6bddc717c220c362b237644a183b59ac578d7377849ae18bca18498"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -10403,7 +10403,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "ebb14c9fca01ed99bc59361638c9a0c9ca62a2cbc27e72a9f397c442bad009ac"
+        "expected_sha256": "6d7ed9fc513106a084c1d51a3bb9bc58c086daad6aadfefc9759e6c1cc7fd3e7"
       },
       "rights_review": {
         "state": "review_required",
@@ -10414,24 +10414,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_button_ocean.webp",
-      "bytes": 18274,
-      "sha256": "f8d564e891beca037b516e1c829c345e9d15c201bd5be6d901aa43a114082241",
+      "bytes": 29042,
+      "sha256": "c87dcebd1802680d3c42d2939f84d8181b6392aecd9ee3e84276d820413618b8",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/paytable_button.webp",
-            "sha256": "dc4891eabd2f53e58e68cc66e84a552f3b035f429b96484b627c4be4d761674b"
+            "sha256": "d0555e6bf6bddc717c220c362b237644a183b59ac578d7377849ae18bca18498"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -10452,7 +10452,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "f8d564e891beca037b516e1c829c345e9d15c201bd5be6d901aa43a114082241"
+        "expected_sha256": "c87dcebd1802680d3c42d2939f84d8181b6392aecd9ee3e84276d820413618b8"
       },
       "rights_review": {
         "state": "review_required",
@@ -10463,24 +10463,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/paytable_button_pharaoh.webp",
-      "bytes": 18270,
-      "sha256": "c42864fce4d3a3c89d4b4ca55c43999b1ed0596b5564ee60232eaf875aab01fd",
+      "bytes": 29660,
+      "sha256": "cd07227a31c08f222975bcb7ab8574295e902518597f1a29ff3e2ef7efdc6de5",
       "media": {
         "type": "image/webp",
-        "width": 160,
-        "height": 160
+        "width": 350,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/paytable_button.webp",
-            "sha256": "dc4891eabd2f53e58e68cc66e84a552f3b035f429b96484b627c4be4d761674b"
+            "sha256": "d0555e6bf6bddc717c220c362b237644a183b59ac578d7377849ae18bca18498"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -10501,7 +10501,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "c42864fce4d3a3c89d4b4ca55c43999b1ed0596b5564ee60232eaf875aab01fd"
+        "expected_sha256": "cd07227a31c08f222975bcb7ab8574295e902518597f1a29ff3e2ef7efdc6de5"
       },
       "rights_review": {
         "state": "review_required",
@@ -16487,24 +16487,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_default.webp",
-      "bytes": 33532,
-      "sha256": "36eb7c1c200c2145ee4922c31caf6b297de3c9d40f24ba8e206da136ed1b7ce0",
+      "bytes": 33062,
+      "sha256": "2cd9af3bad3cd1155019aa65112c5bed1279ff03227b17b20bba22f2d25b33e2",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
-            "sha256": "41cebba057b91628e6e1114e2bb6c4fae82743901c4b833168c4363163400583"
+            "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16525,7 +16525,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "36eb7c1c200c2145ee4922c31caf6b297de3c9d40f24ba8e206da136ed1b7ce0"
+        "expected_sha256": "2cd9af3bad3cd1155019aa65112c5bed1279ff03227b17b20bba22f2d25b33e2"
       },
       "rights_review": {
         "state": "review_required",
@@ -16536,24 +16536,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_disabled.webp",
-      "bytes": 24782,
-      "sha256": "b89dc12177c0cdeae6e0f5a0266b9bdb6612022872bda02301dc653bf1d49b8b",
+      "bytes": 25932,
+      "sha256": "e6250a4d8cec216a1594ddf3b004e2d728eb6a6e5849398d577e75dd84c62731",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp",
-            "sha256": "305b4e45f4470598195084ee9936091b78cbe7431314e964cd42b76c0d13f1d4"
+            "sha256": "2e6f3c921e66e5bed2753761efb3f8e323f6487ec8b49d0f73b5f45838a94345"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16574,7 +16574,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "b89dc12177c0cdeae6e0f5a0266b9bdb6612022872bda02301dc653bf1d49b8b"
+        "expected_sha256": "e6250a4d8cec216a1594ddf3b004e2d728eb6a6e5849398d577e75dd84c62731"
       },
       "rights_review": {
         "state": "review_required",
@@ -16585,24 +16585,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_free_spins_default.webp",
-      "bytes": 39566,
-      "sha256": "32d24ea91c0694414474dfe787c53c4acf46ee3d64f4ff18c67e27f902cf8385",
+      "bytes": 32918,
+      "sha256": "7b1fde7db64c65c4358ec57faa7ff92c8d36909123246d138b9af6c11d43e3c2",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png",
-            "sha256": "e5b253b9e4aa51376a7ba9d9cb927d31e975f5c1d4fe9b801a6f458dc75d2eae"
+            "sha256": "f7bcd9577edd45b8e854971f08d89f5a3c636a4a64dfebc9e7bc523facf7d3f5"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16623,7 +16623,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "32d24ea91c0694414474dfe787c53c4acf46ee3d64f4ff18c67e27f902cf8385"
+        "expected_sha256": "7b1fde7db64c65c4358ec57faa7ff92c8d36909123246d138b9af6c11d43e3c2"
       },
       "rights_review": {
         "state": "review_required",
@@ -16634,24 +16634,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_free_spins_disabled.webp",
-      "bytes": 30972,
-      "sha256": "6c1750edff9f954eb9c22e1460934fb8ccb4e51ad48cee50293595160923a47b",
+      "bytes": 30878,
+      "sha256": "94260c76cbc4ec92ca3cc98dfaf0db3ec5756c5ed2b213104038df7bcc4c93bb",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png",
-            "sha256": "718fd9589917eac63bb0e4fdbc6a1f582182c16e60b8482dd944f3c28004c464"
+            "sha256": "7b4e36e000edbbeb93ff3312aec6779fd81a100756f6bbc182f3e63cca9da210"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16672,7 +16672,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "6c1750edff9f954eb9c22e1460934fb8ccb4e51ad48cee50293595160923a47b"
+        "expected_sha256": "94260c76cbc4ec92ca3cc98dfaf0db3ec5756c5ed2b213104038df7bcc4c93bb"
       },
       "rights_review": {
         "state": "review_required",
@@ -16683,24 +16683,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_free_spins_pressed.webp",
-      "bytes": 40284,
-      "sha256": "840fc3fbd69c19e6b2b38592b79f78a0d0890e49c9903d397d5eb67b483a5bdd",
+      "bytes": 29410,
+      "sha256": "b308a7156289add05c856f6bae01f484d20d4bb32b65e08d0f0f8b1aa895535e",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png",
-            "sha256": "57f3aae89097327b31dcce4d0ba7970b7a27dfe121264dd73c8648115d199c49"
+            "sha256": "9a4ce5e01656e9216d0e7e3f08f00516b12b3a44065afa2736ca9b7b92965122"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16721,7 +16721,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "840fc3fbd69c19e6b2b38592b79f78a0d0890e49c9903d397d5eb67b483a5bdd"
+        "expected_sha256": "b308a7156289add05c856f6bae01f484d20d4bb32b65e08d0f0f8b1aa895535e"
       },
       "rights_review": {
         "state": "review_required",
@@ -16732,24 +16732,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_neon_pressed.webp",
-      "bytes": 34136,
-      "sha256": "390706a1e28c7e92fff44209ec52d1af650d0c27822203271dabce34eed16624",
+      "bytes": 29576,
+      "sha256": "1b3c54907309f3a34f8d0b60653bac43c64259b041c741a4be0fe6e31b5152c2",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp",
-            "sha256": "1c1dc3cbd371be6f15547be98f2520a3430e41007d9058c350bff1ddef2ac2f2"
+            "sha256": "9d61ccd8758d6ab8c92300ea5c702f56c4b14929e461b6f9443172ee60458040"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16770,7 +16770,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "390706a1e28c7e92fff44209ec52d1af650d0c27822203271dabce34eed16624"
+        "expected_sha256": "1b3c54907309f3a34f8d0b60653bac43c64259b041c741a4be0fe6e31b5152c2"
       },
       "rights_review": {
         "state": "review_required",
@@ -16781,24 +16781,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_default.webp",
-      "bytes": 32696,
-      "sha256": "cbdc07ef9ff88b5b7a20529ea8161b53d48e4e0d0654a8705614cf35ee5aef49",
+      "bytes": 31512,
+      "sha256": "87cb60b26acc729f283fc44243fe93bab1c8e05439b21a1966b86de65fb08ac9",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
-            "sha256": "41cebba057b91628e6e1114e2bb6c4fae82743901c4b833168c4363163400583"
+            "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16819,7 +16819,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "cbdc07ef9ff88b5b7a20529ea8161b53d48e4e0d0654a8705614cf35ee5aef49"
+        "expected_sha256": "87cb60b26acc729f283fc44243fe93bab1c8e05439b21a1966b86de65fb08ac9"
       },
       "rights_review": {
         "state": "review_required",
@@ -16830,24 +16830,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_disabled.webp",
-      "bytes": 25008,
-      "sha256": "8da888a31a8a2afcc05cab5df8690de98fbef9232932c8a92608a492621b0e88",
+      "bytes": 26056,
+      "sha256": "416f1f8af71c86eb9f9f0cb0e59e0ed4b51b9d77e80fb053ab073756352dcdcc",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp",
-            "sha256": "305b4e45f4470598195084ee9936091b78cbe7431314e964cd42b76c0d13f1d4"
+            "sha256": "2e6f3c921e66e5bed2753761efb3f8e323f6487ec8b49d0f73b5f45838a94345"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16868,7 +16868,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "8da888a31a8a2afcc05cab5df8690de98fbef9232932c8a92608a492621b0e88"
+        "expected_sha256": "416f1f8af71c86eb9f9f0cb0e59e0ed4b51b9d77e80fb053ab073756352dcdcc"
       },
       "rights_review": {
         "state": "review_required",
@@ -16879,24 +16879,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_free_spins_default.webp",
-      "bytes": 39118,
-      "sha256": "24c9d934cf30bedae566306ee9fea83b94471f1b45361bdb3b9a11a390916406",
+      "bytes": 31734,
+      "sha256": "cd63b80e5c810f9c5299dc8287492ae6cf91ae09cc5a7fb356f4501bfd448b14",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png",
-            "sha256": "e5b253b9e4aa51376a7ba9d9cb927d31e975f5c1d4fe9b801a6f458dc75d2eae"
+            "sha256": "f7bcd9577edd45b8e854971f08d89f5a3c636a4a64dfebc9e7bc523facf7d3f5"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16917,7 +16917,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "24c9d934cf30bedae566306ee9fea83b94471f1b45361bdb3b9a11a390916406"
+        "expected_sha256": "cd63b80e5c810f9c5299dc8287492ae6cf91ae09cc5a7fb356f4501bfd448b14"
       },
       "rights_review": {
         "state": "review_required",
@@ -16928,24 +16928,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_free_spins_disabled.webp",
-      "bytes": 30818,
-      "sha256": "41a58ea9647aa5f53430d08f99d104e00a37e06403eee9994cb4b7dcb80dc1e1",
+      "bytes": 31242,
+      "sha256": "769441c614e62bee4baaf34e98f3308a4fa721b426a02c301557707931c98ef1",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png",
-            "sha256": "718fd9589917eac63bb0e4fdbc6a1f582182c16e60b8482dd944f3c28004c464"
+            "sha256": "7b4e36e000edbbeb93ff3312aec6779fd81a100756f6bbc182f3e63cca9da210"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -16966,7 +16966,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "41a58ea9647aa5f53430d08f99d104e00a37e06403eee9994cb4b7dcb80dc1e1"
+        "expected_sha256": "769441c614e62bee4baaf34e98f3308a4fa721b426a02c301557707931c98ef1"
       },
       "rights_review": {
         "state": "review_required",
@@ -16977,24 +16977,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_free_spins_pressed.webp",
-      "bytes": 40312,
-      "sha256": "df47351b7f2ec8dfdda1bcd59fc13d50b50862d5fce46abad91ac570aed4cf39",
+      "bytes": 28838,
+      "sha256": "ea3e81a8970087e5826dce90db4d23a267a89a6588c2a2c2c6811028b6a611d8",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png",
-            "sha256": "57f3aae89097327b31dcce4d0ba7970b7a27dfe121264dd73c8648115d199c49"
+            "sha256": "9a4ce5e01656e9216d0e7e3f08f00516b12b3a44065afa2736ca9b7b92965122"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -17015,7 +17015,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "df47351b7f2ec8dfdda1bcd59fc13d50b50862d5fce46abad91ac570aed4cf39"
+        "expected_sha256": "ea3e81a8970087e5826dce90db4d23a267a89a6588c2a2c2c6811028b6a611d8"
       },
       "rights_review": {
         "state": "review_required",
@@ -17026,24 +17026,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_ocean_pressed.webp",
-      "bytes": 32990,
-      "sha256": "e2c0b8fc507bd24feb69602374c214df2cf171ef2fd1712b377b93d241adeb8b",
+      "bytes": 28272,
+      "sha256": "ac98aa53074a290844cba199b5b7eb4fcddb656d3badab645e46d33764da1d97",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp",
-            "sha256": "1c1dc3cbd371be6f15547be98f2520a3430e41007d9058c350bff1ddef2ac2f2"
+            "sha256": "9d61ccd8758d6ab8c92300ea5c702f56c4b14929e461b6f9443172ee60458040"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -17064,7 +17064,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "e2c0b8fc507bd24feb69602374c214df2cf171ef2fd1712b377b93d241adeb8b"
+        "expected_sha256": "ac98aa53074a290844cba199b5b7eb4fcddb656d3badab645e46d33764da1d97"
       },
       "rights_review": {
         "state": "review_required",
@@ -17075,24 +17075,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_default.webp",
-      "bytes": 32824,
-      "sha256": "97015a65ad6ed7d7dbbe83d16e2ac49c862deeb48c1c3e5cae58e3831affb163",
+      "bytes": 33138,
+      "sha256": "febf9dea2cc8a713c139113b1c5318ced0ecc5e17855bd0f931a9681072d50e6",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
-            "sha256": "41cebba057b91628e6e1114e2bb6c4fae82743901c4b833168c4363163400583"
+            "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -17113,7 +17113,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "97015a65ad6ed7d7dbbe83d16e2ac49c862deeb48c1c3e5cae58e3831affb163"
+        "expected_sha256": "febf9dea2cc8a713c139113b1c5318ced0ecc5e17855bd0f931a9681072d50e6"
       },
       "rights_review": {
         "state": "review_required",
@@ -17124,24 +17124,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_disabled.webp",
-      "bytes": 24918,
-      "sha256": "cd1823300654ac5fc953a10b1c3623aa16dac47835c3bf9c927acfc317c46717",
+      "bytes": 25646,
+      "sha256": "18349c7897b04d59b1e8f37b4a9a63aafce19033ae1e7fdc9ced443b13a77655",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp",
-            "sha256": "305b4e45f4470598195084ee9936091b78cbe7431314e964cd42b76c0d13f1d4"
+            "sha256": "2e6f3c921e66e5bed2753761efb3f8e323f6487ec8b49d0f73b5f45838a94345"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -17162,7 +17162,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "cd1823300654ac5fc953a10b1c3623aa16dac47835c3bf9c927acfc317c46717"
+        "expected_sha256": "18349c7897b04d59b1e8f37b4a9a63aafce19033ae1e7fdc9ced443b13a77655"
       },
       "rights_review": {
         "state": "review_required",
@@ -17173,24 +17173,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_free_spins_default.webp",
-      "bytes": 38402,
-      "sha256": "26f678b1ae56d61164e223295a128afe9a4ba5f21b6dbf549fd965d5b8900bd2",
+      "bytes": 33458,
+      "sha256": "4f64e06ac2a3e33947d54d5d85cdeaf7074f7c5b23ccca681624b9b69f363bab",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png",
-            "sha256": "e5b253b9e4aa51376a7ba9d9cb927d31e975f5c1d4fe9b801a6f458dc75d2eae"
+            "sha256": "f7bcd9577edd45b8e854971f08d89f5a3c636a4a64dfebc9e7bc523facf7d3f5"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -17211,7 +17211,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "26f678b1ae56d61164e223295a128afe9a4ba5f21b6dbf549fd965d5b8900bd2"
+        "expected_sha256": "4f64e06ac2a3e33947d54d5d85cdeaf7074f7c5b23ccca681624b9b69f363bab"
       },
       "rights_review": {
         "state": "review_required",
@@ -17222,24 +17222,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_free_spins_disabled.webp",
-      "bytes": 30664,
-      "sha256": "e0c7302add287f6e585eefcf63ca35e234a43d4ebb4ca0da762ab4c03652b31b",
+      "bytes": 30478,
+      "sha256": "c386ac48ebab2e82f145a8f000d58f59c9dbf8e8786eda8f32ca3645a3b6047d",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png",
-            "sha256": "718fd9589917eac63bb0e4fdbc6a1f582182c16e60b8482dd944f3c28004c464"
+            "sha256": "7b4e36e000edbbeb93ff3312aec6779fd81a100756f6bbc182f3e63cca9da210"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -17260,7 +17260,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "e0c7302add287f6e585eefcf63ca35e234a43d4ebb4ca0da762ab4c03652b31b"
+        "expected_sha256": "c386ac48ebab2e82f145a8f000d58f59c9dbf8e8786eda8f32ca3645a3b6047d"
       },
       "rights_review": {
         "state": "review_required",
@@ -17271,24 +17271,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_free_spins_pressed.webp",
-      "bytes": 39760,
-      "sha256": "14d9af9b92d6b20ea44244351dea5a22b41f5100506a2fc0873e402e75f9209c",
+      "bytes": 29820,
+      "sha256": "b86a0c9ee3683cedb76b24efeb84e597c03909361b89bc94f439f1026bfd733c",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png",
-            "sha256": "57f3aae89097327b31dcce4d0ba7970b7a27dfe121264dd73c8648115d199c49"
+            "sha256": "9a4ce5e01656e9216d0e7e3f08f00516b12b3a44065afa2736ca9b7b92965122"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -17309,7 +17309,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "14d9af9b92d6b20ea44244351dea5a22b41f5100506a2fc0873e402e75f9209c"
+        "expected_sha256": "b86a0c9ee3683cedb76b24efeb84e597c03909361b89bc94f439f1026bfd733c"
       },
       "rights_review": {
         "state": "review_required",
@@ -17320,24 +17320,24 @@
     },
     {
       "path": "app/src/main/res/drawable-nodpi/spin_button_pharaoh_pressed.webp",
-      "bytes": 33314,
-      "sha256": "300b4080954a060d2514c43fbc5d16ec560acf97823784a7c3318a9c76c5ba71",
+      "bytes": 29914,
+      "sha256": "1a188ab4d8d4c47aa43f8e3921b66f46ddf426a8686e4a50a98a31f6c4ad4396",
       "media": {
         "type": "image/webp",
-        "width": 620,
-        "height": 210
+        "width": 780,
+        "height": 355
       },
       "origin": {
         "class": "procedural",
         "sources": [
           {
             "path": "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp",
-            "sha256": "1c1dc3cbd371be6f15547be98f2520a3430e41007d9058c350bff1ddef2ac2f2"
+            "sha256": "9d61ccd8758d6ab8c92300ea5c702f56c4b14929e461b6f9443172ee60458040"
           }
         ],
         "producer": {
           "path": "tools/generate_theme_slot_buttons.py",
-          "sha256": "af0f85122cab311c9a9034acb33c5320b39cce530425eea8dbf0c8f46c07858e",
+          "sha256": "cbbf4ca2e8a1f4082ba394af28b2bc76163aee1a87802037d8efc3efcbc74914",
           "command": [
             "python3",
             "tools/generate_theme_slot_buttons.py"
@@ -17358,7 +17358,7 @@
       ],
       "reproduction": {
         "mode": "byte_exact",
-        "expected_sha256": "300b4080954a060d2514c43fbc5d16ec560acf97823784a7c3318a9c76c5ba71"
+        "expected_sha256": "1a188ab4d8d4c47aa43f8e3921b66f46ddf426a8686e4a50a98a31f6c4ad4396"
       },
       "rights_review": {
         "state": "review_required",

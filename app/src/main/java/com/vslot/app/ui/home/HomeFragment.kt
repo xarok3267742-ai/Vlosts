@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
     private var dailyBonusCountdownTimestamp: Long? = null
     private var dailyBonusAccessibilityBucket: Int? = null
     private var lastObservedPlayerLevel: Int? = null
-    private var bonusShown = false
     private var latestPlayerState = PlayerState()
     private val viewModel: HomeViewModel by viewModels {
         HomeViewModel.Factory(AppGraph.playerRepository, AppGraph.analyticsTracker)
@@ -58,7 +57,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bonusShown = savedInstanceState?.getBoolean(KEY_BONUS_SHOWN, false) == true
         viewModel.onHomeVisible()
         binding.violetCard.setOnClickListener {
             openSlotIfUnlocked(SlotUnlockRules.VIOLET_FORTUNE, getString(R.string.slot_violet_fortune))
@@ -93,15 +91,7 @@ class HomeFragment : Fragment() {
         binding.settingsButton.setOnClickListener { navigateFromHome(R.id.action_home_to_settings) }
         binding.privacyButton.setOnClickListener { navigateFromHome(R.id.action_home_to_privacy) }
         binding.dailyBonusButton.setOnClickListener {
-            val available = latestPlayerState.isDailyBonusAvailable()
-            val dialogShown = showDailyBonusDialog(
-                claimEnabled = available,
-                lastDailyBonusTimestamp = latestPlayerState.lastDailyBonusTimestamp
-            )
-            if (dialogShown) {
-                bonusShown = true
-                viewModel.onDailyBonusOpen(available)
-            }
+            openDailyBonusFromUserAction()
         }
         binding.homeSlotScrollView?.let { scrollView ->
             val bottomVeil = binding.homeScrollBottomVeil ?: return@let
@@ -123,23 +113,9 @@ class HomeFragment : Fragment() {
                     bindLevelState(state)
                     bindSlotUnlockState(state)
                     renderDailyBonusState(state)
-                    if (!bonusShown && state.isDailyBonusAvailable()) {
-                        val dialogShown = showDailyBonusDialog(
-                            claimEnabled = true,
-                            lastDailyBonusTimestamp = state.lastDailyBonusTimestamp
-                        )
-                        if (dialogShown) {
-                            bonusShown = true
-                        }
-                    }
                 }
             }
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putBoolean(KEY_BONUS_SHOWN, bonusShown)
-        super.onSaveInstanceState(outState)
     }
 
     override fun onStart() {
@@ -299,28 +275,8 @@ class HomeFragment : Fragment() {
                         requiredLevel
                     )
                     info.removeAction(AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK)
-                    info.addAction(
-                        AccessibilityNodeInfoCompat.AccessibilityActionCompat(
-                            AccessibilityNodeInfoCompat.ACTION_CLICK,
-                            lockedDescription
-                        )
-                    )
-                }
-
-                @Suppress("DEPRECATION")
-                override fun performAccessibilityAction(
-                    host: View,
-                    action: Int,
-                    args: Bundle?
-                ): Boolean {
-                    if (
-                        action == AccessibilityNodeInfoCompat.ACTION_CLICK &&
-                        !SlotUnlockRules.isUnlocked(slotId, latestPlayerState.playerLevel)
-                    ) {
-                        pulseLockedSlot(slotId)
-                        return true
-                    }
-                    return super.performAccessibilityAction(host, action, args)
+                    info.isEnabled = false
+                    info.contentDescription = lockedDescription
                 }
             }
         )
@@ -600,6 +556,17 @@ class HomeFragment : Fragment() {
         if (navController.currentDestination?.id != R.id.homeFragment) return false
         navController.navigate(actionId, args)
         return true
+    }
+
+    private fun openDailyBonusFromUserAction() {
+        val available = latestPlayerState.isDailyBonusAvailable()
+        val dialogShown = showDailyBonusDialog(
+            claimEnabled = available,
+            lastDailyBonusTimestamp = latestPlayerState.lastDailyBonusTimestamp
+        )
+        if (dialogShown) {
+            viewModel.onDailyBonusOpen(available)
+        }
     }
 
     private fun showDailyBonusDialog(claimEnabled: Boolean, lastDailyBonusTimestamp: Long): Boolean {
@@ -915,7 +882,6 @@ class HomeFragment : Fragment() {
         const val HOME_XP_CONTENT_WIDTH_DP = 80f
         const val HOME_XP_MAX_GLYPH_BASE_WIDTH_DP = 15f
         const val HOME_XP_SLASH_WEIGHT = 0.92
-        const val KEY_BONUS_SHOWN = "bonusShown"
         const val DAILY_BONUS_DIALOG_TAG = "daily_bonus"
         const val HOME_SHINE_DURATION_MS = 1_150L
         const val HOME_SHINE_INITIAL_DELAY_MS = 700L

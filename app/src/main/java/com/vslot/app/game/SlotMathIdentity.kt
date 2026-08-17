@@ -1,58 +1,16 @@
 package com.vslot.app.game
 
-import com.vslot.app.SlotRules
 import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
 object SlotMathIdentity {
-    const val VERSION = 4
+    const val VERSION = ReleasedSlotMathV5.VERSION
 
     fun supports(version: Int): Boolean = version == VERSION
 
-    fun fingerprint(config: SlotConfig): String {
-        val canonical = CanonicalPayloadWriter().apply {
-            writeString(CONFIG_DOMAIN)
-            writeInt(CONFIG_FINGERPRINT_VERSION)
-            writeString(RULES_DOMAIN)
-            writeInt(VERSION)
-            writeInt(SlotRules.FREE_SPINS_BONUS_AWARD)
-            writeInt(SlotEngine.PAYLINE_ROWS.size)
-            SlotEngine.PAYLINE_ROWS.forEach(::writeInts)
-            writeString(config.id)
-            writeInt(config.reels)
-            writeInt(config.rows)
-            writeInt(config.paylines)
-            writeString(config.wild)
-            writeString(config.scatter)
-            writeStrings(config.symbols)
-            writeInts(config.bets)
-            writeInt(config.payouts.size)
-            config.payouts.toSortedMap().forEach { (symbol, payouts) ->
-                writeString(symbol)
-                writeInt(payouts.size)
-                payouts.toSortedMap().forEach { (count, multiplier) ->
-                    writeInt(count)
-                    writeInt(multiplier)
-                }
-            }
-            writeInt(config.scatterBonus.size)
-            config.scatterBonus.toSortedMap().forEach { (count, multiplier) ->
-                writeInt(count)
-                writeInt(multiplier)
-            }
-            writeInt(config.reelStrips.size)
-            config.reelStrips.forEach(::writeStrings)
-            writeInt(config.freeSpinReelStrips.size)
-            config.freeSpinReelStrips.forEach(::writeStrings)
-        }.toByteArray()
-        return sha256Hex(canonical)
-    }
-
-    private const val CONFIG_DOMAIN = "vslot.slot-config"
-    private const val RULES_DOMAIN = "vslot.slot-rules"
-    private const val CONFIG_FINGERPRINT_VERSION = 4
+    fun fingerprint(config: SlotConfig): String = ReleasedSlotMathV5.fingerprint(config)
 }
 
 internal class CanonicalPayloadWriter {

@@ -30,7 +30,6 @@ import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
@@ -52,6 +51,7 @@ import com.vslot.app.BuildConfig
 import com.vslot.app.R
 import com.vslot.app.databinding.FragmentSlotBinding
 import com.vslot.app.data.PlayerState
+import com.vslot.app.game.NetOutcome
 import com.vslot.app.game.ResultType
 import com.vslot.app.game.SlotConfig
 import com.vslot.app.game.reelSymbolAt
@@ -59,6 +59,8 @@ import com.vslot.app.game.reelStripsFor
 import com.vslot.app.game.SlotTheme
 import com.vslot.app.game.SpinResult
 import com.vslot.app.game.WinningLine
+import com.vslot.app.game.netAmount
+import com.vslot.app.game.netOutcome
 import com.vslot.app.ui.asCoins
 import com.vslot.app.ui.dialog.AutoSpinCountDialogFragment
 import com.vslot.app.ui.dialog.LowCoinsDialogFragment
@@ -88,7 +90,6 @@ class SlotFragment : Fragment() {
     private val reelSpinStrips = mutableListOf<ReelStripView>()
     private val reelSpinSymbolViews: List<ReelStripView> get() = reelSpinStrips
     private var reelSpinDrawableCache: ReelStripDrawableCache? = null
-    private var settlementRecoveryNoticeShown = false
     private val reelSpinResourceIds = Array(REEL_COUNT) {
         IntArray(REEL_SPIN_STRIP_SYMBOL_COUNT)
     }
@@ -102,6 +103,7 @@ class SlotFragment : Fragment() {
     private val reelAnticipationBeamViews = mutableListOf<ImageView>()
     private val reelLandingSparkViews = mutableListOf<ImageView>()
     private val reelSpinStopAnimators = mutableMapOf<Int, AnimatorSet>()
+    private val reelScatterAnticipationAnimators = mutableMapOf<Int, AnimatorSet>()
     private val reelBrakeAnimators = mutableMapOf<Int, AnimatorSet>()
     private val reelAnticipationBeamAnimators = mutableMapOf<Int, AnimatorSet>()
     private val reelLandingSparkAnimators = mutableMapOf<Int, AnimatorSet>()
@@ -218,6 +220,7 @@ class SlotFragment : Fragment() {
         binding.activeLinesRailDigits.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         binding.activeLinesRail.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         binding.paylineMarkersOverlay.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        binding.freeSpinsStakeLockLabel.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -237,6 +240,11 @@ class SlotFragment : Fragment() {
         setFragmentResultListener(AutoSpinCountDialogFragment.REQUEST_KEY) { _, result ->
             val count = result.getInt(AutoSpinCountDialogFragment.KEY_COUNT)
             viewModel.startAutoSpin(count)
+        }
+        setFragmentResultListener(LowCoinsDialogFragment.REQUEST_KEY) { _, result ->
+            if (result.getBoolean(LowCoinsDialogFragment.KEY_REDUCE_STAKE)) {
+                viewModel.reduceStakeToAffordable()
+            }
         }
         setFragmentResultListener(ResultDialogFragment.REQUEST_KEY) { _, result ->
             autoSpinResultDismissJob?.cancel()
@@ -283,6 +291,7 @@ class SlotFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        viewModel.retryPendingPresentationRecovery()
         viewModel.retryPendingSettlementRecovery()
         viewModel.resumeFreeSpinsFeatureIfNeeded()
     }
@@ -342,16 +351,28 @@ class SlotFragment : Fragment() {
         val initialBottom = content.paddingBottom
         ViewCompat.setOnApplyWindowInsetsListener(content) { view, insets ->
             val cutoutInsets = insets.getInsets(
-                WindowInsetsCompat.Type.displayCutout() or
-                    WindowInsetsCompat.Type.mandatorySystemGestures() or
-                    WindowInsetsCompat.Type.systemBars()
+                WindowInsetsCompat.Type.displayCutout()
+            )
+            val gestureInsets = insets.getInsets(
+                WindowInsetsCompat.Type.mandatorySystemGestures()
             )
             view.updatePadding(
                 left = initialLeft + cutoutInsets.left,
                 top = initialTop + cutoutInsets.top,
                 right = initialRight + cutoutInsets.right,
-                bottom = initialBottom + cutoutInsets.bottom
+                bottom = initialBottom
             )
+            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                binding.slotControlConsole.layoutParams = binding.slotControlConsole.layoutParams.apply {
+                    height = PORTRAIT_CONSOLE_BASE_HEIGHT_DP.dp() + gestureInsets.bottom
+                }
+                binding.slotSpinDeck.updatePadding(
+                    left = 0,
+                    top = 0,
+                    right = 0,
+                    bottom = gestureInsets.bottom
+                )
+            }
             insets
         }
         ViewCompat.requestApplyInsets(content)
@@ -386,6 +407,7 @@ class SlotFragment : Fragment() {
     private fun handleAutoSpinClick() {
         val state = viewModel.uiState.value
         if (state.isAutoSpinEnabled) {
+            viewModel.dismissAutoSpinStopNotice()
             viewModel.stopAutoSpin()
             return
         }
@@ -576,11 +598,7 @@ class SlotFragment : Fragment() {
             binding.lastWinPanelMeterGlow.setImageResourceIfChanged(slotControlMeterGlowDrawable(theme))
             binding.activeLinesRailImage.setImageResourceIfChanged(activeLinesBadgeDrawable(theme))
             binding.freeSpinsRailImage.setImageResourceIfChanged(freeSpinsBadgeDrawable(theme))
-            binding.betLabel.setImageResourceIfChanged(betLabelDrawable(theme))
-            binding.linesLabel.setImageResourceIfChanged(linesLabelDrawable(theme))
             binding.activeLinesRailLabel.setImageResourceIfChanged(linesLabelDrawable(theme))
-            binding.totalBetLabel.setImageResourceIfChanged(totalBetLabelDrawable(theme))
-            binding.lastWinLabel.setImageResourceIfChanged(lastWinLabelDrawable(theme))
             val reelCellBackdrop = reelCellBackdropDrawable(theme)
             reelCellBackdrops.forEach { it.setImageResourceIfChanged(reelCellBackdrop) }
             binding.slotTitle.contentDescription = state.config.name
@@ -591,16 +609,32 @@ class SlotFragment : Fragment() {
             binding.betDigits.setNumber(displayedLineBet)
             binding.betDigits.contentDescription = "${getString(R.string.line_bet)} ${displayedLineBet.asCoins()}"
             binding.linesDigits.setNumber(selectedLines)
-            binding.linesDigits.contentDescription = activePaylinesDescription(selectedLines)
+            val paylinesDescription = activePaylinesDescription(selectedLines)
+            binding.linesDigits.contentDescription = paylinesDescription
+            binding.activeLinesRail.contentDescription = paylinesDescription
+            binding.paylineMarkersOverlay.contentDescription = paylinesDescription
             binding.activeLinesRailDigits.setNumber(selectedLines)
             val totalBet = displayedLineBet * selectedLines
             binding.totalBetDigits.setNumber(totalBet)
             binding.totalBetDigits.contentDescription = "${getString(R.string.total_bet)} ${totalBet.asCoins()}"
             animateTotalBetChangeIfNeeded(totalBet)
             binding.freeSpinsDigits.setNumber(freeSpins)
-            binding.freeSpinsRail.alpha = if (freeSpinModeActive) 1f else 0.72f
+            binding.freeSpinsRail.visibility = if (freeSpinModeActive) View.VISIBLE else View.INVISIBLE
+            binding.freeSpinsRail.alpha = if (freeSpinModeActive) 1f else 0f
+            binding.freeSpinsRail.importantForAccessibility = if (freeSpinModeActive) {
+                View.IMPORTANT_FOR_ACCESSIBILITY_YES
+            } else {
+                View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
+            }
             binding.freeSpinsRail.contentDescription = getString(R.string.free_spins_remaining, freeSpins)
             binding.spinButton.setImageResourceIfChanged(spinButtonDrawable(state.config.theme, freeSpinModeActive))
+            binding.spinButtonText.setText(
+                when {
+                    state.isSpinning -> R.string.spin_stop_visual_label
+                    freeSpinModeActive -> R.string.spin_free_visual_label
+                    else -> R.string.spin_visual_label
+                }
+            )
             binding.spinButton.contentDescription = getString(
                 when {
                     state.isSlamStopping -> R.string.spin_slam_stopping
@@ -613,9 +647,23 @@ class SlotFragment : Fragment() {
             animateFreeSpinsChangeIfNeeded(freeSpins)
             updateFreeSpinsRailCharge(freeSpinModeActive)
             updateFreeSpinsModeOverlay(freeSpinModeActive)
+            binding.freeSpinsStakeLockLabel.text = getString(
+                R.string.free_spins_stake_locked,
+                displayedLineBet,
+                selectedLines
+            )
+            binding.freeSpinsStakeLockLabel.contentDescription = getString(
+                R.string.free_spins_stake_locked_accessibility,
+                displayedLineBet,
+                selectedLines
+            )
             updateFreeSpinsStakeLockOverlay(freeSpinModeActive)
             bindLastWin(state.lastResult, state.isSpinning)
-            bindSettlementRecoveryNotice(state.isSettlementRecoveryPending)
+            bindSettlementRecoveryNotice(
+                isPending = state.isSettlementRecoveryPending,
+                isBlockedByMath = state.isSettlementRecoveryBlockedByMath
+            )
+            bindAutoSpinStopNotice(state.autoSpinStopReason, state.isSettlementRecoveryPending)
             val controlsEnabled = !state.isSpinStartReserved &&
                 !state.isSpinning &&
                 !state.isResultPending &&
@@ -697,7 +745,10 @@ class SlotFragment : Fragment() {
             animateReelStopIfNeeded(state.lastResult, state.lastResultPresentationId)
             renderWinningPaylineOverlay(state.config.theme, state.lastResult)
             animateWinResultIfNeeded(state.lastResult, state.lastResultPresentationId)
-            if (state.lastResult?.let(SlotResultPresentationPolicy::shouldShowResultDialog) != true) {
+            if (
+                state.pendingFreeSpinsTotalWin == null &&
+                state.lastResult?.let(SlotResultPresentationPolicy::shouldShowResultDialog) != true
+            ) {
                 state.pendingPresentationId?.let(::acknowledgeInlinePresentationAfterNextDraw)
             }
             showPendingResultDialogIfNeeded(state)
@@ -706,19 +757,27 @@ class SlotFragment : Fragment() {
         }
     }
 
-    private fun bindSettlementRecoveryNotice(isPending: Boolean) {
+    private fun bindSettlementRecoveryNotice(isPending: Boolean, isBlockedByMath: Boolean) {
         binding.settlementRecoveryNotice.isVisible = isPending
-        if (!isPending) {
-            settlementRecoveryNoticeShown = false
-            return
+        if (!isPending) return
+        val message = if (isBlockedByMath) {
+            R.string.slot_settlement_math_update_required
+        } else {
+            R.string.slot_settlement_recovery_notice
         }
-        if (settlementRecoveryNoticeShown) return
-        settlementRecoveryNoticeShown = true
-        Toast.makeText(
-            requireContext(),
-            R.string.slot_settlement_recovery_notice,
-            Toast.LENGTH_LONG
-        ).show()
+        binding.settlementRecoveryNoticeText.setText(message)
+        binding.settlementRecoveryNotice.contentDescription = getString(message)
+    }
+
+    private fun bindAutoSpinStopNotice(
+        reason: AutoSpinStopReason?,
+        settlementRecoveryPending: Boolean
+    ) {
+        val message = reason?.let(::autoSpinStopMessage)
+        val isVisible = message != null && !settlementRecoveryPending
+        binding.autoSpinStopNotice.isVisible = isVisible
+        binding.autoSpinStopNotice.contentDescription = message?.let(::getString)
+        binding.autoSpinStopNoticeText.setText(message ?: R.string.auto_spin_stopped_big_win)
     }
 
     private fun updateReelAccessibility(isSpinning: Boolean) {
@@ -734,14 +793,24 @@ class SlotFragment : Fragment() {
 
     private fun updateSpinResultAccessibility(result: SpinResult?, announce: Boolean) {
         val resultDescription = result?.let { spinResult ->
-            when (spinResult.resultType) {
-                ResultType.Lose -> getString(R.string.slot_result_loss_announcement)
-                ResultType.Win -> getString(
+            when (spinResult.netOutcome) {
+                NetOutcome.Loss -> getString(R.string.slot_result_loss_announcement)
+                NetOutcome.PartialReturn -> getString(
+                    R.string.slot_result_partial_return_announcement,
+                    spinResult.winAmount.asCoins(),
+                    spinResult.totalBet.asCoins()
+                )
+                NetOutcome.BreakEven -> getString(
+                    R.string.slot_result_break_even_announcement,
+                    spinResult.winAmount.asCoins()
+                )
+                NetOutcome.NetWin -> getString(
                     R.string.slot_result_win_announcement,
                     spinResult.winAmount.asCoins(),
+                    spinResult.netAmount.asCoins(),
                     spinResult.winningLines.size
                 )
-                ResultType.Bonus -> getString(
+                NetOutcome.Bonus -> getString(
                     R.string.slot_result_bonus_announcement,
                     spinResult.winAmount.asCoins(),
                     spinResult.freeSpinsAwarded
@@ -1429,7 +1498,13 @@ class SlotFragment : Fragment() {
 
         activeLinesPulseAnimator = AnimatorSet().apply {
             playTogether(
-                ObjectAnimator.ofFloat(binding.paylineMarkersOverlay, View.ALPHA, 0.54f, 1f, 0.84f, 1f),
+                ObjectAnimator.ofFloat(
+                    binding.paylineMarkersOverlay,
+                    View.ALPHA,
+                    PAYLINE_MARKER_REST_ALPHA,
+                    PAYLINE_MARKER_PULSE_ALPHA,
+                    PAYLINE_MARKER_REST_ALPHA
+                ),
                 ObjectAnimator.ofFloat(binding.activeLinesRail, View.SCALE_X, 1f, 1.1f, 1f),
                 ObjectAnimator.ofFloat(binding.activeLinesRail, View.SCALE_Y, 1f, 1.1f, 1f),
                 ObjectAnimator.ofFloat(binding.linesDigits, View.SCALE_X, 1f, 1.08f, 1f),
@@ -1453,7 +1528,7 @@ class SlotFragment : Fragment() {
 
     private fun settleActiveLinesPulseTargets() {
         val binding = _binding ?: return
-        binding.paylineMarkersOverlay.alpha = 1f
+        binding.paylineMarkersOverlay.alpha = PAYLINE_MARKER_REST_ALPHA
         binding.activeLinesRail.scaleX = 1f
         binding.activeLinesRail.scaleY = 1f
         binding.linesDigits.scaleX = 1f
@@ -1673,6 +1748,7 @@ class SlotFragment : Fragment() {
     }
 
     private fun bindLastWin(result: SpinResult?, isSpinning: Boolean) {
+        bindLastWinOutcomeLabel(result, isSpinning)
         if (isSpinning) {
             restoredLastWinAmount = null
             cancelLastWinCountUp()
@@ -1736,6 +1812,28 @@ class SlotFragment : Fragment() {
         }
         lastWinCountAnimator = animator
         animator.start()
+    }
+
+    private fun bindLastWinOutcomeLabel(result: SpinResult?, isSpinning: Boolean) {
+        binding.lastWinLabel.text = when {
+            isSpinning || result == null -> getString(R.string.payout_short)
+            result.netOutcome == NetOutcome.Loss -> getString(R.string.slot_outcome_loss_visible)
+            result.netOutcome == NetOutcome.PartialReturn -> getString(
+                R.string.slot_outcome_partial_return_visible,
+                result.netAmount.asCoins()
+            )
+            result.netOutcome == NetOutcome.BreakEven -> getString(
+                R.string.slot_outcome_break_even_visible
+            )
+            result.netOutcome == NetOutcome.NetWin -> getString(
+                R.string.slot_outcome_net_win_visible,
+                result.netAmount.asCoins()
+            )
+            else -> getString(
+                R.string.slot_outcome_bonus_visible,
+                result.freeSpinsAwarded
+            )
+        }
     }
 
     private fun renderLastWinValue(value: Int, accessibilityValue: Int) {
@@ -1820,7 +1918,7 @@ class SlotFragment : Fragment() {
     }
 
     private fun freeSpinsRailAlpha(freeSpins: Int): Float {
-        return if (freeSpins > 0 || freeSpinsVisualModeActive) 1f else 0.72f
+        return if (freeSpins > 0 || freeSpinsVisualModeActive) 1f else 0f
     }
 
     private fun updateFreeSpinsRailCharge(active: Boolean) {
@@ -1974,7 +2072,7 @@ class SlotFragment : Fragment() {
         if (active == freeSpinsStakeLockActive) return
         freeSpinsStakeLockActive = active
         if (active) {
-            setStakeControlsVisible(false)
+            setStakeControlsVisible(true)
             startFreeSpinsStakeLockOverlay()
         } else {
             stopFreeSpinsStakeLockOverlay()
@@ -1989,6 +2087,7 @@ class SlotFragment : Fragment() {
 
     private fun startFreeSpinsStakeLockOverlay() {
         val overlay = binding.freeSpinsStakeLockOverlay
+        val label = binding.freeSpinsStakeLockLabel
         freeSpinsStakeLockAnimator?.cancel()
         overlay.animate().cancel()
         val theme = viewModel.uiState.value.config.theme
@@ -1997,6 +2096,8 @@ class SlotFragment : Fragment() {
         overlay.alpha = FREE_SPINS_STAKE_LOCK_SETTLED_ALPHA
         overlay.scaleX = 0.988f
         overlay.scaleY = 0.96f
+        label.visibility = View.VISIBLE
+        label.alpha = 1f
         if (!ValueAnimator.areAnimatorsEnabled()) {
             overlay.scaleX = 1f
             overlay.scaleY = 1f
@@ -2039,6 +2140,8 @@ class SlotFragment : Fragment() {
         overlay.alpha = FREE_SPINS_STAKE_LOCK_SETTLED_ALPHA
         overlay.scaleX = 1f
         overlay.scaleY = 1f
+        binding.freeSpinsStakeLockLabel.visibility = View.VISIBLE
+        binding.freeSpinsStakeLockLabel.alpha = 1f
     }
 
     private fun stopFreeSpinsStakeLockOverlay(immediate: Boolean = false) {
@@ -2048,6 +2151,9 @@ class SlotFragment : Fragment() {
         freeSpinsStakeLockAnimator?.cancel()
         freeSpinsStakeLockAnimator = null
         overlay.animate().cancel()
+        binding.freeSpinsStakeLockLabel.animate().cancel()
+        binding.freeSpinsStakeLockLabel.alpha = 0f
+        binding.freeSpinsStakeLockLabel.visibility = View.INVISIBLE
         overlay.scaleX = 1f
         overlay.scaleY = 1f
         if (immediate || !ValueAnimator.areAnimatorsEnabled()) {
@@ -2073,15 +2179,26 @@ class SlotFragment : Fragment() {
     private suspend fun collectEvents() {
         viewModel.events.collect { event ->
             when (event) {
-                is SlotEvent.LowCoins -> showLowCoinsDialog(event.bonusAvailable)
+                is SlotEvent.LowCoins -> showLowCoinsDialog(
+                    bonusAvailable = event.bonusAvailable,
+                    canReduceStake = event.canReduceStake
+                )
                 is SlotEvent.ResultReady -> showResultDialog(
                     event.result,
                     event.freeSpinsAwarded,
-                    event.presentationId
+                    event.presentationId,
+                    event.freeSpinsTotalWin
                 )
                 is SlotEvent.PendingPresentation -> openPendingPresentationSlot(event.slotId)
+                is SlotEvent.AutoSpinStopped -> Unit
             }
         }
+    }
+
+    private fun autoSpinStopMessage(reason: AutoSpinStopReason): Int = when (reason) {
+        AutoSpinStopReason.LossLimit -> R.string.auto_spin_stopped_loss_limit
+        AutoSpinStopReason.BigWin -> R.string.auto_spin_stopped_big_win
+        AutoSpinStopReason.Bonus -> R.string.auto_spin_stopped_bonus
     }
 
     private fun acknowledgeInlinePresentationAfterNextDraw(presentationId: String) {
@@ -2255,8 +2372,6 @@ class SlotFragment : Fragment() {
                 .toIntArray()
             reelSpinDrawableCache?.preload(symbolResources)
             preloadDrawables(
-                reelSpinBlurDrawable(config.theme),
-                spinEnergyOverlayDrawable(config.theme),
                 themeSpinOverlayDrawable(config.theme),
                 reelMotionStreakDrawable(config.theme),
                 reelAnticipationBeamDrawable(config.theme),
@@ -2309,9 +2424,6 @@ class SlotFragment : Fragment() {
                     themeWinBurstDrawable(config.theme),
                     bigWinBannerDrawable(config.theme)
                 )
-            }
-            SlotResultPresentationPolicy.isPartialReturn(result) -> {
-                resultResourceIds += winGlowSpriteDrawable(config.theme)
             }
         }
         preloadResultDrawables(resultSignature, resultResourceIds.distinct())
@@ -3341,9 +3453,10 @@ class SlotFragment : Fragment() {
         reelSpinStopAnimators.remove(column)?.cancel()
         animateReelMotionStreak(column, phase, scatterChase, durationMs)
         strip.visibility = View.VISIBLE
-        val richEffects = shouldUseRichSpinEffects()
-        strip.alpha = if (richEffects) reelSpinStartAlpha(phase) else REEL_SPIN_SYMBOL_BLUR_ALPHA
-        strip.scaleY = if (richEffects) reelSpinStartScaleY(phase) else REEL_SPIN_SYMBOL_BLUR_SCALE_Y
+        // Blur variants already convey speed. Keeping the eight-symbol strip opaque and
+        // unscaled avoids an offscreen alpha layer around the oversized reel RenderNode.
+        strip.alpha = 1f
+        strip.scaleY = 1f
         strip.scaleX = 1f
         strip.translationX = 0f
         strip.translationY = -cellHeight * ReelSpinTrajectory.animationStartCellOffset(step)
@@ -3359,16 +3472,12 @@ class SlotFragment : Fragment() {
             .translationY(-cellHeight * ReelSpinTrajectory.SETTLED_CELL_OFFSET)
             .setInterpolator(reelSpinInterpolatorFor(phase, scatterChase))
             .setDuration(durationMs + REEL_SPIN_OVERLAP_MS)
-        if (richEffects) {
-            motion
-                .alpha(reelSpinEndAlpha(phase))
-                .scaleY(reelSpinEndScaleY(phase))
-        }
         motion.start()
     }
 
     private fun animateSpinStripColumnStop(column: Int, slamStopping: Boolean = false) {
         val strip = reelSpinStrips.getOrNull(column) ?: return
+        cancelReelScatterAnticipation(column)
         val cellHeight = reelStripCellHeightPx(column)
         strip.setDrawnSymbolRange(
             firstIndex = 0,
@@ -3479,6 +3588,7 @@ class SlotFragment : Fragment() {
     private fun animateSpinStripColumnAnticipation(column: Int, scatterChase: Boolean) {
         if (!scatterChase) return
         val strip = reelSpinStrips.getOrNull(column) ?: return
+        cancelReelScatterAnticipation(column)
         if (!ValueAnimator.areAnimatorsEnabled()) return
         val nudgePx = REEL_SCATTER_ANTICIPATION_NUDGE_DP.dp().toFloat()
         animateReelAnticipationKick(column, scatterChase)
@@ -3486,13 +3596,41 @@ class SlotFragment : Fragment() {
         pulseReelLandingSparkColumn(column)
         pulseReelMotionStreakColumn(column, scatterChase)
         pulseReelAnticipationBeamColumn(column, scatterChase)
-        AnimatorSet().apply {
+        reelScatterAnticipationAnimators[column] = AnimatorSet().apply {
             playTogether(
                 ObjectAnimator.ofFloat(strip, View.SCALE_X, 1f, 0.972f, 1.018f, 1f),
                 ObjectAnimator.ofFloat(strip, View.TRANSLATION_X, 0f, -nudgePx, nudgePx, 0f)
             )
             duration = REEL_SCATTER_ANTICIPATION_DURATION_MS
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    releaseReelScatterAnticipation(column, animation)
+                }
+
+                override fun onAnimationCancel(animation: Animator) {
+                    releaseReelScatterAnticipation(column, animation)
+                }
+            })
             start()
+        }
+    }
+
+    private fun cancelReelScatterAnticipation(column: Int) {
+        reelScatterAnticipationAnimators.remove(column)?.cancel()
+        reelSpinStrips.getOrNull(column)?.let { strip ->
+            strip.scaleX = 1f
+            strip.translationX = 0f
+        }
+    }
+
+    private fun cancelAllReelScatterAnticipation() {
+        reelScatterAnticipationAnimators.keys.toList().forEach(::cancelReelScatterAnticipation)
+        reelScatterAnticipationAnimators.clear()
+    }
+
+    private fun releaseReelScatterAnticipation(column: Int, animation: Animator) {
+        if (reelScatterAnticipationAnimators[column] === animation) {
+            reelScatterAnticipationAnimators.remove(column)
         }
     }
 
@@ -3646,38 +3784,6 @@ class SlotFragment : Fragment() {
 
     private fun hasScatterChaseForColumn(config: SlotConfig, targetResult: SpinResult?, column: Int): Boolean {
         return SlotSpinTimeline.hasScatterChase(config, targetResult, column)
-    }
-
-    private fun reelSpinStartAlpha(phase: ReelSpinPhase): Float {
-        return when (phase) {
-            ReelSpinPhase.Acceleration -> 0.72f
-            ReelSpinPhase.Cruise -> 0.96f
-            ReelSpinPhase.Deceleration -> 0.9f
-        }
-    }
-
-    private fun reelSpinEndAlpha(phase: ReelSpinPhase): Float {
-        return when (phase) {
-            ReelSpinPhase.Acceleration -> 0.9f
-            ReelSpinPhase.Cruise -> 0.88f
-            ReelSpinPhase.Deceleration -> 0.98f
-        }
-    }
-
-    private fun reelSpinStartScaleY(phase: ReelSpinPhase): Float {
-        return when (phase) {
-            ReelSpinPhase.Acceleration -> 0.98f
-            ReelSpinPhase.Cruise -> 1.06f
-            ReelSpinPhase.Deceleration -> 1.1f
-        }
-    }
-
-    private fun reelSpinEndScaleY(phase: ReelSpinPhase): Float {
-        return when (phase) {
-            ReelSpinPhase.Acceleration -> 1.08f
-            ReelSpinPhase.Cruise -> 1.1f
-            ReelSpinPhase.Deceleration -> 1.03f
-        }
     }
 
     private fun reelSpinInterpolatorFor(
@@ -3871,6 +3977,7 @@ class SlotFragment : Fragment() {
     }
 
     private fun hideReelSpinStripLayer() {
+        cancelAllReelScatterAnticipation()
         reelSpinStopAnimators.values.toList().forEach { it.cancel() }
         reelSpinStopAnimators.clear()
         reelSpinStrips.forEachIndexed { column, strip ->
@@ -4249,8 +4356,8 @@ class SlotFragment : Fragment() {
         val motionStreakDrawable = reelMotionStreakDrawable(config.theme)
         reelMotionStreakViews.forEach { it.setImageResourceIfChanged(motionStreakDrawable) }
         if (shouldUseRichSpinEffects()) {
-            startSpinBlurOverlay()
-            startSpinEnergyOverlay()
+            // Symbol blur textures and motion streaks already sell the reel speed. One
+            // themed onset layer keeps the punch without stacking full-window alpha passes.
             startThemeSpinOverlay(config.theme)
         }
         spinPreviewJob = viewLifecycleOwner.lifecycleScope.launch {
@@ -4542,6 +4649,7 @@ class SlotFragment : Fragment() {
         spinPreviewTargetResult = null
         spinPreviewSlamStopRequested = false
         spinPreviewSlamStopRequestedAtMonotonicMs = null
+        cancelAllReelScatterAnticipation()
         reelAnticipationKickAnimator?.cancel()
         reelAnticipationKickAnimator = null
         settleReelAnticipationKick()
@@ -4753,17 +4861,20 @@ class SlotFragment : Fragment() {
         if (result == null || presentationId.isNullOrBlank()) return
         if (presentationId == lastAnimatedPresentationId) return
         lastAnimatedPresentationId = presentationId
-        if (result.resultType != ResultType.Lose) {
-            if (SlotResultPresentationPolicy.isPartialReturn(result)) {
-                slotSoundPlayer?.play(SlotSoundCue.Payout)
+        when (result.netOutcome) {
+            NetOutcome.Loss -> Unit
+            NetOutcome.PartialReturn,
+            NetOutcome.BreakEven -> {
                 animatePartialReturnOverlay()
-            } else {
+            }
+            NetOutcome.NetWin,
+            NetOutcome.Bonus -> {
                 slotSoundPlayer?.play(
-                    if (result.resultType == ResultType.Bonus) SlotSoundCue.Bonus else SlotSoundCue.Win
+                    if (result.netOutcome == NetOutcome.Bonus) SlotSoundCue.Bonus else SlotSoundCue.Win
                 )
                 if (hapticsEnabled) {
                     binding.reelsGrid.performHapticFeedback(
-                        if (result.resultType == ResultType.Bonus) {
+                        if (result.netOutcome == NetOutcome.Bonus) {
                             HapticFeedbackConstants.LONG_PRESS
                         } else {
                             HapticFeedbackConstants.CLOCK_TICK
@@ -4776,27 +4887,20 @@ class SlotFragment : Fragment() {
     }
 
     private fun animatePartialReturnOverlay() {
-        val glow = binding.winGlowOverlay
-        val theme = viewModel.uiState.value.config.theme
         stopWinGlowOverlay()
-        glow.setImageResourceIfChanged(winGlowSpriteDrawable(theme))
-        glow.visibility = View.VISIBLE
         hideBigWinBanner(immediate = true)
         hideThemeWinBurst(immediate = true)
         hideBonusEntryPortal(immediate = true)
-        glow.alpha = 0f
-        glow.scaleX = 0.86f
-        glow.scaleY = 0.86f
-        glow.animate()
-            .alpha(PARTIAL_RETURN_GLOW_ALPHA)
-            .scaleX(1.04f)
-            .scaleY(1.04f)
+        val meterGlow = binding.lastWinPanelMeterGlow
+        meterGlow.animate().cancel()
+        meterGlow.alpha = CONTROL_METER_SETTLED_ALPHA
+        if (!ValueAnimator.areAnimatorsEnabled()) return
+        meterGlow.animate()
+            .alpha(PARTIAL_RETURN_METER_PEAK_ALPHA)
             .setDuration(PARTIAL_RETURN_GLOW_IN_MS)
             .withEndAction {
-                glow.animate()
-                    .alpha(0f)
-                    .scaleX(1f)
-                    .scaleY(1f)
+                meterGlow.animate()
+                    .alpha(CONTROL_METER_SETTLED_ALPHA)
                     .setDuration(PARTIAL_RETURN_GLOW_OUT_MS)
                     .start()
             }
@@ -4806,7 +4910,8 @@ class SlotFragment : Fragment() {
     private fun showResultDialog(
         result: SpinResult,
         freeSpinsAwarded: Int,
-        presentationId: String
+        presentationId: String,
+        freeSpinsTotalWin: Int? = null
     ) {
         if (result === lastPresentedDialogResult) return
         if (parentFragmentManager.isStateSaved) {
@@ -4814,38 +4919,60 @@ class SlotFragment : Fragment() {
         }
         if (parentFragmentManager.findFragmentByTag(SPIN_RESULT_DIALOG_TAG) != null) return
         lastPresentedDialogResult = result
-        val dialogResultType = if (result.resultType == ResultType.Bonus && freeSpinsAwarded <= 0) {
-            ResultType.Win
+        val dialogNetOutcome = if (result.netOutcome == NetOutcome.Bonus && freeSpinsAwarded <= 0) {
+            NetOutcome.NetWin
         } else {
-            result.resultType
+            result.netOutcome
         }
-        ResultDialogFragment.newInstance(
-            dialogResultType,
-            result.winAmount,
-            freeSpinsAwarded,
-            viewModel.uiState.value.config.theme,
-            presentationId
-        )
+        val slotTheme = viewModel.uiState.value.config.theme
+        val dialog = if (freeSpinsTotalWin != null) {
+            ResultDialogFragment.newFreeSpinsSummary(
+                freeSpinsTotalWin,
+                slotTheme,
+                presentationId
+            )
+        } else {
+            ResultDialogFragment.newInstance(
+                dialogNetOutcome,
+                result.winAmount,
+                freeSpinsAwarded,
+                slotTheme,
+                presentationId
+            )
+        }
+        dialog
             .show(parentFragmentManager, SPIN_RESULT_DIALOG_TAG)
-        scheduleAutoSpinResultDismiss(result, freeSpinsAwarded)
+        scheduleAutoSpinResultDismiss(result, freeSpinsAwarded, freeSpinsTotalWin != null)
     }
 
     private fun showPendingResultDialogIfNeeded(state: SlotUiState) {
         val result = state.lastResult ?: return
         val presentationId = state.pendingPresentationId ?: return
         if (state.isSpinning || !state.isResultPending) return
-        if (!SlotResultPresentationPolicy.shouldShowResultDialog(result)) return
-        showResultDialog(result, result.freeSpinsAwarded, presentationId)
+        if (
+            state.pendingFreeSpinsTotalWin == null &&
+            !SlotResultPresentationPolicy.shouldShowResultDialog(result)
+        ) return
+        showResultDialog(
+            result,
+            result.freeSpinsAwarded,
+            presentationId,
+            state.pendingFreeSpinsTotalWin
+        )
     }
 
-    private fun showLowCoinsDialog(bonusAvailable: Boolean) {
+    private fun showLowCoinsDialog(bonusAvailable: Boolean, canReduceStake: Boolean) {
         if (parentFragmentManager.isStateSaved) return
         if (parentFragmentManager.findFragmentByTag(LOW_COINS_DIALOG_TAG) != null) return
-        LowCoinsDialogFragment.newInstance(bonusAvailable)
+        LowCoinsDialogFragment.newInstance(bonusAvailable, canReduceStake)
             .show(parentFragmentManager, LOW_COINS_DIALOG_TAG)
     }
 
-    private fun scheduleAutoSpinResultDismiss(result: SpinResult, freeSpinsAwarded: Int) {
+    private fun scheduleAutoSpinResultDismiss(
+        result: SpinResult,
+        freeSpinsAwarded: Int,
+        isFreeSpinsSummary: Boolean = false
+    ) {
         autoSpinResultDismissJob?.cancel()
         autoSpinResultDismissJob = null
         if (!viewModel.uiState.value.isAutoSpinEnabled) return
@@ -4854,7 +4981,11 @@ class SlotFragment : Fragment() {
             return
         }
 
-        val dismissDelayMs = if (result.resultType == ResultType.Bonus || freeSpinsAwarded > 0) {
+        val dismissDelayMs = if (
+            isFreeSpinsSummary ||
+            result.resultType == ResultType.Bonus ||
+            freeSpinsAwarded > 0
+        ) {
             AUTO_SPIN_BONUS_RESULT_DISMISS_DELAY_MS
         } else {
             AUTO_SPIN_RESULT_DISMISS_DELAY_MS
@@ -4883,7 +5014,11 @@ class SlotFragment : Fragment() {
         val result = state.lastResult ?: return
         val restoredDialog = parentFragmentManager.findFragmentByTag(SPIN_RESULT_DIALOG_TAG)
         if (restoredDialog !is ResultDialogFragment) return
-        scheduleAutoSpinResultDismiss(result, result.freeSpinsAwarded)
+        scheduleAutoSpinResultDismiss(
+            result,
+            result.freeSpinsAwarded,
+            state.pendingFreeSpinsTotalWin != null
+        )
     }
 
     private fun animateWinOverlay(result: SpinResult) {
@@ -5959,6 +6094,14 @@ class SlotFragment : Fragment() {
         stopCabinetLights()
         stopThemeAmbientOverlay()
         stopWinGlowOverlay()
+        hideSpinImpactFlash(immediate = true)
+        hideBigWinBanner(immediate = true)
+        hideThemeWinBurst(immediate = true)
+        hideBonusEntryPortal(immediate = true)
+        hideReelStopFlashLayer(immediate = true)
+        hideWinningPaylineOverlay(immediate = true)
+        hideSymbolWinHalos(immediate = true)
+        hideBonusScatterHalos(immediate = true)
         stopFreeSpinsRailCharge(immediate = true)
         stopFreeSpinsModeOverlay(immediate = true)
         stopFreeSpinsStakeLockOverlay(immediate = true)
@@ -5981,6 +6124,7 @@ class SlotFragment : Fragment() {
         stopCabinetLights()
         stopThemeAmbientOverlay()
         stopWinGlowOverlay()
+        hideBigWinBanner(immediate = true)
         hideThemeWinBurst(immediate = true)
         hideBonusEntryPortal(immediate = true)
         hideReelStopFlashLayer(immediate = true)
@@ -6029,6 +6173,7 @@ class SlotFragment : Fragment() {
         reelBrakeSequenceAnimator = null
         symbolWinHalos.clear()
         bonusScatterHalos.clear()
+        reelScatterAnticipationAnimators.clear()
         reelSpinStopAnimators.clear()
         reelSpinStrips.forEach(ReelStripView::clearSymbols)
         reelSpinDrawableCache?.clear()
@@ -6059,6 +6204,7 @@ class SlotFragment : Fragment() {
         winGlowAnimator = null
         val glow = _binding?.winGlowOverlay ?: return
         glow.animate().cancel()
+        glow.visibility = View.INVISIBLE
         glow.alpha = 0f
         glow.scaleX = 1f
         glow.scaleY = 1f
@@ -6148,13 +6294,14 @@ class SlotFragment : Fragment() {
         const val KEY_LAST_STARTED_SPIN_FEEDBACK_ID = "lastStartedSpinFeedbackId"
         const val REEL_WINDOW_DEPTH_POLISH_DURATION_MS = 720L
         const val REEL_WINDOW_LANDSCAPE_HORIZONTAL_INSET_DP = 30
+        const val PORTRAIT_CONSOLE_BASE_HEIGHT_DP = 270
         const val LANDSCAPE_STEPPER_EDGE_HIT_WIDTH_DP = 74
         const val PAYTABLE_CONTROL_ENABLED_ALPHA = 1f
         const val PAYTABLE_CONTROL_DISABLED_ALPHA = 0.42f
-        const val REEL_WINDOW_DEPTH_SETTLED_ALPHA = 0.9f
-        const val REEL_APERTURE_SETTLED_ALPHA = 0.92f
+        const val REEL_WINDOW_DEPTH_SETTLED_ALPHA = 0.34f
+        const val REEL_APERTURE_SETTLED_ALPHA = 0.46f
         const val SLOT_MARQUEE_GLASS_POLISH_DURATION_MS = 760L
-        const val SLOT_MARQUEE_GLASS_SETTLED_ALPHA = 0.94f
+        const val SLOT_MARQUEE_GLASS_SETTLED_ALPHA = 0.30f
         const val SPIN_ENERGY_PULSE_DURATION_MS = 420L
         const val THEME_SPIN_INTRO_DURATION_MS = 420L
         const val SPIN_BLUR_INTRO_DURATION_MS = 360L
@@ -6165,7 +6312,7 @@ class SlotFragment : Fragment() {
         const val SPIN_ENERGY_HIGH_ALPHA = 0.72f
         const val THEME_AMBIENT_MAX_ALPHA = 0.44f
         const val THEME_WIN_BURST_MAX_ALPHA = 1f
-        const val PARTIAL_RETURN_GLOW_ALPHA = 0.42f
+        const val PARTIAL_RETURN_METER_PEAK_ALPHA = 0.82f
         const val PARTIAL_RETURN_GLOW_IN_MS = 180L
         const val PARTIAL_RETURN_GLOW_OUT_MS = 320L
         const val BONUS_ENTRY_PORTAL_DURATION_MS = 1_560L
@@ -6191,6 +6338,8 @@ class SlotFragment : Fragment() {
         const val LOW_COINS_DIALOG_TAG = "low_coins_bonus"
         const val PAYTABLE_DIALOG_TAG = "paytable"
         const val ACTIVE_LINES_PULSE_DURATION_MS = 360L
+        const val PAYLINE_MARKER_REST_ALPHA = 0.06f
+        const val PAYLINE_MARKER_PULSE_ALPHA = 0.24f
         const val BALANCE_CHANGE_PULSE_DURATION_MS = 320L
         const val SLOT_LEVEL_CHANGE_PULSE_DURATION_MS = 420L
         const val TOTAL_BET_CHANGE_PULSE_DURATION_MS = 340L
@@ -6207,8 +6356,8 @@ class SlotFragment : Fragment() {
         const val FREE_SPINS_MODE_HIGH_ALPHA = 0.86f
         const val FREE_SPINS_STAKE_LOCK_ENTER_DURATION_MS = 360L
         const val FREE_SPINS_STAKE_LOCK_FADE_DURATION_MS = 160L
-        const val FREE_SPINS_STAKE_LOCK_SETTLED_ALPHA = 0.72f
-        const val FREE_SPINS_STAKE_LOCK_PEAK_ALPHA = 0.96f
+        const val FREE_SPINS_STAKE_LOCK_SETTLED_ALPHA = 0.22f
+        const val FREE_SPINS_STAKE_LOCK_PEAK_ALPHA = 0.42f
         const val BONUS_SCATTER_HALO_TRIGGER_MS = 700L
         const val BONUS_SCATTER_HALO_STAGGER_MS = 95L
         const val BONUS_SCATTER_HALO_SETTLED_ALPHA = 0.92f

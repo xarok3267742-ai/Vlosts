@@ -305,6 +305,8 @@ jobs:
             app/build/reports/release-security/bundletool-validation.txt
             app/build/reports/release-security/bundletool-base-manifest.xml
             app/build/reports/release-security/release-16k-page-size.txt
+            app/build/reports/release-security/released-slot-math-v5-release-aab.txt
+            app/build/reports/release-security/released-slot-math-v5-release-universal-apk.txt
             app/build/reports/release-security/release-app-set-id-dex-validation.txt
             app/build/reports/release-security/asset-rights-evidence.json
             app/build/reports/release-security/data-safety-raw-evidence.zip

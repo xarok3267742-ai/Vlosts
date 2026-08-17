@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.vslot.app.R
 import com.vslot.app.data.PlayerState
-import com.vslot.app.game.ResultType
+import com.vslot.app.game.NetOutcome
 import com.vslot.app.game.SlotTheme
 import com.vslot.app.ui.dialog.AnalyticsConsentDialogFragment
 import com.vslot.app.ui.dialog.DailyBonusDialogFragment
@@ -58,7 +58,8 @@ class QaResultDialogActivity : AppCompatActivity() {
             DIALOG_DAILY_BONUS,
             DIALOG_DAILY_WAIT -> QA_DAILY_BONUS_TAG
             DIALOG_LOW_BONUS,
-            DIALOG_LOW_WAIT -> QA_LOW_COINS_TAG
+            DIALOG_LOW_WAIT,
+            DIALOG_LOW_REDUCE -> QA_LOW_COINS_TAG
             else -> QA_BONUS_RESULT_TAG
         }
         if (supportFragmentManager.findFragmentByTag(tag) != null) return
@@ -83,9 +84,12 @@ class QaResultDialogActivity : AppCompatActivity() {
             DIALOG_LOW_WAIT -> LowCoinsDialogFragment
                 .newInstance(bonusAvailable = false)
                 .show(supportFragmentManager, tag)
+            DIALOG_LOW_REDUCE -> LowCoinsDialogFragment
+                .newInstance(bonusAvailable = false, canReduceStake = true)
+                .show(supportFragmentManager, tag)
             else -> ResultDialogFragment
                 .newInstance(
-                    ResultType.Bonus,
+                    NetOutcome.Bonus,
                     QA_BONUS_WIN_AMOUNT,
                     PlayerState.FREE_SPINS_BONUS_AWARD,
                     resultTheme
@@ -119,6 +123,7 @@ class QaResultDialogActivity : AppCompatActivity() {
         const val DIALOG_DAILY_WAIT = "daily_wait"
         const val DIALOG_LOW_BONUS = "low_bonus"
         const val DIALOG_LOW_WAIT = "low_wait"
+        const val DIALOG_LOW_REDUCE = "low_reduce"
         const val QA_BONUS_WIN_AMOUNT = 750
         const val QA_BONUS_RESULT_TAG = "qa_bonus_result"
         const val QA_PUSH_PROMPT_TAG = "qa_push_permission"

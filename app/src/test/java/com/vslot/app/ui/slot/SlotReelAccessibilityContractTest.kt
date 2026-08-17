@@ -71,4 +71,12 @@ class SlotReelAccessibilityContractTest {
         assertTrue(resultAccessibility.contains("if (announce && resultDescription != null)"))
         assertTrue(resultAccessibility.contains("AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED"))
     }
+
+    @Test
+    fun `decorative payline layers do not retain stale line count descriptions`() {
+        assertTrue(slotFragment.contains("val paylinesDescription = activePaylinesDescription(selectedLines)"))
+        assertTrue(slotFragment.contains("binding.linesDigits.contentDescription = paylinesDescription"))
+        assertTrue(slotFragment.contains("binding.activeLinesRail.contentDescription = paylinesDescription"))
+        assertTrue(slotFragment.contains("binding.paylineMarkersOverlay.contentDescription = paylinesDescription"))
+    }
 }

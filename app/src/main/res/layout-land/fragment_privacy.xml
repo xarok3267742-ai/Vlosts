@@ -24,7 +24,6 @@
             android:layout_height="58dp">
 
             <ImageView
-                android:id="@+id/privacyTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@null"
@@ -38,14 +37,16 @@
                 android:layout_gravity="center_vertical|start"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/back"
+                android:scaleType="fitCenter"
                 android:src="@drawable/btn_back_selector" />
 
             <ImageView
+                android:id="@+id/privacyTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="64dp"
                 android:layout_marginEnd="64dp"
-                android:contentDescription="@null"
+                android:contentDescription="@string/privacy_policy"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:scaleType="fitCenter"

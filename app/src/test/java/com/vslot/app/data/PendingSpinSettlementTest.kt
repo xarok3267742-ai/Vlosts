@@ -90,12 +90,40 @@ class PendingSpinSettlementTest {
         assertNull(deserializePendingSpinSettlement(valid.put("version", 1).toString()))
         assertNull(deserializePendingSpinSettlement(valid.put("version", 2).toString()))
         assertNull(deserializePendingSpinSettlement(valid.put("version", 99).toString()))
+        assertTrue(
+            decodePendingSpinSettlement(valid.put("version", 99).toString()) is
+                PendingSpinJournalDecode.UnsupportedFormat
+        )
         assertNull(
             deserializePendingSpinSettlement(
                 JSONObject(settlement().serialize()).put("unexpected", true).toString()
             )
         )
+        assertTrue(
+            decodePendingSpinSettlement("not-json") is PendingSpinJournalDecode.Corrupt
+        )
+        assertTrue(
+            decodePendingSpinSettlement(
+                JSONObject(settlement().serialize()).put("unexpected", true).toString()
+            ) is PendingSpinJournalDecode.Corrupt
+        )
         assertTrue(runCatching { settlement().copy(id = "\uD800").serialize() }.isFailure)
+    }
+
+    @Test
+    fun `journal decoding is independent of future line XP and award policies`() {
+        val futureSettlement = settlement().copy(
+            mathVersion = SlotMathIdentity.VERSION + 1,
+            lines = PlayerState.MAX_LINES + 1,
+            totalBet = 25 * (PlayerState.MAX_LINES + 1),
+            freeSpinsAwarded = 1_001,
+            levelXpAwarded = PlayerState.maxLevelXp() + 1
+        )
+
+        val decoded = decodePendingSpinSettlement(futureSettlement.serialize())
+
+        assertTrue(decoded is PendingSpinJournalDecode.Decoded)
+        assertEquals(futureSettlement, (decoded as PendingSpinJournalDecode.Decoded).settlement)
     }
 
     @Test
@@ -183,13 +211,28 @@ class PendingSpinSettlementTest {
 
     @Test
     fun `final recovered feature spin clears persisted autoplay marker`() {
-        val initial = PlayerState(freeSpinAutoPlaySlots = setOf(SLOT_ID))
+        val initial = PlayerState(
+            freeSpinAutoPlaySlots = setOf(SLOT_ID),
+            freeSpinFeatureTotalWins = mapOf(SLOT_ID to 725)
+        )
 
         val recovered = initial.applyPendingSpinSettlement(
             settlement(isFreeSpin = true, freeSpinsAwarded = 0)
         )
 
         assertFalse(recovered.shouldAutoPlayFreeSpinsForSlot(SLOT_ID))
+        assertEquals(1_125, recovered.freeSpinFeatureTotalWinForSlot(SLOT_ID))
+    }
+
+    @Test
+    fun `new paid feature resets prior completed feature total`() {
+        val initial = PlayerState(freeSpinFeatureTotalWins = mapOf(SLOT_ID to 9_999))
+
+        val recovered = initial.applyPendingSpinSettlement(
+            settlement(isFreeSpin = false, freeSpinsAwarded = 5)
+        )
+
+        assertEquals(0, recovered.freeSpinFeatureTotalWinForSlot(SLOT_ID))
     }
 
     private fun settlement(
@@ -243,6 +286,6 @@ class PendingSpinSettlementTest {
         const val SLOT_ID = "violet_fortune"
         const val OTHER_SLOT_ID = "roman_reels"
         const val GOLDEN_JOURNAL_CHECKSUM =
-            "cac59d92a56c5ca7be83b4112ad152a52df460d5e76a541068ea29e6f7b864d9"
+            "0cb49bebc40a4b80e75ab6db1912a29a59777b55a9571eabc3503e1a28a1c440"
     }
 }

@@ -62,7 +62,8 @@ class SpinPresentationLifecycleContractTest {
 
         assertTrue(exitRequest.contains("if (state.isSettlementRecoveryPending)"))
         assertTrue(exitRequest.contains("popFromSlot()"))
-        assertTrue(slotFragment.contains("bindSettlementRecoveryNotice(state.isSettlementRecoveryPending)"))
+        assertTrue(slotFragment.contains("isPending = state.isSettlementRecoveryPending"))
+        assertTrue(slotFragment.contains("isBlockedByMath = state.isSettlementRecoveryBlockedByMath"))
         assertTrue(slotFragment.contains("binding.settlementRecoveryNotice.isVisible = isPending"))
         assertTrue(mainActivity.contains("destination.id == R.id.homeFragment"))
         assertTrue(mainActivity.contains("recoverPendingSpinSettlement(HOME_SETTLEMENT_RECOVERY_DELAY_MS)"))
@@ -100,6 +101,51 @@ class SpinPresentationLifecycleContractTest {
         assertTrue(destroyView.contains("reelCellBackdrops.clear()"))
         assertTrue(destroyView.contains("reelLandingSparkViews.clear()"))
         assertTrue(destroyView.contains("reelLandingSparkAnimators.clear()"))
+    }
+
+    @Test
+    fun `scatter anticipation is owned and cancelled before reel stop and teardown`() {
+        val slotFragment = source("src/main/java/com/vslot/app/ui/slot/SlotFragment.kt")
+        val anticipation = slotFragment
+            .substringAfter("private fun animateSpinStripColumnAnticipation")
+            .substringBefore("private fun cancelReelScatterAnticipation")
+        val cancelOne = slotFragment
+            .substringAfter("private fun cancelReelScatterAnticipation")
+            .substringBefore("private fun cancelAllReelScatterAnticipation")
+        val cancelAll = slotFragment
+            .substringAfter("private fun cancelAllReelScatterAnticipation")
+            .substringBefore("private fun releaseReelScatterAnticipation")
+        val release = slotFragment
+            .substringAfter("private fun releaseReelScatterAnticipation")
+            .substringBefore("private fun animateReelAnticipationKick")
+        val stop = slotFragment
+            .substringAfter("private fun animateSpinStripColumnStop")
+            .substringBefore("private fun revealStoppedReelColumn")
+        val stopPreview = slotFragment
+            .substringAfter("private fun stopSpinPreview()")
+            .substringBefore("private fun highlightedCellIndexes")
+
+        assertTrue(
+            slotFragment.contains(
+                "private val reelScatterAnticipationAnimators = mutableMapOf<Int, AnimatorSet>()"
+            )
+        )
+        assertTrue(anticipation.contains("cancelReelScatterAnticipation(column)"))
+        assertTrue(
+            anticipation.contains(
+                "reelScatterAnticipationAnimators[column] = AnimatorSet().apply"
+            )
+        )
+        assertTrue(cancelOne.contains("reelScatterAnticipationAnimators.remove(column)?.cancel()"))
+        assertTrue(cancelOne.contains("strip.scaleX = 1f"))
+        assertTrue(cancelOne.contains("strip.translationX = 0f"))
+        assertTrue(cancelAll.contains("forEach(::cancelReelScatterAnticipation)"))
+        assertTrue(release.contains("reelScatterAnticipationAnimators[column] === animation"))
+        assertTrue(release.contains("reelScatterAnticipationAnimators.remove(column)"))
+        val cancelBeforeStop = stop.indexOf("cancelReelScatterAnticipation(column)")
+        val stopAnimator = stop.indexOf("reelSpinStopAnimators[column] = AnimatorSet().apply")
+        assertTrue(cancelBeforeStop >= 0 && stopAnimator > cancelBeforeStop)
+        assertTrue(stopPreview.contains("cancelAllReelScatterAnticipation()"))
     }
 
     private fun source(relativePath: String): String = Path.of(relativePath).readText()

@@ -49,9 +49,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/settingsTitleImage"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:contentDescription="@null"
+                android:contentDescription="@string/settings"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:scaleType="fitCenter"
@@ -227,8 +228,10 @@
                             android:layout_height="84dp"
                             android:layout_gravity="center"
                             android:contentDescription="@string/settings_safety_panel"
+                            android:importantForAccessibility="no"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/settings_safety_panel" />
+                            android:src="@drawable/settings_safety_panel"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/settingsSafetyLargeText"
@@ -236,7 +239,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="#F20D1632"
+                        android:background="@drawable/vslot_text_capsule"
                             android:gravity="center"
                             android:minHeight="84dp"
                             android:paddingStart="8dp"
@@ -248,7 +251,7 @@
                             android:shadowDy="1"
                             android:shadowRadius="3"
                             android:text="@string/settings_safety_panel"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
                     </FrameLayout>
                 </LinearLayout>
 
@@ -400,115 +403,164 @@
                             android:visibility="gone" />
                     </FrameLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
+                        android:id="@+id/settingsFeedbackControls"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp">
+                        android:layout_marginTop="1dp"
+                        android:orientation="vertical">
 
-                        <FrameLayout
+                        <LinearLayout
                             android:id="@+id/soundToggleButton"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginEnd="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_privacy_selector"
                             android:clickable="true"
                             android:contentDescription="@string/settings_sound"
                             android:focusable="true"
-                            app:layout_constraintEnd_toStartOf="@id/analyticsToggleButton"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:gravity="center_vertical"
+                            android:importantForAccessibility="yes"
+                            android:minHeight="52dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp">
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:contentDescription="@null"
-                                android:duplicateParentState="true"
-                                android:importantForAccessibility="no"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/btn_privacy_selector" />
+                                <ImageView
+                                    android:id="@+id/soundToggleIcon"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:contentDescription="@null"
+                                    android:duplicateParentState="true"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/settings_sound_selector" />
 
-                            <ImageView
-                                android:id="@+id/soundToggleIcon"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:duplicateParentState="true"
-                                android:importantForAccessibility="no"
-                                android:src="@drawable/settings_sound_selector" />
-                        </FrameLayout>
+                                <TextView
+                                    android:id="@+id/soundToggleLabel"
+                                    style="@style/VSlotAccessibleCopy.Command.Compact"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_weight="1"
+                                    android:importantForAccessibility="no"
+                                    android:text="@string/settings_sound" />
 
-                        <FrameLayout
+                                <TextView
+                                    android:id="@+id/soundToggleState"
+                                    style="@style/VSlotAccessibleCopy.Compact"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:gravity="end|center_vertical"
+                                    android:importantForAccessibility="no"
+                                    android:text="@string/settings_state_off" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:id="@+id/analyticsToggleButton"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginEnd="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/btn_privacy_selector"
                             android:clickable="true"
                             android:contentDescription="@string/settings_analytics"
                             android:focusable="true"
-                            app:layout_constraintEnd_toStartOf="@id/hapticsToggleButton"
-                            app:layout_constraintStart_toEndOf="@id/soundToggleButton"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:gravity="center_vertical"
+                            android:importantForAccessibility="yes"
+                            android:minHeight="52dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp">
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:contentDescription="@null"
-                                android:duplicateParentState="true"
-                                android:importantForAccessibility="no"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/btn_privacy_selector" />
+                                <ImageView
+                                    android:id="@+id/analyticsToggleIcon"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:contentDescription="@null"
+                                    android:duplicateParentState="true"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/settings_analytics_selector" />
 
-                            <ImageView
-                                android:id="@+id/analyticsToggleIcon"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:duplicateParentState="true"
-                                android:importantForAccessibility="no"
-                                android:src="@drawable/settings_analytics_selector" />
-                        </FrameLayout>
+                                <TextView
+                                    android:id="@+id/analyticsToggleLabel"
+                                    style="@style/VSlotAccessibleCopy.Command.Compact"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_weight="1"
+                                    android:importantForAccessibility="no"
+                                    android:text="@string/settings_analytics" />
 
-                        <FrameLayout
+                                <TextView
+                                    android:id="@+id/analyticsToggleState"
+                                    style="@style/VSlotAccessibleCopy.Compact"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:gravity="end|center_vertical"
+                                    android:importantForAccessibility="no"
+                                    android:text="@string/settings_state_off" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:id="@+id/hapticsToggleButton"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginStart="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/btn_privacy_selector"
                             android:clickable="true"
                             android:contentDescription="@string/settings_haptics"
                             android:focusable="true"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/analyticsToggleButton"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:gravity="center_vertical"
+                            android:importantForAccessibility="yes"
+                            android:minHeight="52dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp">
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:contentDescription="@null"
-                                android:duplicateParentState="true"
-                                android:importantForAccessibility="no"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/btn_privacy_selector" />
+                                <ImageView
+                                    android:id="@+id/hapticsToggleIcon"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:contentDescription="@null"
+                                    android:duplicateParentState="true"
+                                    android:importantForAccessibility="no"
+                                    android:src="@drawable/settings_haptics_selector" />
 
-                            <ImageView
-                                android:id="@+id/hapticsToggleIcon"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:duplicateParentState="true"
-                                android:importantForAccessibility="no"
-                                android:src="@drawable/settings_haptics_selector" />
-                        </FrameLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                                <TextView
+                                    android:id="@+id/hapticsToggleLabel"
+                                    style="@style/VSlotAccessibleCopy.Command.Compact"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_weight="1"
+                                    android:importantForAccessibility="no"
+                                    android:text="@string/settings_haptics" />
+
+                                <TextView
+                                    android:id="@+id/hapticsToggleState"
+                                    style="@style/VSlotAccessibleCopy.Compact"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:gravity="end|center_vertical"
+                                    android:importantForAccessibility="no"
+                                    android:text="@string/settings_state_off" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <FrameLayout
                         android:id="@+id/pushActionStage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:minHeight="48dp">
+                        android:minHeight="48dp"
+                        android:visibility="gone">
 
                         <ImageButton
                             android:id="@+id/pushButton"
@@ -527,7 +579,7 @@
                             android:paddingStart="22dp"
                             android:paddingEnd="22dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/label_push_unconfigured_action" />
+                            android:src="@drawable/label_push_reminders" />
 
                         <TextView
                             android:id="@+id/pushButtonLargeText"
@@ -542,7 +594,7 @@
                             android:paddingTop="6dp"
                             android:paddingEnd="12dp"
                             android:paddingBottom="6dp"
-                            android:text="@string/push_unconfigured_status"
+                            android:text="@string/push_reminders_action"
                             android:visibility="gone" />
                     </FrameLayout>
 
@@ -551,9 +603,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:contentDescription="@string/push_unconfigured_status"
+                        android:contentDescription="@string/push_not_enabled_status"
                         android:importantForAccessibility="yes"
-                        android:minHeight="32dp">
+                        android:minHeight="32dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/pushStatusConsole"
@@ -585,7 +638,7 @@
                             android:paddingStart="42dp"
                             android:paddingEnd="16dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/label_push_status_unconfigured" />
+                            android:src="@drawable/label_push_status_off" />
 
                         <TextView
                             android:id="@+id/pushStatusLargeText"
@@ -600,7 +653,7 @@
                             android:paddingTop="5dp"
                             android:paddingEnd="16dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/push_unconfigured_status"
+                            android:text="@string/push_not_enabled_status"
                             android:visibility="gone" />
                     </FrameLayout>
                 </LinearLayout>

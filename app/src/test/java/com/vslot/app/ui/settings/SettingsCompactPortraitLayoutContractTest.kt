@@ -32,6 +32,12 @@ class SettingsCompactPortraitLayoutContractTest {
         assertEquals("118dp", safetyStage.attr("minHeight"))
         assertTrue("The readable safety panel must stay inside its fixed stage", safetyStage.contains(safetyPanel))
 
+        val legalActions = document.id("settingsLegalActionsRow")
+        assertEquals("vertical", legalActions.attr("orientation"))
+        listOf("privacyActionContainer", "noticesActionContainer").forEach { id ->
+            assertEquals("Portrait legal action $id must use the full row", "match_parent", document.id(id).attr("layout_width"))
+        }
+
         SCROLLABLE_CONTROL_IDS.forEach { id ->
             assertTrue("$id must remain reachable through portrait scrolling", scroll.contains(document.id(id)))
         }
@@ -45,9 +51,10 @@ class SettingsCompactPortraitLayoutContractTest {
         val scalableCopy = SCALABLE_COPY_IDS.map { document.id(it) }
 
         assertEquals("Every bitmap-only command needs scalable copy", SCALABLE_COPY_IDS.toSet(), scalableCopy.map { it.attr("id").removePrefix("@+id/") }.toSet())
-        assertEquals(SCALABLE_COPY_IDS.size, document.elements("TextView").size)
+        assertEquals(SCALABLE_COPY_IDS.size + TOGGLE_COPY_IDS.size, document.elements("TextView").size)
         scalableCopy.forEach { copy ->
-            assertEquals("gone", copy.attr("visibility"))
+            val expectedVisibility = if (copy.attr("id") == "@+id/settingsSafetyLargeText") "visible" else "gone"
+            assertEquals(expectedVisibility, copy.attr("visibility"))
             assertTrue(copy.getAttribute("style").startsWith("@style/VSlotAccessibleCopy"))
         }
         assertEquals("@drawable/settings_safety_anchor", safetyAnchor.attr("src"))
@@ -55,6 +62,16 @@ class SettingsCompactPortraitLayoutContractTest {
         assertEquals("no", safetyAnchor.attr("importantForAccessibility"))
         assertEquals("@drawable/settings_safety_panel", safetyPanel.attr("src"))
         assertEquals("@string/settings_safety_panel", safetyPanel.attr("contentDescription"))
+        assertEquals("gone", safetyPanel.attr("visibility"))
+        assertEquals("no", safetyPanel.attr("importantForAccessibility"))
+
+        TOGGLE_COPY_IDS.forEach { id ->
+            val copy = document.id(id)
+            assertEquals("wrap_content", copy.attr("layout_height"))
+            assertFalse(copy.hasAttribute("android:maxLines"))
+            assertFalse(copy.hasAttribute("android:ellipsize"))
+            assertEquals("no", copy.attr("importantForAccessibility"))
+        }
 
         TOGGLE_IDS.forEach { id ->
             val toggle = document.id(id)
@@ -86,6 +103,18 @@ class SettingsCompactPortraitLayoutContractTest {
             assertFalse("$id must not cap lines", copy.hasAttribute("android:maxLines"))
             assertFalse("$id must not ellipsize", copy.hasAttribute("android:ellipsize"))
         }
+    }
+
+    @Test
+    fun `wide landscape feedback controls stay compact and can grow with font scale`() {
+        val document = layout("layout-w600dp-land/fragment_settings.xml")
+
+        TOGGLE_IDS.forEach { id ->
+            assertEquals("48dp", document.id(id).attr("minHeight"))
+            assertEquals("wrap_content", document.id(id).attr("layout_height"))
+        }
+        val feedbackColumn = document.id("settingsFeedbackControls").parentNode as Element
+        assertEquals("top", feedbackColumn.attr("gravity"))
     }
 
     private fun layout(relativePath: String): Document = DocumentBuilderFactory.newInstance()
@@ -150,6 +179,14 @@ class SettingsCompactPortraitLayoutContractTest {
             "rulesButtonLargeText",
             "pushButtonLargeText",
             "pushStatusLargeText"
+        )
+        val TOGGLE_COPY_IDS = listOf(
+            "soundToggleLabel",
+            "soundToggleState",
+            "analyticsToggleLabel",
+            "analyticsToggleState",
+            "hapticsToggleLabel",
+            "hapticsToggleState"
         )
     }
 }

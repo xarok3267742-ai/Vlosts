@@ -28,4 +28,16 @@ object SlotWinFeedbackTiming {
 
     fun resultDialogDelayMs(result: SpinResult, reducedMotion: Boolean = false): Long =
         resultPresentationDurationMs(result, reducedMotion)
+
+    fun inlineAutoSpinDelayMs(
+        result: SpinResult,
+        reducedMotion: Boolean = false,
+        noPayoutDelayMs: Long
+    ): Long {
+        return if (result.winAmount > 0) {
+            resultPresentationDurationMs(result, reducedMotion)
+        } else {
+            noPayoutDelayMs.coerceAtLeast(0L)
+        }
+    }
 }

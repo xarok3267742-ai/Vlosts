@@ -33,8 +33,10 @@ class SlotConfigParserTest {
                 assertTrue("${slot.id} reel strip contains unknown symbols", strip.all { it in slot.symbols })
                 assertEquals("${slot.id} scatter must stay rare on each strip", 1, strip.count { it == slot.scatter })
             }
-            slot.reelStrips.zip(slot.freeSpinReelStrips).forEach { (paid, free) ->
-                assertEquals(paid.groupingBy { it }.eachCount(), free.groupingBy { it }.eachCount())
+            slot.reelStrips.zip(slot.freeSpinReelStrips).forEachIndexed { reelIndex, (paid, free) ->
+                val expectedFreeWilds = paid.count { it == slot.wild } + if (reelIndex == 2) 1 else 0
+                assertEquals(expectedFreeWilds, free.count { it == slot.wild })
+                assertEquals(paid.count { it == slot.scatter }, free.count { it == slot.scatter })
             }
         }
     }
@@ -107,8 +109,8 @@ class SlotConfigParserTest {
     @Test
     fun `rejects payable symbols missing from a reel strip`() {
         val json = validConfigJson().replaceFirst(
-            "[\"a\",\"scatter\",\"b\",\"wild\"]",
-            "[\"a\",\"scatter\",\"b\",\"a\"]"
+            "[\"a\",\"scatter\",\"b\",\"wild\",\"a\"]",
+            "[\"a\",\"scatter\",\"b\",\"a\",\"a\"]"
         )
 
         val result = runCatching { SlotConfigParser().parse(json) }
@@ -138,12 +140,12 @@ class SlotConfigParserTest {
     }
 
     @Test
-    fun `rejects free spin strips that change reviewed symbol weights`() {
+    fun `rejects free spin strips with an unreviewed enhanced wild change`() {
         val result = runCatching {
             SlotConfigParser().parse(
                 validConfigJson().replaceFirst(
-                    "[\"wild\",\"b\",\"a\",\"scatter\"]",
-                    "[\"wild\",\"b\",\"b\",\"scatter\"]"
+                    "[\"wild\",\"b\",\"a\",\"scatter\",\"wild\"]",
+                    "[\"wild\",\"b\",\"b\",\"scatter\",\"wild\"]"
                 )
             )
         }
@@ -184,9 +186,9 @@ class SlotConfigParserTest {
         scatterBonus: String = """"3": 5, "4": 10, "5": 25"""
     ): String {
         val firstReel = if (scatterOnFirstReel) {
-            """["a","scatter","b","wild"]"""
+            """["a","scatter","b","wild","a"]"""
         } else {
-            """["a","wild","b","a"]"""
+            """["a","wild","b","a","a"]"""
         }
         return """
             {
@@ -210,17 +212,17 @@ class SlotConfigParserTest {
                   "scatterBonus": {$scatterBonus},
                   "reelStrips": [
                     $firstReel,
-                    ["a","scatter","b","wild"],
-                    ["a","scatter","b","wild"],
-                    ["a","scatter","b","wild"],
-                    ["a","scatter","b","wild"]
+                    ["a","scatter","b","wild","a"],
+                    ["a","scatter","b","wild","a"],
+                    ["a","scatter","b","wild","a"],
+                    ["a","scatter","b","wild","a"]
                   ],
                   "freeSpinReelStrips": [
-                    ["wild","b","a","scatter"],
-                    ["wild","b","a","scatter"],
-                    ["wild","b","a","scatter"],
-                    ["wild","b","a","scatter"],
-                    ["wild","b","a","scatter"]
+                    ["wild","b","a","scatter","a"],
+                    ["wild","b","a","scatter","a"],
+                    ["wild","b","a","scatter","wild"],
+                    ["wild","b","a","scatter","a"],
+                    ["wild","b","a","scatter","a"]
                   ]
                 }
               ]

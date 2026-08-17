@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="line_bet_short">На линию</string>
+    <string name="active_lines_short">Линии</string>
+    <string name="spin_cost">Итого за спин</string>
+    <string name="spin_visual_label">КРУТИТЬ</string>
+    <string name="spin_stop_visual_label">СТОП</string>
+    <string name="spin_free_visual_label">ФРИСПИН</string>
+    <string name="payout_short">Выплата</string>
+    <string name="slot_outcome_loss_visible">Нет выигрыша</string>
+    <string name="slot_outcome_partial_return_visible">Возврат · %1$s</string>
+    <string name="slot_outcome_break_even_visible">Ставка возвращена</string>
+    <string name="slot_outcome_net_win_visible">Выигрыш · +%1$s</string>
+    <string name="slot_outcome_bonus_visible">Бонус · %1$d фриспинов</string>
+    <string name="free_spins_stake_locked">Зафиксировано: %1$d × %2$d линий</string>
+    <string name="free_spins_stake_locked_accessibility">Ставка зафиксирована: %1$d на линию, линий: %2$d</string>
+    <string name="free_spins_summary_title">Фриспины завершены</string>
+    <string name="free_spins_summary_body">Фриспины завершены\nИтог серии</string>
+    <string name="paytable_header_three">3×</string>
+    <string name="paytable_header_four">4×</string>
+    <string name="paytable_header_five">5×</string>
+</resources>

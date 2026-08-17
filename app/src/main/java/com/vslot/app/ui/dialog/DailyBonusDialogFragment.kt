@@ -18,6 +18,7 @@ import com.vslot.app.analytics.AnalyticsEvents
 import com.vslot.app.databinding.DialogBonusBinding
 import com.vslot.app.data.retryTransientPersistenceIo
 import com.vslot.app.ui.DailyBonusCountdownFormatter
+import com.vslot.app.ui.asCoins
 import java.io.IOException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
@@ -36,6 +37,7 @@ class DailyBonusDialogFragment : DialogFragment() {
     private var dialogUiActive = false
     private var renderedClaimEnabled: Boolean? = null
     private var renderedLastDailyBonusTimestamp: Long? = null
+    private var renderedClaimedAmount: Int? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dialogUiActive = true
@@ -46,6 +48,7 @@ class DailyBonusDialogFragment : DialogFragment() {
             ?: args.getBoolean(ARG_CLAIM_ENABLED)
         var activeLastDailyBonusTimestamp = savedInstanceState.readLastDailyBonusTimestampOrNull()
             ?: args.getLong(ARG_LAST_DAILY_BONUS_TIMESTAMP)
+        var claimedAmount = savedInstanceState.readClaimedAmountOrNull()
         var claimInProgress = false
         var playerStateObserved = false
 
@@ -56,6 +59,8 @@ class DailyBonusDialogFragment : DialogFragment() {
             bonusCooldownAnimator = null
             claimInProgress = false
             claimEnabled = enabled
+            claimedAmount = null
+            renderedClaimedAmount = null
             renderedClaimEnabled = enabled
             renderedLastDailyBonusTimestamp = activeLastDailyBonusTimestamp
             val bonusBody = if (enabled) {
@@ -69,6 +74,7 @@ class DailyBonusDialogFragment : DialogFragment() {
             binding.bonusBody.contentDescription = bonusBody
             binding.bonusBodyLargeText.text = bonusBody
             bindScalableDialogCopy(binding.bonusBody to binding.bonusBodyLargeText)
+            binding.bonusBodyLargeText.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_NONE
             binding.claimButton.isEnabled = true
             binding.claimButton.alpha = if (enabled) 1f else 0.72f
             val claimLabel = if (enabled) getString(R.string.claim_bonus) else getString(R.string.ok_action)
@@ -89,12 +95,53 @@ class DailyBonusDialogFragment : DialogFragment() {
             }
         }
 
-        renderClaimState(claimEnabled)
+        fun renderClaimSuccess(amount: Int) {
+            bonusRewardAnimator?.cancel()
+            bonusRewardAnimator = null
+            bonusCooldownAnimator?.cancel()
+            bonusCooldownAnimator = null
+            claimInProgress = false
+            claimEnabled = false
+            val normalizedAmount = amount.coerceAtLeast(0)
+            claimedAmount = normalizedAmount
+            renderedClaimedAmount = normalizedAmount
+            renderedClaimEnabled = false
+            renderedLastDailyBonusTimestamp = activeLastDailyBonusTimestamp
+            val successMessage = getString(R.string.bonus_claimed, normalizedAmount.asCoins())
+            binding.bonusBody.visibility = View.GONE
+            binding.bonusBody.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+            binding.bonusBodyLargeText.visibility = View.VISIBLE
+            binding.bonusBodyLargeText.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
+            binding.bonusBodyLargeText.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE
+            binding.bonusBodyLargeText.text = successMessage
+            binding.claimButton.isEnabled = true
+            binding.claimButton.alpha = 1f
+            binding.claimButton.setImageResource(R.drawable.btn_modal_close_selector)
+            binding.claimButtonLabel.setImageResource(R.drawable.label_continue_action)
+            binding.claimButton.contentDescription = getString(R.string.continue_action)
+            binding.bonusRewardOverlay.visibility = View.VISIBLE
+            binding.bonusRewardOverlay.alpha = BONUS_REWARD_SETTLED_ALPHA
+            binding.bonusCooldownOverlay.visibility = View.INVISIBLE
+            binding.bonusCooldownOverlay.alpha = 0f
+            binding.bonusCooldownTimerRail.alpha = 1f
+            binding.bonusCooldownTimerRail.scaleX = 1f
+            binding.bonusCooldownTimerRail.scaleY = 1f
+            bindCooldownTimer(binding, false, activeLastDailyBonusTimestamp) {
+                renderClaimState(enabled = true)
+                animateBonusRewardPolish(binding)
+            }
+        }
+
+        claimedAmount?.let(::renderClaimSuccess) ?: renderClaimState(claimEnabled)
         binding.bonusStageLattice.alpha = BONUS_STAGE_SETTLED_ALPHA
         binding.bonusStageLattice.scaleX = 1f
         binding.bonusStageLattice.scaleY = 1f
         binding.bonusCloseButton.setOnClickListener { dismiss() }
         binding.claimButton.setOnClickListener {
+            if (claimedAmount != null) {
+                dismiss()
+                return@setOnClickListener
+            }
             if (!claimEnabled) {
                 dismiss()
                 return@setOnClickListener
@@ -137,14 +184,20 @@ class DailyBonusDialogFragment : DialogFragment() {
                     .first()
                     .lastDailyBonusTimestamp
                 if (!dialogUiActive) return@launch
-                renderClaimState(enabled = false)
-                animateBonusCooldownPolish(binding)
+                if (result.claimed) {
+                    renderClaimSuccess(result.amount)
+                    animateBonusRewardPolish(binding)
+                } else {
+                    renderClaimState(enabled = false)
+                    animateBonusCooldownPolish(binding)
+                }
             }
         }
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 AppGraph.playerRepository.playerState.collect { state ->
                     if (!dialogUiActive) return@collect
+                    if (claimedAmount != null) return@collect
                     val latestClaimEnabled = state.isDailyBonusAvailable()
                     if (claimInProgress && latestClaimEnabled) return@collect
                     val stateChanged =
@@ -169,7 +222,7 @@ class DailyBonusDialogFragment : DialogFragment() {
             setOnShowListener {
                 keepGameFullscreen()
                 animateBonusStage(binding)
-                if (claimEnabled) {
+                if (claimedAmount != null || claimEnabled) {
                     animateBonusRewardPolish(binding)
                 } else {
                     animateBonusCooldownPolish(binding)
@@ -388,6 +441,7 @@ class DailyBonusDialogFragment : DialogFragment() {
         private const val ARG_LAST_DAILY_BONUS_TIMESTAMP = "lastDailyBonusTimestamp"
         private const val STATE_CLAIM_ENABLED = "stateClaimEnabled"
         private const val STATE_LAST_DAILY_BONUS_TIMESTAMP = "stateLastDailyBonusTimestamp"
+        private const val STATE_CLAIMED_AMOUNT = "stateClaimedAmount"
         private const val BONUS_COUNTDOWN_TICK_MS = 1_000L
         private const val BONUS_STAGE_POLISH_DURATION_MS = 720L
         private const val BONUS_STAGE_SETTLED_ALPHA = 1f
@@ -415,6 +469,7 @@ class DailyBonusDialogFragment : DialogFragment() {
         renderedLastDailyBonusTimestamp?.let {
             outState.putLong(STATE_LAST_DAILY_BONUS_TIMESTAMP, it)
         }
+        renderedClaimedAmount?.let { outState.putInt(STATE_CLAIMED_AMOUNT, it) }
         super.onSaveInstanceState(outState)
     }
 
@@ -426,6 +481,11 @@ class DailyBonusDialogFragment : DialogFragment() {
     private fun Bundle?.readLastDailyBonusTimestampOrNull(): Long? {
         return this?.takeIf { it.containsKey(STATE_LAST_DAILY_BONUS_TIMESTAMP) }
             ?.getLong(STATE_LAST_DAILY_BONUS_TIMESTAMP)
+    }
+
+    private fun Bundle?.readClaimedAmountOrNull(): Int? {
+        return this?.takeIf { it.containsKey(STATE_CLAIMED_AMOUNT) }
+            ?.getInt(STATE_CLAIMED_AMOUNT)
     }
 
     override fun onDestroyView() {

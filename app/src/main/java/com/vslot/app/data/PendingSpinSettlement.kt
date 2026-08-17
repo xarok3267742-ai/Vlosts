@@ -53,12 +53,26 @@ data class SpinReservation<T>(
     val value: T
 )
 
+sealed interface SpinReservationAttempt<out T> {
+    data class Reserved<T>(val reservation: SpinReservation<T>) : SpinReservationAttempt<T>
+    data class BlockedByPendingSpin(
+        val recoveryStatus: PendingSpinRecoveryStatus
+    ) : SpinReservationAttempt<Nothing>
+    data object Rejected : SpinReservationAttempt<Nothing>
+}
+
 data class SpinSettlementReceipt(
     val updatedState: PlayerState,
     val creditedWinAmount: Int,
     val applied: Boolean,
     val outcomeSettled: Boolean = applied
 )
+
+internal sealed interface PendingSpinJournalDecode {
+    data class Decoded(val settlement: PendingSpinSettlement) : PendingSpinJournalDecode
+    data class UnsupportedFormat(val version: Int) : PendingSpinJournalDecode
+    data object Corrupt : PendingSpinJournalDecode
+}
 
 internal data class FreeSpinStake(
     val lineBet: Int,
@@ -112,12 +126,12 @@ internal fun PendingSpinSettlement.isValid(): Boolean {
         mathVersion > 0 &&
         CONFIG_FINGERPRINT_PATTERN.matches(configFingerprint) &&
         lineBet > 0 &&
-        lines in PlayerState.MIN_LINES..PlayerState.MAX_LINES &&
+        lines > 0 &&
         totalBet > 0 &&
         lineBet.toLong() * lines.toLong() == totalBet.toLong() &&
         winAmount >= 0 &&
-        freeSpinsAwarded in 0..MAX_PENDING_FREE_SPINS_AWARD &&
-        levelXpAwarded in 0..PlayerState.maxLevelXp() &&
+        freeSpinsAwarded >= 0 &&
+        levelXpAwarded >= 0 &&
         stopIndexes.size == REQUIRED_STOP_INDEXES &&
         stopIndexes.all { it >= 0 }
 }
@@ -220,41 +234,56 @@ private fun PendingSpinRefundEnvelope.refundChecksum(): String {
     return sha256Hex(payload)
 }
 
-internal fun deserializePendingSpinSettlement(serialized: String): PendingSpinSettlement? {
-    if (serialized.isBlank() || serialized.length > MAX_SERIALIZED_JOURNAL_CHARS) return null
-    return runCatching {
+internal fun decodePendingSpinSettlement(serialized: String): PendingSpinJournalDecode {
+    if (serialized.isBlank() || serialized.length > MAX_SERIALIZED_JOURNAL_CHARS) {
+        return PendingSpinJournalDecode.Corrupt
+    }
+    return try {
         val json = JSONObject(serialized)
-        if (!json.hasExactly(JOURNAL_KEYS)) return@runCatching null
-        if (json.requiredInt(KEY_VERSION) != PENDING_SPIN_JOURNAL_VERSION) {
-            return@runCatching null
+        val version = json.requiredInt(KEY_VERSION)
+            ?: return PendingSpinJournalDecode.Corrupt
+        if (version != PENDING_SPIN_JOURNAL_VERSION) {
+            return PendingSpinJournalDecode.UnsupportedFormat(version)
         }
+        if (!json.hasExactly(JOURNAL_KEYS)) return PendingSpinJournalDecode.Corrupt
         val settlement = PendingSpinSettlement(
-            id = json.requiredString(KEY_ID) ?: return@runCatching null,
+            id = json.requiredString(KEY_ID) ?: return PendingSpinJournalDecode.Corrupt,
             processSessionId = json.requiredString(KEY_PROCESS_SESSION_ID)
-                ?: return@runCatching null,
-            slotId = json.requiredString(KEY_SLOT_ID) ?: return@runCatching null,
-            mathVersion = json.requiredInt(KEY_MATH_VERSION) ?: return@runCatching null,
+                ?: return PendingSpinJournalDecode.Corrupt,
+            slotId = json.requiredString(KEY_SLOT_ID) ?: return PendingSpinJournalDecode.Corrupt,
+            mathVersion = json.requiredInt(KEY_MATH_VERSION)
+                ?: return PendingSpinJournalDecode.Corrupt,
             configFingerprint = json.requiredString(KEY_CONFIG_FINGERPRINT)
-                ?: return@runCatching null,
-            isFreeSpin = json.requiredBoolean(KEY_IS_FREE_SPIN) ?: return@runCatching null,
-            lineBet = json.requiredInt(KEY_LINE_BET) ?: return@runCatching null,
-            lines = json.requiredInt(KEY_LINES) ?: return@runCatching null,
-            totalBet = json.requiredInt(KEY_TOTAL_BET) ?: return@runCatching null,
+                ?: return PendingSpinJournalDecode.Corrupt,
+            isFreeSpin = json.requiredBoolean(KEY_IS_FREE_SPIN)
+                ?: return PendingSpinJournalDecode.Corrupt,
+            lineBet = json.requiredInt(KEY_LINE_BET) ?: return PendingSpinJournalDecode.Corrupt,
+            lines = json.requiredInt(KEY_LINES) ?: return PendingSpinJournalDecode.Corrupt,
+            totalBet = json.requiredInt(KEY_TOTAL_BET) ?: return PendingSpinJournalDecode.Corrupt,
             stopIndexes = json.requiredIntList(KEY_STOP_INDEXES, REQUIRED_STOP_INDEXES)
-                ?: return@runCatching null,
-            winAmount = json.requiredInt(KEY_WIN_AMOUNT) ?: return@runCatching null,
+                ?: return PendingSpinJournalDecode.Corrupt,
+            winAmount = json.requiredInt(KEY_WIN_AMOUNT) ?: return PendingSpinJournalDecode.Corrupt,
             freeSpinsAwarded = json.requiredInt(KEY_FREE_SPINS_AWARDED)
-                ?: return@runCatching null,
+                ?: return PendingSpinJournalDecode.Corrupt,
             levelXpAwarded = json.requiredInt(KEY_LEVEL_XP_AWARDED)
-                ?: return@runCatching null
+                ?: return PendingSpinJournalDecode.Corrupt
         )
-        if (!settlement.isValid()) return@runCatching null
+        if (!settlement.isValid()) return PendingSpinJournalDecode.Corrupt
         val checksum = json.requiredString(KEY_CHECKSUM)
             ?.takeIf(CHECKSUM_PATTERN::matches)
-            ?: return@runCatching null
-        if (!checksumsMatch(checksum, settlement.journalChecksum())) return@runCatching null
-        settlement
-    }.getOrNull()
+            ?: return PendingSpinJournalDecode.Corrupt
+        if (!checksumsMatch(checksum, settlement.journalChecksum())) {
+            return PendingSpinJournalDecode.Corrupt
+        }
+        PendingSpinJournalDecode.Decoded(settlement)
+    } catch (_: Exception) {
+        PendingSpinJournalDecode.Corrupt
+    }
+}
+
+internal fun deserializePendingSpinSettlement(serialized: String): PendingSpinSettlement? {
+    return (decodePendingSpinSettlement(serialized) as? PendingSpinJournalDecode.Decoded)
+        ?.settlement
 }
 
 internal fun PendingSpinSettlement.serializePresentation(
@@ -334,6 +363,7 @@ internal fun PendingSpinSettlement.journalChecksum(): String {
 
 internal fun PlayerState.applyPendingSpinSettlement(settlement: PendingSpinSettlement): PlayerState {
     require(settlement.isValid()) { "Cannot apply an invalid spin settlement." }
+    val hadFreeSpinsBeforeAward = hasFreeSpinsForSlot(settlement.slotId)
     val stateWithBonus = if (settlement.freeSpinsAwarded > 0) {
         val bonuses = mergeAwardedFreeSpinBonus(
             currentBonuses = freeSpinBonuses,
@@ -358,10 +388,22 @@ internal fun PlayerState.applyPendingSpinSettlement(settlement: PendingSpinSettl
             remove(settlement.slotId)
         }
     }
+    val featureTotalWins = stateWithBonus.freeSpinFeatureTotalWins.toMutableMap().apply {
+        if (!settlement.isFreeSpin && settlement.freeSpinsAwarded > 0 && !hadFreeSpinsBeforeAward) {
+            this[settlement.slotId] = 0
+        }
+        if (settlement.isFreeSpin) {
+            this[settlement.slotId] = saturatedNonNegativeAdd(
+                this[settlement.slotId] ?: 0,
+                settlement.winAmount
+            )
+        }
+    }
     return stateWithBonus.copy(
         coinsBalance = saturatedNonNegativeAdd(stateWithBonus.coinsBalance, settlement.winAmount),
         levelXp = updatedXp,
-        freeSpinAutoPlaySlots = autoPlaySlots
+        freeSpinAutoPlaySlots = autoPlaySlots,
+        freeSpinFeatureTotalWins = featureTotalWins
     )
 }
 
@@ -423,7 +465,8 @@ private fun SpinResult.isValidFor(settlement: PendingSpinSettlement): Boolean {
         totalBet != settlement.totalBet ||
         winAmount != settlement.winAmount ||
         freeSpinsAwarded != settlement.freeSpinsAwarded ||
-        stopIndexes != settlement.stopIndexes
+        stopIndexes != settlement.stopIndexes ||
+        isFreeSpin != settlement.isFreeSpin
     ) {
         return false
     }
@@ -465,7 +508,6 @@ private const val REFUND_ENVELOPE_VERSION = 1
 private const val JOURNAL_DOMAIN = "vslot.pending-spin-settlement"
 private const val REFUND_ENVELOPE_DOMAIN = "vslot.pending-spin-refund"
 private const val MAX_IDENTIFIER_LENGTH = 128
-private const val MAX_PENDING_FREE_SPINS_AWARD = 1_000
 private const val REQUIRED_STOP_INDEXES = 5
 private const val MAX_SERIALIZED_JOURNAL_CHARS = 128 * 1024
 private val CONFIG_FINGERPRINT_PATTERN = Regex("[0-9a-f]{64}")

@@ -1,0 +1,58 @@
+{
+  "schema": "v-slot-released-math-manifest-v1",
+  "status": "immutable",
+  "mathVersion": 5,
+  "descriptorSources": [
+    {
+      "path": "app/src/main/java/com/vslot/app/game/ReleasedSlotMathV5.kt",
+      "bytes": 19509,
+      "sha256": "783e6ae3deee9b9c722a7bdd51d97749a766fce060df102567b929a974cf770c"
+    },
+    {
+      "path": "app/src/main/java/com/vslot/app/game/SlotModels.kt",
+      "bytes": 2114,
+      "sha256": "865d6318d9061d217717c39a8dfd4816554fb80015775b032407996913b49044"
+    }
+  ],
+  "asset": {
+    "path": "app/src/main/assets/released_math/v5/slots_config.json",
+    "archivePath": "assets/released_math/v5/slots_config.json",
+    "bytes": 30399,
+    "sha256": "0ddef7aa285bb4c2546def887eab1ca8c79c92863f90d8c3968e8bc34d10fc4b"
+  },
+  "rules": {
+    "paylineCount": 10,
+    "freeSpinsBonusAward": 5,
+    "xpFixtures": {
+      "paid-minimum": 9,
+      "free-minimum": 5,
+      "paid-cap": 68,
+      "free-cap": 64
+    }
+  },
+  "goldenFingerprints": {
+    "violet_fortune": "9c58810a2ac85df677f7c0028aace90c8e6ae5547c1e9beae36d7c50f580ec55",
+    "roman_reels": "b104067b0c2e7718ea0123f548bf96eefa6ce033291d85deeee331d57e23c914",
+    "neon_nights": "7ca72d5f5d199ed4078ad11516d133b9078b0b33c349ec95a7fbed1f2ebd258e",
+    "pharaoh_gold": "dcc3c0a787f4e6c0b3981ea4596bf4cb9c161c924e35decb5f9c77fa5677235f",
+    "ocean_pearl": "2d06622d2f9a7c166852e216f255d7e608accc408fbb13688224b7834e87eac8"
+  },
+  "goldenOutcomeDigests": {
+    "violet_fortune:paid-five-wild": "aade10759a721c595625423db918f5c5ffecee2e119982134a260bf80ad78569",
+    "violet_fortune:paid-scatter-three": "8c3a7e4e62833dff4528ce0e2dc1ebd1945f9f95994a4d21aa4cd849891c06ee",
+    "violet_fortune:free-extra-wild": "82b718f5824477f1793d72ee4c14d1fffc09d14de31fe4de0dcf0d630e95f4f4",
+    "roman_reels:paid-five-wild": "62bbf3306bd23c62902fee212e6507b22ca87dc54d3a50c93ed5ed6e8352c2f7",
+    "roman_reels:paid-scatter-three": "5e5de7114f82ca6879659da998995415e97ebd57fa3be6e54e30293ec6520eb0",
+    "roman_reels:free-extra-wild": "cc79855f9f8da8ce8349e8abf2eced1b5ee68edba16e5997c0e121bdbea83de3",
+    "neon_nights:paid-five-wild": "2c0c587aab53ad70ebb66c20664325558d1052b4f8ebf3b17187c8796da2acd2",
+    "neon_nights:paid-scatter-three": "22d64692a3f879229ebb826cbc6d5b0a106cb8cd0c6f02ac3e4441ea7891956c",
+    "neon_nights:free-extra-wild": "7952064bb12ac81d9f142f273162b11da4d5165ab768d2a47fade5ed104b3411",
+    "pharaoh_gold:paid-five-wild": "5417940cdc926978ed84ad6ac35675bba5baf5f9569481e58d634b2b33ecb71d",
+    "pharaoh_gold:paid-scatter-three": "5c74dfa4e1c02216c5fa8f53e500f51805ab2c27f489cbf1f65d770898935df9",
+    "pharaoh_gold:free-extra-wild": "a30b4c9305256d09987b221e0fa1580ec1bb993bd387d44873cabbe4a1ff350a",
+    "ocean_pearl:paid-five-wild": "f073f849a420455048f0323270a096373f57e2ced47f25f09cbe21c86bcfc54c",
+    "ocean_pearl:paid-scatter-three": "0bc2d3cb6e19942fb91c73a15257bd5c026897cbd70b31c2a4261a95cd1ebb9f",
+    "ocean_pearl:free-extra-wild": "d2459f9115408e1c3266d0aa550bd3539906ac6d0a11a8dd8c9bdf7758a776d2"
+  },
+  "goldenOutcomeSetSha256": "39b2ee7a22bc83ea7c7472943bbe4f26e791ecb18749fddce9a0d63cdebe543e"
+}

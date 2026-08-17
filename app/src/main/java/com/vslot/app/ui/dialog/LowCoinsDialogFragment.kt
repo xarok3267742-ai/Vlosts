@@ -38,41 +38,61 @@ class LowCoinsDialogFragment : DialogFragment() {
         bindScalableDialogCopy(binding.lowCoinsBody to binding.lowCoinsBodyLargeText)
         val args = arguments ?: Bundle.EMPTY
         val initialBonusAvailable = args.getBoolean(ARG_BONUS_AVAILABLE)
+        val canReduceStake = args.getBoolean(ARG_CAN_REDUCE_STAKE)
         var bonusAvailable = initialBonusAvailable
         var claimInProgress = false
 
         fun renderState(available: Boolean) {
             claimInProgress = false
             bonusAvailable = available
-            val bodyText = if (available) {
-                R.string.low_coins_bonus_body
-            } else {
-                R.string.low_coins_wait_body
+            val bodyText = when {
+                canReduceStake -> R.string.low_coins_reduce_body
+                available -> R.string.low_coins_bonus_body
+                else -> R.string.low_coins_wait_body
             }
             binding.lowCoinsBody.setImageResource(
                 if (available) R.drawable.label_low_coins_bonus_body else R.drawable.label_low_coins_wait_body
             )
             binding.lowCoinsBody.contentDescription = getString(bodyText)
             binding.lowCoinsBodyLargeText.setText(bodyText)
-            binding.actionButtonLabel.setImageResource(
-                if (available) R.drawable.label_claim_bonus else R.drawable.label_ok_action
-            )
+            binding.actionButtonLabel.visibility = if (canReduceStake) View.GONE else View.VISIBLE
+            binding.actionButtonText.visibility = if (canReduceStake) View.VISIBLE else View.GONE
+            binding.actionButtonText.setText(R.string.low_coins_reduce_action)
+            if (!canReduceStake) {
+                binding.actionButtonLabel.setImageResource(
+                    if (available) R.drawable.label_claim_bonus else R.drawable.label_ok_action
+                )
+            }
             binding.actionButton.setImageResource(
-                if (available) R.drawable.btn_bonus_claim_selector else R.drawable.btn_modal_close_selector
+                if (available && !canReduceStake) {
+                    R.drawable.btn_bonus_claim_selector
+                } else {
+                    R.drawable.btn_modal_close_selector
+                }
             )
             binding.actionButton.contentDescription = getString(
-                if (available) R.string.claim_bonus else R.string.ok_action
+                when {
+                    canReduceStake -> R.string.low_coins_reduce_action
+                    available -> R.string.claim_bonus
+                    else -> R.string.ok_action
+                }
             )
             binding.actionButton.isEnabled = true
             binding.actionButton.alpha = 1f
-            binding.lowCoinsCooldownTimerRail.visibility = if (available) View.GONE else View.VISIBLE
+            binding.lowCoinsCooldownTimerRail.visibility = if (available || canReduceStake) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
             binding.lowCoinsCooldownTimerDigits.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         }
 
         renderState(initialBonusAvailable)
-        bindCooldownTimer(binding, initialBonusAvailable) {
-            renderState(available = true)
-            animateLowCoinsPolish(binding, bonusAvailable = true)
+        if (!canReduceStake) {
+            bindCooldownTimer(binding, initialBonusAvailable) {
+                renderState(available = true)
+                animateLowCoinsPolish(binding, bonusAvailable = true)
+            }
         }
         binding.lowCoinsRescueGlow.visibility = View.VISIBLE
         binding.lowCoinsRescueGlow.alpha = if (bonusAvailable) {
@@ -81,6 +101,14 @@ class LowCoinsDialogFragment : DialogFragment() {
             LOW_COINS_WAIT_GLOW_ALPHA
         }
         binding.actionButton.setOnClickListener {
+            if (canReduceStake) {
+                parentFragmentManager.setFragmentResult(
+                    REQUEST_KEY,
+                    Bundle().apply { putBoolean(KEY_REDUCE_STAKE, true) }
+                )
+                dismiss()
+                return@setOnClickListener
+            }
             if (!bonusAvailable) {
                 dismiss()
                 return@setOnClickListener
@@ -233,16 +261,23 @@ class LowCoinsDialogFragment : DialogFragment() {
 
     companion object {
         private const val ARG_BONUS_AVAILABLE = "bonusAvailable"
+        private const val ARG_CAN_REDUCE_STAKE = "canReduceStake"
+        const val REQUEST_KEY = "low_coins_request"
+        const val KEY_REDUCE_STAKE = "reduce_stake"
         private const val LOW_COINS_POLISH_DURATION_MS = 720L
         private const val LOW_COINS_COUNTDOWN_TICK_MS = 1_000L
         private const val LOW_COINS_GLOW_SETTLED_ALPHA = 0.34f
         private const val LOW_COINS_GLOW_PEAK_ALPHA = 0.62f
         private const val LOW_COINS_WAIT_GLOW_ALPHA = 0.18f
 
-        fun newInstance(bonusAvailable: Boolean): LowCoinsDialogFragment {
+        fun newInstance(
+            bonusAvailable: Boolean,
+            canReduceStake: Boolean = false
+        ): LowCoinsDialogFragment {
             return LowCoinsDialogFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(ARG_BONUS_AVAILABLE, bonusAvailable)
+                    putBoolean(ARG_CAN_REDUCE_STAKE, canReduceStake)
                 }
             }
         }

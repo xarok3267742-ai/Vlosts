@@ -168,6 +168,20 @@
                     android:paddingEnd="18dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/label_claim_bonus" />
+
+                <TextView
+                    android:id="@+id/actionButtonText"
+                    style="@style/VSlotAccessibleCopy.Command.Compact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/low_coins_reduce_action"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>

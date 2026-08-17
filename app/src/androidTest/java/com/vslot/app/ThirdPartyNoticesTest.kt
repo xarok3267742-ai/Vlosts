@@ -13,6 +13,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Root
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
@@ -50,8 +51,8 @@ class ThirdPartyNoticesTest {
             waitForDisplayed(withId(R.id.settingsButton))
             onView(withId(R.id.settingsButton)).perform(click())
 
-            waitForDisplayed(withId(R.id.noticesButton))
             onView(withId(R.id.noticesButton))
+                .perform(scrollTo())
                 .check(matches(isDisplayed()))
                 .perform(click())
 

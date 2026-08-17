@@ -258,7 +258,7 @@ class ReleaseSecurityGradleContractTest {
         assertTrue(appBuild.contains("document.getElementsByTagName(\"testcase\")"))
         assertTrue(appBuild.contains("\"\$className#\$testName\""))
         assertTrue(appBuild.contains("actualTestIds != expectedTestIds"))
-        assertTrue(appBuild.contains("allTestIds.size == 63"))
+        assertTrue(appBuild.contains("allTestIds.size == 65"))
         assertTrue(appBuild.contains("legacyPrimarySchemasUpgradeInPlaceAndSurviveDurableRewrite"))
         assertTrue(
             appBuild.contains(
@@ -330,7 +330,7 @@ class ReleaseSecurityGradleContractTest {
         assertTrue(appBuild.contains("apk.payload_sha256 must match the release-gated QA APK payload"))
         assertTrue(appBuild.contains("qa_profile physical_samsung required"))
         assertTrue(appBuild.contains("three distinct positive process IDs required"))
-        assertTrue(appBuild.contains("must run all 63 tests"))
+        assertTrue(appBuild.contains("must run all 65 tests"))
         assertTrue(appBuild.contains("physical Samsung frame metrics exceed release limits"))
         assertTrue(appBuild.contains("raw connected stage"))
         assertTrue(appBuild.contains("process-death raw log missing"))
@@ -345,7 +345,7 @@ class ReleaseSecurityGradleContractTest {
     @Test
     fun postBuildEvidenceBindsTheSignedBundleToVerificationOutputs() {
         assertTrue(appBuild.contains("tasks.register(\"generateReleaseArtifactEvidence\")"))
-        assertTrue(appBuild.contains("schema=v-slot-release-artifact-evidence-v7"))
+        assertTrue(appBuild.contains("schema=v-slot-release-artifact-evidence-v8"))
         assertTrue(appBuild.contains("outputs/bundle/release/app-release.aab"))
         assertTrue(appBuild.contains("tasks.register(\"verifyReleaseBundleWithBundletool\")"))
         assertTrue(appBuild.contains("runBundletool(\"validate\""))
@@ -353,6 +353,8 @@ class ReleaseSecurityGradleContractTest {
         assertTrue(appBuild.contains("\":app:verifyReleaseBundleWithBundletool\""))
         assertTrue(appBuild.contains("\"bundletool-validation\" to"))
         assertTrue(appBuild.contains("\"bundletool-base-manifest\" to"))
+        assertTrue(appBuild.contains("\"released-slot-math-v5-release-aab\" to"))
+        assertTrue(appBuild.contains("\"released-slot-math-v5-release-universal-apk\" to"))
         assertTrue(appBuild.contains("upload-certificate-sha256="))
         assertTrue(appBuild.contains("JarFile(bundle, true)"))
         assertTrue(appBuild.contains("certificate.encoded"))

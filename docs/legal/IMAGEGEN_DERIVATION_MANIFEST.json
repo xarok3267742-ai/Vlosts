@@ -3,7 +3,7 @@
   "status": "derivation_integrity_not_legal_clearance",
   "generated_by": {
     "path": "tools/generate_imagegen_derivation_manifest.py",
-    "sha256": "c30c8270ea7e273929f1cef0c00b8c54d159cd6602b2900b081c77539f576906"
+    "sha256": "67489c84fe006708ddc46e2e3f62e6de333fdc0d849daa2d018bc32fa6c726d9"
   },
   "toolchain": {
     "python": "3.9.6",
@@ -249,6 +249,2134 @@
       "reproduction": {
         "mode": "byte_exact",
         "expected_sha256": "b61e02b684ec4ac8716d5b7da82a6708c81823521517e13334f4cabd6f4ee441"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_autospin_active.webp",
+      "bytes": 102076,
+      "sha256": "6b7ab8f334a4473828bb9200294e0110b5393b10111920d96c0e9bd72fc43bba",
+      "media": {
+        "type": "image/webp",
+        "width": 360,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "6b7ab8f334a4473828bb9200294e0110b5393b10111920d96c0e9bd72fc43bba"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_autospin_active_pressed.webp",
+      "bytes": 96910,
+      "sha256": "307444cef8bd064cce953d66575ea4a5a5011a8feff9f68edc17a83ba133f9d5",
+      "media": {
+        "type": "image/webp",
+        "width": 360,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "307444cef8bd064cce953d66575ea4a5a5011a8feff9f68edc17a83ba133f9d5"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_autospin_default.webp",
+      "bytes": 87670,
+      "sha256": "df82532dea243fd234aff057459099aaf21d3eb25f8b38d1265c53e8c682bb6c",
+      "media": {
+        "type": "image/webp",
+        "width": 360,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "df82532dea243fd234aff057459099aaf21d3eb25f8b38d1265c53e8c682bb6c"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_autospin_disabled.webp",
+      "bytes": 33144,
+      "sha256": "7ead0103e7e44afbf59e077d29c0a9496b2c2bbfc1373d9f89b17cf9c5cb2f41",
+      "media": {
+        "type": "image/webp",
+        "width": 360,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "7ead0103e7e44afbf59e077d29c0a9496b2c2bbfc1373d9f89b17cf9c5cb2f41"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_autospin_pressed.webp",
+      "bytes": 81342,
+      "sha256": "6f4a6de2f4973621be277ffc6b4a91483cc5ac52ffeaef8867073118e5a40c65",
+      "media": {
+        "type": "image/webp",
+        "width": 360,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "6f4a6de2f4973621be277ffc6b4a91483cc5ac52ffeaef8867073118e5a40c65"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_back_default.webp",
+      "bytes": 81074,
+      "sha256": "9a4e1735b515596a0ec4422adf776c9e77dbe1856d1737d8a6bd3540484b94e9",
+      "media": {
+        "type": "image/webp",
+        "width": 355,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "9a4e1735b515596a0ec4422adf776c9e77dbe1856d1737d8a6bd3540484b94e9"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_back_pressed.webp",
+      "bytes": 75102,
+      "sha256": "ebf923e1e7e0421c4fc207bd37ec769cc998b3da330b4fda524d470ca78c0096",
+      "media": {
+        "type": "image/webp",
+        "width": 355,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "ebf923e1e7e0421c4fc207bd37ec769cc998b3da330b4fda524d470ca78c0096"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_bet_minus.webp",
+      "bytes": 78382,
+      "sha256": "67c684b49dcbd9dcd1337fc3a480936568d4faa5aa2c05e672ee012190147fc2",
+      "media": {
+        "type": "image/webp",
+        "width": 345,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "67c684b49dcbd9dcd1337fc3a480936568d4faa5aa2c05e672ee012190147fc2"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_disabled.webp",
+      "bytes": 29838,
+      "sha256": "70a4a82ce2af839602963588d9eb3a45e9dc5cccad9f197778edab105e4f3f9a",
+      "media": {
+        "type": "image/webp",
+        "width": 345,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "70a4a82ce2af839602963588d9eb3a45e9dc5cccad9f197778edab105e4f3f9a"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_bet_minus_pressed.webp",
+      "bytes": 73686,
+      "sha256": "4ce32bc18c03bcf55f6f3e462fa00f326d27210a58b1e21c068f7869b07ffa07",
+      "media": {
+        "type": "image/webp",
+        "width": 345,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "4ce32bc18c03bcf55f6f3e462fa00f326d27210a58b1e21c068f7869b07ffa07"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_bet_plus.webp",
+      "bytes": 79566,
+      "sha256": "79fcd5cbd025b58f20c0f7614e4597a527a4c0d41a5515eb152983dd2577b0e9",
+      "media": {
+        "type": "image/webp",
+        "width": 340,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "79fcd5cbd025b58f20c0f7614e4597a527a4c0d41a5515eb152983dd2577b0e9"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_disabled.webp",
+      "bytes": 30512,
+      "sha256": "d7a0e2f49c1cb93e8056582e2c28410b6b3d5bc07b0be629a945838def390605",
+      "media": {
+        "type": "image/webp",
+        "width": 340,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "d7a0e2f49c1cb93e8056582e2c28410b6b3d5bc07b0be629a945838def390605"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_bet_plus_pressed.webp",
+      "bytes": 73870,
+      "sha256": "15cc299965a5c7701e6e0231f9196d6f7f737d196db9d2433c2d8255d3050a99",
+      "media": {
+        "type": "image/webp",
+        "width": 340,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "15cc299965a5c7701e6e0231f9196d6f7f737d196db9d2433c2d8255d3050a99"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_max_lines_default.webp",
+      "bytes": 82362,
+      "sha256": "9c5d17044e99033b1b1eeaaa1fc6579d3fe1b18a270e5874116b6730943a9f15",
+      "media": {
+        "type": "image/webp",
+        "width": 350,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "9c5d17044e99033b1b1eeaaa1fc6579d3fe1b18a270e5874116b6730943a9f15"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_max_lines_disabled.webp",
+      "bytes": 31536,
+      "sha256": "8ffcac9fa5b595f2cc8d203ae8956ab05203a0c4d8a2886723ce2536d465aa3e",
+      "media": {
+        "type": "image/webp",
+        "width": 350,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "8ffcac9fa5b595f2cc8d203ae8956ab05203a0c4d8a2886723ce2536d465aa3e"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/btn_max_lines_pressed.webp",
+      "bytes": 76562,
+      "sha256": "b54376f947e6b188672e75a069a4d0d58f8c2ecfdb9580d5fa566f638d06426c",
+      "media": {
+        "type": "image/webp",
+        "width": 350,
+        "height": 350
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "b54376f947e6b188672e75a069a4d0d58f8c2ecfdb9580d5fa566f638d06426c"
       },
       "rights_review": {
         "state": "review_required",
@@ -600,6 +2728,139 @@
       "reproduction": {
         "mode": "byte_exact",
         "expected_sha256": "0363f59e0432776419eda4a1ed2a32fb3a59fad71c7180a231982722e5e3509b"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/paytable_button.webp",
+      "bytes": 83678,
+      "sha256": "d0555e6bf6bddc717c220c362b237644a183b59ac578d7377849ae18bca18498",
+      "media": {
+        "type": "image/webp",
+        "width": 350,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "d0555e6bf6bddc717c220c362b237644a183b59ac578d7377849ae18bca18498"
       },
       "rights_review": {
         "state": "review_required",
@@ -2689,6 +4950,804 @@
       "reproduction": {
         "mode": "byte_exact",
         "expected_sha256": "9e6391d25ded43e9c0a275ce900843f7d34aa74cd2fe0e0bf8ec7f2e799e3ef6"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/spin_button_violet_default.webp",
+      "bytes": 157992,
+      "sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2",
+      "media": {
+        "type": "image/webp",
+        "width": 780,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "5b406deb97cb0439aef4ea58f86b2d2c46dbb8f9e6bb446ebe5eeaf3f1dceeb2"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/spin_button_violet_disabled.webp",
+      "bytes": 60478,
+      "sha256": "2e6f3c921e66e5bed2753761efb3f8e323f6487ec8b49d0f73b5f45838a94345",
+      "media": {
+        "type": "image/webp",
+        "width": 780,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "2e6f3c921e66e5bed2753761efb3f8e323f6487ec8b49d0f73b5f45838a94345"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_default.png",
+      "bytes": 217305,
+      "sha256": "f7bcd9577edd45b8e854971f08d89f5a3c636a4a64dfebc9e7bc523facf7d3f5",
+      "media": {
+        "type": "image/png",
+        "width": 780,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "f7bcd9577edd45b8e854971f08d89f5a3c636a4a64dfebc9e7bc523facf7d3f5"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_disabled.png",
+      "bytes": 154116,
+      "sha256": "7b4e36e000edbbeb93ff3312aec6779fd81a100756f6bbc182f3e63cca9da210",
+      "media": {
+        "type": "image/png",
+        "width": 780,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "7b4e36e000edbbeb93ff3312aec6779fd81a100756f6bbc182f3e63cca9da210"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/spin_button_violet_free_spins_pressed.png",
+      "bytes": 200555,
+      "sha256": "9a4ce5e01656e9216d0e7e3f08f00516b12b3a44065afa2736ca9b7b92965122",
+      "media": {
+        "type": "image/png",
+        "width": 780,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "9a4ce5e01656e9216d0e7e3f08f00516b12b3a44065afa2736ca9b7b92965122"
+      },
+      "rights_review": {
+        "state": "review_required",
+        "evidence_refs": [
+          "release_asset_rights_signoff_v1"
+        ]
+      }
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/spin_button_violet_pressed.webp",
+      "bytes": 146130,
+      "sha256": "9d61ccd8758d6ab8c92300ea5c702f56c4b14929e461b6f9443172ee60458040",
+      "media": {
+        "type": "image/webp",
+        "width": 780,
+        "height": 355
+      },
+      "origin": {
+        "class": "derived_imagegen",
+        "sources": [
+          {
+            "path": "qa/source/vslot_controls_sprite_imagegen.png",
+            "sha256": "3323ca5709ac260b0e0ddbb583da7ae0b21d2d0526e8998d8bc18e45c34b2c63"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto.png",
+            "sha256": "018aa77414ca6936e218231f9e17477bd8d3cb66ca66a2fc6a9503d9e0ed4f50"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_disabled.png",
+            "sha256": "b49a493fceea930b3b2b381eb34a563429b7d7af6f656e1a295ceae0f5b58bfa"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_auto_pressed.png",
+            "sha256": "56d69700329a53473c75802076c4fabc62d18598a8f587948c94a2a7b8c426f3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back.png",
+            "sha256": "cf99ae37d5efbc9ea813640d9f4fb6788907abaac498cb141eef537250f26b7c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_disabled.png",
+            "sha256": "c555c4caccb45ea5f35b44f79c6c59a75cec848f67a7bb7377699d80437c1585"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_back_pressed.png",
+            "sha256": "aea19189e237246c85c087a97d385147b7fd396495b9952b0810f3a063a78900"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max.png",
+            "sha256": "f62849a5744cb38f7f6ea45c73eb7539d541dc56f4664741e52b38088ccad62a"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_disabled.png",
+            "sha256": "ed364de5ec3e2f6a4a40183d1832cd5c20fc5519058f0febd35a6f16fc42963c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_max_pressed.png",
+            "sha256": "c4d47ad6ccc7898a87347da67245ffd7cdc3378e65dc584ee074c07bb8a89ca5"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus.png",
+            "sha256": "48f225079c6e0b28d9580fa93a866d4bab897e7a4600960dc8ac5e85acead5b3"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_disabled.png",
+            "sha256": "e086cccf1b9911baf8cef14c4e73086ef2ccea824e352a5d85e77cfe6f5e5305"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_minus_pressed.png",
+            "sha256": "6beda8145e323f9774134024ad27c66cf9071d691cea737bd5553d137cbbfd3c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable.png",
+            "sha256": "a19120d143cdd499215a4997836fd9bf2c874764ad71f7496b232d63ef6f01be"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_disabled.png",
+            "sha256": "f5bf562ee694a1884941099ec21b549d5609291af34e87d50181b0db8c8f0532"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_paytable_pressed.png",
+            "sha256": "7a5d23504f6947e387b33a7928837559650077c5f6b8964d67982de3ce8a74d9"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus.png",
+            "sha256": "f1816f415f1d3cbeb8c3c380c888d0cd418d3b6a063ed0414271e3000041fd0c"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_disabled.png",
+            "sha256": "6c2a2aa7ed2350a2add84f296ab405b1c065bbb379ca5cbe60c4d2428658a617"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_plus_pressed.png",
+            "sha256": "b3cb588960ee4aed08bee440011b8c1d2d5f28a7667edfdba91f95cf6200e485"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin.png",
+            "sha256": "ccfb96b38313de02a458f2dd93f19ea28763a49de41b1a8f24bd1f9b87982160"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_disabled.png",
+            "sha256": "05a34e1fa866ea7384ae59041353ba5f02668e265d5224abb1da69c5fb98364d"
+          },
+          {
+            "path": "qa/source/vslot-controls/vslot_btn_spin_pressed.png",
+            "sha256": "69929665ec18157b35975309123262b51ef65500217d31a077144a4c00fec243"
+          }
+        ],
+        "producer": {
+          "path": "tools/export_imagegen_slot_controls.py",
+          "sha256": "bc72f34c56ed305fce7f4fe6cc2c59282614eef54d086948ffb746e609845d44",
+          "command": [
+            "python3",
+            "tools/export_imagegen_slot_controls.py"
+          ]
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "tools/vslot_asset_toolchain.py",
+          "sha256": "8344a7b410e8603c1566eb033d37f348b012e43fa072f3c65eeb509f778e5dab",
+          "type": "toolchain_gate"
+        },
+        {
+          "path": "tools/requirements-assets.txt",
+          "sha256": "dfdc865bcda9258a4cb7c774f7df39c71038e1f2a2833c746b5d327f59fc5d39",
+          "type": "python_requirement"
+        }
+      ],
+      "reproduction": {
+        "mode": "byte_exact",
+        "expected_sha256": "9d61ccd8758d6ab8c92300ea5c702f56c4b14929e461b6f9443172ee60458040"
       },
       "rights_review": {
         "state": "review_required",

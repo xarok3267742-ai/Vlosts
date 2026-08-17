@@ -631,6 +631,7 @@ fun imagegenDerivationManifestIssues(): List<String> {
         "tools/slice_imagegen_daily_bonus_countdown_charge.py" to 1,
         "tools/slice_imagegen_daily_bonus_home_buttons.py" to 2,
         "tools/slice_imagegen_daily_bonus_modal_panel.py" to 1,
+        "tools/export_imagegen_slot_controls.py" to 23,
         "tools/slice_imagegen_low_coins_modal_panel.py" to 1,
         "tools/slice_imagegen_paytable_modal_panels.py" to 5,
         "tools/slice_imagegen_privacy_command_buttons.py" to 2,
@@ -654,8 +655,8 @@ fun imagegenDerivationManifestIssues(): List<String> {
     val expectedBuildInputs = setOf("toolchain_gate", "python_requirement")
     val entries = manifest["entries"] as? List<*>
     val parsedEntries = entries.orEmpty().mapNotNull { it as? Map<*, *> }
-    if (entries == null || parsedEntries.size != 83) {
-        issues += "$label(exact 83 derivation entries required)"
+    if (entries == null || parsedEntries.size != expectedProducerCounts.values.sum()) {
+        issues += "$label(exact ${expectedProducerCounts.values.sum()} derivation entries required)"
     }
     val outputPaths = parsedEntries.map { it["path"]?.toString().orEmpty() }
     if (outputPaths.size != outputPaths.toSet().size) issues += "$label(duplicate output paths are forbidden)"
@@ -680,7 +681,7 @@ fun imagegenDerivationManifestIssues(): List<String> {
         if (
             media == null ||
             media.keys.map { it.toString() }.toSet() != setOf("type", "width", "height") ||
-            media["type"] != "image/webp" ||
+            media["type"] != (if (path.endsWith(".png")) "image/png" else "image/webp") ||
             (media["width"] as? Number)?.toInt()?.let { it > 0 } != true ||
             (media["height"] as? Number)?.toInt()?.let { it > 0 } != true
         ) {
@@ -1586,8 +1587,8 @@ fun expectedPhysicalSamsungStageTestIds(): Map<String, Set<String>> {
         }
         .filterNot { testId -> testId.startsWith("com.vslot.app.SlotFrameMetricsTest#") }
         .toSortedSet()
-    require(allTestIds.size == 63) {
-        "Physical Samsung evidence expects exactly 63 non-frame-metrics androidTests; found ${allTestIds.size}."
+    require(allTestIds.size == 65) {
+        "Physical Samsung evidence expects exactly 65 non-frame-metrics androidTests; found ${allTestIds.size}."
     }
     val legacyPrimarySchemaUpgradeTestId =
         "com.vslot.app.data.TransactionalPlayerStateStoreAndroidTest#" +
@@ -2020,9 +2021,9 @@ fun physicalSamsungEvidenceIssues(
         )
         if (stage == null || stage["status"]?.toString() != "passed" ||
             longValue(stage["user_rotation"]) != rotation || stage["display_profile"]?.toString() != "captured" ||
-            longValue(stage["tests"]) != 63L || longValue(stage["skipped"]) != 5L
+            longValue(stage["tests"]) != 65L || longValue(stage["skipped"]) != 5L
         ) {
-            issues += "$samsungLabel(stage $stageName must run all 63 tests with exactly 5 profile-specific skips on captured rotation $rotation)"
+            issues += "$samsungLabel(stage $stageName must run all 65 tests with exactly 5 profile-specific skips on captured rotation $rotation)"
         }
     }
     requirePassedResult(samsung, samsungLabel, cleanupRequired = true)
@@ -2306,8 +2307,222 @@ fun storeGraphicsExportIssues(): List<String> {
     return issues.distinct()
 }
 
+fun storePromoScreenshotIssues(): List<String> {
+    val label = "docs/store/assets/screenshots-promo-v2/manifest.json"
+    val promoRoot = rootProject.file("docs/store/assets/screenshots-promo-v2")
+    val manifestFile = File(promoRoot, "manifest.json")
+    if (!manifestFile.isFile) return listOf("$label(file not found)")
+    val manifest = runCatching {
+        JsonSlurper().parse(manifestFile) as? Map<*, *>
+    }.getOrNull() ?: return listOf("$label(valid JSON object required)")
+    val issues = mutableListOf<String>()
+    val expectedRootKeys = setOf(
+        "schema_version",
+        "generator",
+        "generator_sha256",
+        "reference_url",
+        "reference_use",
+        "canvas",
+        "font",
+        "generated_background",
+        "store_icon",
+        "slides"
+    )
+    if (manifest.keys.map { it.toString() }.toSet() != expectedRootKeys) {
+        issues += "$label(exact schema-v1 fields required)"
+    }
+    if (manifest["schema_version"]?.toString()?.toIntOrNull() != 1) {
+        issues += "$label(schema_version 1 required)"
+    }
+
+    val generatorPath = manifest["generator"]?.toString().orEmpty()
+    val generator = rootProject.file(generatorPath)
+    if (generatorPath != "tools/export_store_screenshot_promos.py" || !generator.isFile) {
+        issues += "$label(expected deterministic exporter required)"
+    } else if (
+        normalizedSha256(manifest["generator_sha256"]?.toString().orEmpty()) !=
+        normalizedSha256(sha256Hex(generator))
+    ) {
+        issues += "$label(exporter SHA-256 mismatch)"
+    }
+
+    val canvas = manifest["canvas"] as? Map<*, *>
+    if (
+        canvas?.keys?.map { it.toString() }?.toSet() != setOf("width", "height", "format") ||
+        canvas["width"]?.toString()?.toIntOrNull() != 1_080 ||
+        canvas["height"]?.toString()?.toIntOrNull() != 1_920 ||
+        canvas["format"] != "PNG RGB"
+    ) {
+        issues += "$label(canvas must be exactly 1080x1920 PNG RGB)"
+    }
+
+    val font = manifest["font"] as? Map<*, *>
+    val fontPath = font?.get("path")?.toString().orEmpty()
+    val fontFile = rootProject.file(fontPath)
+    if (
+        font?.keys?.map { it.toString() }?.toSet() != setOf("path", "sha256", "weight", "width") ||
+        fontPath != "tools/fonts/noto-sans/NotoSans[wdth,wght].ttf" ||
+        !fontFile.isFile ||
+        normalizedSha256(font["sha256"]?.toString().orEmpty()) != normalizedSha256(sha256Hex(fontFile)) ||
+        font["weight"]?.toString()?.toIntOrNull() != 850 ||
+        font["width"]?.toString()?.toIntOrNull() != 75
+    ) {
+        issues += "$label(pinned Noto Sans variation binding mismatch)"
+    }
+
+    val background = manifest["generated_background"] as? Map<*, *>
+    val expectedBackgroundPath =
+        "docs/store/assets/screenshots-promo-v2/sources/v-slot-promo-background-v1.png"
+    val backgroundPath = background?.get("path")?.toString().orEmpty()
+    val backgroundFile = rootProject.file(backgroundPath)
+    if (
+        background?.keys?.map { it.toString() }?.toSet() != setOf("path", "sha256", "tool", "prompt") ||
+        backgroundPath != expectedBackgroundPath ||
+        !backgroundFile.isFile ||
+        normalizedSha256(background["sha256"]?.toString().orEmpty()) !=
+        normalizedSha256(sha256Hex(backgroundFile)) ||
+        background["tool"] != "built-in OpenAI image generation" ||
+        background["prompt"]?.toString().orEmpty().isBlank()
+    ) {
+        issues += "$label(generated background provenance mismatch)"
+    }
+
+    val icon = manifest["store_icon"] as? Map<*, *>
+    val iconPath = icon?.get("path")?.toString().orEmpty()
+    val iconFile = rootProject.file(iconPath)
+    if (
+        icon?.keys?.map { it.toString() }?.toSet() != setOf("path", "sha256") ||
+        iconPath != "docs/store/assets/v-slot-icon-512-v2.png" ||
+        !iconFile.isFile ||
+        normalizedSha256(icon["sha256"]?.toString().orEmpty()) != normalizedSha256(sha256Hex(iconFile))
+    ) {
+        issues += "$label(store icon binding mismatch)"
+    }
+
+    val expectedSlides = linkedMapOf(
+        "docs/store/assets/screenshots-promo-v2/01-five-themes.png" to Pair(
+            "docs/store/assets/screenshots/01-home.png",
+            listOf("ПЯТЬ ТЕМ", "ОДНА ИГРА")
+        ),
+        "docs/store/assets/screenshots-promo-v2/02-spin-and-lines.png" to Pair(
+            "docs/store/assets/screenshots/02-violet-slot.png",
+            listOf("КРУТИ БАРАБАНЫ", "ВЫБИРАЙ ЛИНИИ")
+        ),
+        "docs/store/assets/screenshots-promo-v2/03-paytable.png" to Pair(
+            "docs/store/assets/screenshots/03-paytable.png",
+            listOf("ВСЕ ВЫПЛАТЫ", "ПОД РУКОЙ")
+        ),
+        "docs/store/assets/screenshots-promo-v2/04-settings.png" to Pair(
+            "docs/store/assets/screenshots/04-settings.png",
+            listOf("НАСТРОЙ ИГРУ", "ПОД СЕБЯ")
+        ),
+        "docs/store/assets/screenshots-promo-v2/05-free-spins.png" to Pair(
+            "docs/store/assets/screenshots/05-free-spins.png",
+            listOf("ФРИСПИНЫ", "БЕЗ ПОКУПОК")
+        )
+    )
+    val captureMetadataFile = rootProject.file("docs/store/assets/screenshots/capture-metadata.json")
+    val captureMetadata = runCatching {
+        JsonSlurper().parse(captureMetadataFile) as? Map<*, *>
+    }.getOrNull()
+    val captureHashes = captureMetadata?.get("screenshot_sha256") as? Map<*, *>
+    val expectedSlideKeys = setOf(
+        "output",
+        "output_sha256",
+        "source",
+        "source_sha256",
+        "source_crop",
+        "copy",
+        "banner_position",
+        "accent_colors"
+    )
+    val slides = manifest["slides"] as? List<*>
+    val parsedSlides = slides.orEmpty().mapNotNull { it as? Map<*, *> }
+    if (
+        slides == null ||
+        parsedSlides.size != expectedSlides.size ||
+        parsedSlides.map { it["output"]?.toString().orEmpty() }.toSet() != expectedSlides.keys
+    ) {
+        issues += "$label(exact five promo slides required)"
+    }
+    parsedSlides.forEach { slide ->
+        val outputPath = slide["output"]?.toString().orEmpty()
+        val expected = expectedSlides[outputPath]
+        if (slide.keys.map { it.toString() }.toSet() != expectedSlideKeys || expected == null) {
+            issues += "$label($outputPath exact slide fields required)"
+            return@forEach
+        }
+        val sourcePath = slide["source"]?.toString().orEmpty()
+        val source = rootProject.file(sourcePath)
+        val output = rootProject.file(outputPath)
+        val captureName = source.name
+        if (
+            sourcePath != expected.first ||
+            slide["source_crop"] != null ||
+            (slide["copy"] as? List<*>)?.map { it?.toString().orEmpty() } != expected.second ||
+            slide["banner_position"]?.toString() !in setOf("top", "bottom") ||
+            (slide["accent_colors"] as? List<*>)?.map { it?.toString().orEmpty() }
+                ?.let { colors -> colors.size == 2 && colors.all { it.matches(Regex("#[0-9A-Fa-f]{6}")) } } != true
+        ) {
+            issues += "$label($outputPath canonical composition mismatch)"
+        }
+        if (
+            !source.isFile ||
+            normalizedSha256(slide["source_sha256"]?.toString().orEmpty()) != normalizedSha256(sha256Hex(source)) ||
+            normalizedSha256(captureHashes?.get(captureName)?.toString().orEmpty()) != normalizedSha256(sha256Hex(source))
+        ) {
+            issues += "$label($sourcePath canonical capture SHA-256 mismatch)"
+        }
+        if (
+            !output.isFile ||
+            normalizedSha256(slide["output_sha256"]?.toString().orEmpty()) != normalizedSha256(sha256Hex(output)) ||
+            readStorePngInfo(output) != StorePngInfo(1_080, 1_920, 8, 2)
+        ) {
+            issues += "$label($outputPath promo output mismatch)"
+        }
+    }
+
+    val archiveFile = rootProject.file("docs/store/assets/v-slot-google-play-screenshots-v2.zip")
+    val expectedArchiveMembers = expectedSlides.keys.associate { path -> File(path).name to rootProject.file(path) } + mapOf(
+        "manifest.json" to manifestFile,
+        "README.md" to File(promoRoot, "README.md")
+    )
+    if (!archiveFile.isFile) {
+        issues += "docs/store/assets/v-slot-google-play-screenshots-v2.zip(file not found)"
+    } else {
+        runCatching {
+            ZipFile(archiveFile).use { archive ->
+                val entries = mutableListOf<ZipEntry>()
+                val enumeration = archive.entries()
+                while (enumeration.hasMoreElements()) entries += enumeration.nextElement()
+                val names = entries.map(ZipEntry::getName)
+                if (
+                    entries.any(ZipEntry::isDirectory) ||
+                    names.size != names.toSet().size ||
+                    names.toSet() != expectedArchiveMembers.keys ||
+                    names.any { it.contains('/') || it.contains('\\') }
+                ) {
+                    issues += "docs/store/assets/v-slot-google-play-screenshots-v2.zip(exact seven root files required)"
+                } else {
+                    entries.forEach { entry ->
+                        val expectedFile = expectedArchiveMembers.getValue(entry.name)
+                        val memberHash = archive.getInputStream(entry).use { input -> sha256Hex(input.readBytes()) }
+                        if (!expectedFile.isFile || memberHash != sha256Hex(expectedFile)) {
+                            issues += "docs/store/assets/v-slot-google-play-screenshots-v2.zip(${entry.name} content mismatch)"
+                        }
+                    }
+                }
+            }
+        }.onFailure {
+            issues += "docs/store/assets/v-slot-google-play-screenshots-v2.zip(valid ZIP required)"
+        }
+    }
+    return issues.distinct()
+}
+
 fun storeListingAssetIssues(): List<String> = buildList {
     addAll(storeGraphicsExportIssues())
+    addAll(storePromoScreenshotIssues())
     val storeRoot = rootProject.file("docs/store")
     val assetRoot = File(storeRoot, "assets")
     val listingFile = File(storeRoot, "store-listing-ru.json")
@@ -2930,8 +3145,10 @@ dependencies {
     // Core 1.19 requires compileSdk 37 and AGP 9.1; 1.18 is the latest release compatible with this toolchain.
     //noinspection GradleDependency
     implementation("androidx.core:core-ktx:1.18.0")
+    //noinspection GradleDependency
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.activity:activity-ktx:1.13.0")
+    //noinspection GradleDependency
     implementation("androidx.fragment:fragment-ktx:1.8.9")
     implementation("androidx.constraintlayout:constraintlayout:2.2.2")
     implementation("androidx.navigation:navigation-fragment-ktx:2.9.8")
@@ -2952,7 +3169,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-base:18.10.0")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.json:json:20260719")
+    testImplementation("org.json:json:20260814")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.11.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
 
@@ -3320,7 +3537,7 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
     val samsungFixture = file("src/test/resources/physical_samsung_connected_evidence_valid.json")
     val processDeathFixture = file("src/test/resources/physical_samsung_process_death_evidence_valid.json")
     val frameMetricsFixture = file("src/test/resources/physical_samsung_frame_metrics_evidence_valid.json")
-    val samsungFixtureSha256 = "98d2b59128190a2a81664009d74be57d13717f41588bb15bf725a5a1bc4a0d58"
+    val samsungFixtureSha256 = "61d122ab5cbced58f3302bfce7767de70bbde41eac4a2708cb5c8f72c7edfbd3"
     val processDeathFixtureSha256 = "6497de68786e6b5b4a3c557dea47d37b2755e86a0b7203b899f79aeebfab2a68"
     val frameMetricsFixtureSha256 = "938e3907ac19a5dc24261e1860e06c00bb10a88a4af9e067aedae2885200387f"
     val fixtureCommit = "0123456789abcdef0123456789abcdef01234567"
@@ -3340,8 +3557,8 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
             throw GradleException("Physical Samsung connected evidence contract fixture checksum changed.")
         }
         val samsungFixtureText = samsungFixture.readText(Charsets.UTF_8)
-        require(Regex("\\\"tests\\\": 63").findAll(samsungFixtureText).count() == 2) {
-            "Physical Samsung connected evidence baseline must contain both complete 63-test stages."
+        require(Regex("\\\"tests\\\": 65").findAll(samsungFixtureText).count() == 2) {
+            "Physical Samsung connected evidence baseline must contain both complete 65-test stages."
         }
         require(Regex("\\\"skipped\\\": 5").findAll(samsungFixtureText).count() == 2) {
             "Physical Samsung connected evidence baseline must pin five profile-specific skips in both full stages."
@@ -3476,13 +3693,13 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
         val reducedConnectedFixture = temporaryDir.resolve("reduced-connected-tests.json")
         reducedConnectedFixture.writeText(
             currentSamsungFixture.readText(Charsets.UTF_8)
-                .replaceFirst("\"tests\": 63", "\"tests\": 62"),
+                .replaceFirst("\"tests\": 65", "\"tests\": 64"),
             Charsets.UTF_8
         )
         if (validate(
                 samsungFile = reducedConnectedFixture,
                 samsungSha256 = sha256Hex(reducedConnectedFixture)
-            ).none { issue -> issue.contains("must run all 63 tests") }
+            ).none { issue -> issue.contains("must run all 65 tests") }
         ) {
             throw GradleException("Physical Samsung evidence validator accepted a reduced connected suite.")
         }
@@ -3513,7 +3730,7 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
         if (validate(
                 rawFile = counterOnlyRawFixture,
                 rawSha256 = sha256Hex(counterOnlyRawFixture)
-            ).none { issue -> issue.contains("exact 63 testcase IDs") }
+            ).none { issue -> issue.contains("exact 65 testcase IDs") }
         ) {
             throw GradleException("Physical Samsung evidence validator accepted XML counters without testcase IDs.")
         }
@@ -3522,7 +3739,7 @@ val verifyPhysicalSamsungEvidenceValidatorContract = tasks.register(
         if (validate(
                 rawFile = hiddenFailureRawFixture,
                 rawSha256 = sha256Hex(hiddenFailureRawFixture)
-            ).none { issue -> issue.contains("exact 63 testcase IDs") }
+            ).none { issue -> issue.contains("exact 65 testcase IDs") }
         ) {
             throw GradleException("Physical Samsung evidence validator accepted a testcase failure hidden by counters.")
         }
@@ -4746,6 +4963,160 @@ val verifyReleaseResourceSize = tasks.register("verifyReleaseResourceSize") {
 }
 
 val appSetIdDexValidatorScript = rootProject.file("tools/verify_appsetid_compat.py")
+
+val releasedSlotMathValidatorScript = rootProject.file("tools/verify_released_slot_math.py")
+val releasedSlotMathV5Manifest = file("src/main/assets/released_math/v5/manifest.json")
+val releasedMathManifestSha256ByVersion = mapOf(
+    5 to "66358cf636c9874e0d8a0a42dbef60ef923a1fa660794cb5f0e62dc89f80f78c"
+)
+val releasedSlotMathV5ManifestSha256 = releasedMathManifestSha256ByVersion.getValue(5)
+val releasedSlotMathV5Descriptor = file(
+    "src/main/java/com/vslot/app/game/ReleasedSlotMathV5.kt"
+)
+val releasedSlotMathV5Models = file("src/main/java/com/vslot/app/game/SlotModels.kt")
+val releasedSlotMathV5Asset = file("src/main/assets/released_math/v5/slots_config.json")
+val releasedSlotMathV5GoldenTest = file(
+    "src/test/java/com/vslot/app/game/ReleasedSlotMathV5Test.kt"
+)
+val releasedSlotMathV5SourceReport = layout.buildDirectory.file(
+    "reports/release-security/released-slot-math-v5-source.txt"
+)
+val releasedSlotMathV5QaReport = layout.buildDirectory.file(
+    "reports/release-security/released-slot-math-v5-qa-apk.txt"
+)
+val releasedSlotMathV5ReleaseReport = layout.buildDirectory.file(
+    "reports/release-security/released-slot-math-v5-release-aab.txt"
+)
+val releasedSlotMathV5ReleaseUniversalApkReport = layout.buildDirectory.file(
+    "reports/release-security/released-slot-math-v5-release-universal-apk.txt"
+)
+val releasedSlotMathV5QaApk = layout.buildDirectory.file("outputs/apk/qa/app-qa.apk")
+val releasedSlotMathV5ReleaseAab = layout.buildDirectory.file(
+    "outputs/bundle/release/app-release.aab"
+)
+
+val verifyReleasedSlotMathValidatorContract = tasks.register<org.gradle.api.tasks.Exec>(
+    "verifyReleasedSlotMathValidatorContract"
+) {
+    group = "verification"
+    description = "Executes mutation, traversal, and packaged-asset fixtures for released slot math."
+    inputs.file(releasedSlotMathValidatorScript)
+    outputs.upToDateWhen { false }
+    commandLine("python3", releasedSlotMathValidatorScript.absolutePath, "--self-test")
+}
+
+val verifyReleasedSlotMathV5 = tasks.register<org.gradle.api.tasks.Exec>(
+    "verifyReleasedSlotMathV5"
+) {
+    group = "verification"
+    description = "Rejects any unreviewed change to released V5 math sources, assets, or goldens."
+    dependsOn(verifyReleasedSlotMathValidatorContract)
+    inputs.files(
+        releasedSlotMathValidatorScript,
+        releasedSlotMathV5Manifest,
+        releasedSlotMathV5Descriptor,
+        releasedSlotMathV5Models,
+        releasedSlotMathV5Asset,
+        releasedSlotMathV5GoldenTest
+    )
+    outputs.file(releasedSlotMathV5SourceReport)
+    commandLine(
+        "python3",
+        releasedSlotMathValidatorScript.absolutePath,
+        "--root",
+        rootProject.projectDir.absolutePath,
+        "--manifest",
+        releasedSlotMathV5Manifest.absolutePath,
+        "--expected-manifest-sha256",
+        releasedSlotMathV5ManifestSha256,
+        "--report",
+        releasedSlotMathV5SourceReport.get().asFile.absolutePath
+    )
+}
+
+val verifyQaReleasedSlotMathV5 = tasks.register<org.gradle.api.tasks.Exec>(
+    "verifyQaReleasedSlotMathV5"
+) {
+    group = "verification"
+    description = "Verifies the immutable V5 manifest and assets inside the final QA APK."
+    dependsOn("packageQa", verifyReleasedSlotMathV5)
+    inputs.files(
+        releasedSlotMathValidatorScript,
+        releasedSlotMathV5Manifest,
+        releasedSlotMathV5QaApk
+    )
+    outputs.file(releasedSlotMathV5QaReport)
+    doFirst {
+        val archive = releasedSlotMathV5QaApk.get().asFile
+        if (!archive.isFile) {
+            throw GradleException("QA APK was not produced for released slot-math validation: ${archive.path}")
+        }
+        commandLine(
+            "python3",
+            releasedSlotMathValidatorScript.absolutePath,
+            "--root",
+            rootProject.projectDir.absolutePath,
+            "--manifest",
+            releasedSlotMathV5Manifest.absolutePath,
+            "--expected-manifest-sha256",
+            releasedSlotMathV5ManifestSha256,
+            "--archive",
+            archive.absolutePath,
+            "--report",
+            releasedSlotMathV5QaReport.get().asFile.absolutePath
+        )
+    }
+}
+
+val verifyReleaseBundleReleasedSlotMathV5 = tasks.register<org.gradle.api.tasks.Exec>(
+    "verifyReleaseBundleReleasedSlotMathV5"
+) {
+    group = "verification"
+    description = "Verifies the immutable V5 manifest and assets inside the final release AAB."
+    dependsOn(verifyReleasedSlotMathV5)
+    mustRunAfter("bundleRelease")
+    inputs.files(
+        releasedSlotMathValidatorScript,
+        releasedSlotMathV5Manifest,
+        releasedSlotMathV5ReleaseAab
+    )
+    outputs.file(releasedSlotMathV5ReleaseReport)
+    doFirst {
+        val archive = releasedSlotMathV5ReleaseAab.get().asFile
+        if (!archive.isFile) {
+            throw GradleException(
+                "Release AAB was not produced for released slot-math validation: ${archive.path}"
+            )
+        }
+        commandLine(
+            "python3",
+            releasedSlotMathValidatorScript.absolutePath,
+            "--root",
+            rootProject.projectDir.absolutePath,
+            "--manifest",
+            releasedSlotMathV5Manifest.absolutePath,
+            "--expected-manifest-sha256",
+            releasedSlotMathV5ManifestSha256,
+            "--archive",
+            archive.absolutePath,
+            "--report",
+            releasedSlotMathV5ReleaseReport.get().asFile.absolutePath
+        )
+    }
+}
+
+tasks.configureEach {
+    when (name) {
+        "preBuild" -> dependsOn(verifyReleasedSlotMathV5)
+        "assembleQa" -> dependsOn(verifyQaReleasedSlotMathV5)
+        "bundleRelease" -> finalizedBy(verifyReleaseBundleReleasedSlotMathV5)
+    }
+}
+
+tasks.withType<Test>().configureEach {
+    dependsOn(verifyReleasedSlotMathV5)
+}
+
 val releaseAppSetIdDexReportFile = layout.buildDirectory.file(
     "reports/release-security/release-app-set-id-dex-validation.txt"
 )
@@ -5107,6 +5478,43 @@ val verifyRelease16kPageSize = tasks.register("verifyRelease16kPageSize") {
     }
 }
 
+val verifyReleaseUniversalApkReleasedSlotMathV5 = tasks.register<org.gradle.api.tasks.Exec>(
+    "verifyReleaseUniversalApkReleasedSlotMathV5"
+) {
+    group = "verification"
+    description = "Verifies immutable V5 math assets inside the bundletool universal release APK."
+    dependsOn(verifyRelease16kPageSize, verifyReleasedSlotMathV5)
+    mustRunAfter("bundleRelease")
+    inputs.files(
+        releasedSlotMathValidatorScript,
+        releasedSlotMathV5Manifest,
+        release16kUniversalApkFile
+    )
+    outputs.file(releasedSlotMathV5ReleaseUniversalApkReport)
+    doFirst {
+        val archive = release16kUniversalApkFile.get().asFile
+        if (!archive.isFile) {
+            throw GradleException(
+                "Universal release APK was not produced for released slot-math validation: ${archive.path}"
+            )
+        }
+        commandLine(
+            "python3",
+            releasedSlotMathValidatorScript.absolutePath,
+            "--root",
+            rootProject.projectDir.absolutePath,
+            "--manifest",
+            releasedSlotMathV5Manifest.absolutePath,
+            "--expected-manifest-sha256",
+            releasedSlotMathV5ManifestSha256,
+            "--archive",
+            archive.absolutePath,
+            "--report",
+            releasedSlotMathV5ReleaseUniversalApkReport.get().asFile.absolutePath
+        )
+    }
+}
+
 val releaseArtifactEvidenceFile = layout.buildDirectory.file(
     "reports/release-security/release-artifact-evidence.txt"
 )
@@ -5266,7 +5674,12 @@ val verifyReleaseBundleWithBundletool = tasks.register("verifyReleaseBundleWithB
 val generateReleaseArtifactEvidence = tasks.register("generateReleaseArtifactEvidence") {
     group = "verification"
     description = "Binds the signed release bundle to provenance, signing, tests, lint, manifest, and R8 evidence."
-    dependsOn(verifyReleaseBundleWithBundletool, verifyRelease16kPageSize)
+    dependsOn(
+        verifyReleaseBundleWithBundletool,
+        verifyRelease16kPageSize,
+        verifyReleaseBundleReleasedSlotMathV5,
+        verifyReleaseUniversalApkReleasedSlotMathV5
+    )
     mustRunAfter("bundleRelease")
     outputs.file(releaseArtifactEvidenceFile)
     outputs.upToDateWhen { false }
@@ -5291,6 +5704,8 @@ val generateReleaseArtifactEvidence = tasks.register("generateReleaseArtifactEvi
             ":app:verifyStoreScreenshotsAgainstQaApk",
             ":app:verifyReleaseAppSetIdDisabled",
             ":app:verifyReleaseBundleWithBundletool",
+            ":app:verifyReleaseBundleReleasedSlotMathV5",
+            ":app:verifyReleaseUniversalApkReleasedSlotMathV5",
             ":app:verifyRelease16kPageSizeValidatorContract",
             ":app:verifyRelease16kPageSize",
             ":app:archiveReleaseMapping",
@@ -5316,6 +5731,9 @@ val generateReleaseArtifactEvidence = tasks.register("generateReleaseArtifactEvi
         val evidenceInputs = sortedMapOf(
             "bundle" to layout.buildDirectory.file("outputs/bundle/release/app-release.aab").get().asFile,
             "release-16k-page-size" to release16kPageSizeReportFile.get().asFile,
+            "released-slot-math-v5-release-aab" to releasedSlotMathV5ReleaseReport.get().asFile,
+            "released-slot-math-v5-release-universal-apk" to
+                releasedSlotMathV5ReleaseUniversalApkReport.get().asFile,
             "bundletool-base-manifest" to releaseBundletoolManifestFile.get().asFile,
             "bundletool-validation" to releaseBundletoolValidationReportFile.get().asFile,
             "asset-rights-evidence" to archivedAssetRightsEvidenceFile.get().asFile,
@@ -5418,7 +5836,7 @@ val generateReleaseArtifactEvidence = tasks.register("generateReleaseArtifactEvi
         output.parentFile.mkdirs()
         output.writeText(
             buildString {
-                appendLine("schema=v-slot-release-artifact-evidence-v7")
+                appendLine("schema=v-slot-release-artifact-evidence-v8")
                 appendLine("application-id=$vSlotApplicationId")
                 appendLine("version-code=$vSlotVersionCode")
                 appendLine("version-name=$vSlotVersionName")
@@ -5455,6 +5873,7 @@ val requiredStoreReleaseGatePaths = setOf(
     ":app:archiveReleaseMapping",
     ":app:verifyRelease16kPageSize",
     ":app:verifyReleaseAppSetIdDisabled",
+    ":app:verifyReleasedSlotMathV5",
     ":app:verifyStoreScreenshotsAgainstQaApk",
     ":verifyReleaseSecurityEvidence",
     ":verifyReleaseOsvScanEvidence",
@@ -5463,6 +5882,8 @@ val requiredStoreReleaseGatePaths = setOf(
 
 val requiredReleaseBundlePostBuildGatePaths = setOf(
     ":app:verifyReleaseBundleWithBundletool",
+    ":app:verifyReleaseBundleReleasedSlotMathV5",
+    ":app:verifyReleaseUniversalApkReleasedSlotMathV5",
     ":app:generateReleaseArtifactEvidence"
 )
 
@@ -5525,6 +5946,7 @@ val verifyStoreRelease = tasks.register("verifyStoreRelease") {
         verifyPhysicalSamsungEvidence,
         verifyStoreScreenshotsAgainstQaApk,
         verifyReleaseAppSetIdDisabled,
+        verifyReleasedSlotMathV5,
         verifyThirdPartyNotices,
         verifyReleaseResourceSize,
         archiveReleaseMapping,

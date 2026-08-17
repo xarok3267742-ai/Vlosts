@@ -20,12 +20,12 @@ class PlayerStateCheckpointTest {
     fun `legacy primary checkpoint versions remain authoritative after upgrade`() = runTest {
         val original = PlayerStateCheckpoint(
             generation = 91L,
-            playerState = fullPlayerState(),
+            playerState = fullPlayerState().copy(freeSpinFeatureTotalWins = emptyMap()),
             rawPendingSpinSettlement = "settlement-v1",
             rawPendingSpinRefundEnvelope = "refund-v2",
             rawPendingSpinPresentation = "presentation-v1"
         )
-        for (schemaVersion in 1..2) {
+        for (schemaVersion in 1..3) {
             val restored = requireNotNull(
                 PlayerStateCheckpointCodec.decode(legacyEncoding(original, schemaVersion))
             )
@@ -79,6 +79,21 @@ class PlayerStateCheckpointTest {
             envelope.getInt("schemaVersion")
         )
         assertTrue(envelope.getString("checksum").matches(Regex("[0-9a-f]{64}")))
+    }
+
+    @Test
+    fun `free spin feature totals round trip in current schema`() {
+        val state = fullPlayerState().copy(
+            freeSpinFeatureTotalWins = linkedMapOf(SLOT_VIOLET to 1_250, SLOT_ROMAN to 725)
+        )
+
+        val restored = PlayerStateCheckpointCodec.decode(
+            PlayerStateCheckpointCodec.encode(
+                PlayerStateCheckpoint(generation = 43L, playerState = state)
+            )
+        )
+
+        assertEquals(state.freeSpinFeatureTotalWins, restored?.playerState?.freeSpinFeatureTotalWins)
     }
 
     @Test
@@ -330,10 +345,15 @@ class PlayerStateCheckpointTest {
     }
 
     private fun legacyEncoding(checkpoint: PlayerStateCheckpoint, schemaVersion: Int): String {
-        require(schemaVersion in 1..2)
+        require(schemaVersion in 1..3)
         val envelope = JSONObject(PlayerStateCheckpointCodec.encode(checkpoint))
         val payload = envelope.getJSONObject("payload")
-        payload.remove("migrationComplete")
+        payload.getJSONObject("playerState").remove("freeSpinFeatureTotalWins")
+        if (schemaVersion < 3) {
+            payload.remove("migrationComplete")
+        } else {
+            payload.put("migrationComplete", true)
+        }
         if (schemaVersion < 2) payload.remove("pendingSpinRefundEnvelope")
         val canonicalPayload = PlayerStateCheckpointCodec.canonicalJson(payload)
         val checksum = MessageDigest.getInstance("SHA-256")

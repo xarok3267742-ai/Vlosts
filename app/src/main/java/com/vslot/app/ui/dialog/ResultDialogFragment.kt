@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
@@ -19,6 +20,7 @@ import androidx.fragment.app.setFragmentResult
 import com.vslot.app.R
 import com.vslot.app.BuildConfig
 import com.vslot.app.databinding.DialogResultBinding
+import com.vslot.app.game.NetOutcome
 import com.vslot.app.game.ResultType
 import com.vslot.app.game.SlotTheme
 import com.vslot.app.ui.asCoins
@@ -36,63 +38,92 @@ class ResultDialogFragment : DialogFragment() {
         val args = arguments ?: Bundle.EMPTY
         val winAmount = args.getInt(ARG_WIN_AMOUNT)
         val freeSpinsAwarded = args.getInt(ARG_FREE_SPINS_AWARDED)
+        val isFreeSpinsSummary = args.getBoolean(ARG_FREE_SPINS_SUMMARY)
         val slotTheme = args
             .getString(ARG_SLOT_THEME)
             ?.let { runCatching { SlotTheme.valueOf(it) }.getOrNull() }
             ?: SlotTheme.Violet
-        val resultType = args
-            .getString(ARG_RESULT_TYPE)
-            ?.let { runCatching { ResultType.valueOf(it) }.getOrNull() }
-            ?: if (winAmount > 0) ResultType.Win else ResultType.Lose
-        val isWin = resultType != ResultType.Lose
+        val netOutcome = args.readNetOutcome(winAmount)
+        val isReward = if (isFreeSpinsSummary) {
+            winAmount > 0
+        } else {
+            netOutcome == NetOutcome.NetWin || netOutcome == NetOutcome.Bonus
+        }
         binding.resultModalPanel.setImageResourceIfChanged(resultModalPanelDrawable(slotTheme))
         binding.resultStageLattice.setImageResourceIfChanged(resultStageLatticeDrawable(slotTheme))
         binding.resultThemeWinBurst.setImageResourceIfChanged(themeWinBurstDrawable(slotTheme))
         binding.resultRewardOverlay.setImageResourceIfChanged(resultRewardOverlayDrawable(slotTheme))
         binding.resultFreeSpinsAwardPanel.setImageResourceIfChanged(resultFreeSpinsAwardPanelDrawable(slotTheme))
-        val titleImage = when (resultType) {
-            ResultType.Bonus -> R.drawable.title_bonus
-            ResultType.Win -> R.drawable.title_win
-            ResultType.Lose -> R.drawable.title_lose
+        val titleImage = if (isFreeSpinsSummary) {
+            R.drawable.title_bonus
+        } else when (netOutcome) {
+            NetOutcome.Bonus -> R.drawable.title_bonus
+            NetOutcome.NetWin -> R.drawable.title_win
+            NetOutcome.Loss,
+            NetOutcome.PartialReturn,
+            NetOutcome.BreakEven -> R.drawable.title_lose
         }
-        val titleText = when (resultType) {
-            ResultType.Bonus -> R.string.result_bonus_title
-            ResultType.Win -> R.string.win_title
-            ResultType.Lose -> R.string.lose_title
+        val titleText = if (isFreeSpinsSummary) {
+            R.string.free_spins_summary_title
+        } else when (netOutcome) {
+            NetOutcome.Bonus -> R.string.result_bonus_title
+            NetOutcome.NetWin -> R.string.win_title
+            NetOutcome.Loss -> R.string.lose_title
+            NetOutcome.PartialReturn -> R.string.partial_return_title
+            NetOutcome.BreakEven -> R.string.break_even_title
         }
         binding.resultTitle.setImageResourceIfChanged(titleImage)
         binding.resultTitle.contentDescription = getString(titleText)
         ViewCompat.setAccessibilityPaneTitle(binding.root, getString(titleText))
-        val bodyImage = when (resultType) {
-            ResultType.Bonus -> R.drawable.label_result_bonus_body
-            ResultType.Win -> R.drawable.label_result_win_body
-            ResultType.Lose -> R.drawable.label_result_lose_body
+        val bodyImage = when (netOutcome) {
+            NetOutcome.Bonus -> R.drawable.label_result_bonus_body
+            NetOutcome.NetWin -> R.drawable.label_result_win_body
+            NetOutcome.Loss,
+            NetOutcome.PartialReturn,
+            NetOutcome.BreakEven -> R.drawable.label_result_lose_body
         }
-        val bodyText = when (resultType) {
-            ResultType.Bonus -> R.string.result_bonus_body
-            ResultType.Win -> R.string.result_win_body
-            ResultType.Lose -> R.string.result_lose_body
+        val bodyText = when (netOutcome) {
+            NetOutcome.Bonus -> R.string.result_bonus_body
+            NetOutcome.NetWin -> R.string.result_win_body
+            NetOutcome.Loss -> R.string.result_lose_body
+            NetOutcome.PartialReturn -> R.string.result_partial_return_body
+            NetOutcome.BreakEven -> R.string.result_break_even_body
         }
         binding.resultBody.setImageResourceIfChanged(bodyImage)
         binding.resultBody.contentDescription = getString(bodyText)
         binding.resultBodyLargeText.setText(bodyText)
         bindScalableDialogCopy(binding.resultBody to binding.resultBodyLargeText)
-        binding.resultGlow.setImageResourceIfChanged(resultType.badgeImage())
+        if (isFreeSpinsSummary) {
+            binding.resultTitle.visibility = View.GONE
+            binding.resultBody.visibility = View.GONE
+            binding.resultBodyLargeText.visibility = View.VISIBLE
+            binding.resultBodyLargeText.setText(R.string.free_spins_summary_body)
+            binding.resultBodyLargeText.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
+            val summaryParent = binding.resultBodyLargeText.parent as ViewGroup
+            summaryParent.removeView(binding.resultBodyLargeText)
+            summaryParent.addView(
+                binding.resultBodyLargeText,
+                summaryParent.indexOfChild(binding.winAmountGroup)
+            )
+        }
+        binding.resultGlow.setImageResourceIfChanged(
+            if (isFreeSpinsSummary) R.drawable.modal_badge_bonus else netOutcome.badgeImage()
+        )
         binding.resultGlow.alpha = 1f
         binding.resultStageLattice.alpha = RESULT_STAGE_SETTLED_ALPHA
         binding.resultStageLattice.scaleX = 1f
         binding.resultStageLattice.scaleY = 1f
-        binding.resultThemeWinBurst.visibility = if (isWin) View.VISIBLE else View.INVISIBLE
+        binding.resultThemeWinBurst.visibility = if (isReward) View.VISIBLE else View.INVISIBLE
         binding.resultThemeWinBurst.alpha = 0f
         binding.resultThemeWinBurst.scaleX = 1f
         binding.resultThemeWinBurst.scaleY = 1f
-        binding.resultRewardOverlay.visibility = if (isWin) View.VISIBLE else View.INVISIBLE
+        binding.resultRewardOverlay.visibility = if (isReward) View.VISIBLE else View.INVISIBLE
         binding.resultRewardOverlay.alpha = 0f
-        binding.resultRewardSparkle.visibility = if (isWin) View.VISIBLE else View.INVISIBLE
+        binding.resultRewardSparkle.visibility = if (isReward) View.VISIBLE else View.INVISIBLE
         binding.resultRewardSparkle.alpha = 0f
         binding.resultRewardSparkle.scaleX = 1f
         binding.resultRewardSparkle.scaleY = 1f
-        val hasFreeSpinsAward = freeSpinsAwarded > 0
+        val hasFreeSpinsAward = !isFreeSpinsSummary && freeSpinsAwarded > 0
         binding.resultFreeSpinsAwardGroup.visibility = if (hasFreeSpinsAward) View.VISIBLE else View.GONE
         binding.resultFreeSpinsAwardGroup.alpha = if (hasFreeSpinsAward) BONUS_AWARD_SETTLED_ALPHA else 0f
         binding.resultFreeSpinsAwardGroup.contentDescription = if (hasFreeSpinsAward) {
@@ -101,13 +132,20 @@ class ResultDialogFragment : DialogFragment() {
             null
         }
         binding.resultFreeSpinsAwardDigits.setNumber(freeSpinsAwarded, showPlus = true)
-        binding.winAmountGroup.visibility = if (isWin) android.view.View.VISIBLE else android.view.View.GONE
+        binding.winAmountGroup.visibility = if (isFreeSpinsSummary || isReward) View.VISIBLE else View.GONE
         binding.winAmountDigits.layoutParams = binding.winAmountDigits.layoutParams.apply {
             width = winAmount.bitmapAmountWidthPx()
         }
-        binding.winAmountDigits.setNumber(winAmount, showPlus = true)
+        binding.winAmountDigits.setNumber(
+            winAmount,
+            showPlus = !isFreeSpinsSummary || winAmount > 0
+        )
         binding.winAmountDigits.contentDescription = getString(
-            R.string.result_win_amount_accessibility,
+            if (isFreeSpinsSummary) {
+                R.string.free_spins_summary_amount_accessibility
+            } else {
+                R.string.result_win_amount_accessibility
+            },
             winAmount.asCoins()
         )
         binding.closeButton.setOnClickListener { dismiss() }
@@ -118,7 +156,7 @@ class ResultDialogFragment : DialogFragment() {
                 keepGameFullscreen()
                 applyGameDialogDim(RESULT_DIALOG_DIM_AMOUNT)
                 animateResultStage(binding)
-                animateRewardPolish(binding, resultType, freeSpinsAwarded)
+                animateRewardPolish(binding, netOutcome, freeSpinsAwarded)
                 notifyPresentationAfterFirstDraw(binding.root, args.getString(ARG_PRESENTATION_ID).orEmpty())
             }
             window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
@@ -252,12 +290,12 @@ class ResultDialogFragment : DialogFragment() {
 
     private fun animateRewardPolish(
         binding: DialogResultBinding,
-        resultType: ResultType,
+        netOutcome: NetOutcome,
         freeSpinsAwarded: Int
     ) {
         rewardPolishAnimator?.cancel()
         rewardPolishAnimator = null
-        if (resultType == ResultType.Lose) return
+        if (netOutcome != NetOutcome.NetWin && netOutcome != NetOutcome.Bonus) return
         val overlay = binding.resultRewardOverlay
         val themeBurst = binding.resultThemeWinBurst
         val sparkle = binding.resultRewardSparkle
@@ -380,11 +418,28 @@ class ResultDialogFragment : DialogFragment() {
         polishAnimator.start()
     }
 
-    private fun ResultType.badgeImage(): Int {
+    private fun NetOutcome.badgeImage(): Int {
         return when (this) {
-            ResultType.Bonus -> R.drawable.modal_badge_bonus
-            ResultType.Win -> R.drawable.modal_badge_win
-            ResultType.Lose -> R.drawable.modal_badge_loss
+            NetOutcome.Bonus -> R.drawable.modal_badge_bonus
+            NetOutcome.NetWin -> R.drawable.modal_badge_win
+            NetOutcome.Loss,
+            NetOutcome.PartialReturn,
+            NetOutcome.BreakEven -> R.drawable.modal_badge_loss
+        }
+    }
+
+    private fun Bundle.readNetOutcome(winAmount: Int): NetOutcome {
+        getString(ARG_NET_OUTCOME)
+            ?.let { runCatching { NetOutcome.valueOf(it) }.getOrNull() }
+            ?.let { return it }
+        return when (
+            getString(ARG_RESULT_TYPE)
+                ?.let { runCatching { ResultType.valueOf(it) }.getOrNull() }
+        ) {
+            ResultType.Bonus -> NetOutcome.Bonus
+            ResultType.Win -> NetOutcome.NetWin
+            ResultType.Lose -> NetOutcome.Loss
+            null -> if (winAmount > 0) NetOutcome.NetWin else NetOutcome.Loss
         }
     }
 
@@ -453,9 +508,11 @@ class ResultDialogFragment : DialogFragment() {
     companion object {
         private const val QA_PRESENTATION_TAG = "VSlotPresentation"
         private const val QA_MODAL_FIRST_DRAW = "modal_first_draw"
+        private const val ARG_NET_OUTCOME = "netOutcome"
         private const val ARG_RESULT_TYPE = "resultType"
         private const val ARG_WIN_AMOUNT = "winAmount"
         private const val ARG_FREE_SPINS_AWARDED = "freeSpinsAwarded"
+        private const val ARG_FREE_SPINS_SUMMARY = "freeSpinsSummary"
         private const val ARG_SLOT_THEME = "slotTheme"
         private const val ARG_PRESENTATION_ID = "presentationId"
         private const val REWARD_POLISH_DURATION_MS = 1_350L
@@ -481,7 +538,7 @@ class ResultDialogFragment : DialogFragment() {
         const val KEY_PRESENTATION_ID = "presentation_id"
 
         fun newInstance(
-            resultType: ResultType,
+            netOutcome: NetOutcome,
             winAmount: Int = 0,
             freeSpinsAwarded: Int = 0,
             slotTheme: SlotTheme = SlotTheme.Violet,
@@ -489,9 +546,29 @@ class ResultDialogFragment : DialogFragment() {
         ): ResultDialogFragment {
             return ResultDialogFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_RESULT_TYPE, resultType.name)
+                    putString(ARG_NET_OUTCOME, netOutcome.name)
                     putInt(ARG_WIN_AMOUNT, winAmount)
                     putInt(ARG_FREE_SPINS_AWARDED, freeSpinsAwarded)
+                    putString(ARG_SLOT_THEME, slotTheme.name)
+                    putString(ARG_PRESENTATION_ID, presentationId)
+                }
+            }
+        }
+
+        fun newFreeSpinsSummary(
+            totalWin: Int,
+            slotTheme: SlotTheme,
+            presentationId: String
+        ): ResultDialogFragment {
+            return ResultDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putString(
+                        ARG_NET_OUTCOME,
+                        if (totalWin > 0) NetOutcome.NetWin.name else NetOutcome.BreakEven.name
+                    )
+                    putInt(ARG_WIN_AMOUNT, totalWin.coerceAtLeast(0))
+                    putInt(ARG_FREE_SPINS_AWARDED, 0)
+                    putBoolean(ARG_FREE_SPINS_SUMMARY, true)
                     putString(ARG_SLOT_THEME, slotTheme.name)
                     putString(ARG_PRESENTATION_ID, presentationId)
                 }

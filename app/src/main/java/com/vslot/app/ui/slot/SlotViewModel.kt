@@ -1,24 +1,32 @@
 package com.vslot.app.ui.slot
 
+import android.annotation.SuppressLint
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.vslot.app.ProcessSession
 import com.vslot.app.analytics.AnalyticsEvents
 import com.vslot.app.analytics.AnalyticsTracker
 import com.vslot.app.data.PendingSpinSettlement
+import com.vslot.app.data.PendingSpinRecoveryStatus
 import com.vslot.app.data.PlayerState
 import com.vslot.app.data.PlayerStore
 import com.vslot.app.data.SpinReservation
+import com.vslot.app.data.SpinReservationAttempt
 import com.vslot.app.data.SpinSettlementReceipt
 import com.vslot.app.data.retryTransientPersistenceIo
-import com.vslot.app.game.ResultType
+import com.vslot.app.game.NetOutcome
 import com.vslot.app.game.SlotCatalog
 import com.vslot.app.game.SlotConfig
 import com.vslot.app.game.SlotEngine
 import com.vslot.app.game.SlotMathIdentity
 import com.vslot.app.game.SpinResult
 import com.vslot.app.game.checkedSlotMultiply
+import com.vslot.app.game.netOutcome
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineStart
@@ -59,28 +67,62 @@ data class SlotUiState(
     val isResultPending: Boolean = false,
     val isAutoSpinEnabled: Boolean = false,
     val autoSpinsRemaining: Int? = null,
-    val isFreeSpinAutoPlay: Boolean = false
+    val isFreeSpinAutoPlay: Boolean = false,
+    val pendingFreeSpinsTotalWin: Int? = null,
+    val autoSpinStopReason: AutoSpinStopReason? = null,
+    val isSettlementRecoveryBlockedByMath: Boolean = false
 )
 
 sealed class SlotEvent {
-    data class LowCoins(val bonusAvailable: Boolean) : SlotEvent()
+    data class LowCoins(
+        val bonusAvailable: Boolean,
+        val canReduceStake: Boolean
+    ) : SlotEvent()
     data class ResultReady(
         val result: SpinResult,
         val freeSpinsAwarded: Int,
-        val presentationId: String
+        val presentationId: String,
+        val freeSpinsTotalWin: Int? = null
     ) : SlotEvent()
 
     data class PendingPresentation(val slotId: String) : SlotEvent()
+    data class AutoSpinStopped(val reason: AutoSpinStopReason) : SlotEvent()
 }
 
-class SlotViewModel(
+enum class AutoSpinStopReason {
+    LossLimit,
+    BigWin,
+    Bonus
+}
+
+class SlotViewModel private constructor(
     slotId: String,
     private val playerRepository: PlayerStore,
     slotRepository: SlotCatalog,
     private val slotEngine: SlotEngine,
     private val analyticsTracker: AnalyticsTracker,
-    private val monotonicTimeMs: () -> Long = { System.nanoTime() / 1_000_000L }
+    private val monotonicTimeMs: () -> Long,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    @SuppressLint("VisibleForTests")
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    constructor(
+        slotId: String,
+        playerRepository: PlayerStore,
+        slotRepository: SlotCatalog,
+        slotEngine: SlotEngine,
+        analyticsTracker: AnalyticsTracker,
+        monotonicTimeMs: () -> Long = { System.nanoTime() / 1_000_000L }
+    ) : this(
+        slotId,
+        playerRepository,
+        slotRepository,
+        slotEngine,
+        analyticsTracker,
+        monotonicTimeMs,
+        SavedStateHandle()
+    )
+
     private val config = slotRepository.getSlot(slotId)
     private val settlementOwnershipLock = Any()
     private val presentationConsumerId = "${ProcessSession.id}:${UUID.randomUUID()}"
@@ -90,6 +132,8 @@ class SlotViewModel(
     private val lastResult = MutableStateFlow<SpinResult?>(null)
     private val lastResultPresentationId = MutableStateFlow<String?>(null)
     private val isResultPending = MutableStateFlow(false)
+    private val pendingFreeSpinsTotalWin = MutableStateFlow<Int?>(null)
+    private val autoSpinStopReason = MutableStateFlow<AutoSpinStopReason?>(null)
     private val autoPlayState = MutableStateFlow<AutoPlayState>(AutoPlayState.Off)
     private var autoSpinStartJob: Job? = null
     private var autoSpinJob: Job? = null
@@ -99,9 +143,12 @@ class SlotViewModel(
     private val isSpinStartReserved = MutableStateFlow(true)
     private val pendingPresentationId = MutableStateFlow<String?>(null)
     private val isSettlementRecoveryPending = MutableStateFlow(false)
+    private val isSettlementRecoveryBlockedByMath = MutableStateFlow(false)
     private var pendingSettlementRecovery: CommittedSpin? = null
     private var settlementRecoveryJob: Job? = null
     private var settlementRecoveryRetryAttempt = 0
+    private var presentationRecoveryJob: Job? = null
+    private var presentationRecoveryRetryAttempt = 0
     private var presentationAcknowledgementInFlight: String? = null
     private var retryablePresentationAcknowledgementId: String? = null
     private var presentationAcknowledgementRetryJob: Job? = null
@@ -114,13 +161,28 @@ class SlotViewModel(
     private val eventChannel = Channel<SlotEvent>(Channel.BUFFERED)
     val events = eventChannel.receiveAsFlow()
 
+    private val resultPresentationState = combine(
+        isResultPending,
+        pendingFreeSpinsTotalWin,
+        autoSpinStopReason
+    ) { resultPending, freeSpinsTotalWin, stopReason ->
+        ResultPresentationState(resultPending, freeSpinsTotalWin, stopReason)
+    }
+
+    private val settlementRecoveryState = combine(
+        isSettlementRecoveryPending,
+        isSettlementRecoveryBlockedByMath
+    ) { isPending, isBlockedByMath ->
+        SettlementRecoveryUiState(isPending, isBlockedByMath)
+    }
+
     private val baseUiState = combine(
         playerRepository.playerState,
         activeSpin,
         lastResult,
         lastResultPresentationId,
-        isResultPending
-    ) { playerState, activePresentation, result, resultPresentationId, resultPending ->
+        resultPresentationState
+    ) { playerState, activePresentation, result, resultPresentationId, presentationState ->
         SlotUiState(
             config = config,
             playerState = playerState,
@@ -134,7 +196,9 @@ class SlotViewModel(
             lastResult = result,
             lastResultPresentationId = resultPresentationId,
             pendingResult = activePresentation?.result,
-            isResultPending = resultPending
+            isResultPending = presentationState.isResultPending,
+            pendingFreeSpinsTotalWin = presentationState.freeSpinsTotalWin,
+            autoSpinStopReason = presentationState.autoSpinStopReason
         )
     }
 
@@ -143,8 +207,8 @@ class SlotViewModel(
         autoPlayState,
         isSpinStartReserved,
         pendingPresentationId,
-        isSettlementRecoveryPending
-    ) { state, currentAutoPlay, spinStartReserved, presentationId, settlementRecoveryPending ->
+        settlementRecoveryState
+    ) { state, currentAutoPlay, spinStartReserved, presentationId, recoveryState ->
         state.copy(
             isAutoSpinEnabled = currentAutoPlay !is AutoPlayState.Off,
             autoSpinsRemaining = currentAutoPlay.paidBatchOrNull()?.let { batch ->
@@ -153,7 +217,8 @@ class SlotViewModel(
             isFreeSpinAutoPlay = currentAutoPlay is AutoPlayState.FreeSpins,
             isSpinStartReserved = spinStartReserved,
             pendingPresentationId = presentationId,
-            isSettlementRecoveryPending = settlementRecoveryPending
+            isSettlementRecoveryPending = recoveryState.isPending,
+            isSettlementRecoveryBlockedByMath = recoveryState.isBlockedByMath
         )
     }.stateIn(
         scope = viewModelScope,
@@ -167,56 +232,114 @@ class SlotViewModel(
         launchIdempotentPersistence {
             playerRepository.updateLastPlayedSlot(config.id)
         }
-        viewModelScope.launch(start = CoroutineStart.UNDISPATCHED) {
-            restorePendingSpinPresentation()
+        retryPendingPresentationRecovery()
+    }
+
+    fun retryPendingPresentationRecovery() {
+        if (
+            presentationRecoveryJob?.isActive == true ||
+            pendingPresentationId.value != null ||
+            activeSpin.value != null
+        ) return
+        launchPresentationRecovery(delayMs = 0L)
+    }
+
+    private fun launchPresentationRecovery(delayMs: Long) {
+        if (presentationRecoveryJob?.isActive == true) return
+        isSpinStartReserved.value = true
+        presentationRecoveryJob = viewModelScope.launch {
+            var retryRequired = false
+            try {
+                if (delayMs > 0L) delay(delayMs)
+                restorePendingSpinPresentation()
+                presentationRecoveryRetryAttempt = 0
+            } catch (_: IOException) {
+                retryRequired = true
+            } finally {
+                presentationRecoveryJob = null
+                if (retryRequired && !cleared && pendingPresentationId.value == null) {
+                    val retryDelayMs = (PRESENTATION_RECOVERY_RETRY_DELAY_MS shl
+                        presentationRecoveryRetryAttempt.coerceAtMost(
+                            PRESENTATION_RECOVERY_MAX_BACKOFF_SHIFT
+                        )).coerceAtMost(PRESENTATION_RECOVERY_MAX_RETRY_DELAY_MS)
+                    presentationRecoveryRetryAttempt += 1
+                    launchPresentationRecovery(retryDelayMs)
+                } else {
+                    isSpinStartReserved.value = false
+                    if (
+                        pendingPresentationId.value == null &&
+                        isAutoPlayActive() &&
+                        activeSpin.value == null &&
+                        !isResultPending.value
+                    ) {
+                        scheduleNextAutoSpin(AUTO_SPIN_RESUME_DELAY_MS)
+                    }
+                }
+            }
         }
     }
 
     private suspend fun restorePendingSpinPresentation() {
-        try {
-            val settlement = retryTransientPersistenceIo {
-                playerRepository.claimSpinPresentation(config.id, presentationConsumerId)
+        val settlement = retryTransientPersistenceIo {
+            playerRepository.claimSpinPresentation(config.id, presentationConsumerId)
+        }
+        val result = settlement?.visualResult?.takeIf(::isRecoveredResultCompatible)
+        if (settlement != null && result == null) {
+            retryTransientPersistenceIo {
+                playerRepository.acknowledgeSpinPresentation(settlement.id)
             }
-            val result = settlement?.visualResult?.takeIf(::isRecoveredResultCompatible)
-            if (settlement != null && result == null) {
-                retryTransientPersistenceIo {
-                    playerRepository.acknowledgeSpinPresentation(settlement.id)
-                }
+            return
+        }
+        if (settlement == null || result == null) {
+            val recoveryStatus = retryTransientPersistenceIo {
+                playerRepository.pendingSpinRecoveryStatus()
+            }
+            if (recoveryStatus != PendingSpinRecoveryStatus.None) {
+                pauseAutoSpin()
+                isSettlementRecoveryBlockedByMath.value =
+                    recoveryStatus == PendingSpinRecoveryStatus.UnsupportedMath
+                isSettlementRecoveryPending.value = true
                 return
             }
-            if (settlement == null || result == null) {
+            retryTransientPersistenceIo {
                 playerRepository.pendingSpinPresentationSlotId()
-                    ?.takeIf { it != config.id }
-                    ?.let { eventChannel.send(SlotEvent.PendingPresentation(it)) }
-                return
             }
+                ?.takeIf { it != config.id }
+                ?.let { eventChannel.send(SlotEvent.PendingPresentation(it)) }
+            return
+        }
 
-            if (!SlotResultPresentationPolicy.shouldShowResultDialog(result)) {
-                nextAutoSpinDelayAfterPresentation = settlement.id to
-                    inlineResultAutoSpinDelayMs(result)
-            }
-            lastResult.value = result
-            lastResultPresentationId.value = settlement.id
-            pendingPresentationId.value = settlement.id
-            if (SlotResultPresentationPolicy.shouldShowResultDialog(result)) {
-                isResultPending.value = true
-                reconcileDeferredResultDialogPresentation()
-                eventChannel.send(
-                    SlotEvent.ResultReady(result, settlement.freeSpinsAwarded, settlement.id)
+        val restoredPlayerState = playerRepository.playerState.first()
+        val restoredFreeSpinsTotalWin = if (
+            settlement.isFreeSpin &&
+            !restoredPlayerState.hasFreeSpinsForSlot(config.id)
+        ) {
+            restoredPlayerState.freeSpinFeatureTotalWinForSlot(config.id)
+                ?: currentFreeSpinsTotalWin().takeIf { isFreeSpinsSessionTracked() }
+        } else {
+            null
+        }
+        val shouldShowResultDialog = restoredFreeSpinsTotalWin != null ||
+            SlotResultPresentationPolicy.shouldShowResultDialog(result)
+        if (!shouldShowResultDialog) {
+            nextAutoSpinDelayAfterPresentation = settlement.id to
+                inlineResultAutoSpinDelayMs(result)
+        }
+        lastResult.value = result
+        lastResultPresentationId.value = settlement.id
+        pendingPresentationId.value = settlement.id
+        pendingFreeSpinsTotalWin.value = restoredFreeSpinsTotalWin
+        if (shouldShowResultDialog) {
+            isResultPending.value = true
+            reconcileDeferredResultDialogPresentation()
+            eventChannel.send(
+                SlotEvent.ResultReady(
+                    result,
+                    settlement.freeSpinsAwarded,
+                    settlement.id,
+                    restoredFreeSpinsTotalWin
                 )
-            }
-        } catch (_: IOException) {
-            // The durable presentation remains claimable after a later lifecycle restart.
-        } finally {
-            isSpinStartReserved.value = false
-            if (
-                pendingPresentationId.value == null &&
-                isAutoPlayActive() &&
-                activeSpin.value == null &&
-                !isResultPending.value
-            ) {
-                scheduleNextAutoSpin(AUTO_SPIN_RESUME_DELAY_MS)
-            }
+            )
         }
     }
 
@@ -259,8 +382,33 @@ class SlotViewModel(
         }
     }
 
+    fun reduceStakeToAffordable() {
+        if (!canChangeStake()) return
+        viewModelScope.launch {
+            runSerializedStakeUpdate { state ->
+                val target = AffordableStakePolicy.select(
+                    balance = state.coinsBalance,
+                    selectedLines = state.selectedLines,
+                    supportedBets = config.bets,
+                    maxLines = config.paylines
+                ) ?: return@runSerializedStakeUpdate
+                if (target.lineBet != state.selectedBet) {
+                    playerRepository.updateSelectedBet(target.lineBet)
+                }
+                if (target.lines != state.selectedLines) {
+                    playerRepository.updateSelectedLines(target.lines)
+                }
+            }
+        }
+    }
+
     fun spin() {
+        dismissAutoSpinStopNotice()
         spin(autoTriggered = false)
+    }
+
+    fun dismissAutoSpinStopNotice() {
+        autoSpinStopReason.value = null
     }
 
     fun requestSlamStop() {
@@ -293,6 +441,7 @@ class SlotViewModel(
 
     fun startAutoSpin(count: Int) {
         if (count !in SUPPORTED_AUTO_SPIN_COUNTS) return
+        dismissAutoSpinStopNotice()
         if (
             isSpinStartReserved.value ||
             activeSpin.value != null ||
@@ -306,15 +455,13 @@ class SlotViewModel(
         var handedOffToSpin = false
         val startJob = viewModelScope.launch(start = CoroutineStart.LAZY) {
             try {
-                val startsFreeSpinFeature = playerRepository.playerState.first()
-                    .hasFreeSpinsForSlot(config.id)
+                val state = playerRepository.playerState.first()
+                val startsFreeSpinFeature = state.hasFreeSpinsForSlot(config.id)
                 if (generation != autoPlayGeneration) return@launch
                 autoPlayState.value = if (startsFreeSpinFeature) {
-                    AutoPlayState.FreeSpins(
-                        suspendedPaidBatch = AutoPlayState.PaidBatch(total = count, remainingToStart = count)
-                    )
+                    AutoPlayState.FreeSpins(suspendedPaidBatch = null)
                 } else {
-                    AutoPlayState.PaidBatch(total = count, remainingToStart = count)
+                    createPaidAutoSpinBatch(count, state)
                 }
                 if (generation != autoPlayGeneration) return@launch
                 isSpinStartReserved.value = false
@@ -334,12 +481,8 @@ class SlotViewModel(
     }
 
     fun stopAutoSpin() {
-        val preserveAwardedFeature = activeSpin.value?.let { spin ->
-            !spin.isFreeSpin && spin.result.freeSpinsAwarded > 0
-        } == true
         explicitAutoPlayStopRevision += 1
         pauseAutoSpin()
-        if (preserveAwardedFeature) return
         viewModelScope.launch(start = CoroutineStart.UNDISPATCHED) {
             withContext(NonCancellable) {
                 persistIdempotentUpdate {
@@ -373,6 +516,11 @@ class SlotViewModel(
             }
             if (!state.shouldAutoPlayFreeSpinsForSlot(config.id)) return@launch
 
+            if (!isFreeSpinsSessionTracked()) {
+                savedStateHandle[FREE_SPINS_TOTAL_WIN_KEY] =
+                    state.freeSpinFeatureTotalWinForSlot(config.id) ?: 0
+                savedStateHandle[FREE_SPINS_SESSION_TRACKED_KEY] = true
+            }
             autoPlayState.value = AutoPlayState.FreeSpins(suspendedPaidBatch = null)
             if (
                 !isSpinStartReserved.value &&
@@ -409,6 +557,16 @@ class SlotViewModel(
             var wagerModeRetryAutoTriggered: Boolean? = null
             var reservationInvalidated = false
             try {
+                val recoveryStatus = retryTransientPersistenceIo {
+                    playerRepository.pendingSpinRecoveryStatus()
+                }
+                if (recoveryStatus != PendingSpinRecoveryStatus.None) {
+                    pauseAutoSpin()
+                    isSettlementRecoveryBlockedByMath.value =
+                        recoveryStatus == PendingSpinRecoveryStatus.UnsupportedMath
+                    isSettlementRecoveryPending.value = true
+                    return@launch
+                }
                 val state = playerRepository.reconcileFreeSpinStake(
                     slotId = config.id,
                     supportedBets = config.bets,
@@ -429,7 +587,7 @@ class SlotViewModel(
                         reservationInvalidated = true
                         return@withContext null
                     }
-                    val reservation = playerRepository.reserveSpin(
+                    val reservationAttempt = playerRepository.reserveSpinAttempt(
                         slotId = config.id,
                         isFreeSpin = isFreeSpin,
                         lineBet = bet,
@@ -477,6 +635,18 @@ class SlotViewModel(
                             SpinReservation(settlement, committed)
                         }
                     }
+                    val reservation = when (reservationAttempt) {
+                        is SpinReservationAttempt.Reserved -> reservationAttempt.reservation
+                        is SpinReservationAttempt.BlockedByPendingSpin -> {
+                            pauseAutoSpin()
+                            isSettlementRecoveryBlockedByMath.value =
+                                reservationAttempt.recoveryStatus ==
+                                    PendingSpinRecoveryStatus.UnsupportedMath
+                            isSettlementRecoveryPending.value = true
+                            null
+                        }
+                        SpinReservationAttempt.Rejected -> null
+                    }
                     stakeReserved = reservation != null
                     reservation?.value.also { committedSpin = it }
                 }
@@ -488,10 +658,20 @@ class SlotViewModel(
                     if (pendingPresentationSlotId != null) {
                         pauseAutoSpin()
                         if (pendingPresentationSlotId == config.id) {
-                            restorePendingSpinPresentation()
+                            retryPendingPresentationRecovery()
                         } else {
                             eventChannel.send(SlotEvent.PendingPresentation(pendingPresentationSlotId))
                         }
+                        return@launch
+                    }
+                    val recoveryStatus = retryTransientPersistenceIo {
+                        playerRepository.pendingSpinRecoveryStatus()
+                    }
+                    if (recoveryStatus != PendingSpinRecoveryStatus.None) {
+                        pauseAutoSpin()
+                        isSettlementRecoveryBlockedByMath.value =
+                            recoveryStatus == PendingSpinRecoveryStatus.UnsupportedMath
+                        isSettlementRecoveryPending.value = true
                         return@launch
                     }
                     val latestState = playerRepository.playerState.first()
@@ -538,7 +718,17 @@ class SlotViewModel(
                                 "free_spins" to latestState.freeSpinsForSlot(config.id)
                             )
                         )
-                        eventChannel.send(SlotEvent.LowCoins(latestState.isDailyBonusAvailable()))
+                        eventChannel.send(
+                            SlotEvent.LowCoins(
+                                bonusAvailable = latestState.isDailyBonusAvailable(),
+                                canReduceStake = AffordableStakePolicy.select(
+                                    balance = latestState.coinsBalance,
+                                    selectedLines = latestState.selectedLines,
+                                    supportedBets = config.bets,
+                                    maxLines = config.paylines
+                                ) != null
+                            )
+                        )
                     }
                     return@launch
                 }
@@ -738,12 +928,18 @@ class SlotViewModel(
 
         val result = spin.result
         val presentedResult = result
+        val autoSpinStopReason = applyAutoSpinSafeguards(
+            spin = spin,
+            settlement = settlement
+        )
         val reducedMotion = activeSpin.value?.stopMode == SpinStopMode.ReducedMotion
+        val completedFreeSpinsTotalWin = recordFreeSpinWin(spin, settlement)
         val resultPresentationDurationMs = SlotWinFeedbackTiming.resultPresentationDurationMs(
             presentedResult,
             reducedMotion
         )
-        val shouldShowResultDialog = SlotResultPresentationPolicy.shouldShowResultDialog(presentedResult)
+        val shouldShowResultDialog = completedFreeSpinsTotalWin != null ||
+            SlotResultPresentationPolicy.shouldShowResultDialog(presentedResult)
         if (!shouldShowResultDialog) {
             val nextSpinDelayMs = inlineResultAutoSpinDelayMs(
                 presentedResult,
@@ -754,6 +950,7 @@ class SlotViewModel(
         lastResult.value = presentedResult
         lastResultPresentationId.value = spin.settlement.id
         pendingPresentationId.value = spin.settlement.id
+        pendingFreeSpinsTotalWin.value = completedFreeSpinsTotalWin
         if (shouldShowResultDialog) {
             reconcileDeferredResultDialogPresentation()
         }
@@ -781,6 +978,7 @@ class SlotViewModel(
                 "settlement_applied" to settlement.applied,
                 "balance_after" to settlement.updatedState.coinsBalance,
                 "result_type" to result.resultType.name.lowercase(),
+                "net_outcome" to result.netOutcome.name.lowercase(),
                 "auto_spin" to spin.autoTriggered,
                 "free_spin" to spin.isFreeSpin,
                 "free_spins_after" to settlement.freeSpinsAfter,
@@ -799,6 +997,10 @@ class SlotViewModel(
             pauseAutoSpin()
         }
         if (!shouldShowResultDialog) {
+            if (autoSpinStopReason != null) {
+                this@SlotViewModel.autoSpinStopReason.value = autoSpinStopReason
+                eventChannel.send(SlotEvent.AutoSpinStopped(autoSpinStopReason))
+            }
             isResultPending.value = false
             return false
         }
@@ -808,9 +1010,14 @@ class SlotViewModel(
             SlotEvent.ResultReady(
                 presentedResult,
                 settlement.freeSpinsAwarded,
-                spin.settlement.id
+                spin.settlement.id,
+                completedFreeSpinsTotalWin
             )
         )
+        if (autoSpinStopReason != null) {
+            this@SlotViewModel.autoSpinStopReason.value = autoSpinStopReason
+            eventChannel.send(SlotEvent.AutoSpinStopped(autoSpinStopReason))
+        }
         return true
     }
 
@@ -820,11 +1027,9 @@ class SlotViewModel(
             spin.settlement,
             presentationConsumerId
         )
-        val awardedFeature = !spin.isFreeSpin && spin.settlement.freeSpinsAwarded > 0
         if (
             spin.autoTriggered &&
-            spin.explicitStopRevisionAtReservation != explicitAutoPlayStopRevision &&
-            !awardedFeature
+            spin.explicitStopRevisionAtReservation != explicitAutoPlayStopRevision
         ) {
             retryTransientPersistenceIo {
                 playerRepository.updateFreeSpinAutoPlay(config.id, enabled = false)
@@ -844,7 +1049,7 @@ class SlotViewModel(
             receipt.outcomeSettled &&
             freeSpinsAwarded > 0 &&
             !spin.isFreeSpin &&
-            (canResumeAutoPlayAfter(spin) || awardedFeature)
+            canResumeAutoPlayAfter(spin)
         ) {
             startFreeSpinsFeature()
         }
@@ -861,6 +1066,8 @@ class SlotViewModel(
     private fun startFreeSpinsFeature() {
         autoSpinJob?.cancel()
         autoSpinJob = null
+        savedStateHandle[FREE_SPINS_TOTAL_WIN_KEY] = 0
+        savedStateHandle[FREE_SPINS_SESSION_TRACKED_KEY] = true
         autoPlayState.value = autoPlayState.value.asFreeSpinsState()
     }
 
@@ -884,11 +1091,20 @@ class SlotViewModel(
         }
         val dismissedPresentationId = presentationId.takeIf(String::isNotBlank)
             ?: presentedPresentationId
+        val completedFreeSpinsSummary = pendingFreeSpinsTotalWin.value != null
         deferredResultDialogPresentedId = null
         isResultPending.value = false
+        if (completedFreeSpinsSummary) {
+            pendingFreeSpinsTotalWin.value = null
+            savedStateHandle.remove<Int>(FREE_SPINS_TOTAL_WIN_KEY)
+            savedStateHandle.remove<Boolean>(FREE_SPINS_SESSION_TRACKED_KEY)
+        }
         if (
             dismissedPresentationId != null &&
-            lastResult.value?.let(SlotResultPresentationPolicy::shouldShowResultDialog) == true
+            (
+                completedFreeSpinsSummary ||
+                    lastResult.value?.let(SlotResultPresentationPolicy::shouldShowResultDialog) == true
+                )
         ) {
             acknowledgeSpinPresentation(dismissedPresentationId)
             if (
@@ -902,8 +1118,31 @@ class SlotViewModel(
         scheduleNextAutoSpin()
     }
 
+    private fun recordFreeSpinWin(spin: CommittedSpin, settlement: SpinSettlement): Int? {
+        if (!spin.isFreeSpin || !settlement.outcomeSettled) return null
+        val updatedTotal = settlement.updatedState.freeSpinFeatureTotalWinForSlot(config.id)
+            ?: currentFreeSpinsTotalWin().toLong()
+                .plus(spin.result.winAmount.coerceAtLeast(0).toLong())
+                .coerceAtMost(Int.MAX_VALUE.toLong())
+                .toInt()
+        savedStateHandle[FREE_SPINS_TOTAL_WIN_KEY] = updatedTotal
+        savedStateHandle[FREE_SPINS_SESSION_TRACKED_KEY] = true
+        return updatedTotal.takeIf { settlement.freeSpinsAfter <= 0 }
+    }
+
+    private fun currentFreeSpinsTotalWin(): Int {
+        return savedStateHandle.get<Int>(FREE_SPINS_TOTAL_WIN_KEY)?.coerceAtLeast(0) ?: 0
+    }
+
+    private fun isFreeSpinsSessionTracked(): Boolean {
+        return savedStateHandle.get<Boolean>(FREE_SPINS_SESSION_TRACKED_KEY) == true
+    }
+
     fun onSpinPresentationRendered(id: String) {
-        if (lastResult.value?.let(SlotResultPresentationPolicy::shouldShowResultDialog) == true) return
+        if (
+            pendingFreeSpinsTotalWin.value != null ||
+            lastResult.value?.let(SlotResultPresentationPolicy::shouldShowResultDialog) == true
+        ) return
         acknowledgeSpinPresentation(id)
     }
 
@@ -916,7 +1155,10 @@ class SlotViewModel(
         autoSpinJob = null
         isResultPending.value = true
         if (currentPresentationId == null) return
-        if (lastResult.value?.let(SlotResultPresentationPolicy::shouldShowResultDialog) != true) return
+        if (
+            pendingFreeSpinsTotalWin.value == null &&
+            lastResult.value?.let(SlotResultPresentationPolicy::shouldShowResultDialog) != true
+        ) return
         acknowledgeSpinPresentation(id)
     }
 
@@ -1144,11 +1386,44 @@ class SlotViewModel(
         result: SpinResult,
         reducedMotion: Boolean = false
     ): Long {
-        return if (result.resultType == ResultType.Win) {
-            SlotWinFeedbackTiming.resultPresentationDurationMs(result, reducedMotion)
-        } else {
-            AUTO_SPIN_NEXT_DELAY_MS
+        return SlotWinFeedbackTiming.inlineAutoSpinDelayMs(
+            result = result,
+            reducedMotion = reducedMotion,
+            noPayoutDelayMs = AUTO_SPIN_NEXT_DELAY_MS
+        )
+    }
+
+    private fun createPaidAutoSpinBatch(count: Int, state: PlayerState): AutoPlayState.PaidBatch {
+        val lineBet = state.selectedBet.coerceToSupportedBet()
+        val lines = state.selectedLines.coerceToSupportedLines()
+        val totalBet = checkedSlotMultiply(lineBet, lines, "Autospin total bet")
+        return AutoPlayState.PaidBatch(
+            total = count,
+            remainingToStart = count,
+            startingBalance = state.coinsBalance,
+            lossLimitCoins = totalBet.toLong() * AUTO_SPIN_LOSS_LIMIT_BETS
+        )
+    }
+
+    private fun applyAutoSpinSafeguards(
+        spin: CommittedSpin,
+        settlement: SpinSettlement
+    ): AutoSpinStopReason? {
+        if (!spin.autoTriggered || spin.isFreeSpin) return null
+        val paidBatch = autoPlayState.value.paidBatchOrNull() ?: return null
+        val reason = when {
+            spin.result.netOutcome == NetOutcome.Bonus -> AutoSpinStopReason.Bonus
+            SlotResultPresentationPolicy.isBigWin(spin.result) -> AutoSpinStopReason.BigWin
+            paidBatch.lossFrom(settlement.updatedState.coinsBalance) >= paidBatch.lossLimitCoins ->
+                AutoSpinStopReason.LossLimit
+            else -> return null
         }
+        if (reason == AutoSpinStopReason.Bonus && settlement.freeSpinsAfter > 0) {
+            autoPlayState.value = AutoPlayState.FreeSpins(suspendedPaidBatch = null)
+        } else {
+            pauseAutoSpin()
+        }
+        return reason
     }
 
     private fun paidAutoSpinBatchExhausted(): Boolean {
@@ -1210,8 +1485,14 @@ class SlotViewModel(
         const val PRESENTATION_ACKNOWLEDGEMENT_RETRY_DELAY_MS = 350L
         const val PRESENTATION_ACKNOWLEDGEMENT_MAX_RETRY_DELAY_MS = 30_000L
         const val PRESENTATION_ACKNOWLEDGEMENT_MAX_BACKOFF_SHIFT = 7
+        const val PRESENTATION_RECOVERY_RETRY_DELAY_MS = 350L
+        const val PRESENTATION_RECOVERY_MAX_RETRY_DELAY_MS = 30_000L
+        const val PRESENTATION_RECOVERY_MAX_BACKOFF_SHIFT = 7
         const val RESERVATION_STATE_RETRY_ATTEMPTS = 1
         const val DEFAULT_AUTO_SPIN_COUNT = 10
+        const val AUTO_SPIN_LOSS_LIMIT_BETS = 10L
+        const val FREE_SPINS_TOTAL_WIN_KEY = "free_spins_total_win"
+        const val FREE_SPINS_SESSION_TRACKED_KEY = "free_spins_session_tracked"
         val SUPPORTED_AUTO_SPIN_COUNTS = setOf(10, 25, 50)
     }
 
@@ -1243,8 +1524,14 @@ class SlotViewModel(
         data object Off : AutoPlayState
         data class PaidBatch(
             val total: Int,
-            val remainingToStart: Int
-        ) : AutoPlayState
+            val remainingToStart: Int,
+            val startingBalance: Long,
+            val lossLimitCoins: Long
+        ) : AutoPlayState {
+            fun lossFrom(currentBalance: Long): Long {
+                return (startingBalance - currentBalance).coerceAtLeast(0L)
+            }
+        }
 
         data class FreeSpins(
             val suspendedPaidBatch: PaidBatch?
@@ -1270,6 +1557,17 @@ class SlotViewModel(
         val freeSpinsAfter: Int,
         val freeSpinsAwarded: Int,
         val levelXpAwarded: Int
+    )
+
+    private data class ResultPresentationState(
+        val isResultPending: Boolean,
+        val freeSpinsTotalWin: Int?,
+        val autoSpinStopReason: AutoSpinStopReason?
+    )
+
+    private data class SettlementRecoveryUiState(
+        val isPending: Boolean,
+        val isBlockedByMath: Boolean
     )
 
     override fun onCleared() {
@@ -1305,8 +1603,17 @@ class SlotViewModel(
         private val analyticsTracker: AnalyticsTracker
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SlotViewModel(slotId, playerRepository, slotRepository, slotEngine, analyticsTracker) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+            return SlotViewModel(
+                slotId,
+                playerRepository,
+                slotRepository,
+                slotEngine,
+                analyticsTracker,
+                monotonicTimeMs = { System.nanoTime() / 1_000_000L },
+                savedStateHandle = extras.createSavedStateHandle()
+            ) as T
         }
     }
+
 }

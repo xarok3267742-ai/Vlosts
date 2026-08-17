@@ -42,6 +42,8 @@ class CiWorkflowContractTest {
         assertTrue(productionRelease.contains("bundletool-validation.txt"))
         assertTrue(productionRelease.contains("bundletool-base-manifest.xml"))
         assertTrue(productionRelease.contains("release-16k-page-size.txt"))
+        assertTrue(productionRelease.contains("released-slot-math-v5-release-aab.txt"))
+        assertTrue(productionRelease.contains("released-slot-math-v5-release-universal-apk.txt"))
         assertTrue(productionRelease.contains("release-app-set-id-dex-validation.txt"))
         assertTrue(productionRelease.contains("data-safety-raw-evidence.zip"))
         assertTrue(productionRelease.contains("physical-samsung/raw-evidence.zip"))

@@ -101,17 +101,6 @@
                     android:layout_marginTop="16dp"
                     android:minHeight="142dp">
 
-                    <ImageView
-                        android:id="@+id/disclaimerBody"
-                        android:layout_width="match_parent"
-                        android:layout_height="142dp"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/disclaimer_body"
-                        android:paddingStart="2dp"
-                        android:paddingEnd="2dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/body_disclaimer" />
-
                     <TextView
                         android:id="@+id/disclaimerBodyLargeText"
                         style="@style/VSlotAccessibleCopy"
@@ -122,8 +111,7 @@
                         android:paddingTop="8dp"
                         android:paddingEnd="8dp"
                         android:paddingBottom="8dp"
-                        android:text="@string/disclaimer_body"
-                        android:visibility="gone" />
+                        android:text="@string/disclaimer_body" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -164,7 +152,8 @@
                             android:layout_gravity="center"
                             android:contentDescription="@null"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/label_disclaimer_checkbox" />
+                            android:src="@drawable/label_disclaimer_checkbox"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/disclaimerCheckboxLargeText"
@@ -179,7 +168,7 @@
                             android:paddingEnd="4dp"
                             android:paddingBottom="8dp"
                             android:text="@string/disclaimer_checkbox"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
                     </FrameLayout>
                 </LinearLayout>
 

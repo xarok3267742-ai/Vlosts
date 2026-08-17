@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.DialogFragment
 import com.vslot.app.AppGraph
@@ -20,7 +21,6 @@ import com.vslot.app.R
 import com.vslot.app.databinding.DialogPaytableBinding
 import com.vslot.app.game.SlotConfig
 import com.vslot.app.game.SlotTheme
-import com.vslot.app.ui.widget.BitmapNumberView
 import com.vslot.app.ui.slot.SlotSymbolResources
 import kotlin.math.roundToInt
 
@@ -50,12 +50,7 @@ class PaytableDialogFragment : DialogFragment() {
         binding.paytableOddsHeaderGlow.setImageResource(paytableOddsHeaderGlowDrawable())
         binding.paytableTitle.contentDescription = title
         binding.paytableBetsGroup.contentDescription = getString(R.string.paytable_bets_content_description, bets)
-        binding.paytableBetsDigits.setCharacters(
-            compactBets,
-            spacingPx = 0,
-            compactSeparators = true,
-            fixedGlyphBaseWidthDp = 8f
-        )
+        binding.paytableBetsDigits.text = compactBets
         binding.paytableBetsDigits.contentDescription = bets
         binding.paytablePaylineGuide.setImageResource(paytablePaylineGuideDrawable())
         val footerText = paytableFooterText()
@@ -398,42 +393,17 @@ class PaytableDialogFragment : DialogFragment() {
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
             addView(
                 ImageView(requireContext()).apply {
-                    setImageResource(R.drawable.symbol_bonus_scatter_halo)
-                    contentDescription = null
-                    importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
-                    scaleType = ImageView.ScaleType.FIT_CENTER
-                    alpha = PAYTABLE_BONUS_SYMBOL_HALO_ALPHA
-                    adjustViewBounds = false
-                },
-                FrameLayout.LayoutParams(50.dpPx(), 50.dpPx()).apply {
-                    gravity = Gravity.CENTER
-                }
-            )
-            addView(
-                ImageView(requireContext()).apply {
                     setImageResource(SlotSymbolResources.image(config.theme, config.scatter))
                     contentDescription = null
                     importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
                     scaleType = ImageView.ScaleType.FIT_CENTER
                     adjustViewBounds = false
                 },
-                FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            )
-            addView(
-                ImageView(requireContext()).apply {
-                    setImageResource(R.drawable.modal_badge_bonus)
-                    contentDescription = null
-                    importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
-                    scaleType = ImageView.ScaleType.FIT_CENTER
-                    adjustViewBounds = false
-                },
-                FrameLayout.LayoutParams(
-                    PAYTABLE_BONUS_BADGE_SIZE_DP.dpPx(),
-                    PAYTABLE_BONUS_BADGE_SIZE_DP.dpPx()
-                ).apply {
-                    gravity = Gravity.BOTTOM or Gravity.START
-                    leftMargin = PAYTABLE_BONUS_BADGE_LEFT_MARGIN_DP.dpPx()
-                    bottomMargin = PAYTABLE_BONUS_BADGE_BOTTOM_MARGIN_DP.dpPx()
+                FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply {
+                    marginStart = 5.dpPx()
+                    marginEnd = 5.dpPx()
+                    topMargin = 3.dpPx()
+                    bottomMargin = 3.dpPx()
                 }
             )
         }
@@ -462,7 +432,7 @@ class PaytableDialogFragment : DialogFragment() {
         contentDescriptionSuffix: String,
         compactBonusRow: Boolean = false
     ): FrameLayout {
-        val value = if (multiplier == null) "-" else "${multiplier}x"
+        val value = if (multiplier == null) "—" else "${multiplier}×"
         return FrameLayout(requireContext()).apply {
             contentDescription = getString(
                 R.string.paytable_payout_accessibility,
@@ -473,16 +443,13 @@ class PaytableDialogFragment : DialogFragment() {
             )
             layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f)
             addView(
-                BitmapNumberView(requireContext()).apply {
-                    if (compactBonusRow) {
-                        setCharacters(
-                            value = value,
-                            spacingPx = 0,
-                            compactSeparators = true
-                        )
-                    } else {
-                        setCharacters(value)
-                    }
+                TextView(requireContext()).apply {
+                    text = value
+                    gravity = Gravity.CENTER
+                    includeFontPadding = false
+                    setTextColor(resources.getColor(R.color.accessible_copy_primary, requireContext().theme))
+                    textSize = if (compactBonusRow) 15f else 17f
+                    setTypeface(typeface, android.graphics.Typeface.BOLD)
                 },
                 FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -496,9 +463,9 @@ class PaytableDialogFragment : DialogFragment() {
         }
     }
 
-    private fun BitmapNumberView.setMultiplierHeader(count: Int) {
-        val value = "${count}x"
-        setCharacters(value)
+    private fun TextView.setMultiplierHeader(count: Int) {
+        val value = "${count}×"
+        text = value
         contentDescription = value
     }
 
@@ -528,14 +495,10 @@ class PaytableDialogFragment : DialogFragment() {
     companion object {
         private const val ARG_SLOT_ID = "slotId"
         private const val PAYTABLE_LATTICE_POLISH_DURATION_MS = 720L
-        private const val PAYTABLE_LATTICE_SETTLED_ALPHA = 0.72f
-        private const val PAYTABLE_BONUS_SYMBOL_HALO_ALPHA = 0.84f
+        private const val PAYTABLE_LATTICE_SETTLED_ALPHA = 0.42f
         private const val PAYTABLE_BONUS_LANE_POLISH_DURATION_MS = 680L
         private const val PAYTABLE_BONUS_LANE_SETTLED_ALPHA = 0.32f
         private const val PAYTABLE_BONUS_LANE_PEAK_ALPHA = 0.68f
-        private const val PAYTABLE_BONUS_BADGE_SIZE_DP = 24
-        private const val PAYTABLE_BONUS_BADGE_LEFT_MARGIN_DP = 12
-        private const val PAYTABLE_BONUS_BADGE_BOTTOM_MARGIN_DP = 3
         private const val PAYTABLE_BONUS_MULTIPLIER_HEIGHT_DP = 28
         private const val PAYTABLE_MULTIPLIER_HORIZONTAL_MARGIN_DP = 2
         private const val STACKED_COPY_FONT_SCALE = 1.3f

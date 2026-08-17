@@ -41,7 +41,7 @@ class DisclaimerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         disclaimerAccepted = savedInstanceState?.getBoolean(KEY_DISCLAIMER_SELECTED) ?: false
         ViewCompat.setAccessibilityHeading(binding.disclaimerTitle, true)
-        bindScalableCopy()
+        bindScalableCheckboxCopy()
         ViewCompat.setAccessibilityDelegate(
             binding.disclaimerCheckRow,
             object : AccessibilityDelegateCompat() {
@@ -88,22 +88,9 @@ class DisclaimerFragment : Fragment() {
         }
     }
 
-    private fun bindScalableCopy() {
-        val useScalableCopy = resources.configuration.fontScale > DEFAULT_FONT_SCALE
-        binding.disclaimerBody.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        binding.disclaimerBodyLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
-        binding.disclaimerCheckboxLabelImage.visibility = if (useScalableCopy) View.GONE else View.VISIBLE
-        binding.disclaimerCheckboxLargeText.visibility = if (useScalableCopy) View.VISIBLE else View.GONE
-        binding.disclaimerBody.importantForAccessibility = if (useScalableCopy) {
-            View.IMPORTANT_FOR_ACCESSIBILITY_NO
-        } else {
-            View.IMPORTANT_FOR_ACCESSIBILITY_YES
-        }
-        binding.disclaimerBodyLargeText.importantForAccessibility = if (useScalableCopy) {
-            View.IMPORTANT_FOR_ACCESSIBILITY_YES
-        } else {
-            View.IMPORTANT_FOR_ACCESSIBILITY_NO
-        }
+    private fun bindScalableCheckboxCopy() {
+        binding.disclaimerCheckboxLabelImage.visibility = View.GONE
+        binding.disclaimerCheckboxLargeText.visibility = View.VISIBLE
     }
 
     private fun toggleDisclaimerAccepted() {
@@ -192,7 +179,6 @@ class DisclaimerFragment : Fragment() {
         const val ACCEPT_GLOW_SETTLED_ALPHA = 0.28f
         const val ACCEPT_GLOW_PEAK_ALPHA = 0.58f
         const val CONTINUE_LABEL_DISABLED_ALPHA = 0.48f
-        const val DEFAULT_FONT_SCALE = 1.0f
         const val KEY_DISCLAIMER_SELECTED = "disclaimer_selected"
     }
 }

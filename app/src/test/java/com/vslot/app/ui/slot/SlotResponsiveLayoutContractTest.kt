@@ -23,12 +23,16 @@ class SlotResponsiveLayoutContractTest {
         assertEquals("0dp", scroll.attr("layout_height"))
         assertEquals("1", scroll.attr("layout_weight"))
         assertEquals("true", scroll.attr("fillViewport"))
+        assertEquals("@+id/slotScrollContent", scrollContent.attr("id"))
         assertEquals("wrap_content", scrollContent.attr("layout_height"))
-        assertEquals("center_vertical", scrollContent.attr("gravity"))
+        assertEquals("center_horizontal", scrollContent.attr("gravity"))
+        assertEquals("8dp", slotContent.attr("paddingStart"))
+        assertEquals("8dp", slotContent.attr("paddingEnd"))
         assertEquals("com.vslot.app.ui.widget.SlotMachineLayout", machineStage.tagName)
-        assertEquals("wrap_content", machineStage.attr("layout_height"))
+        assertEquals("0dp", machineStage.attr("layout_height"))
+        assertEquals("1", machineStage.attr("layout_weight"))
         assertEquals("240dp", machineStage.attr("minHeight"))
-        assertEquals("238dp", console.attr("layout_height"))
+        assertEquals("270dp", console.attr("layout_height"))
         assertTrue("The reels must be reachable through the portrait scroll host", scroll.contains(machineStage))
         assertTrue("The full console must be reachable through the portrait scroll host", scroll.contains(console))
 
@@ -41,8 +45,8 @@ class SlotResponsiveLayoutContractTest {
             console.dp("layout_marginTop") +
             console.dp("layout_height")
 
-        assertEquals(358, viewportHeight)
-        assertEquals(492, minimumContentHeight)
+        assertEquals(402, viewportHeight)
+        assertEquals(524, minimumContentHeight)
         assertTrue("Short portrait content must overflow instead of shrinking the reels", minimumContentHeight > viewportHeight)
         assertTrue("The viewport must be tall enough to expose the complete console at the scroll end", viewportHeight >= console.dp("layout_height"))
     }

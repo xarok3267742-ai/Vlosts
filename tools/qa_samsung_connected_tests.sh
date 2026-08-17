@@ -103,7 +103,9 @@ fi
 conflicting_qa_pids() {
   ps -axo pid=,command= | awk -v serial="$serial" '
     index($0, serial) &&
-    ($0 ~ /qa_release_aab_samsung/ || $0 ~ /dragon-slots-qa/) &&
+    # Keep the target text split so this awk process cannot match its own argv
+    # on Linux while the equivalent external QA process names still match.
+    ($0 ~ /qa[_]release_aab_samsung/ || $0 ~ /dragon[-]slots-qa/) &&
     $0 !~ /tools\/qa_samsung_connected_tests\.sh/ {
       print $1
     }

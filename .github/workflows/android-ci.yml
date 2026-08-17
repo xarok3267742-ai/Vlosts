@@ -140,10 +140,13 @@ jobs:
           test -x "$SDKMANAGER"
           grep -Fxq 'Pkg.Revision=20.0' "$TOOLS_PROPERTIES"
           grep -Fxq 'Pkg.Path=cmdline-tools;20.0' "$TOOLS_PROPERTIES"
-          "$SDKMANAGER" 'platforms;android-36' 'build-tools;36.0.0'
+          "$SDKMANAGER" 'platforms;android-36' 'build-tools;36.0.0' 'emulator'
+          EMULATOR_PROPERTIES="$ANDROID_HOME/emulator/source.properties"
           test -f "$ANDROID_HOME/platforms/android-36/android.jar"
           test -x "$ANDROID_HOME/build-tools/36.0.0/aapt2"
           test -x "$ANDROID_HOME/emulator/emulator"
+          grep -Fxq 'Pkg.Revision=37.1.11' "$EMULATOR_PROPERTIES"
+          grep -Fxq 'Pkg.Path=emulator' "$EMULATOR_PROPERTIES"
 
       - name: Enable Android emulator acceleration
         shell: bash
@@ -232,10 +235,13 @@ jobs:
           test -x "$SDKMANAGER"
           grep -Fxq 'Pkg.Revision=20.0' "$TOOLS_PROPERTIES"
           grep -Fxq 'Pkg.Path=cmdline-tools;20.0' "$TOOLS_PROPERTIES"
-          "$SDKMANAGER" 'platforms;android-36' 'build-tools;36.0.0'
+          "$SDKMANAGER" 'platforms;android-36' 'build-tools;36.0.0' 'emulator'
+          EMULATOR_PROPERTIES="$ANDROID_HOME/emulator/source.properties"
           test -f "$ANDROID_HOME/platforms/android-36/android.jar"
           test -x "$ANDROID_HOME/build-tools/36.0.0/aapt2"
           test -x "$ANDROID_HOME/emulator/emulator"
+          grep -Fxq 'Pkg.Revision=37.1.11' "$EMULATOR_PROPERTIES"
+          grep -Fxq 'Pkg.Path=emulator' "$EMULATOR_PROPERTIES"
 
       - name: Enable Android emulator acceleration
         shell: bash
@@ -322,10 +328,13 @@ jobs:
           test -x "$SDKMANAGER"
           grep -Fxq 'Pkg.Revision=20.0' "$TOOLS_PROPERTIES"
           grep -Fxq 'Pkg.Path=cmdline-tools;20.0' "$TOOLS_PROPERTIES"
-          "$SDKMANAGER" 'platforms;android-36' 'build-tools;36.0.0'
+          "$SDKMANAGER" 'platforms;android-36' 'build-tools;36.0.0' 'emulator'
+          EMULATOR_PROPERTIES="$ANDROID_HOME/emulator/source.properties"
           test -f "$ANDROID_HOME/platforms/android-36/android.jar"
           test -x "$ANDROID_HOME/build-tools/36.0.0/aapt2"
           test -x "$ANDROID_HOME/emulator/emulator"
+          grep -Fxq 'Pkg.Revision=37.1.11' "$EMULATOR_PROPERTIES"
+          grep -Fxq 'Pkg.Path=emulator' "$EMULATOR_PROPERTIES"
 
       - name: Enable Android emulator acceleration
         shell: bash

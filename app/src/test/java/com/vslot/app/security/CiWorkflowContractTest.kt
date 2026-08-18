@@ -131,6 +131,7 @@ class CiWorkflowContractTest {
         assertTrue(sdkBoundaries.contains("api: [26, 36]"))
         assertTrue(sdkBoundaries.contains("apiLevel = \${{ matrix.api }}"))
         assertTrue(sdkBoundaries.contains(":app:ciPixel2Api\${{ matrix.api }}QaAndroidTest"))
+        assertTrue(sdkBoundaries.contains("-Pandroid.experimental.testOptions.managedDevices.allowOldApiLevelDevices=true"))
         assertTrue(sdkBoundaries.contains("testInstrumentationRunnerArguments.class="))
 
         assertTrue(api35Full.contains("github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'"))

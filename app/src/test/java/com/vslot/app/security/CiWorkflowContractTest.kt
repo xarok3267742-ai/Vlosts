@@ -131,6 +131,8 @@ class CiWorkflowContractTest {
 
         assertTrue(api35Smoke.contains("github.event_name == 'pull_request' || github.event_name == 'push'"))
         assertTrue(api35Smoke.contains("apiLevel = 35"))
+        assertTrue(api35Smoke.contains("systemImageSource = \"aosp\""))
+        assertTrue(api35Smoke.contains("testedAbi = \"x86_64\""))
         assertTrue(api35Smoke.contains(":app:ciPixel2Api35QaAndroidTest"))
         assertTrue(api35Smoke.contains("testInstrumentationRunnerArguments.class="))
         assertTrue(api35Smoke.contains(firstLaunchSmoke))
@@ -138,6 +140,8 @@ class CiWorkflowContractTest {
         assertTrue(sdkBoundaries.contains("github.event_name == 'push'"))
         assertTrue(sdkBoundaries.contains("api: [26, 36]"))
         assertTrue(sdkBoundaries.contains("apiLevel = \${{ matrix.api }}"))
+        assertTrue(sdkBoundaries.contains("systemImageSource = (\${{ matrix.api }} == 36) ? \"aosp-atd\" : \"aosp\""))
+        assertTrue(sdkBoundaries.contains("testedAbi = \"x86_64\""))
         assertTrue(sdkBoundaries.contains(":app:ciPixel2Api\${{ matrix.api }}QaAndroidTest"))
         assertTrue(sdkBoundaries.contains("-Pandroid.experimental.testOptions.managedDevices.allowOldApiLevelDevices=true"))
         assertTrue(sdkBoundaries.contains("testInstrumentationRunnerArguments.class="))
@@ -155,6 +159,8 @@ class CiWorkflowContractTest {
 
         assertTrue(api35Full.contains("github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'"))
         assertTrue(api35Full.contains("apiLevel = 35"))
+        assertTrue(api35Full.contains("systemImageSource = \"aosp\""))
+        assertTrue(api35Full.contains("testedAbi = \"x86_64\""))
         assertTrue(api35Full.contains(":app:ciPixel2Api35QaAndroidTest"))
         assertTrue(api35Full.contains("notClass=com.vslot.app.SlotFrameMetricsTest"))
     }

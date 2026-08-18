@@ -168,6 +168,7 @@ jobs:
                           device = "Pixel 2"
                           apiLevel = 35
                           systemImageSource = "aosp"
+                          testedAbi = "x86_64"
                       }
                   }
               }
@@ -262,7 +263,8 @@ jobs:
                       android.testOptions.managedDevices.localDevices.create("ciPixel2Api${{ matrix.api }}") {
                           device = "Pixel 2"
                           apiLevel = ${{ matrix.api }}
-                          systemImageSource = "aosp"
+                          systemImageSource = (${{ matrix.api }} == 36) ? "aosp-atd" : "aosp"
+                          testedAbi = "x86_64"
                       }
                   }
               }
@@ -357,6 +359,7 @@ jobs:
                           device = "Pixel 2"
                           apiLevel = 35
                           systemImageSource = "aosp"
+                          testedAbi = "x86_64"
                       }
                   }
               }

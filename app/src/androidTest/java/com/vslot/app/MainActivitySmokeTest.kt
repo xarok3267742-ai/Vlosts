@@ -384,6 +384,8 @@ class MainActivitySmokeTest {
             clickView(R.id.paytableButton)
             waitForDisplayed(R.id.paytablePaylineGuideLargeText)
             captureStoreScreenshot("03-paytable.png")
+            scrollViewIntoView(R.id.closeButton)
+            assertViewFullyVisible(R.id.closeButton)
             clickView(R.id.closeButton)
             clickView(R.id.backButton)
 

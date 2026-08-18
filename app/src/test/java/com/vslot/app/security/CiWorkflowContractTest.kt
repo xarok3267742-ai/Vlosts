@@ -114,6 +114,10 @@ class CiWorkflowContractTest {
 
     @Test
     fun runtimeInstrumentationCoversSdkBoundariesAndKeepsApi35Qa() {
+        val firstLaunchSmoke =
+            "com.vslot.app.MainActivitySmokeTest#firstLaunchShowsDisclaimerAndOpensDailyBonusOnlyAfterTap"
+        val instrumentationSource =
+            Path.of("src/androidTest/java/com/vslot/app/MainActivitySmokeTest.kt").readText()
         val api35Smoke = androidCi
             .substringAfter("  managed-device-smoke:")
             .substringBefore("\n  managed-device-sdk-boundaries:")
@@ -121,11 +125,15 @@ class CiWorkflowContractTest {
             .substringAfter("  managed-device-sdk-boundaries:")
             .substringBefore("\n  managed-device-full:")
         val api35Full = androidCi.substringAfter("  managed-device-full:")
+        val smokeSelector = Regex("com\\.vslot\\.app\\.MainActivitySmokeTest#([A-Za-z0-9_]+)")
+        val api35SmokeTests = smokeSelector.findAll(api35Smoke).map { it.groupValues[1] }.toList()
+        val sdkBoundarySmokeTests = smokeSelector.findAll(sdkBoundaries).map { it.groupValues[1] }.toList()
 
         assertTrue(api35Smoke.contains("github.event_name == 'pull_request' || github.event_name == 'push'"))
         assertTrue(api35Smoke.contains("apiLevel = 35"))
         assertTrue(api35Smoke.contains(":app:ciPixel2Api35QaAndroidTest"))
         assertTrue(api35Smoke.contains("testInstrumentationRunnerArguments.class="))
+        assertTrue(api35Smoke.contains(firstLaunchSmoke))
 
         assertTrue(sdkBoundaries.contains("github.event_name == 'push'"))
         assertTrue(sdkBoundaries.contains("api: [26, 36]"))
@@ -133,6 +141,17 @@ class CiWorkflowContractTest {
         assertTrue(sdkBoundaries.contains(":app:ciPixel2Api\${{ matrix.api }}QaAndroidTest"))
         assertTrue(sdkBoundaries.contains("-Pandroid.experimental.testOptions.managedDevices.allowOldApiLevelDevices=true"))
         assertTrue(sdkBoundaries.contains("testInstrumentationRunnerArguments.class="))
+        assertTrue(sdkBoundaries.contains(firstLaunchSmoke))
+
+        assertEquals(5, api35SmokeTests.size)
+        assertEquals(api35SmokeTests, sdkBoundarySmokeTests)
+        api35SmokeTests.forEach { methodName ->
+            assertTrue(
+                "Managed-device smoke method is missing: $methodName",
+                instrumentationSource.contains("fun $methodName()")
+            )
+        }
+        assertFalse(androidCi.contains("firstLaunchShowsImageDisclaimerAndRoutesAfterAcceptance"))
 
         assertTrue(api35Full.contains("github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'"))
         assertTrue(api35Full.contains("apiLevel = 35"))

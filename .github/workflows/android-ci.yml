@@ -182,7 +182,7 @@ jobs:
             --init-script "$RUNNER_TEMP/v-slot-managed-device.init.gradle" \
             -Pandroid.aapt2FromMavenOverride="$ANDROID_HOME/build-tools/36.0.0/aapt2" \
             -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect \
-            -Pandroid.testInstrumentationRunnerArguments.class=com.vslot.app.MainActivitySmokeTest#firstLaunchShowsImageDisclaimerAndRoutesAfterAcceptance,com.vslot.app.MainActivitySmokeTest#homeNavigationOpensSlotPaytableSettingsAndPrivacyFallback,com.vslot.app.MainActivitySmokeTest#directRomanSlotKeepsLinesTotalBetAndAutoSpinControlsStableAfterRecreate,com.vslot.app.MainActivitySmokeTest#freeSpinsModeUsesFreeSpinCopyAndLocksStakeControls,com.vslot.app.MainActivitySmokeTest#recreatingActivityDuringPaidSpinSettlesExactlyOnce \
+            -Pandroid.testInstrumentationRunnerArguments.class=com.vslot.app.MainActivitySmokeTest#firstLaunchShowsDisclaimerAndOpensDailyBonusOnlyAfterTap,com.vslot.app.MainActivitySmokeTest#homeNavigationOpensSlotPaytableSettingsAndPrivacyFallback,com.vslot.app.MainActivitySmokeTest#directRomanSlotKeepsLinesTotalBetAndAutoSpinControlsStableAfterRecreate,com.vslot.app.MainActivitySmokeTest#freeSpinsModeUsesFreeSpinCopyAndLocksStakeControls,com.vslot.app.MainActivitySmokeTest#recreatingActivityDuringPaidSpinSettlesExactlyOnce \
             :app:ciPixel2Api35QaAndroidTest
 
       - name: Upload managed-device smoke reports
@@ -278,7 +278,7 @@ jobs:
             -Pandroid.aapt2FromMavenOverride="$ANDROID_HOME/build-tools/36.0.0/aapt2" \
             -Pandroid.experimental.testOptions.managedDevices.allowOldApiLevelDevices=true \
             -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect \
-            -Pandroid.testInstrumentationRunnerArguments.class=com.vslot.app.MainActivitySmokeTest#firstLaunchShowsImageDisclaimerAndRoutesAfterAcceptance,com.vslot.app.MainActivitySmokeTest#homeNavigationOpensSlotPaytableSettingsAndPrivacyFallback,com.vslot.app.MainActivitySmokeTest#directRomanSlotKeepsLinesTotalBetAndAutoSpinControlsStableAfterRecreate,com.vslot.app.MainActivitySmokeTest#freeSpinsModeUsesFreeSpinCopyAndLocksStakeControls,com.vslot.app.MainActivitySmokeTest#recreatingActivityDuringPaidSpinSettlesExactlyOnce \
+            -Pandroid.testInstrumentationRunnerArguments.class=com.vslot.app.MainActivitySmokeTest#firstLaunchShowsDisclaimerAndOpensDailyBonusOnlyAfterTap,com.vslot.app.MainActivitySmokeTest#homeNavigationOpensSlotPaytableSettingsAndPrivacyFallback,com.vslot.app.MainActivitySmokeTest#directRomanSlotKeepsLinesTotalBetAndAutoSpinControlsStableAfterRecreate,com.vslot.app.MainActivitySmokeTest#freeSpinsModeUsesFreeSpinCopyAndLocksStakeControls,com.vslot.app.MainActivitySmokeTest#recreatingActivityDuringPaidSpinSettlesExactlyOnce \
             :app:ciPixel2Api${{ matrix.api }}QaAndroidTest
 
       - name: Upload managed-device boundary reports

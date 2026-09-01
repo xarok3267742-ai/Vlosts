@@ -28,9 +28,9 @@
   "slides": [
     {
       "output": "docs/store/assets/screenshots-promo-v2/01-five-themes.png",
-      "output_sha256": "662359d985c1fafda9ca2dcc743940b6a54079ea8f388dd30aeb7e539ce233d4",
+      "output_sha256": "114d2cb8a43b43a8ef70eeb62d9227c01041198f0160941d1463ced483754972",
       "source": "docs/store/assets/screenshots/01-home.png",
-      "source_sha256": "780cdc9dbc74fbba31718c97c6a13d9720d66c461fb94d13a73999ffff628fec",
+      "source_sha256": "8c66c9f594c2904758419ffa74b828dbac6b2a85bb1e3e3dcfa6828602353315",
       "source_crop": null,
       "copy": [
         "ПЯТЬ ТЕМ",
@@ -44,9 +44,9 @@
     },
     {
       "output": "docs/store/assets/screenshots-promo-v2/02-spin-and-lines.png",
-      "output_sha256": "4ce85c0530c0cb3108382fa7d97c66f5d47a0f4fc6c3e572a9eea14a34cef210",
+      "output_sha256": "47729cee454ef341f49d3849cc64ae78cefdb472a39a1807fa880882d01ce30a",
       "source": "docs/store/assets/screenshots/02-violet-slot.png",
-      "source_sha256": "98b2f5a03f956d22ef5cf44ba548b7f509fe636d8c04f5e49addfca364de2069",
+      "source_sha256": "52e827c35a1fd65d96d99990e923965265fe6dfbb4ced16e4d36bb9f5f26d9f1",
       "source_crop": null,
       "copy": [
         "КРУТИ БАРАБАНЫ",
@@ -60,9 +60,9 @@
     },
     {
       "output": "docs/store/assets/screenshots-promo-v2/03-paytable.png",
-      "output_sha256": "584e3050d8bb341c180cf442f126bc3a679f6a2eedad0499421c24be62194311",
+      "output_sha256": "676458d0b6971b26dde635cb2e57aa5a2cdc8fcd2b7d038e61530f39efc8546d",
       "source": "docs/store/assets/screenshots/03-paytable.png",
-      "source_sha256": "6a6aa697e5c651d34075f637cea647305e66c417fa0128869ffdfc7d7f90b651",
+      "source_sha256": "931db32564a3dcb61aa0281c095d17bc3e5809586c83a7e130813fc02f014f52",
       "source_crop": null,
       "copy": [
         "ВСЕ ВЫПЛАТЫ",
@@ -76,9 +76,9 @@
     },
     {
       "output": "docs/store/assets/screenshots-promo-v2/04-settings.png",
-      "output_sha256": "773de180b7fc37772d221af790def61fd4311c289629c6b0f87c678ffd4c04fd",
+      "output_sha256": "803d1c9f69e069b66c0cc4087077e54ad57ad6c61eb68d4599cfa6efdbda9c07",
       "source": "docs/store/assets/screenshots/04-settings.png",
-      "source_sha256": "d0d239dd20d62e82b059c6d235d14df99118a444c7ed287bf556ac02480ed7f1",
+      "source_sha256": "c68ba9a0aadc77009a21c218889cef449451a498110b50481129d245cb626bc6",
       "source_crop": null,
       "copy": [
         "НАСТРОЙ ИГРУ",
@@ -92,9 +92,9 @@
     },
     {
       "output": "docs/store/assets/screenshots-promo-v2/05-free-spins.png",
-      "output_sha256": "e52bd547c5f52baf63e9a061106135f092fd4ba32a71781e0ea17fb174e2ddbd",
+      "output_sha256": "064c9faf33d8433b0a924cd36d7cfbf829e97607b5928bfe023a9769114e33f0",
       "source": "docs/store/assets/screenshots/05-free-spins.png",
-      "source_sha256": "7cfa1e82f695a6e713e0525638ed2a4240f67d8ced4d4dac5350c4582570e2bd",
+      "source_sha256": "cf0a42060a1a8ee8b669fd203c1c1cb93e05caeaaccdaffa8b3abdca583fbf2a",
       "source_crop": null,
       "copy": [
         "ФРИСПИНЫ",

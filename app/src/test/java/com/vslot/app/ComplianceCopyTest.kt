@@ -202,7 +202,7 @@ class ComplianceCopyTest {
         assertTrue("Store metadata must not create a circular commit binding", !captureMetadata.has("source_commit"))
         assertEquals("Store captures must come from the minified QA package", "qa", captureMetadata.getString("build_variant"))
         assertEquals("Store captures must identify the QA application ID", "com.vslot.app.qa", captureMetadata.getString("package_name"))
-        assertEquals("Store captures must identify the current versionCode", 1, captureMetadata.getInt("version_code"))
+        assertEquals("Store captures must identify the current versionCode", 2, captureMetadata.getInt("version_code"))
         assertTrue("Store captures must pin the exact QA APK", captureMetadata.getString("qa_apk_sha256").matches(Regex("[0-9a-f]{64}")))
         assertTrue("Store captures must pin the reproducible QA APK payload", captureMetadata.getString("qa_apk_payload_sha256").matches(Regex("[0-9a-f]{64}")))
         assertTrue("Store captures must pin the exact instrumentation APK", captureMetadata.getString("qa_test_apk_sha256").matches(Regex("[0-9a-f]{64}")))

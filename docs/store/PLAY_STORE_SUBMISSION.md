@@ -5,7 +5,7 @@
 ## 1. Зафиксированная область продукта
 
 - Package: `com.vslot.app`.
-- Текущая версия в коде: `versionName 1.0.0`, `versionCode 1`.
+- Текущая версия в коде: `versionName 1.0.0`, `versionCode 2`.
 - Android: `minSdk 26`, `targetSdk 36`.
 - Тип: бесплатная игра, social casino / simulated slots.
 - Страна распространения production: только Россия (`RU`).

@@ -69,6 +69,7 @@ import com.vslot.app.ui.dialog.ResultDialogFragment
 import com.vslot.app.ui.widget.ReelStripDrawableCache
 import com.vslot.app.ui.widget.ReelStripView
 import com.vslot.app.ui.widget.clearBoundImageResource
+import com.vslot.app.ui.widget.clearImageResourcesRecursively
 import com.vslot.app.ui.widget.setImageResourceIfChanged
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -381,7 +382,13 @@ class SlotFragment : Fragment() {
     private fun popFromSlot(): Boolean {
         val navController = findNavController()
         if (navController.currentDestination?.id != R.id.slotFragment) return false
+        if (parentFragmentManager.isStateSaved) return false
+        releaseSlotImageResources()
         return navController.popBackStack()
+    }
+
+    private fun releaseSlotImageResources() {
+        _binding?.root?.clearImageResourcesRecursively()
     }
 
     private fun handleSlotExitRequest() {
@@ -6195,6 +6202,7 @@ class SlotFragment : Fragment() {
         slotSoundPlayer = null
         hapticsEnabled = true
         wasSpinning = false
+        releaseSlotImageResources()
         _binding = null
         super.onDestroyView()
     }

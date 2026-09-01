@@ -82,7 +82,7 @@ fun isPlaceholderReleaseValue(value: String): Boolean {
 }
 
 val vSlotApplicationId = "com.vslot.app"
-val vSlotVersionCode = 1
+val vSlotVersionCode = 2
 val vSlotVersionName = "1.0.0"
 val vSlotMinSdk = 26
 val vSlotStoreSdk = 36
@@ -3208,8 +3208,8 @@ val verifyDataSafetyEvidenceValidatorContract = tasks.register(
     description = "Executes positive and negative fixtures for the Data Safety evidence validator."
     val validFixture = file("src/test/resources/data_safety_evidence_valid.json")
     val templateFixture = rootProject.file("docs/store/DATA_SAFETY_EVIDENCE_TEMPLATE.json")
-    val validFixtureSha256 = "c986c27160acb79d514ee303578d5d46d7ff2b0e8929716fa9165273547f6841"
-    val templateFixtureSha256 = "ee4a4c90ac610144888cc27f784316927757eadee13479c6d8568121d86c2360"
+    val validFixtureSha256 = "2b0ff0fbee8664c8ab6b2fd4ae304d01603b1f47df422570bc18e61ec480243c"
+    val templateFixtureSha256 = "d9f86a7ce9a1004591e412cc501370efaff8bf4a98053cc8c2e8eca9a41b9fd2"
     val fixtureCommit = "0123456789abcdef0123456789abcdef01234567"
     val fixturePrivacyUrl = "https://privacy.vslot.test/policy"
     val fixtureSupportEmail = "privacy@vslot.test"

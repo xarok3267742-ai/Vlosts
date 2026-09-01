@@ -29,10 +29,10 @@ class ReleaseDependencyInventoryContractTest {
         )
         assertEquals(
             "LicenseRef-Android-SDK-Terms",
-            entries["com.google.android.gms:play-services-base:18.10.0"]
+            entries["com.google.android.gms:play-services-base:18.10.1"]
         )
         assertEquals("MIT", entries["io.appmetrica.analytics:analytics:8.3.0"])
-        assertEquals("Apache-2.0", entries["com.google.firebase:firebase-messaging:25.1.1"])
+        assertEquals("Apache-2.0", entries["com.google.firebase:firebase-messaging:25.1.2"])
         assertEquals("Apache-2.0,MPL-2.0", entries["com.squareup.okhttp3:okhttp:4.11.0"])
         assertFalse(entries.containsKey("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0"))
     }

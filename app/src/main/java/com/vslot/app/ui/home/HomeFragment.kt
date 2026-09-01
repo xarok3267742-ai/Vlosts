@@ -29,6 +29,7 @@ import com.vslot.app.data.PlayerState
 import com.vslot.app.ui.DailyBonusCountdownFormatter
 import com.vslot.app.ui.asCoins
 import com.vslot.app.ui.dialog.DailyBonusDialogFragment
+import com.vslot.app.ui.widget.clearImageResourcesRecursively
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -544,16 +545,27 @@ class HomeFragment : Fragment() {
     private fun openSlot(slotId: String, slotName: String) {
         val opened = navigateFromHome(
             R.id.action_home_to_slot,
-            Bundle().apply { putString("slotId", slotId) }
+            Bundle().apply { putString("slotId", slotId) },
+            beforeNavigation = ::releaseHomeImageResources
         )
         if (opened) {
             viewModel.onSlotSelected(slotId, slotName)
         }
     }
 
-    private fun navigateFromHome(actionId: Int, args: Bundle? = null): Boolean {
+    private fun releaseHomeImageResources() {
+        _binding?.root?.clearImageResourcesRecursively()
+    }
+
+    private fun navigateFromHome(
+        actionId: Int,
+        args: Bundle? = null,
+        beforeNavigation: () -> Unit = {}
+    ): Boolean {
         val navController = findNavController()
         if (navController.currentDestination?.id != R.id.homeFragment) return false
+        if (parentFragmentManager.isStateSaved) return false
+        beforeNavigation()
         navController.navigate(actionId, args)
         return true
     }
@@ -871,6 +883,7 @@ class HomeFragment : Fragment() {
         stopUnlockBurstAnimations()
         stopHomeShineAnimations()
         stopHomeAuraAnimations()
+        releaseHomeImageResources()
         lastObservedPlayerLevel = null
         _binding = null
         super.onDestroyView()

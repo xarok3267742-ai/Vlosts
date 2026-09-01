@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "application_id": "com.vslot.app",
-  "version_code": 1,
+  "version_code": 2,
   "reviewed_commit": "REPLACE_WITH_RELEASE_GIT_COMMIT",
   "reviewed_at_utc": "REPLACE_WITH_ISO_8601_UTC_INSTANT",
   "privacy_policy_url": "REPLACE_WITH_PRODUCTION_HTTPS_URL",

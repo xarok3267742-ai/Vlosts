@@ -1,21 +1,21 @@
 {
   "schema_version": 2,
-  "captured_at_utc": "2026-08-17T11:02:53Z",
+  "captured_at_utc": "2026-09-01T10:25:27Z",
   "build_variant": "qa",
   "package_name": "com.vslot.app.qa",
-  "version_code": 1,
+  "version_code": 2,
   "version_name": "1.0.0-qa",
-  "qa_apk_sha256": "f98afd539bb0cade80b5bb2168f1654ed03c321ca5f4a6e0ab5a55d9338e74e2",
-  "qa_apk_payload_sha256": "01c2e35940f189803a5f802e322b67fd42718ead50cae19207d35cec8cfa2bd8",
-  "qa_test_apk_sha256": "2db84b907b6a54e9e83cb1f796a5ea896ae9e8a23c1ff00e7dd9788d6c223ed9",
-  "qa_test_apk_payload_sha256": "75eaf4d53509b57b56657abb2808672156cd4fb1dc41f95b7f69a5665d111a89",
+  "qa_apk_sha256": "2131c122814f159dc7df447bbb6103f587334d2ecc9dfd9876566debd23fee9b",
+  "qa_apk_payload_sha256": "d10c606336158c10cc15cd6dbfa1f88f2b15ff607b375aeb96cbfe6cede298b4",
+  "qa_test_apk_sha256": "00958f0a5b3e9d57403c6c40370c5b760c96a99302a66d04ddde3641ad36a510",
+  "qa_test_apk_payload_sha256": "be50501af33865bce2ddee6413e47aad13036fb6e14c29a10819d7276984d135",
   "device": {"avd_name": "VSlot_API36_Clean", "api_level": 36, "locale": "ru-RU", "physical_size": "1080x2400", "physical_density_dpi": 420},
   "capture": {"width": 1080, "height": 1920, "density_dpi": 360, "font_scale": 1.0},
   "screenshot_sha256": {
-    "01-home.png": "780cdc9dbc74fbba31718c97c6a13d9720d66c461fb94d13a73999ffff628fec",
-    "02-violet-slot.png": "98b2f5a03f956d22ef5cf44ba548b7f509fe636d8c04f5e49addfca364de2069",
-    "03-paytable.png": "6a6aa697e5c651d34075f637cea647305e66c417fa0128869ffdfc7d7f90b651",
-    "04-settings.png": "d0d239dd20d62e82b059c6d235d14df99118a444c7ed287bf556ac02480ed7f1",
-    "05-free-spins.png": "7cfa1e82f695a6e713e0525638ed2a4240f67d8ced4d4dac5350c4582570e2bd"
+    "01-home.png": "8c66c9f594c2904758419ffa74b828dbac6b2a85bb1e3e3dcfa6828602353315",
+    "02-violet-slot.png": "52e827c35a1fd65d96d99990e923965265fe6dfbb4ced16e4d36bb9f5f26d9f1",
+    "03-paytable.png": "931db32564a3dcb61aa0281c095d17bc3e5809586c83a7e130813fc02f014f52",
+    "04-settings.png": "c68ba9a0aadc77009a21c218889cef449451a498110b50481129d245cb626bc6",
+    "05-free-spins.png": "cf0a42060a1a8ee8b669fd203c1c1cb93e05caeaaccdaffa8b3abdca583fbf2a"
   }
 }

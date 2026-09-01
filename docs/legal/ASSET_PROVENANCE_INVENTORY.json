@@ -13428,8 +13428,8 @@
     },
     {
       "path": "docs/store/assets/screenshots-promo-v2/01-five-themes.png",
-      "bytes": 1821948,
-      "sha256": "114d2cb8a43b43a8ef70eeb62d9227c01041198f0160941d1463ced483754972",
+      "bytes": 1822092,
+      "sha256": "a811c55646c02856f3b379f0f41132890f2b43c7a7f7e3f2bef082ee3ea1a0c6",
       "media_role": "packaged_visual",
       "source_paths": [
         "docs/store/assets/screenshots-promo-v2/manifest.json",
@@ -13496,8 +13496,8 @@
     },
     {
       "path": "docs/store/assets/screenshots-promo-v2/05-free-spins.png",
-      "bytes": 1949876,
-      "sha256": "064c9faf33d8433b0a924cd36d7cfbf829e97607b5928bfe023a9769114e33f0",
+      "bytes": 1937528,
+      "sha256": "07c9d4f6c55cb65216bb643969086ad5eae59469efe74beda33b35cc43ee1bf4",
       "media_role": "packaged_visual",
       "source_paths": [
         "docs/store/assets/screenshots-promo-v2/manifest.json",
@@ -13527,8 +13527,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/01-home.png",
-      "bytes": 1678422,
-      "sha256": "8c66c9f594c2904758419ffa74b828dbac6b2a85bb1e3e3dcfa6828602353315",
+      "bytes": 1678414,
+      "sha256": "5e0b75cfb58b36228e72c2e703529f6a0f1ad4c5eef319beb5e02adb33a7d4a7",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",
@@ -13587,8 +13587,8 @@
     },
     {
       "path": "docs/store/assets/screenshots/05-free-spins.png",
-      "bytes": 2068487,
-      "sha256": "cf0a42060a1a8ee8b669fd203c1c1cb93e05caeaaccdaffa8b3abdca583fbf2a",
+      "bytes": 2043324,
+      "sha256": "6cda3beaa4ad871f10912fc6492fd114ee1650483962cb65882127db4087193c",
       "media_role": "store_screenshot",
       "source_paths": [
         "tools/capture_play_store_screenshots.sh",

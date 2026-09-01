@@ -1,6 +1,6 @@
 # Google Play phone screenshots
 
-These five 1080 x 1920 RGB PNG files were captured from the minified `qa` build on the clean `VSlot_API36_Clean` API 36 AVD on 2026-08-04. They show only real release-reachable application states driven by instrumentation tests; no interface layer was composed or retouched after capture.
+These five 1080 x 1920 RGB PNG files were captured from the minified `qa` build on the clean `VSlot_API36_Clean` API 36 AVD on 2026-09-01. They show only real release-reachable application states driven by instrumentation tests; no interface layer was composed or retouched after capture.
 
 Reproduce the set from the repository root with:
 

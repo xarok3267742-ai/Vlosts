@@ -3151,8 +3151,8 @@ dependencies {
     //noinspection GradleDependency
     implementation("androidx.fragment:fragment-ktx:1.8.9")
     implementation("androidx.constraintlayout:constraintlayout:2.2.2")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.8")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.8")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.10.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.10.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.11.0")
     implementation("androidx.datastore:datastore-preferences:1.2.1")
@@ -3165,8 +3165,8 @@ dependencies {
     implementation("io.appmetrica.analytics:analytics-core-api:8.3.0")
     implementation("io.appmetrica.analytics:push:4.3.0")
     implementation("com.google.firebase:firebase-installations:19.1.2")
-    implementation("com.google.firebase:firebase-messaging:25.1.1")
-    implementation("com.google.android.gms:play-services-base:18.10.0")
+    implementation("com.google.firebase:firebase-messaging:25.1.2")
+    implementation("com.google.android.gms:play-services-base:18.10.1")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20260814")
@@ -3176,7 +3176,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.3.0")
     androidTestImplementation("androidx.test:core-ktx:1.7.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
-    androidTestImplementation("androidx.navigation:navigation-testing:2.9.8")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.10.0")
 }
 
 dependencyLocking {
@@ -4179,8 +4179,8 @@ val generatedEmbeddedThirdPartyNoticesDirectory = layout.buildDirectory.dir(
 val generatedEmbeddedThirdPartyNotices = generatedEmbeddedThirdPartyNoticesDirectory.map { directory ->
     directory.file(embeddedThirdPartyNoticesAssetName)
 }
-val thirdPartyNoticesSha256 = "8d7402bed8d8b08ea1d272f0cf714558c15d10e7a053c4494710ecbfcea58d5d"
-val embeddedThirdPartyNoticesSha256 = "b4cc4bdce0c376c958532f5f508bfc53b01115c136721afab0c97d15268e5dba"
+val thirdPartyNoticesSha256 = "d0a3b9606580eb3a9167deedda82505883218402de5773200a9b7b35820bf768"
+val embeddedThirdPartyNoticesSha256 = "b196dd53f77f14207ab358be1cd8f8cf48983aa06dcac4900b0649eb78fe82c4"
 val licenseManifestStart = "[release-runtime-artifact-licenses-v1]"
 val licenseManifestEnd = "[/release-runtime-artifact-licenses-v1]"
 val allowedRuntimeLicensePolicies = setOf(

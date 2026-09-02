@@ -81,5 +81,17 @@ class SlotAutoSpinContractTest {
         assertFalse(source.contains("AccessibilityEvent.TYPE_ANNOUNCEMENT"))
     }
 
+    @Test
+    fun `active autospin remains stoppable while the next spin is reserved`() {
+        val source = Path.of("src/main/java/com/vslot/app/ui/slot/SlotFragment.kt").readText()
+        val controls = source
+            .substringAfter("val autoSpinControlEnabled")
+            .substringBefore("val stakeControlsEnabled")
+
+        assertTrue(controls.contains("state.isAutoSpinEnabled ||"))
+        assertTrue(controls.contains("!state.isSpinStartReserved && !state.isSpinning"))
+        assertFalse(controls.startsWith(" = !state.isSpinStartReserved"))
+    }
+
     private fun Path.readText(): String = String(Files.readAllBytes(this), Charsets.UTF_8)
 }

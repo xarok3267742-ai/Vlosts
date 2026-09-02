@@ -1,6 +1,6 @@
 # Google Play production checklist: V Slot
 
-Статус документа: черновик для релизного кандидата, проверен по коду 2026-08-05; официальные требования Google Play повторно сверены 2026-08-04. Это технический checklist, а не юридическое заключение. Требования магазина и законодательство России нужно повторно проверить непосредственно перед отправкой.
+Статус документа: черновик для релизного кандидата, проверен по коду 2026-09-02; официальные требования Google Play повторно сверены 2026-09-02. Это технический checklist, а не юридическое заключение. Требования магазина и законодательство России нужно повторно проверить непосредственно перед отправкой.
 
 ## 1. Зафиксированная область продукта
 
@@ -56,6 +56,20 @@
 - [ ] **App access:** аккаунта нет. В review instructions описать первый запуск: прочитать экран 18+, подтвердить отсутствие реальной ценности виртуальных монет, затем открыть слот. Не называть checkbox самостоятельной проверкой возраста и не указывать фиктивные credentials.
 - [ ] **Target audience and content:** выбрать только группу `18 and over`, затем на том же экране включить `Restrict Minor Access`. Не выбирать детские группы и не вступать в Families/Teacher Approved. При включённом ограничении пользователи, которых Google определяет как несовершеннолетних, не смогут найти или установить приложение; одно только внутреннее предупреждение `18+` этого не заменяет. Сохранить screenshot/экспорт финального состояния Play Console в release evidence: [Target audience guidance](https://support.google.com/googleplay/android-developer/answer/9867159?hl=en).
 - [ ] **Content rating:** заполнить IARC честно: simulated gambling/virtual slots присутствуют; real-money gambling, purchases и cash prizes отсутствуют. Не назначать рейтинг вручную и не предполагать, что in-app `18+` автоматически равен рейтингу IARC: [Content rating requirements](https://support.google.com/googleplay/android-developer/answer/9859655?hl=en).
+
+  Для текущего релиза ответы в разделе `Gambling Themes, Simulated Gambling, or Real Gambling` должны быть такими:
+
+  | Вопрос Play Console | Ответ |
+  | --- | --- |
+  | `Does the game contain gambling, simulations of casino gambling/bingo, or gambling themes?` | `Yes` |
+  | `Gambling themes` | Выбрать |
+  | `Playable bingo games` | Не выбирать |
+  | `Playable casino games, lotteries, or racetrack betting` | Выбрать: приложение содержит игровые слоты |
+  | `Any other games that use in-game currency/tokens...` | Не выбирать: других игр, кроме уже указанной casino/slots-механики, нет |
+  | `Are these gambling themes prominently featured or a strong focus of the product?` | `Yes` |
+  | `Can playing these casino games... reward cash payouts or rewards of significant monetary value?` | **`No`** |
+
+  Последний ответ нельзя отмечать `Yes`: монеты полностью виртуальные, не покупаются, не выводятся, не передаются и не дают денежных или материальных наград. Ответ `Yes` противоречит приложению и listing и может привести к ошибочному real-money профилю или нарушению Content Ratings policy. После исправления отправить новую анкету и проверить сгенерированный сертификат IARC до повторной публикации.
 - [ ] **Data safety:** перенести только финально подтверждённые ответы из [DATA_SAFETY_DRAFT.md](DATA_SAFETY_DRAFT.md). SDK-данные тоже входят в декларацию. Сохранить preview/CSV, network capture и snapshot privacy policy в одном evidence archive, внести их SHA-256 в version-bound sign-off JSON и только затем подтвердить текущий релиз через `V_SLOT_DATA_SAFETY_REVIEWED_VERSION_CODE`: [Google Play Data safety guidance](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en).
 - [ ] **Account deletion:** указать, что приложение не позволяет создать аккаунт. Это не заменяет отдельный ответ Data safety о механизме удаления собранной telemetry.
 - [ ] **Developer profile:** до отправки проверить в Play Console тип аккаунта, подтверждённые юридическое имя, адрес, email и телефон, а для организации также согласованность профиля и D-U-N-S. Публичные контакты должны совпадать с listing и privacy policy. Повторить проверку после вступления обновлённых требований в силу 30 сентября 2026 года: [Play Console Requirements](https://support.google.com/googleplay/android-developer/answer/10788890?hl=en).

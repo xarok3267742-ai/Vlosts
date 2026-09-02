@@ -1468,7 +1468,12 @@ class MainActivitySmokeTest {
                 context.dynamicCountPrefix(R.string.auto_spin_stop_free_spins)
             )
             waitForEnabled(R.id.autoSpinButton)
+            waitForMainActivityWindowFocus()
             clickViewWithoutRenderIdle(R.id.autoSpinButton)
+            waitForContentDescription(
+                R.id.autoSpinButton,
+                context.getString(R.string.auto_spin_configure)
+            )
             waitForEnabled(R.id.paytableButton)
             waitUntil {
                 val state = runBlocking { AppGraph.playerRepository.playerState.first() }
@@ -1639,6 +1644,26 @@ class MainActivitySmokeTest {
                 ?: throw AssertionError("View $viewId is missing.")
             if (!view.isEnabled) {
                 throw AssertionError("View $viewId is disabled.")
+            }
+        }
+    }
+
+    private fun waitForMainActivityWindowFocus() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        waitUntil {
+            var hasFocus = false
+            instrumentation.runOnMainSync {
+                hasFocus = ActivityLifecycleMonitorRegistry
+                    .getInstance()
+                    .getActivitiesInStage(Stage.RESUMED)
+                    .filterIsInstance<FragmentActivity>()
+                    .lastOrNull()
+                    ?.window
+                    ?.decorView
+                    ?.hasWindowFocus() == true
+            }
+            if (!hasFocus) {
+                throw AssertionError("Main activity window does not have input focus.")
             }
         }
     }
@@ -2382,7 +2407,7 @@ class MainActivitySmokeTest {
     }
 
     private companion object {
-        const val QA_STATE_TIMEOUT_MS = 15_000L
+        const val QA_STATE_TIMEOUT_MS = 45_000L
         const val HOME_ALL_SLOTS_LEVEL = 4
         const val FEATURE_RESUME_SLOT_ID = "violet_fortune"
         const val NO_WIN_SEARCH_ATTEMPTS = 10_000

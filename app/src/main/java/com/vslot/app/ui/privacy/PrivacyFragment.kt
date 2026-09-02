@@ -68,10 +68,47 @@ class PrivacyFragment : Fragment() {
         )
         binding.backButton.setOnClickListener { navigateBack() }
         binding.retryButton.setOnClickListener { loadPolicy() }
-        activeWebView = binding.privacyWebView
-        configureWebView(binding.privacyWebView)
         AppGraph.analyticsTracker.track(AnalyticsEvents.PrivacyOpen, mapOf("source" to "app"))
         restoreOrLoadPolicy(savedInstanceState)
+    }
+
+    private fun ensurePrivacyWebView(): WebView? {
+        activeWebView?.let { return it }
+        val binding = _binding ?: return null
+        var webView: WebView? = null
+        return try {
+            webView = WebView(binding.root.context).apply {
+                id = R.id.privacyWebView
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                setBackgroundColor(context.getColor(R.color.input_dark))
+                visibility = View.GONE
+            }
+            binding.privacyWebViewHost.addView(webView)
+            configureWebView(webView)
+            activeWebView = webView
+            webView
+        } catch (_: RuntimeException) {
+            webView?.let { failedWebView ->
+                binding.privacyWebViewHost.removeView(failedWebView)
+                runCatching {
+                    failedWebView.webViewClient = WebViewClient()
+                    failedWebView.webChromeClient = null
+                    failedWebView.removeAllViews()
+                    failedWebView.destroy()
+                }
+            }
+            activeWebView = null
+            showError(
+                R.drawable.label_privacy_error_load,
+                R.string.privacy_load_error,
+                "webview_unavailable",
+                retryable = false
+            )
+            null
+        }
     }
 
     private fun navigateBack(): Boolean {
@@ -191,8 +228,6 @@ class PrivacyFragment : Fragment() {
 
     private fun replaceTerminatedWebView(failedWebView: WebView, didCrash: Boolean) {
         val parent = failedWebView.parent as? ViewGroup
-        val childIndex = parent?.indexOfChild(failedWebView) ?: -1
-        val layoutParams = failedWebView.layoutParams
         if (activeWebView === failedWebView) activeWebView = null
         parent?.removeView(failedWebView)
         failedWebView.webViewClient = WebViewClient()
@@ -200,17 +235,8 @@ class PrivacyFragment : Fragment() {
         failedWebView.removeAllViews()
         failedWebView.destroy()
 
-        val context = context
-        if (_binding == null || context == null || parent == null || childIndex < 0) return
-        val replacement = WebView(context).apply {
-            id = R.id.privacyWebView
-            this.layoutParams = layoutParams
-            setBackgroundColor(requireContext().getColor(R.color.input_dark))
-            visibility = View.GONE
-        }
-        parent.addView(replacement, childIndex)
-        activeWebView = replacement
-        configureWebView(replacement)
+        if (_binding == null || parent == null) return
+        val replacement = ensurePrivacyWebView() ?: return
         showError(
             R.drawable.label_privacy_error_load,
             R.string.privacy_load_error,
@@ -247,6 +273,7 @@ class PrivacyFragment : Fragment() {
 
     private fun restorePolicyState(savedWebViewState: Bundle): Boolean {
         if (!PrivacyUrlPolicy.isLoadable(policyUrl)) return false
+        if (ensurePrivacyWebView() == null) return false
 
         prepareForPageLoad()
         val history = runCatching {
@@ -290,6 +317,7 @@ class PrivacyFragment : Fragment() {
             showError(R.drawable.label_privacy_error_offline, R.string.no_internet, "offline")
             return
         }
+        if (ensurePrivacyWebView() == null) return
         val loadUrl = url.takeIf { PrivacyUrlPolicy.isAllowed(policyUrl, it) } ?: policyUrl
         prepareForPageLoad()
         pendingFallbackScrollY = fallbackScrollY?.coerceAtLeast(0)

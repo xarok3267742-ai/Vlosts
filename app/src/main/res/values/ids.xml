@@ -1,3 +1,4 @@
 <resources>
+    <item name="privacyWebView" type="id" />
     <item name="tag_bound_image_resource" type="id" />
 </resources>

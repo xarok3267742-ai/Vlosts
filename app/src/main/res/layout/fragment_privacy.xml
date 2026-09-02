@@ -78,8 +78,8 @@
                 android:src="@drawable/privacy_guard_document_glow"
                 android:visibility="invisible" />
 
-            <WebView
-                android:id="@+id/privacyWebView"
+            <FrameLayout
+                android:id="@+id/privacyWebViewHost"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="12dp"

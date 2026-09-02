@@ -156,8 +156,7 @@ class PrivacyWebViewLifecycleContractTest {
         assertTrue(rendererFailure.contains("return true"))
         assertTrue(replacement.contains("parent?.removeView(failedWebView)"))
         assertTrue(replacement.contains("failedWebView.destroy()"))
-        assertTrue(replacement.contains("val replacement = WebView(context)"))
-        assertTrue(replacement.contains("configureWebView(replacement)"))
+        assertTrue(replacement.contains("val replacement = ensurePrivacyWebView() ?: return"))
         assertTrue(replacement.contains("showError("))
     }
 }

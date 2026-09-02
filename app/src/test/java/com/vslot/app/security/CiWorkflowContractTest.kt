@@ -131,7 +131,7 @@ class CiWorkflowContractTest {
 
         assertTrue(api35Smoke.contains("github.event_name == 'pull_request' || github.event_name == 'push'"))
         assertTrue(api35Smoke.contains("apiLevel = 35"))
-        assertTrue(api35Smoke.contains("systemImageSource = \"aosp\""))
+        assertTrue(api35Smoke.contains("systemImageSource = \"aosp-atd\""))
         assertTrue(api35Smoke.contains("testedAbi = \"x86_64\""))
         assertTrue(api35Smoke.contains(":app:ciPixel2Api35QaAndroidTest"))
         assertTrue(api35Smoke.contains("testInstrumentationRunnerArguments.class="))
@@ -159,7 +159,7 @@ class CiWorkflowContractTest {
 
         assertTrue(api35Full.contains("github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'"))
         assertTrue(api35Full.contains("apiLevel = 35"))
-        assertTrue(api35Full.contains("systemImageSource = \"aosp\""))
+        assertTrue(api35Full.contains("systemImageSource = \"aosp-atd\""))
         assertTrue(api35Full.contains("testedAbi = \"x86_64\""))
         assertTrue(api35Full.contains(":app:ciPixel2Api35QaAndroidTest"))
         assertTrue(api35Full.contains("notClass=com.vslot.app.SlotFrameMetricsTest"))

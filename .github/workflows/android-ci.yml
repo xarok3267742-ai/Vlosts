@@ -167,7 +167,7 @@ jobs:
                       android.testOptions.managedDevices.localDevices.create("ciPixel2Api35") {
                           device = "Pixel 2"
                           apiLevel = 35
-                          systemImageSource = "aosp"
+                          systemImageSource = "aosp-atd"
                           testedAbi = "x86_64"
                       }
                   }
@@ -358,7 +358,7 @@ jobs:
                       android.testOptions.managedDevices.localDevices.create("ciPixel2Api35") {
                           device = "Pixel 2"
                           apiLevel = 35
-                          systemImageSource = "aosp"
+                          systemImageSource = "aosp-atd"
                           testedAbi = "x86_64"
                       }
                   }

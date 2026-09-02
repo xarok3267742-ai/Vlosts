@@ -677,11 +677,11 @@ class SlotFragment : Fragment() {
                 !state.isSettlementRecoveryPending &&
                 !state.isAutoSpinEnabled &&
                 state.pendingPresentationId == null
-            val autoSpinControlEnabled = !state.isSpinStartReserved &&
-                !state.isResultPending &&
+            val autoSpinControlEnabled = !state.isResultPending &&
                 !state.isSettlementRecoveryPending &&
                 state.pendingPresentationId == null &&
-                (state.isAutoSpinEnabled || !state.isSpinning)
+                (state.isAutoSpinEnabled ||
+                    (!state.isSpinStartReserved && !state.isSpinning))
             val stakeControlsEnabled = controlsEnabled && !freeSpinModeActive
             val selectedBetIndex = state.config.bets.indexOf(state.playerState.selectedBet).coerceAtLeast(0)
             binding.spinButton.isEnabled = !state.isSpinStartReserved &&

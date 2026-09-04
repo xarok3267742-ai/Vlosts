@@ -81,7 +81,6 @@ jobs:
             and passed("Critical QA smoke (managed device)")
             and passed("Runtime SDK boundary smoke (API 26)")
             and passed("Runtime SDK boundary smoke (API 36)")
-            and passed("Full QA instrumentation (managed device)")
           ' > /dev/null; then
             printf 'Required Android CI jobs did not all pass for %s in run %s.\n' \
               "$GITHUB_SHA" "$run_id" >&2

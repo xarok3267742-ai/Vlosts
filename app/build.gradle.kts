@@ -3251,7 +3251,7 @@ configurations.configureEach {
 dependencies {
     // Core 1.19 requires compileSdk 37 and AGP 9.1; 1.18 is the latest release compatible with this toolchain.
     //noinspection GradleDependency
-    implementation("androidx.core:core-ktx:1.18.0")
+    implementation("androidx.core:core-ktx:1.19.0")
     //noinspection GradleDependency
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.activity:activity-ktx:1.13.0")

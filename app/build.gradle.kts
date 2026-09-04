@@ -3267,9 +3267,9 @@ dependencies {
 
     // 8.4.0 adds product-flow, which has not completed this app's privacy and license review.
     //noinspection NewerVersionAvailable
-    implementation("io.appmetrica.analytics:analytics:8.3.0")
+    implementation("io.appmetrica.analytics:analytics:8.5.1")
     //noinspection NewerVersionAvailable
-    implementation("io.appmetrica.analytics:analytics-core-api:8.3.0")
+    implementation("io.appmetrica.analytics:analytics-core-api:8.5.1")
     implementation("io.appmetrica.analytics:push:4.3.0")
     implementation("com.google.firebase:firebase-installations:19.1.2")
     implementation("com.google.firebase:firebase-messaging:25.1.2")

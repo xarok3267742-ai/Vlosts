@@ -3,8 +3,11 @@
     <string name="line_bet_short">На линию</string>
     <string name="active_lines_short">Линии</string>
     <string name="spin_cost">Итого за спин</string>
+    <string name="spin_cost_compact">За спин</string>
     <string name="spin_visual_label">КРУТИТЬ</string>
+    <string name="spin_compact_visual_label">▶</string>
     <string name="spin_stop_visual_label">СТОП</string>
+    <string name="spin_stop_compact_visual_label">■</string>
     <string name="spin_free_visual_label">ФРИСПИН</string>
     <string name="payout_short">Выплата</string>
     <string name="slot_outcome_loss_visible">Нет выигрыша</string>

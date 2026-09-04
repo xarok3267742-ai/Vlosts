@@ -22,7 +22,28 @@ class SlotClarityContractTest {
             assertTrue(relativePath, layout.contains("android:text=\"@string/payout_short\""))
             assertTrue(relativePath, layout.contains("@+id/freeSpinsStakeLockLabel"))
             assertTrue(relativePath, layout.contains("android:text=\"@string/free_spins_stake_locked\""))
+            val spinLabel = layout.substringAfter("@+id/spinButtonText").substringBefore("/>")
+            assertTrue(relativePath, spinLabel.contains("android:maxLines=\"1\""))
+            assertTrue(relativePath, spinLabel.contains("android:singleLine=\"true\""))
+            if (relativePath.contains("land")) {
+                assertTrue(relativePath, spinLabel.contains("app:autoSizeMinTextSize=\"8sp\""))
+            }
         }
+    }
+
+    @Test
+    fun `compact landscape reserves enough width for the primary spin label`() {
+        val fragment = Path.of("src/main/java/com/vslot/app/ui/slot/SlotFragment.kt").readText()
+        assertTrue(fragment.contains("COMPACT_LANDSCAPE_PAYTABLE_WIDTH_DP = 56"))
+        assertTrue(fragment.contains("COMPACT_LANDSCAPE_SECONDARY_ACTION_WIDTH_DP = 48"))
+        assertTrue(fragment.contains("COMPACT_LANDSCAPE_ACTION_GAP_DP = 4"))
+        assertTrue(fragment.contains("COMPACT_LANDSCAPE_CONSOLE_MIN_WIDTH_DP = 220"))
+        assertTrue(fragment.contains("availableWidthDp < minimumSideBySideWidthDp"))
+        assertTrue(fragment.contains("binding.spinButtonText.letterSpacing = 0f"))
+        assertTrue(fragment.contains("binding.paytableButton.layoutParams"))
+        assertTrue(fragment.contains("binding.autoSpinButton.layoutParams"))
+        assertTrue(fragment.contains("binding.maxLinesButton.layoutParams"))
+        assertTrue(fragment.contains("binding.spinButton.layoutParams"))
     }
 
     @Test
@@ -61,8 +82,8 @@ class SlotClarityContractTest {
                 val label = layout.substringAfter("@+id/$id").substringBefore("/>")
                 assertFalse("$relativePath $id", label.contains("android:maxLines="))
                 assertTrue("$relativePath $id", label.contains("app:autoSizeTextType=\"uniform\""))
-                assertTrue("$relativePath $id", label.contains("app:autoSizeMinTextSize=\"8dp\""))
-                assertTrue("$relativePath $id", label.contains("app:autoSizeMaxTextSize=\"12dp\""))
+                assertTrue("$relativePath $id", label.contains("app:autoSizeMinTextSize=\"8sp\""))
+                assertTrue("$relativePath $id", label.contains("app:autoSizeMaxTextSize=\"12sp\""))
             }
         }
     }
@@ -73,6 +94,16 @@ class SlotClarityContractTest {
         assertTrue(fragment.contains("PAYLINE_MARKER_REST_ALPHA = 0.06f"))
         assertTrue(fragment.contains("PAYLINE_MARKER_PULSE_ALPHA = 0.24f"))
         assertFalse(fragment.contains("binding.paylineMarkersOverlay.alpha = 1f"))
+    }
+
+    @Test
+    fun `settled and spinning symbols share the same cell geometry`() {
+        val fragment = Path.of("src/main/java/com/vslot/app/ui/slot/SlotFragment.kt").readText()
+        assertTrue(fragment.contains("REEL_CELL_HORIZONTAL_MARGIN_DP = 1"))
+        assertTrue(fragment.contains("setMargins(cellHorizontalMargin, 0, cellHorizontalMargin, 0)"))
+        assertTrue(fragment.contains("setMargins(columnHorizontalMargin, 0, columnHorizontalMargin, 0)"))
+        val settledGrid = fragment.substringAfter("private fun setupGrid()").substringBefore("private fun setupReelSpinStripLayer()")
+        assertFalse(settledGrid.contains("setMargins(4, 4, 4, 4)"))
     }
 
     @Test
@@ -143,10 +174,12 @@ class SlotClarityContractTest {
             "layout-w600dp-land/dialog_paytable.xml"
         ).forEach { relativePath ->
             val layout = resourceRoot.resolve(relativePath).readText()
-            assertTrue(relativePath, layout.contains("style=\"@style/VSlotAccessibleCopy.PaytableValue\""))
+            assertTrue(relativePath, layout.contains("style=\"@style/VSlotAccessibleCopy.PaytableHeader\""))
             assertTrue(relativePath, layout.contains("android:visibility=\"visible\""))
         }
         assertTrue(dialog.contains("TextView(requireContext()).apply"))
+        assertTrue(dialog.contains("setAutoSizeTextTypeUniformWithConfiguration"))
+        assertFalse(dialog.contains("PAYTABLE_BONUS_MULTIPLIER_HEIGHT_DP"))
         assertFalse(dialog.contains("R.drawable.symbol_bonus_scatter_halo"))
         assertFalse(dialog.contains("R.drawable.modal_badge_bonus"))
     }

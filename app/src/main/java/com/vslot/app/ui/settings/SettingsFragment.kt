@@ -70,17 +70,21 @@ class SettingsFragment : Fragment() {
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        notificationPermissionLaunchActive = false
-        pushPermissionRequestStore.markSystemResult(granted)
-        pushPermissionResultPersistenceActive = true
-        viewModel.onPushPermissionResult(
-            granted = granted,
-            onPersisted = {
-                pushPermissionResultPersistenceActive = false
-                resolvePersistedPushPermissionRequest()
-            },
-            onFailure = { pushPermissionResultPersistenceActive = false }
-        )
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                pushPermissionRequestStore.markSystemResult(granted)
+            }
+            notificationPermissionLaunchActive = false
+            pushPermissionResultPersistenceActive = true
+            viewModel.onPushPermissionResult(
+                granted = granted,
+                onPersisted = {
+                    pushPermissionResultPersistenceActive = false
+                    resolvePersistedPushPermissionRequest()
+                },
+                onFailure = { pushPermissionResultPersistenceActive = false }
+            )
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -301,10 +305,14 @@ class SettingsFragment : Fragment() {
             AndroidSettings.ACTION_APPLICATION_DETAILS_SETTINGS,
             Uri.fromParts("package", context.packageName, null)
         )
-        val settingsIntent = listOf(appNotificationSettings, appDetailsSettings)
-            .firstOrNull { it.resolveActivity(context.packageManager) != null }
-            ?: return
-        startActivity(settingsIntent)
+        val generalSettings = Intent(AndroidSettings.ACTION_SETTINGS)
+        listOf(appNotificationSettings, appDetailsSettings, generalSettings).forEach { intent ->
+            if (intent.resolveActivity(context.packageManager) != null &&
+                runCatching { startActivity(intent) }.isSuccess
+            ) {
+                return
+            }
+        }
     }
 
     private fun showPushPrePermission() {

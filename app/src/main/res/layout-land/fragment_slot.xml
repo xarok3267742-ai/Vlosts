@@ -19,13 +19,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingStart="12dp"
-        android:paddingTop="10dp"
+        android:paddingTop="4dp"
         android:paddingEnd="12dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="4dp">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp">
+            android:layout_height="48dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -101,18 +101,20 @@
             android:id="@+id/slotScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:fillViewport="false"
             android:overScrollMode="never"
             android:scrollbars="none">
 
             <LinearLayout
+                android:id="@+id/slotGameContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <com.vslot.app.ui.widget.SlotMachineLayout
+                    android:id="@+id/slotMachine"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -126,7 +128,7 @@
                     android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/slot_machine_frame" />
+                    tools:src="@drawable/slot_machine_frame" />
 
                 <ImageView
                     android:id="@+id/slotCabinetLights"
@@ -134,7 +136,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@null"
                     android:scaleType="fitXY"
-                    android:src="@drawable/slot_cabinet_lights" />
+                    tools:src="@drawable/slot_cabinet_lights" />
 
                 <ImageView
                     android:id="@+id/slotCabinetChaseLights"
@@ -144,7 +146,7 @@
                     android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:scaleType="fitXY"
-                    android:src="@drawable/slot_cabinet_chase_lights"
+                    tools:src="@drawable/slot_cabinet_chase_lights"
                     android:visibility="invisible" />
 
                 <ImageView
@@ -154,7 +156,7 @@
                     android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:scaleType="fitXY"
-                    android:src="@drawable/slot_marquee_glass" />
+                    tools:src="@drawable/slot_marquee_glass" />
 
                 <FrameLayout
                     android:id="@+id/slotLevelPanel"
@@ -254,7 +256,7 @@
                     android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:scaleType="fitXY"
-                    android:src="@drawable/reel_depth_dividers" />
+                    tools:src="@drawable/reel_depth_dividers" />
 
                 <ImageView
                     android:id="@+id/paylineMarkersOverlay"
@@ -262,7 +264,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/slot_paylines"
                     android:scaleType="fitXY"
-                    android:src="@drawable/payline_markers_overlay" />
+                    tools:src="@drawable/payline_markers_overlay" />
 
                 <ImageView
                     android:id="@+id/winGlowOverlay"
@@ -423,7 +425,7 @@
                     android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:scaleType="fitXY"
-                    android:src="@drawable/reel_window_depth_mask" />
+                    tools:src="@drawable/reel_window_depth_mask" />
 
                 <ImageView
                     android:id="@+id/reelApertureShadow"
@@ -436,7 +438,7 @@
                     android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:scaleType="fitXY"
-                    android:src="@drawable/reel_aperture_shadow" />
+                    tools:src="@drawable/reel_aperture_shadow" />
 
                 <ImageView
                     android:id="@+id/slotThemeAmbientOverlay"
@@ -498,7 +500,7 @@
                         android:contentDescription="@null"
                         android:importantForAccessibility="no"
                         android:scaleType="fitXY"
-                        android:src="@drawable/active_lines_badge" />
+                        tools:src="@drawable/active_lines_badge" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -523,7 +525,7 @@
                             android:contentDescription="@null"
                             android:importantForAccessibility="no"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/label_lines" />
+                            tools:src="@drawable/label_lines" />
                     </LinearLayout>
                 </FrameLayout>
 
@@ -558,7 +560,7 @@
                         android:contentDescription="@null"
                         android:importantForAccessibility="no"
                         android:scaleType="fitXY"
-                        android:src="@drawable/free_spins_badge" />
+                        tools:src="@drawable/free_spins_badge" />
 
                     <com.vslot.app.ui.widget.BitmapNumberView
                         android:id="@+id/freeSpinsDigits"
@@ -739,7 +741,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@null"
                             android:scaleType="fitXY"
-                            android:src="@drawable/bet_panel"
+                            tools:src="@drawable/bet_panel"
                             android:visibility="invisible" />
 
                         <ImageView
@@ -750,7 +752,7 @@
                             android:contentDescription="@null"
                             android:importantForAccessibility="no"
                             android:scaleType="fitXY"
-                            android:src="@drawable/slot_control_meter_glow"
+                            tools:src="@drawable/slot_control_meter_glow"
                             android:visibility="invisible" />
 
                         <LinearLayout
@@ -774,7 +776,7 @@
                                     android:background="@android:color/transparent"
                                     android:contentDescription="@string/decrease_bet"
                                     android:scaleType="fitCenter"
-                                    android:src="@drawable/btn_bet_minus_selector"
+                                    tools:src="@drawable/btn_bet_minus_selector"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -786,7 +788,7 @@
                                     android:background="@android:color/transparent"
                                     android:contentDescription="@string/increase_bet"
                                     android:scaleType="fitCenter"
-                                    android:src="@drawable/btn_bet_plus_selector"
+                                    tools:src="@drawable/btn_bet_plus_selector"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -798,8 +800,8 @@
                                     android:layout_marginEnd="4dp"
                                     android:gravity="center"
                                     android:orientation="vertical"
-                                    android:paddingStart="8dp"
-                                    android:paddingEnd="8dp"
+                                    android:paddingStart="4dp"
+                                    android:paddingEnd="4dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toStartOf="@id/betPlusButton"
                                     app:layout_constraintStart_toEndOf="@id/betMinusButton"
@@ -808,14 +810,13 @@
                                     <TextView
                                         android:id="@+id/betLabel"
                                         style="@style/VSlotAccessibleCopy.MeterLabel"
-                                        tools:ignore="SpUsage"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="@string/line_bet_short"
-                                        android:textSize="12dp"
-                                        app:autoSizeMaxTextSize="12dp"
-                                        app:autoSizeMinTextSize="8dp"
-                                        app:autoSizeStepGranularity="1dp"
+                                        android:textSize="12sp"
+                                        app:autoSizeMaxTextSize="12sp"
+                                        app:autoSizeMinTextSize="8sp"
+                                        app:autoSizeStepGranularity="1sp"
                                         app:autoSizeTextType="uniform" />
 
                                     <com.vslot.app.ui.widget.BitmapNumberView
@@ -841,7 +842,7 @@
                                     android:background="@android:color/transparent"
                                     android:contentDescription="@string/decrease_lines"
                                     android:scaleType="fitCenter"
-                                    android:src="@drawable/btn_bet_minus_selector"
+                                    tools:src="@drawable/btn_bet_minus_selector"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -853,7 +854,7 @@
                                     android:background="@android:color/transparent"
                                     android:contentDescription="@string/increase_lines"
                                     android:scaleType="fitCenter"
-                                    android:src="@drawable/btn_bet_plus_selector"
+                                    tools:src="@drawable/btn_bet_plus_selector"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -865,8 +866,8 @@
                                     android:layout_marginEnd="4dp"
                                     android:gravity="center"
                                     android:orientation="vertical"
-                                    android:paddingStart="8dp"
-                                    android:paddingEnd="8dp"
+                                    android:paddingStart="4dp"
+                                    android:paddingEnd="4dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toStartOf="@id/linesPlusButton"
                                     app:layout_constraintStart_toEndOf="@id/linesMinusButton"
@@ -875,14 +876,13 @@
                                     <TextView
                                         android:id="@+id/linesLabel"
                                         style="@style/VSlotAccessibleCopy.MeterLabel"
-                                        tools:ignore="SpUsage"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="@string/active_lines_short"
-                                        android:textSize="12dp"
-                                        app:autoSizeMaxTextSize="12dp"
-                                        app:autoSizeMinTextSize="8dp"
-                                        app:autoSizeStepGranularity="1dp"
+                                        android:textSize="12sp"
+                                        app:autoSizeMaxTextSize="12sp"
+                                        app:autoSizeMinTextSize="8sp"
+                                        app:autoSizeStepGranularity="1sp"
                                         app:autoSizeTextType="uniform" />
 
                                     <com.vslot.app.ui.widget.BitmapNumberView
@@ -934,7 +934,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@null"
                             android:scaleType="fitXY"
-                            android:src="@drawable/bet_panel"
+                            tools:src="@drawable/bet_panel"
                             android:visibility="invisible" />
 
                         <ImageView
@@ -945,7 +945,7 @@
                             android:contentDescription="@null"
                             android:importantForAccessibility="no"
                             android:scaleType="fitXY"
-                            android:src="@drawable/slot_control_meter_glow"
+                            tools:src="@drawable/slot_control_meter_glow"
                             android:visibility="invisible" />
 
                         <LinearLayout
@@ -971,14 +971,13 @@
                                     <TextView
                                         android:id="@+id/totalBetLabel"
                                         style="@style/VSlotAccessibleCopy.MeterLabel"
-                                        tools:ignore="SpUsage"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="@string/spin_cost"
-                                        android:textSize="12dp"
-                                        app:autoSizeMaxTextSize="12dp"
-                                        app:autoSizeMinTextSize="8dp"
-                                        app:autoSizeStepGranularity="1dp"
+                                        android:textSize="12sp"
+                                        app:autoSizeMaxTextSize="12sp"
+                                        app:autoSizeMinTextSize="8sp"
+                                        app:autoSizeStepGranularity="1sp"
                                         app:autoSizeTextType="uniform" />
 
                                 <com.vslot.app.ui.widget.BitmapNumberView
@@ -1002,14 +1001,13 @@
                                     <TextView
                                         android:id="@+id/lastWinLabel"
                                         style="@style/VSlotAccessibleCopy.MeterLabel"
-                                        tools:ignore="SpUsage"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="@string/payout_short"
-                                        android:textSize="12dp"
-                                        app:autoSizeMaxTextSize="12dp"
-                                        app:autoSizeMinTextSize="8dp"
-                                        app:autoSizeStepGranularity="1dp"
+                                        android:textSize="12sp"
+                                        app:autoSizeMaxTextSize="12sp"
+                                        app:autoSizeMinTextSize="8sp"
+                                        app:autoSizeStepGranularity="1sp"
                                         app:autoSizeTextType="uniform" />
 
                                 <com.vslot.app.ui.widget.BitmapNumberView
@@ -1037,7 +1035,7 @@
                             android:contentDescription="@null"
                             android:importantForAccessibility="no"
                             android:scaleType="fitXY"
-                            android:src="@drawable/slot_spin_deck_glow"
+                            tools:src="@drawable/slot_spin_deck_glow"
                             android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -1051,7 +1049,7 @@
                             android:alpha="0"
                             android:contentDescription="@null"
                             android:scaleType="fitXY"
-                            android:src="@drawable/spin_button_ready_glow"
+                            tools:src="@drawable/spin_button_ready_glow"
                             android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@id/spinButton"
@@ -1065,7 +1063,7 @@
                             android:contentDescription="@null"
                             android:importantForAccessibility="no"
                             android:scaleType="fitXY"
-                            android:src="@drawable/slot_paytable_dock_glow"
+                            tools:src="@drawable/slot_paytable_dock_glow"
                             android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -1091,7 +1089,7 @@
                                 android:contentDescription="@null"
                                 android:duplicateParentState="true"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/paytable_button" />
+                                tools:src="@drawable/paytable_button" />
 
                             <ImageView
                                 android:id="@+id/paytableButtonLabel"
@@ -1102,7 +1100,7 @@
                                 android:contentDescription="@null"
                                 android:duplicateParentState="true"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/label_paytable_button"
+                                tools:src="@drawable/label_paytable_button"
                                 android:visibility="invisible" />
                         </FrameLayout>
 
@@ -1115,7 +1113,7 @@
                             android:background="@android:color/transparent"
                             android:contentDescription="@string/spin"
                             android:scaleType="fitXY"
-                            android:src="@drawable/spin_button_violet_selector"
+                            tools:src="@drawable/spin_button_violet_selector"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/autoSpinButton"
                             app:layout_constraintStart_toEndOf="@id/paytableButton"
@@ -1124,17 +1122,22 @@
                         <TextView
                             android:id="@+id/spinButtonText"
                             style="@style/VSlotAccessibleCopy.SpinAction"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginBottom="8dp"
                             android:clickable="false"
                             android:focusable="false"
                             android:importantForAccessibility="no"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@string/spin_visual_label"
-                            android:textSize="16dp"
-                            tools:ignore="SpUsage"
-                            app:autoSizeMaxTextSize="16dp"
-                            app:autoSizeMinTextSize="11dp"
-                            app:autoSizeStepGranularity="1dp"
+                            android:textSize="16sp"
+                            app:autoSizeMaxTextSize="16sp"
+                            app:autoSizeMinTextSize="8sp"
+                            app:autoSizeStepGranularity="1sp"
                             app:autoSizeTextType="uniform"
                             app:layout_constraintBottom_toBottomOf="@id/spinButton"
                             app:layout_constraintEnd_toEndOf="@id/spinButton"
@@ -1201,7 +1204,7 @@
                             android:contentDescription="@string/auto_spin_start"
                             android:padding="1dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/btn_autospin_selector"
+                            tools:src="@drawable/btn_autospin_selector"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/maxLinesButton"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -1256,7 +1259,7 @@
                                 android:importantForAccessibility="no"
                                 android:padding="1dp"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/btn_max_lines_selector" />
+                                tools:src="@drawable/btn_max_lines_selector" />
                         </FrameLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>

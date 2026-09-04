@@ -21,6 +21,7 @@ import android.provider.Settings
 import android.text.Layout
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.TextView
 import androidx.annotation.IdRes
@@ -333,8 +334,11 @@ class MainActivitySmokeTest {
                 R.id.paytableFooterLargeText,
                 context.getString(R.string.paytable_footer_violet)
             )
+            assertPaytableStageShowsWholeRows(expectedRows = 3)
             scrollViewIntoView(R.id.closeButton)
             assertViewFullyVisible(R.id.closeButton)
+            SystemClock.sleep(STORE_SCREENSHOT_SETTLE_MS)
+            assertPaytableStageShowsWholeRows(expectedRows = 3)
             captureLayoutMatrixScreenshot("large-font-10-paytable-landscape.png")
             scenario.onActivity { activity ->
                 activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -355,9 +359,29 @@ class MainActivitySmokeTest {
                 R.id.paytableFooterLargeText,
                 context.getString(R.string.paytable_footer_violet)
             )
+            assertPaytableStageShowsWholeRows(expectedRows = 4)
             scrollViewIntoView(R.id.closeButton)
             assertViewFullyVisible(R.id.closeButton)
+            SystemClock.sleep(STORE_SCREENSHOT_SETTLE_MS)
+            assertPaytableStageShowsWholeRows(expectedRows = 4)
             captureLayoutMatrixScreenshot("large-font-11-paytable-portrait.png")
+            performClickOnMain(R.id.closeButton)
+
+            waitForEnabled(R.id.autoSpinButton)
+            performClickOnMain(R.id.autoSpinButton)
+            assertLargeFontCopy(
+                R.id.autoSpinTitle,
+                R.id.autoSpinTitleLargeText,
+                context.getString(R.string.auto_spin_count_title)
+            )
+            assertLargeFontCopy(
+                R.id.autoSpinChoose,
+                R.id.autoSpinChooseLargeText,
+                context.getString(R.string.auto_spin_count_choose)
+            )
+            scrollViewIntoView(R.id.closeButton)
+            assertViewFullyVisible(R.id.closeButton)
+            captureLayoutMatrixScreenshot("large-font-12-autospin-portrait.png")
             performClickOnMain(R.id.closeButton)
         }
     }
@@ -366,13 +390,19 @@ class MainActivitySmokeTest {
     fun homeNavigationOpensSlotPaytableSettingsAndPrivacyFallback() {
         seedScenario("daily_wait")
 
-        launchMain().use {
+        launchMain().use { scenario ->
             waitForDisplayed(R.id.violetCard)
             waitForDisplayed(R.id.romanCard)
             captureStoreScreenshot("01-home.png")
 
             clickView(R.id.violetCard)
             waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
+            scenario.onActivity { activity ->
+                assertTrue(
+                    "The activity bitmap backdrop must be released after the slot background binds",
+                    activity.findViewById<android.widget.ImageView>(R.id.screenBackground).drawable == null
+                )
+            }
             waitForContentDescription(R.id.linesDigits, "10 линий выплат")
             waitForContentDescription(R.id.totalBetDigits, "Общая ставка 100")
             assertViewFullyVisible(R.id.slotMachineFrame)
@@ -389,9 +419,24 @@ class MainActivitySmokeTest {
             clickView(R.id.closeButton)
             clickView(R.id.backButton)
 
+            repeat(4) {
+                waitForDisplayed(R.id.violetCard)
+                clickView(R.id.violetCard)
+                waitForContentDescription(R.id.slotTitle, "Фиолетовая Фортуна")
+                scenario.onActivity { activity ->
+                    assertTrue(
+                        "Repeated slot navigation must not retain the activity bitmap backdrop",
+                        activity.findViewById<android.widget.ImageView>(R.id.screenBackground).drawable == null
+                    )
+                }
+                clickView(R.id.backButton)
+            }
+
             waitForDisplayed(R.id.settingsButton)
             clickView(R.id.settingsButton)
             waitForDisplayed(R.id.privacyButton)
+            scrollViewIntoView(R.id.privacyButton)
+            assertViewFullyVisible(R.id.privacyButton)
             captureStoreScreenshot("04-settings.png")
             clickView(R.id.privacyButton)
             waitForPrivacyState()
@@ -582,9 +627,14 @@ class MainActivitySmokeTest {
                         lines = beforeSpin.selectedLines
                     )
                 )
-                clickView(cardId)
+                waitForMainActivityWindowFocus()
+                performClickOnMain(cardId)
 
-                waitForContentDescription(R.id.slotTitle, context.getString(titleRes))
+                try {
+                    waitForContentDescription(R.id.slotTitle, context.getString(titleRes))
+                } catch (failure: AssertionError) {
+                    throw AssertionError("Slot $slotId did not open from the unlocked home card.", failure)
+                }
                 assertViewFullyVisible(R.id.slotMachineFrame)
                 assertViewFullyVisible(R.id.slotControlConsole)
                 assertViewFullyVisible(R.id.spinButton)
@@ -619,6 +669,12 @@ class MainActivitySmokeTest {
 
                 clickView(R.id.backButton)
                 waitForDisplayed(R.id.homeSlotHorizontalScrollView)
+                waitUntil {
+                    assertEquals(
+                        HOME_ALL_SLOTS_LEVEL,
+                        displayedBitmapNumber(R.id.homeLevelDigits)
+                    )
+                }
             }
         }
     }
@@ -760,6 +816,27 @@ class MainActivitySmokeTest {
             assertViewFullyVisible(R.id.backButton)
             assertViewFullyVisible(R.id.slotTitle)
             waitForDisplayed(R.id.reelsGrid)
+            assertViewFullyVisible(R.id.slotMachineFrame)
+            assertViewFullyVisible(R.id.slotControlConsole)
+            assertViewFullyVisible(R.id.spinButton)
+            listOf(
+                R.id.betLabel to R.string.line_bet_short,
+                R.id.linesLabel to R.string.active_lines_short,
+                R.id.totalBetLabel to R.string.spin_cost_compact,
+                R.id.lastWinLabel to R.string.payout_short
+            ).forEach { (viewId, textId) ->
+                assertTextFullyLaidOut(
+                    viewId,
+                    ApplicationProvider.getApplicationContext<Context>().getString(textId),
+                    enforceMinimumRenderedTextSize = false
+                )
+            }
+            assertTextFullyLaidOut(
+                R.id.spinButtonText,
+                ApplicationProvider.getApplicationContext<Context>().getString(R.string.spin_compact_visual_label),
+                enforceMinimumRenderedTextSize = false
+            )
+            assertViewsDoNotOverlap(R.id.slotMachineFrame, R.id.slotControlConsole)
             captureLayoutMatrixScreenshot("compact-landscape-02-slot-reels.png")
 
             listOf(
@@ -907,6 +984,8 @@ class MainActivitySmokeTest {
 
     @Test
     fun lowCoinsBonusLandscapeKeepsCopyAndActionFullyVisible() {
+        seedScenario(QA_DIALOG_LOW_BONUS)
+
         launchQaDialog(QA_DIALOG_LOW_BONUS).use { scenario ->
             waitForDisplayed(R.id.lowCoinsTitle)
             scenario.onActivity { activity ->
@@ -2125,6 +2204,48 @@ class MainActivitySmokeTest {
             }
         }
         failure?.let { throw it }
+    }
+
+    private fun assertPaytableStageShowsWholeRows(expectedRows: Int) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        waitUntil {
+            var failure: Throwable? = null
+            instrumentation.runOnMainSync {
+                try {
+                    val stage = findCurrentViewByIdOnMain(R.id.paytableRowsStage)
+                        ?: throw AssertionError("Paytable row viewport is missing.")
+                    val rows = findCurrentViewByIdOnMain(R.id.paytableRows) as? ViewGroup
+                        ?: throw AssertionError("Paytable rows container is missing.")
+                    val firstRow = rows.getChildAt(0)
+                        ?: throw AssertionError("Paytable has no payout rows.")
+                    val nextRow = rows.getChildAt(expectedRows)
+                        ?: throw AssertionError("Paytable needs a row after the visible viewport.")
+                    val scroll = findCurrentViewByIdOnMain(R.id.paytableScrollView) as? android.widget.ScrollView
+                        ?: throw AssertionError("Paytable scroll view is missing.")
+                    val expectedHeight = firstRow.height * expectedRows
+                    if (firstRow.height <= 0 || stage.height != expectedHeight) {
+                        throw AssertionError(
+                            "Paytable viewport height ${stage.height}px must equal $expectedRows whole " +
+                                "rows of ${firstRow.height}px ($expectedHeight px); scrollY=${scroll.scrollY}."
+                        )
+                    }
+                    val stageRect = Rect()
+                    val nextRowRect = Rect()
+                    val nextRowIsVisible = nextRow.getGlobalVisibleRect(nextRowRect) &&
+                        stage.getGlobalVisibleRect(stageRect) && Rect.intersects(stageRect, nextRowRect)
+                    if (scroll.scrollY != 0 || nextRowIsVisible) {
+                        throw AssertionError(
+                            "Paytable must start at the first row and hide row ${expectedRows + 1}; " +
+                                "scrollY=${scroll.scrollY}, stage=$stageRect, nextRow=$nextRowRect, " +
+                                "nextRowTop=${nextRow.top}, stageHeight=${stage.height}."
+                        )
+                    }
+                } catch (throwable: Throwable) {
+                    failure = throwable
+                }
+            }
+            failure?.let { throw it }
+        }
     }
 
     private fun assertViewFullyVisible(@IdRes viewId: Int) {

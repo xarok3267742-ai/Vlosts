@@ -52,6 +52,7 @@
     <string name="auto_spin_stop">Остановить автоспин</string>
     <string name="auto_spin_configure">Настроить автоспин</string>
     <string name="auto_spin_count_title">Выберите количество автоспинов</string>
+    <string name="auto_spin_count_choose">Количество вращений</string>
     <string name="auto_spin_count_action">Запустить %1$d автоспинов</string>
     <string name="auto_spin_stop_remaining">Остановить автоспин, осталось %1$d</string>
     <string name="auto_spin_stop_free_spins">Остановить фриспины, осталось %1$d</string>

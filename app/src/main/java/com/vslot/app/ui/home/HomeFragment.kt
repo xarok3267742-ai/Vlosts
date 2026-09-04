@@ -32,6 +32,7 @@ import com.vslot.app.ui.dialog.DailyBonusDialogFragment
 import com.vslot.app.ui.widget.clearImageResourcesRecursively
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -546,7 +547,10 @@ class HomeFragment : Fragment() {
         val opened = navigateFromHome(
             R.id.action_home_to_slot,
             Bundle().apply { putString("slotId", slotId) },
-            beforeNavigation = ::releaseHomeImageResources
+            beforeNavigation = {
+                releaseHomeImageResources()
+                (activity as? com.vslot.app.MainActivity)?.prepareScreenBackgroundForSlot(slotId)
+            }
         )
         if (opened) {
             viewModel.onSlotSelected(slotId, slotName)
@@ -593,11 +597,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun openSlotIfUnlocked(slotId: String, slotName: String) {
-        if (!SlotUnlockRules.isUnlocked(slotId, latestPlayerState.playerLevel)) {
-            pulseLockedSlot(slotId)
-            return
+        viewLifecycleOwner.lifecycleScope.launch {
+            val playerLevel = viewModel.playerState.first().playerLevel
+            if (_binding == null) return@launch
+            if (!SlotUnlockRules.isUnlocked(slotId, playerLevel)) {
+                pulseLockedSlot(slotId)
+                return@launch
+            }
+            openSlot(slotId, slotName)
         }
-        openSlot(slotId, slotName)
     }
 
     private fun pulseLockedSlot(slotId: String) {

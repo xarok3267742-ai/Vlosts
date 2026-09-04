@@ -39,6 +39,7 @@ class LowCoinsDialogFragment : DialogFragment() {
         val args = arguments ?: Bundle.EMPTY
         val initialBonusAvailable = args.getBoolean(ARG_BONUS_AVAILABLE)
         val canReduceStake = args.getBoolean(ARG_CAN_REDUCE_STAKE)
+        val restoredFromSavedState = savedInstanceState != null
         var bonusAvailable = initialBonusAvailable
         var claimInProgress = false
 
@@ -93,6 +94,19 @@ class LowCoinsDialogFragment : DialogFragment() {
                 renderState(available = true)
                 animateLowCoinsPolish(binding, bonusAvailable = true)
             }
+            if (restoredFromSavedState && initialBonusAvailable) {
+                lifecycleScope.launch {
+                    lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        val bonusStillAvailable = AppGraph.playerRepository.playerState
+                            .first()
+                            .isDailyBonusAvailable()
+                        if (!bonusStillAvailable) {
+                            arguments?.putBoolean(ARG_BONUS_AVAILABLE, false)
+                            dismissAfterAsyncClaim()
+                        }
+                    }
+                }
+            }
         }
         binding.lowCoinsRescueGlow.visibility = View.VISIBLE
         binding.lowCoinsRescueGlow.alpha = if (bonusAvailable) {
@@ -136,7 +150,8 @@ class LowCoinsDialogFragment : DialogFragment() {
                     )
                 }
                 if (!dialogUiActive) return@launch
-                dismiss()
+                arguments?.putBoolean(ARG_BONUS_AVAILABLE, false)
+                dismissAfterAsyncClaim()
             }
         }
 
@@ -256,6 +271,15 @@ class LowCoinsDialogFragment : DialogFragment() {
             )
             duration = LOW_COINS_POLISH_DURATION_MS
             start()
+        }
+    }
+
+    private fun dismissAfterAsyncClaim() {
+        if (!dialogUiActive || !isAdded) return
+        if (parentFragmentManager.isStateSaved) {
+            dismissAllowingStateLoss()
+        } else {
+            dismiss()
         }
     }
 

@@ -153,8 +153,6 @@ class DisclaimerFragment : Fragment() {
                 ObjectAnimator.ofFloat(binding.disclaimerAcceptGlow, View.SCALE_Y, 0.98f, 1.02f, 1f),
                 ObjectAnimator.ofFloat(binding.disclaimerCheckButton, View.SCALE_X, 0.92f, 1.08f, 1f),
                 ObjectAnimator.ofFloat(binding.disclaimerCheckButton, View.SCALE_Y, 0.92f, 1.08f, 1f),
-                ObjectAnimator.ofFloat(binding.continueButton, View.SCALE_X, 0.98f, 1.03f, 1f),
-                ObjectAnimator.ofFloat(binding.continueButton, View.SCALE_Y, 0.98f, 1.03f, 1f),
                 ObjectAnimator.ofFloat(binding.continueButtonLabel, View.ALPHA, CONTINUE_LABEL_DISABLED_ALPHA, 1f)
             )
             duration = ACCEPT_FEEDBACK_DURATION_MS

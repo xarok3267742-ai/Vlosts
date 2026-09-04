@@ -56,6 +56,21 @@
             android:exported="false"
             tools:replace="android:exported" />
 
+        <!-- App state is credential-encrypted, so Firebase must not start this process before unlock. -->
+        <service
+            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+            android:directBootAware="false"
+            tools:replace="android:directBootAware" />
+        <service
+            android:name="com.google.firebase.components.ComponentDiscoveryService"
+            android:directBootAware="false"
+            tools:replace="android:directBootAware" />
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:directBootAware="false"
+            android:exported="false"
+            tools:replace="android:directBootAware,android:exported" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

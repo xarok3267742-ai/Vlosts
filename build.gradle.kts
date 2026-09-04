@@ -841,6 +841,8 @@ val verifyReleaseProvenance = tasks.register("verifyReleaseProvenance") {
             "V_SLOT_DATA_SAFETY_REVIEWED_VERSION_CODE",
             "V_SLOT_DATA_SAFETY_EVIDENCE_SHA256",
             "V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256",
+            "V_SLOT_IARC_REVIEWED_VERSION_CODE",
+            "V_SLOT_IARC_EVIDENCE_SHA256",
             "V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE",
             "V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256",
             "V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256",

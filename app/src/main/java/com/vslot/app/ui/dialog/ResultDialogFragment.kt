@@ -51,9 +51,14 @@ class ResultDialogFragment : DialogFragment() {
         }
         binding.resultModalPanel.setImageResourceIfChanged(resultModalPanelDrawable(slotTheme))
         binding.resultStageLattice.setImageResourceIfChanged(resultStageLatticeDrawable(slotTheme))
-        binding.resultThemeWinBurst.setImageResourceIfChanged(themeWinBurstDrawable(slotTheme))
-        binding.resultRewardOverlay.setImageResourceIfChanged(resultRewardOverlayDrawable(slotTheme))
-        binding.resultFreeSpinsAwardPanel.setImageResourceIfChanged(resultFreeSpinsAwardPanelDrawable(slotTheme))
+        if (isReward) {
+            binding.resultThemeWinBurst.setImageResourceIfChanged(themeWinBurstDrawable(slotTheme))
+            binding.resultRewardOverlay.setImageResourceIfChanged(resultRewardOverlayDrawable(slotTheme))
+        }
+        val hasFreeSpinsAward = !isFreeSpinsSummary && freeSpinsAwarded > 0
+        if (hasFreeSpinsAward) {
+            binding.resultFreeSpinsAwardPanel.setImageResourceIfChanged(resultFreeSpinsAwardPanelDrawable(slotTheme))
+        }
         val titleImage = if (isFreeSpinsSummary) {
             R.drawable.title_bonus
         } else when (netOutcome) {
@@ -123,7 +128,6 @@ class ResultDialogFragment : DialogFragment() {
         binding.resultRewardSparkle.alpha = 0f
         binding.resultRewardSparkle.scaleX = 1f
         binding.resultRewardSparkle.scaleY = 1f
-        val hasFreeSpinsAward = !isFreeSpinsSummary && freeSpinsAwarded > 0
         binding.resultFreeSpinsAwardGroup.visibility = if (hasFreeSpinsAward) View.VISIBLE else View.GONE
         binding.resultFreeSpinsAwardGroup.alpha = if (hasFreeSpinsAward) BONUS_AWARD_SETTLED_ALPHA else 0f
         binding.resultFreeSpinsAwardGroup.contentDescription = if (hasFreeSpinsAward) {

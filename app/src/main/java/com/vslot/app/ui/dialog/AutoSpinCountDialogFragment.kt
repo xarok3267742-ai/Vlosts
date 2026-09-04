@@ -12,6 +12,10 @@ import com.vslot.app.databinding.ItemAutoSpinCountOptionBinding
 class AutoSpinCountDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = DialogAutoSpinCountBinding.inflate(layoutInflater)
+        bindScalableDialogCopy(
+            binding.autoSpinTitle to binding.autoSpinTitleLargeText,
+            binding.autoSpinChoose to binding.autoSpinChooseLargeText
+        )
         bindOption(binding.autoSpinOption10, 10)
         bindOption(binding.autoSpinOption25, 25)
         bindOption(binding.autoSpinOption50, 50)
@@ -21,7 +25,7 @@ class AutoSpinCountDialogFragment : DialogFragment() {
             setContentView(binding.root)
             setOnShowListener {
                 keepGameFullscreen()
-                binding.autoSpinTitle.requestFocus()
+                binding.autoSpinTitleLargeText.requestFocus()
             }
             window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
         }

@@ -42,7 +42,20 @@
             android:scaleType="fitCenter"
             android:src="@drawable/title_auto_spin" />
 
+        <TextView
+            android:id="@+id/autoSpinTitleLargeText"
+            style="@style/VSlotAccessibleCopy.Command"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:importantForAccessibility="no"
+            android:text="@string/auto_spin_count_title"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
         <ImageView
+            android:id="@+id/autoSpinChoose"
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:layout_marginTop="4dp"
@@ -50,6 +63,18 @@
             android:importantForAccessibility="no"
             android:scaleType="fitCenter"
             android:src="@drawable/label_auto_spin_choose" />
+
+        <TextView
+            android:id="@+id/autoSpinChooseLargeText"
+            style="@style/VSlotAccessibleCopy.Compact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:importantForAccessibility="no"
+            android:text="@string/auto_spin_count_choose"
+            android:textAlignment="center"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"

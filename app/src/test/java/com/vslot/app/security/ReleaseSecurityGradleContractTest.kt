@@ -14,6 +14,9 @@ class ReleaseSecurityGradleContractTest {
     private val dataSafetyTemplate = JSONObject(
         Path.of("../docs/store/DATA_SAFETY_EVIDENCE_TEMPLATE.json").readText()
     )
+    private val iarcTemplate = JSONObject(
+        Path.of("../docs/store/IARC_EVIDENCE_TEMPLATE.json").readText()
+    )
 
     @Test
     fun androidLintRemainsStrictForEveryReleaseCandidate() {
@@ -139,6 +142,8 @@ class ReleaseSecurityGradleContractTest {
                 "V_SLOT_DATA_SAFETY_REVIEWED_VERSION_CODE",
                 "V_SLOT_DATA_SAFETY_EVIDENCE_SHA256",
                 "V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256",
+                "V_SLOT_IARC_REVIEWED_VERSION_CODE",
+                "V_SLOT_IARC_EVIDENCE_SHA256",
                 "V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE",
                 "V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256",
                 "V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256",
@@ -314,6 +319,36 @@ class ReleaseSecurityGradleContractTest {
     }
 
     @Test
+    fun iarcEvidenceTemplatePinsTheAccurateSimulatedGamblingAnswers() {
+        assertEquals(1, iarcTemplate.getInt("schema_version"))
+        assertEquals("com.vslot.app", iarcTemplate.getString("package_name"))
+        val questionnaire = iarcTemplate.getJSONObject("questionnaire")
+        assertEquals(
+            setOf(
+                "contains_gambling_or_simulation",
+                "gambling_themes",
+                "playable_bingo",
+                "playable_casino_games_lotteries_or_racetrack",
+                "other_token_reward_games",
+                "gambling_prominent",
+                "cash_or_significant_monetary_rewards"
+            ),
+            questionnaire.keys().asSequence().toSet()
+        )
+        assertTrue(questionnaire.getBoolean("contains_gambling_or_simulation"))
+        assertTrue(questionnaire.getBoolean("gambling_themes"))
+        assertFalse(questionnaire.getBoolean("playable_bingo"))
+        assertTrue(questionnaire.getBoolean("playable_casino_games_lotteries_or_racetrack"))
+        assertFalse(questionnaire.getBoolean("other_token_reward_games"))
+        assertTrue(questionnaire.getBoolean("gambling_prominent"))
+        assertFalse(questionnaire.getBoolean("cash_or_significant_monetary_rewards"))
+        assertTrue(appBuild.contains("fun iarcEvidenceIssues"))
+        assertTrue(appBuild.contains("verifyIarcEvidenceValidatorContract"))
+        assertTrue(appBuild.contains("verifyIarcEvidence"))
+        assertTrue(appBuild.contains("IARC evidence validator accepted cash payouts"))
+    }
+
+    @Test
     fun productionReleaseRequiresCommitAndApkBoundPhysicalSamsungEvidence() {
         listOf(
             "V_SLOT_SAMSUNG_QA_EVIDENCE_FILE",
@@ -345,7 +380,7 @@ class ReleaseSecurityGradleContractTest {
     @Test
     fun postBuildEvidenceBindsTheSignedBundleToVerificationOutputs() {
         assertTrue(appBuild.contains("tasks.register(\"generateReleaseArtifactEvidence\")"))
-        assertTrue(appBuild.contains("schema=v-slot-release-artifact-evidence-v8"))
+        assertTrue(appBuild.contains("schema=v-slot-release-artifact-evidence-v9"))
         assertTrue(appBuild.contains("outputs/bundle/release/app-release.aab"))
         assertTrue(appBuild.contains("tasks.register(\"verifyReleaseBundleWithBundletool\")"))
         assertTrue(appBuild.contains("runBundletool(\"validate\""))
@@ -382,10 +417,12 @@ class ReleaseSecurityGradleContractTest {
         assertTrue(appBuild.contains("\"osv-release-runtime-inventory\" to reviewedReleaseOsvInventoryFile"))
         assertTrue(appBuild.contains("\"asset-rights-evidence\" to archivedAssetRightsEvidenceFile"))
         assertTrue(appBuild.contains("\"data-safety-evidence\" to archivedDataSafetyEvidenceFile"))
+        assertTrue(appBuild.contains("\"iarc-validation\" to iarcValidationReportFile"))
         assertTrue(appBuild.contains("\"physical-samsung\" to archivedPhysicalSamsungEvidenceDirectory"))
         assertTrue(appBuild.contains("\"store-screenshot-qa-apk\" to storeScreenshotQaApkValidationReportFile"))
         assertTrue(appBuild.contains("\"release-app-set-id-dex\" to releaseAppSetIdDexReportFile"))
         assertTrue(appBuild.contains("\":app:verifyDataSafetyEvidence\""))
+        assertTrue(appBuild.contains("\":app:verifyIarcEvidence\""))
         assertTrue(appBuild.contains("\":app:verifyAssetRightsEvidence\""))
         assertTrue(appBuild.contains("\":app:verifyPhysicalSamsungEvidence\""))
         assertTrue(appBuild.contains("finalizedBy(generateReleaseArtifactEvidence)"))

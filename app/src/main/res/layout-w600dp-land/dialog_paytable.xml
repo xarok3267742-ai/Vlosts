@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
@@ -194,12 +195,18 @@
 
                         <TextView
                             android:id="@+id/paytableHeaderThree"
-                            style="@style/VSlotAccessibleCopy.PaytableValue"
+                            style="@style/VSlotAccessibleCopy.PaytableHeader"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@string/paytable_header_three"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            app:autoSizeMaxTextSize="12sp"
+                            app:autoSizeMinTextSize="8sp"
+                            app:autoSizeStepGranularity="1sp"
+                            app:autoSizeTextType="uniform" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -209,12 +216,18 @@
 
                         <TextView
                             android:id="@+id/paytableHeaderFour"
-                            style="@style/VSlotAccessibleCopy.PaytableValue"
+                            style="@style/VSlotAccessibleCopy.PaytableHeader"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@string/paytable_header_four"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            app:autoSizeMaxTextSize="12sp"
+                            app:autoSizeMinTextSize="8sp"
+                            app:autoSizeStepGranularity="1sp"
+                            app:autoSizeTextType="uniform" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -224,12 +237,18 @@
 
                         <TextView
                             android:id="@+id/paytableHeaderFive"
-                            style="@style/VSlotAccessibleCopy.PaytableValue"
+                            style="@style/VSlotAccessibleCopy.PaytableHeader"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@string/paytable_header_five"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            app:autoSizeMaxTextSize="12sp"
+                            app:autoSizeMinTextSize="8sp"
+                            app:autoSizeStepGranularity="1sp"
+                            app:autoSizeTextType="uniform" />
                     </FrameLayout>
                 </LinearLayout>
 
@@ -238,8 +257,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:layout_marginTop="2dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false">
+                    android:clipChildren="true"
+                    android:clipToPadding="true">
 
                     <ScrollView
                         android:id="@+id/paytableScrollView"
@@ -263,7 +282,7 @@
                         android:layout_width="24dp"
                         android:layout_height="78dp"
                         android:layout_gravity="end|bottom"
-                        android:layout_marginEnd="-6dp"
+                        android:layout_marginEnd="0dp"
                         android:layout_marginBottom="4dp"
                         android:contentDescription="@null"
                         android:importantForAccessibility="no"

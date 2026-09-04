@@ -66,6 +66,7 @@ class PaytableDialogFragment : DialogFragment() {
         binding.paytableHeaderThree.setMultiplierHeader(3)
         binding.paytableHeaderFour.setMultiplierHeader(4)
         binding.paytableHeaderFive.setMultiplierHeader(5)
+        bindWholeRowViewportHeight(binding)
         binding.closeButton.setOnClickListener { dismiss() }
 
         config.symbols.forEach { symbol ->
@@ -118,6 +119,18 @@ class PaytableDialogFragment : DialogFragment() {
                 marginStart = 0
                 topMargin = 8.dpPx()
             }
+    }
+
+    private fun bindWholeRowViewportHeight(binding: DialogPaytableBinding) {
+        val visibleRows = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            PAYTABLE_LANDSCAPE_VISIBLE_ROWS
+        } else {
+            PAYTABLE_PORTRAIT_VISIBLE_ROWS
+        }
+        val rowHeightPx = resources.getDimensionPixelSize(R.dimen.paytable_row_height)
+        binding.paytableRowsStage.layoutParams = binding.paytableRowsStage.layoutParams.apply {
+            height = rowHeightPx * visibleRows
+        }
     }
 
     private fun animatePaytableCabinetLattice(binding: DialogPaytableBinding) {
@@ -449,11 +462,19 @@ class PaytableDialogFragment : DialogFragment() {
                     includeFontPadding = false
                     setTextColor(resources.getColor(R.color.accessible_copy_primary, requireContext().theme))
                     textSize = if (compactBonusRow) 15f else 17f
+                    if (compactBonusRow) {
+                        setAutoSizeTextTypeUniformWithConfiguration(
+                            PAYTABLE_BONUS_MULTIPLIER_MIN_TEXT_SP,
+                            PAYTABLE_BONUS_MULTIPLIER_MAX_TEXT_SP,
+                            1,
+                            android.util.TypedValue.COMPLEX_UNIT_SP
+                        )
+                    }
                     setTypeface(typeface, android.graphics.Typeface.BOLD)
                 },
                 FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    if (compactBonusRow) PAYTABLE_BONUS_MULTIPLIER_HEIGHT_DP.dpPx() else ViewGroup.LayoutParams.MATCH_PARENT
+                    ViewGroup.LayoutParams.MATCH_PARENT
                 ).apply {
                     gravity = Gravity.CENTER
                     marginStart = PAYTABLE_MULTIPLIER_HORIZONTAL_MARGIN_DP.dpPx()
@@ -499,8 +520,11 @@ class PaytableDialogFragment : DialogFragment() {
         private const val PAYTABLE_BONUS_LANE_POLISH_DURATION_MS = 680L
         private const val PAYTABLE_BONUS_LANE_SETTLED_ALPHA = 0.32f
         private const val PAYTABLE_BONUS_LANE_PEAK_ALPHA = 0.68f
-        private const val PAYTABLE_BONUS_MULTIPLIER_HEIGHT_DP = 28
+        private const val PAYTABLE_BONUS_MULTIPLIER_MIN_TEXT_SP = 8
+        private const val PAYTABLE_BONUS_MULTIPLIER_MAX_TEXT_SP = 15
         private const val PAYTABLE_MULTIPLIER_HORIZONTAL_MARGIN_DP = 2
+        private const val PAYTABLE_PORTRAIT_VISIBLE_ROWS = 4
+        private const val PAYTABLE_LANDSCAPE_VISIBLE_ROWS = 3
         private const val STACKED_COPY_FONT_SCALE = 1.3f
         private const val PAYTABLE_SCROLL_HINT_POLISH_DURATION_MS = 620L
         private const val PAYTABLE_SCROLL_HINT_SETTLED_ALPHA = 0.64f

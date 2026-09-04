@@ -23,7 +23,7 @@ class SlotResponsiveLayoutContractTest {
         assertEquals("0dp", scroll.attr("layout_height"))
         assertEquals("1", scroll.attr("layout_weight"))
         assertEquals("true", scroll.attr("fillViewport"))
-        assertEquals("@+id/slotScrollContent", scrollContent.attr("id"))
+        assertEquals("@+id/slotGameContent", scrollContent.attr("id"))
         assertEquals("wrap_content", scrollContent.attr("layout_height"))
         assertEquals("center_horizontal", scrollContent.attr("gravity"))
         assertEquals("8dp", slotContent.attr("paddingStart"))
@@ -59,6 +59,7 @@ class SlotResponsiveLayoutContractTest {
         val scroll = document.elements("ScrollView").single()
         val sideBySideContent = scroll.singleElementChild()
         val console = document.id("slotControlConsole")
+        val machine = document.id("slotMachine")
         val consoleColumn = console.elementChildren().single { it.tagName == "LinearLayout" }
 
         val viewportHeight = SHORT_LANDSCAPE_HEIGHT_DP -
@@ -74,11 +75,14 @@ class SlotResponsiveLayoutContractTest {
 
         assertEquals("true", scroll.attr("fillViewport"))
         assertEquals("com.vslot.app.ui.widget.SlotLandscapeContentLayout", sideBySideContent.tagName)
+        assertEquals("com.vslot.app.ui.widget.SlotMachineLayout", machine.tagName)
+        assertEquals("wrap_content", machine.attr("layout_height"))
+        assertEquals("center_vertical", machine.attr("layout_gravity"))
         assertEquals("262dp", sideBySideContent.attr("minHeight"))
-        assertEquals(236, viewportHeight)
+        assertEquals(262, viewportHeight)
         assertEquals(262, consoleRequiredHeight)
-        assertTrue("A 320dp host must scroll rather than clip the console", sideBySideContent.dp("minHeight") > viewportHeight)
-        assertEquals("The scroll range must expose the exact console overflow", 26, consoleRequiredHeight - viewportHeight)
+        assertEquals("A 320dp host must expose the complete console without clipping", sideBySideContent.dp("minHeight"), viewportHeight)
+        assertEquals("The console must fit the short landscape viewport exactly", 0, consoleRequiredHeight - viewportHeight)
 
         SLOT_ACTION_IDS.forEach { id ->
             assertTrue("$id must remain reachable through the wide landscape scroll host", scroll.contains(document.id(id)))

@@ -37,6 +37,10 @@ class MergedManifestSecurityTest {
                 .toSet()
         }
         val componentNames = components.map { it.androidAttribute("name") }
+        assertTrue(
+            "Merged $variant manifest must not start VSlotApplication before credential unlock",
+            components.none { it.androidAttribute("directBootAware") == "true" }
+        )
 
         assertFalse(
             "Unused AppMetrica preinstall provider must not be merged",
@@ -49,6 +53,14 @@ class MergedManifestSecurityTest {
             "AppMetrica notification-status receiver must not accept explicit third-party broadcasts",
             "false",
             appMetricaStatusReceiver.androidAttribute("exported")
+        )
+        val firebaseInitProvider = components.single {
+            it.androidAttribute("name") == FIREBASE_INIT_PROVIDER
+        }
+        assertEquals(
+            "Firebase initialization provider must not be exported",
+            "false",
+            firebaseInitProvider.androidAttribute("exported")
         )
 
         val exportedComponents = components
@@ -243,6 +255,8 @@ class MergedManifestSecurityTest {
             "io.appmetrica.analytics.push.internal.receiver.AppMetricaPushNotificationStatusChangeHandler"
         const val FIREBASE_INSTANCE_ID_RECEIVER =
             "com.google.firebase.iid.FirebaseInstanceIdReceiver"
+        const val FIREBASE_INIT_PROVIDER =
+            "com.google.firebase.provider.FirebaseInitProvider"
         const val MAIN_ACTIVITY = "com.vslot.app.MainActivity"
         const val PROFILE_INSTALL_RECEIVER = "androidx.profileinstaller.ProfileInstallReceiver"
         const val QA_RESULT_ACTIVITY = "com.vslot.app.debug.QaResultDialogActivity"

@@ -112,6 +112,9 @@ val dataSafetyEvidenceFilePath = releaseConfigValue("V_SLOT_DATA_SAFETY_EVIDENCE
 val expectedDataSafetyEvidenceSha256 = releaseConfigValue("V_SLOT_DATA_SAFETY_EVIDENCE_SHA256")
 val dataSafetyRawEvidenceFilePath = releaseConfigValue("V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE")
 val expectedDataSafetyRawEvidenceSha256 = releaseConfigValue("V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256")
+val iarcReviewedVersionCode = releaseConfigValue("V_SLOT_IARC_REVIEWED_VERSION_CODE")
+val iarcEvidenceFilePath = releaseConfigValue("V_SLOT_IARC_EVIDENCE_FILE")
+val expectedIarcEvidenceSha256 = releaseConfigValue("V_SLOT_IARC_EVIDENCE_SHA256")
 val assetRightsReviewedVersionCode = releaseConfigValue("V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE")
 val assetRightsEvidenceFilePath = releaseConfigValue("V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE")
 val expectedAssetRightsEvidenceSha256 = releaseConfigValue("V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256")
@@ -2769,6 +2772,82 @@ fun storeScreenshotQaArtifactIssues(
     }
 }
 
+fun iarcEvidenceIssues(evidenceFile: File, expectedSha256: String): List<String> = buildList {
+    if (!evidenceFile.isFile) {
+        add("IARC evidence file is missing")
+        return@buildList
+    }
+    val normalizedExpectedSha256 = normalizedSha256(expectedSha256)
+    if (normalizedExpectedSha256 == null) {
+        add("IARC evidence SHA-256 is invalid")
+        return@buildList
+    }
+    if (normalizedSha256(sha256Hex(evidenceFile)) != normalizedExpectedSha256) {
+        add("IARC evidence SHA-256 does not match")
+    }
+    val root = runCatching { JsonSlurper().parse(evidenceFile) as? Map<*, *> }.getOrNull()
+    if (root == null) {
+        add("IARC evidence must be a valid JSON object")
+        return@buildList
+    }
+    val expectedRootKeys = setOf(
+        "schema_version",
+        "reviewed_version_code",
+        "package_name",
+        "reviewed_at_utc",
+        "reviewer",
+        "questionnaire",
+        "certificate"
+    )
+    if (root.keys.map(Any?::toString).toSet() != expectedRootKeys) {
+        add("IARC evidence fields changed")
+    }
+    if (root["schema_version"]?.toString()?.toIntOrNull() != 1) add("IARC schema_version must be 1")
+    if (root["reviewed_version_code"]?.toString()?.toIntOrNull() != vSlotVersionCode) {
+        add("IARC evidence must review versionCode $vSlotVersionCode")
+    }
+    if (root["package_name"]?.toString() != vSlotApplicationId) {
+        add("IARC evidence package_name must be $vSlotApplicationId")
+    }
+    if (runCatching { Instant.parse(root["reviewed_at_utc"]?.toString().orEmpty()) }.isFailure) {
+        add("IARC reviewed_at_utc must be an ISO-8601 instant")
+    }
+    val reviewer = root["reviewer"]?.toString().orEmpty()
+    if (reviewer.length < 2 || isPlaceholderReleaseValue(reviewer)) {
+        add("IARC reviewer must identify the human reviewer")
+    }
+
+    val expectedAnswers = linkedMapOf(
+        "contains_gambling_or_simulation" to true,
+        "gambling_themes" to true,
+        "playable_bingo" to false,
+        "playable_casino_games_lotteries_or_racetrack" to true,
+        "other_token_reward_games" to false,
+        "gambling_prominent" to true,
+        "cash_or_significant_monetary_rewards" to false
+    )
+    val answers = root["questionnaire"] as? Map<*, *>
+    if (answers?.keys?.map(Any?::toString)?.toSet() != expectedAnswers.keys) {
+        add("IARC questionnaire fields changed")
+    }
+    expectedAnswers.forEach { (key, expected) ->
+        if (answers?.get(key) != expected) add("IARC questionnaire answer must be $key=$expected")
+    }
+
+    val certificate = root["certificate"] as? Map<*, *>
+    if (certificate?.keys?.map(Any?::toString)?.toSet() != setOf("authority", "certificate_id", "issued_at_utc")) {
+        add("IARC certificate fields changed")
+    }
+    if (certificate?.get("authority")?.toString() != "IARC") add("IARC certificate authority must be IARC")
+    val certificateId = certificate?.get("certificate_id")?.toString().orEmpty()
+    if (certificateId.length < 6 || isPlaceholderReleaseValue(certificateId)) {
+        add("IARC certificate_id must be the issued certificate identifier")
+    }
+    if (runCatching { Instant.parse(certificate?.get("issued_at_utc")?.toString().orEmpty()) }.isFailure) {
+        add("IARC certificate issued_at_utc must be an ISO-8601 instant")
+    }
+}
+
 fun storeReadinessIssues(): List<String> {
     return buildList {
         addAll(storeListingAssetIssues())
@@ -2869,6 +2948,23 @@ fun storeReadinessIssues(): List<String> {
                     evidenceFile = dataSafetyEvidenceFile
                 )
             )
+        }
+        if (iarcReviewedVersionCode.isBlank()) {
+            add("V_SLOT_IARC_REVIEWED_VERSION_CODE")
+        } else if (iarcReviewedVersionCode != vSlotVersionCode.toString()) {
+            add("V_SLOT_IARC_REVIEWED_VERSION_CODE(current versionCode $vSlotVersionCode required)")
+        }
+        if (iarcEvidenceFilePath.isBlank()) add("V_SLOT_IARC_EVIDENCE_FILE")
+        if (expectedIarcEvidenceSha256.isBlank()) add("V_SLOT_IARC_EVIDENCE_SHA256")
+        if (expectedIarcEvidenceSha256.isNotBlank() && normalizedSha256(expectedIarcEvidenceSha256) == null) {
+            add("V_SLOT_IARC_EVIDENCE_SHA256(valid SHA-256 required)")
+        }
+        val iarcEvidenceFile = iarcEvidenceFilePath.takeIf(String::isNotBlank)?.let(::file)
+        if (iarcEvidenceFile != null && !iarcEvidenceFile.isFile) {
+            add("V_SLOT_IARC_EVIDENCE_FILE(file not found)")
+        }
+        if (iarcEvidenceFile?.isFile == true && normalizedSha256(expectedIarcEvidenceSha256) != null) {
+            addAll(iarcEvidenceIssues(iarcEvidenceFile, expectedIarcEvidenceSha256))
         }
         if (assetRightsReviewedVersionCode.isBlank()) {
             add("V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE")
@@ -3824,11 +3920,80 @@ val verifyAssetRightsEvidenceValidatorContract = tasks.register(
     }
 }
 
+val verifyIarcEvidenceValidatorContract = tasks.register(
+    "verifyIarcEvidenceValidatorContract"
+) {
+    group = "verification"
+    description = "Executes positive and negative fixtures for the IARC questionnaire evidence validator."
+    val templateFixture = rootProject.file("docs/store/IARC_EVIDENCE_TEMPLATE.json")
+    inputs.file(templateFixture)
+    outputs.upToDateWhen { false }
+
+    doLast {
+        fun writeFixture(cashRewards: Boolean): File {
+            return temporaryDir.resolve("iarc-$cashRewards.json").apply {
+                writeText(
+                    JsonOutput.prettyPrint(
+                        JsonOutput.toJson(
+                            linkedMapOf(
+                                "schema_version" to 1,
+                                "reviewed_version_code" to vSlotVersionCode,
+                                "package_name" to vSlotApplicationId,
+                                "reviewed_at_utc" to "2026-07-20T12:00:00Z",
+                                "reviewer" to "IARC Test Reviewer",
+                                "questionnaire" to linkedMapOf(
+                                    "contains_gambling_or_simulation" to true,
+                                    "gambling_themes" to true,
+                                    "playable_bingo" to false,
+                                    "playable_casino_games_lotteries_or_racetrack" to true,
+                                    "other_token_reward_games" to false,
+                                    "gambling_prominent" to true,
+                                    "cash_or_significant_monetary_rewards" to cashRewards
+                                ),
+                                "certificate" to linkedMapOf(
+                                    "authority" to "IARC",
+                                    "certificate_id" to "IARC-TEST-123456",
+                                    "issued_at_utc" to "2026-07-20T12:01:00Z"
+                                )
+                            )
+                        )
+                    ) + "\n",
+                    Charsets.UTF_8
+                )
+            }
+        }
+
+        val validFixture = writeFixture(cashRewards = false)
+        val validSha256 = sha256Hex(validFixture)
+        val validIssues = iarcEvidenceIssues(validFixture, validSha256)
+        if (validIssues.isNotEmpty()) {
+            throw GradleException("Valid IARC evidence fixture was rejected: ${validIssues.joinToString()}")
+        }
+        if (iarcEvidenceIssues(validFixture, "00".repeat(32)) != listOf("IARC evidence SHA-256 does not match")) {
+            throw GradleException("IARC evidence validator accepted a mismatched checksum.")
+        }
+        val cashRewardsFixture = writeFixture(cashRewards = true)
+        if (iarcEvidenceIssues(cashRewardsFixture, sha256Hex(cashRewardsFixture)).none { issue ->
+                issue.contains("cash_or_significant_monetary_rewards=false")
+            }
+        ) {
+            throw GradleException("IARC evidence validator accepted cash payouts for the simulator release.")
+        }
+        val templateIssues = iarcEvidenceIssues(templateFixture, sha256Hex(templateFixture))
+        if (templateIssues.none { issue -> issue.contains("must review versionCode") } ||
+            templateIssues.none { issue -> issue.contains("certificate_id") }
+        ) {
+            throw GradleException("IARC evidence validator accepted the incomplete template.")
+        }
+    }
+}
+
 tasks.withType<Test>().configureEach {
     dependsOn(
         verifyDataSafetyEvidenceValidatorContract,
         verifyPhysicalSamsungEvidenceValidatorContract,
-        verifyAssetRightsEvidenceValidatorContract
+        verifyAssetRightsEvidenceValidatorContract,
+        verifyIarcEvidenceValidatorContract
     )
 }
 
@@ -3838,6 +4003,48 @@ val verifyStoreReadiness = tasks.register("verifyStoreReadiness") {
 
     doLast {
         failOnStoreReadinessIssues()
+    }
+}
+
+val iarcValidationReportFile = layout.buildDirectory.file(
+    "reports/release-security/iarc-validation.txt"
+)
+
+val verifyIarcEvidence = tasks.register("verifyIarcEvidence") {
+    group = "verification"
+    description = "Validates version-bound IARC questionnaire and certificate evidence."
+    dependsOn(verifyIarcEvidenceValidatorContract)
+    outputs.file(iarcValidationReportFile)
+    outputs.upToDateWhen { false }
+    if (iarcEvidenceFilePath.isNotBlank()) {
+        inputs.file(file(iarcEvidenceFilePath))
+    }
+    inputs.property("expectedIarcEvidenceSha256", expectedIarcEvidenceSha256)
+    inputs.property("expectedVersionCode", vSlotVersionCode)
+
+    doFirst {
+        iarcValidationReportFile.get().asFile.delete()
+        failOnStoreReadinessIssues()
+    }
+
+    doLast {
+        val source = file(iarcEvidenceFilePath)
+        val issues = iarcEvidenceIssues(source, expectedIarcEvidenceSha256)
+        if (issues.isNotEmpty()) {
+            throw GradleException("IARC evidence issues: ${issues.joinToString()}")
+        }
+        val report = iarcValidationReportFile.get().asFile
+        report.parentFile.mkdirs()
+        report.writeText(
+            buildString {
+                appendLine("schema=v-slot-iarc-validation-v1")
+                appendLine("application-id=$vSlotApplicationId")
+                appendLine("version-code=$vSlotVersionCode")
+                appendLine("evidence-sha256=${sha256Hex(source)}")
+                appendLine("status=PASS")
+            },
+            Charsets.UTF_8
+        )
     }
 }
 
@@ -5696,6 +5903,8 @@ val generateReleaseArtifactEvidence = tasks.register("generateReleaseArtifactEvi
             ":app:verifyReleaseOsvInventory",
             ":app:verifyDataSafetyEvidenceValidatorContract",
             ":app:verifyDataSafetyEvidence",
+            ":app:verifyIarcEvidenceValidatorContract",
+            ":app:verifyIarcEvidence",
             ":app:verifyAssetRightsEvidenceValidatorContract",
             ":app:verifyAssetRightsEvidence",
             ":app:verifyPhysicalSamsungEvidenceValidatorContract",
@@ -5739,6 +5948,7 @@ val generateReleaseArtifactEvidence = tasks.register("generateReleaseArtifactEvi
             "asset-rights-evidence" to archivedAssetRightsEvidenceFile.get().asFile,
             "data-safety-evidence" to archivedDataSafetyEvidenceFile.get().asFile,
             "data-safety-raw-evidence" to archivedDataSafetyRawEvidenceFile.get().asFile,
+            "iarc-validation" to iarcValidationReportFile.get().asFile,
             "dependency-lock" to file("gradle.lockfile"),
             "lint-report" to layout.buildDirectory.file("reports/lint-results-release.xml").get().asFile,
             "merged-manifest" to layout.buildDirectory.file(
@@ -5836,7 +6046,7 @@ val generateReleaseArtifactEvidence = tasks.register("generateReleaseArtifactEvi
         output.parentFile.mkdirs()
         output.writeText(
             buildString {
-                appendLine("schema=v-slot-release-artifact-evidence-v8")
+                appendLine("schema=v-slot-release-artifact-evidence-v9")
                 appendLine("application-id=$vSlotApplicationId")
                 appendLine("version-code=$vSlotVersionCode")
                 appendLine("version-name=$vSlotVersionName")
@@ -5867,6 +6077,7 @@ val requiredStoreReleaseGatePaths = setOf(
     ":app:lintRelease",
     ":app:verifyAssetRightsEvidence",
     ":app:verifyDataSafetyEvidence",
+    ":app:verifyIarcEvidence",
     ":app:verifyPhysicalSamsungEvidence",
     ":app:verifyThirdPartyNotices",
     ":app:verifyReleaseResourceSize",
@@ -5943,6 +6154,7 @@ val verifyStoreRelease = tasks.register("verifyStoreRelease") {
         verifyStoreReadiness,
         verifyAssetRightsEvidence,
         verifyDataSafetyEvidence,
+        verifyIarcEvidence,
         verifyPhysicalSamsungEvidence,
         verifyStoreScreenshotsAgainstQaApk,
         verifyReleaseAppSetIdDisabled,

@@ -15,7 +15,7 @@ COMPACT_FONT_SCALE="1.0"
 COMPACT_LANDSCAPE_WM_SIZE="720x1080"
 COMPACT_LANDSCAPE_WM_DENSITY="320"
 FULL_SUITE_EXPECTED_TESTS=65
-FULL_SUITE_EXPECTED_SKIPPED=5
+FULL_SUITE_EXPECTED_SKIPPED=3
 QA_APPLICATION_ID="com.vslot.app.qa"
 
 if [[ ! -x "$ADB" ]]; then
@@ -143,6 +143,7 @@ stop_conflicting_app() {
 keep_device_awake() {
   "$ADB" -s "$serial" shell input keyevent KEYCODE_WAKEUP >/dev/null 2>&1 || true
   "$ADB" -s "$serial" shell wm dismiss-keyguard >/dev/null 2>&1 || true
+  "$ADB" -s "$serial" shell input keyevent 82 >/dev/null 2>&1 || true
 }
 
 device_is_locked() {
@@ -152,6 +153,7 @@ device_is_locked() {
 
 require_device_unlocked() {
   keep_device_awake
+  sleep 1
   if device_is_locked; then
     echo "Samsung $model ($serial) is on a secure lock screen. Unlock the phone manually, then rerun this script." >&2
     exit 3
@@ -264,18 +266,23 @@ restore_setting() {
   local namespace="$1"
   local key="$2"
   local value="$3"
-  local restored_value
-  if [[ -z "$value" || "$value" == "null" ]]; then
-    "$ADB" -s "$serial" shell settings delete "$namespace" "$key" >/dev/null 2>&1
-  else
-    "$ADB" -s "$serial" shell settings put "$namespace" "$key" "$value" >/dev/null 2>&1
-  fi
-  restored_value="$("$ADB" -s "$serial" shell settings get "$namespace" "$key" 2>/dev/null | tr -d '\r')" || return 1
-  if [[ -z "$value" || "$value" == "null" ]]; then
-    [[ -z "$restored_value" || "$restored_value" == "null" ]]
-  else
-    [[ "$restored_value" == "$value" ]]
-  fi
+  local restored_value=""
+  local attempt
+  for attempt in 1 2 3; do
+    if [[ -z "$value" || "$value" == "null" ]]; then
+      "$ADB" -s "$serial" shell settings delete "$namespace" "$key" >/dev/null 2>&1 || continue
+    else
+      "$ADB" -s "$serial" shell settings put "$namespace" "$key" "$value" >/dev/null 2>&1 || continue
+    fi
+    restored_value="$("$ADB" -s "$serial" shell settings get "$namespace" "$key" 2>/dev/null | tr -d '\r')" || true
+    if [[ -z "$value" || "$value" == "null" ]]; then
+      [[ -z "$restored_value" || "$restored_value" == "null" ]] && return 0
+    elif [[ "$restored_value" == "$value" ]]; then
+      return 0
+    fi
+    sleep 1
+  done
+  return 1
 }
 
 read_wm_size_state() {
@@ -1135,6 +1142,7 @@ run_rotation_qa() {
 
 run_stage_or_exit() {
   local stage_exit_code
+  require_device_unlocked
   if "$@"; then
     return 0
   else

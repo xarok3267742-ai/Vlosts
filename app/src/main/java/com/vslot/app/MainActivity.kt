@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.vslot.app.analytics.AnalyticsEvents
 import com.vslot.app.databinding.ActivityMainBinding
+import com.vslot.app.ui.home.SlotUnlockRules
 import java.io.IOException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.delay
@@ -147,12 +148,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateScreenBackground(destinationId: Int?) {
+        if (destinationId == R.id.slotFragment) {
+            // The lightweight color installed before navigation stays until the slot bitmap is ready.
+            return
+        }
+        binding.screenBackground.setBackgroundColor(Color.TRANSPARENT)
         val drawable = when (destinationId) {
             R.id.splashFragment -> R.drawable.splash_bg
             R.id.homeFragment -> R.drawable.home_bg
             else -> R.drawable.main_bg
         }
         binding.screenBackground.setImageResource(drawable)
+    }
+
+    internal fun prepareScreenBackgroundForSlot(slotId: String) {
+        val fallbackColor = when (slotId) {
+            SlotUnlockRules.ROMAN_REELS -> R.color.slot_transition_roman
+            SlotUnlockRules.NEON_NIGHTS -> R.color.slot_transition_neon
+            SlotUnlockRules.PHARAOH_GOLD -> R.color.slot_transition_pharaoh
+            SlotUnlockRules.OCEAN_PEARL -> R.color.slot_transition_ocean
+            else -> R.color.slot_transition_violet
+        }
+        binding.screenBackground.setImageDrawable(null)
+        binding.screenBackground.setBackgroundColor(getColor(fallbackColor))
+    }
+
+    internal fun releaseScreenBackgroundForSlot() {
+        if (currentDestinationId != R.id.slotFragment) return
+        binding.screenBackground.setImageDrawable(null)
+        binding.screenBackground.setBackgroundColor(Color.TRANSPARENT)
     }
 
     @Suppress("DEPRECATION")

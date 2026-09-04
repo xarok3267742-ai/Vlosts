@@ -74,6 +74,26 @@ class ResponsiveDialogLayoutContractTest {
     }
 
     @Test
+    fun `short landscape reward and push dialogs fit without hiding their actions`() {
+        val result = resource("layout-land/dialog_result.xml").readText()
+        val compactPush = resource("layout-land/dialog_push_permission.xml").readText()
+        val push = resource("layout-w600dp-land/dialog_push_permission.xml").readText()
+
+        assertTrue(result.contains("android:minHeight=\"272dp\""))
+        assertTrue(result.contains("@+id/closeButton"))
+        assertTrue(
+            result.substringAfter("@+id/closeButton").substringBefore("/>")
+                .contains("android:layout_height=\"match_parent\"")
+        )
+        assertTrue(push.contains("android:minHeight=\"256dp\""))
+        assertTrue(push.contains("@+id/maybeLaterButton"))
+        assertTrue(push.contains("@+id/allowButton"))
+        assertTrue(compactPush.contains("android:layout_height=\"48dp\""))
+        assertTrue(compactPush.contains("android:paddingTop=\"4dp\""))
+        assertTrue(compactPush.contains("android:paddingBottom=\"4dp\""))
+    }
+
+    @Test
     fun `dialog image actions retain at least a 48dp touch height`() {
         val layouts = Files.list(Path.of("src/main/res/layout")).use { files ->
             files.filter { it.fileName.toString().startsWith("dialog_") && it.toString().endsWith(".xml") }

@@ -133,6 +133,9 @@ jobs:
       V_SLOT_DATA_SAFETY_EVIDENCE_SHA256: ${{ vars.V_SLOT_DATA_SAFETY_EVIDENCE_SHA256 }}
       V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-data-safety-raw-evidence.zip
       V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256: ${{ vars.V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256 }}
+      V_SLOT_IARC_REVIEWED_VERSION_CODE: ${{ inputs.version_code }}
+      V_SLOT_IARC_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-iarc-evidence.json
+      V_SLOT_IARC_EVIDENCE_SHA256: ${{ vars.V_SLOT_IARC_EVIDENCE_SHA256 }}
       V_SLOT_ASSET_RIGHTS_REVIEWED_VERSION_CODE: ${{ inputs.version_code }}
       V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE: ${{ github.workspace }}/.release-evidence/ci/v-slot-asset-rights-evidence.json
       V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256: ${{ vars.V_SLOT_ASSET_RIGHTS_EVIDENCE_SHA256 }}
@@ -169,6 +172,8 @@ jobs:
           test "$GITHUB_REF" = 'refs/heads/main'
           test "$GITHUB_REF_PROTECTED" = 'true'
           test "$(git rev-parse --verify HEAD)" = "$GITHUB_SHA"
+          git fetch --no-tags origin '+refs/heads/main:refs/remotes/origin/main'
+          test "$(git rev-parse --verify refs/remotes/origin/main)" = "$GITHUB_SHA"
           test -z "$(git status --porcelain=v1 --untracked-files=all)"
 
       - name: Set up Temurin 17
@@ -227,6 +232,7 @@ jobs:
           V_SLOT_RELEASE_KEYSTORE_BASE64: ${{ secrets.V_SLOT_RELEASE_KEYSTORE_BASE64 }}
           V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64 }}
           V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64: ${{ secrets.V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64 }}
+          V_SLOT_IARC_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_IARC_EVIDENCE_JSON_BASE64 }}
           V_SLOT_ASSET_RIGHTS_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_ASSET_RIGHTS_EVIDENCE_JSON_BASE64 }}
           V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64 }}
           V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64: ${{ secrets.V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64 }}
@@ -238,6 +244,7 @@ jobs:
           test -n "$V_SLOT_RELEASE_KEYSTORE_BASE64"
           test -n "$V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64"
           test -n "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64"
+          test -n "$V_SLOT_IARC_EVIDENCE_JSON_BASE64"
           test -n "$V_SLOT_ASSET_RIGHTS_EVIDENCE_JSON_BASE64"
           test -n "$V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64"
           test -n "$V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64"
@@ -247,6 +254,7 @@ jobs:
           printf '%s' "$V_SLOT_RELEASE_KEYSTORE_BASE64" | base64 --decode > "$V_SLOT_RELEASE_STORE_FILE"
           printf '%s' "$V_SLOT_DATA_SAFETY_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_DATA_SAFETY_EVIDENCE_FILE"
           printf '%s' "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64" | base64 --decode > "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE"
+          printf '%s' "$V_SLOT_IARC_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_IARC_EVIDENCE_FILE"
           printf '%s' "$V_SLOT_ASSET_RIGHTS_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE"
           printf '%s' "$V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE"
           printf '%s' "$V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64" | base64 --decode > "$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE"
@@ -256,6 +264,7 @@ jobs:
           test -s "$V_SLOT_RELEASE_STORE_FILE"
           test -s "$V_SLOT_DATA_SAFETY_EVIDENCE_FILE"
           test -s "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE"
+          test -s "$V_SLOT_IARC_EVIDENCE_FILE"
           test -s "$V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE"
           test -s "$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE"
           test -s "$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE"
@@ -263,6 +272,7 @@ jobs:
           test -s "$V_SLOT_PHYSICAL_SAMSUNG_RAW_EVIDENCE_FILE"
           chmod 600 app/src/release/google-services.json "$V_SLOT_RELEASE_STORE_FILE" \
             "$V_SLOT_DATA_SAFETY_EVIDENCE_FILE" "$V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE" \
+            "$V_SLOT_IARC_EVIDENCE_FILE" \
             "$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE" \
             "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE" \
             "$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE" "$V_SLOT_FRAME_METRICS_EVIDENCE_FILE" \
@@ -299,6 +309,7 @@ jobs:
         run: |
           rm -f app/src/release/google-services.json "$V_SLOT_RELEASE_STORE_FILE" \
             "$V_SLOT_DATA_SAFETY_EVIDENCE_FILE" "$V_SLOT_ASSET_RIGHTS_EVIDENCE_FILE" \
+            "$V_SLOT_IARC_EVIDENCE_FILE" \
             "$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE" \
             "$V_SLOT_DATA_SAFETY_RAW_EVIDENCE_FILE" \
             "$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE" "$V_SLOT_FRAME_METRICS_EVIDENCE_FILE" \
@@ -316,9 +327,8 @@ jobs:
             app/build/reports/release-security/released-slot-math-v5-release-aab.txt
             app/build/reports/release-security/released-slot-math-v5-release-universal-apk.txt
             app/build/reports/release-security/release-app-set-id-dex-validation.txt
-            app/build/reports/release-security/asset-rights-evidence.json
-            app/build/reports/release-security/data-safety-raw-evidence.zip
-            app/build/reports/release-security/physical-samsung/raw-evidence.zip
+            app/build/reports/release-security/iarc-validation.txt
+            app/build/outputs/diagnostics/release/v-slot-*-r8-mapping.zip
             build/reports/release-provenance.txt
             build/reports/release-security/osv-scan-evidence.txt
 
@@ -330,9 +340,15 @@ jobs:
           retention-days: 90
           path: |
             app/build/outputs/bundle/release/app-release.aab
-            app/build/outputs/diagnostics/release/*.zip
             app/build/reports/lint-results-release.*
-            app/build/reports/release-security/
-            app/build/test-results/testReleaseUnitTest/
+            app/build/reports/release-security/release-artifact-evidence.txt
+            app/build/reports/release-security/bundletool-validation.txt
+            app/build/reports/release-security/bundletool-base-manifest.xml
+            app/build/reports/release-security/release-16k-page-size.txt
+            app/build/reports/release-security/released-slot-math-v5-release-aab.txt
+            app/build/reports/release-security/released-slot-math-v5-release-universal-apk.txt
+            app/build/reports/release-security/release-app-set-id-dex-validation.txt
+            app/build/reports/release-security/iarc-validation.txt
+            app/build/outputs/diagnostics/release/v-slot-*-r8-mapping.zip
             build/reports/release-provenance.txt
-            build/reports/release-security/
+            build/reports/release-security/osv-scan-evidence.txt

@@ -31,7 +31,7 @@ class SamsungQaScriptTest {
             }
         )
         assertTrue(Path.of("../tools/qa_samsung_connected_tests.sh").readText().contains("FULL_SUITE_EXPECTED_TESTS=65"))
-        assertTrue(Path.of("../tools/qa_samsung_connected_tests.sh").readText().contains("FULL_SUITE_EXPECTED_SKIPPED=5"))
+        assertTrue(Path.of("../tools/qa_samsung_connected_tests.sh").readText().contains("FULL_SUITE_EXPECTED_SKIPPED=3"))
         assertTrue(
             result.log,
             result.log.contains("android.testInstrumentationRunnerArguments.class=$PORTRAIT_SMOKE_TEST")
@@ -124,8 +124,8 @@ class SamsungQaScriptTest {
         assertStageStatus(evidence, "compact_landscape_rotation_3", "passed")
         assertStageStatus(evidence, "landscape_rotation_1", "passed")
         assertStageStatus(evidence, "landscape_rotation_3", "passed")
-        assertTrue(evidence, evidence.contains("\"landscape_rotation_1\": {\"status\": \"passed\", \"user_rotation\": 1, \"display_profile\": \"captured\", \"tests\": 65, \"skipped\": 5"))
-        assertTrue(evidence, evidence.contains("\"landscape_rotation_3\": {\"status\": \"passed\", \"user_rotation\": 3, \"display_profile\": \"captured\", \"tests\": 65, \"skipped\": 5"))
+        assertTrue(evidence, evidence.contains("\"landscape_rotation_1\": {\"status\": \"passed\", \"user_rotation\": 1, \"display_profile\": \"captured\", \"tests\": 65, \"skipped\": 3"))
+        assertTrue(evidence, evidence.contains("\"landscape_rotation_3\": {\"status\": \"passed\", \"user_rotation\": 3, \"display_profile\": \"captured\", \"tests\": 65, \"skipped\": 3"))
         assertTrue(evidence, evidence.contains("\"user_rotation\": 1"))
         assertTrue(evidence, evidence.contains("\"user_rotation\": 3"))
         assertTrue(evidence, evidence.contains("\"verified_landscape\": true"))
@@ -251,11 +251,11 @@ class SamsungQaScriptTest {
 
         assertEquals(result.output, 1, result.exitCode)
         assertTrue(result.output, result.output.contains("landscape_rotation_1 report mismatch"))
-        assertTrue(result.output, result.output.contains("skipped=6"))
+        assertTrue(result.output, result.output.contains("skipped=4"))
         val evidence = result.evidence.single()
         assertStageStatus(evidence, "landscape_rotation_1", "failed")
         assertStageStatus(evidence, "landscape_rotation_3", "not_run")
-        assertTrue(evidence, evidence.contains("\"tests\": 65, \"skipped\": 6"))
+        assertTrue(evidence, evidence.contains("\"tests\": 65, \"skipped\": 4"))
     }
 
     private fun assertStageStatus(evidence: String, stage: String, status: String) {
@@ -474,7 +474,7 @@ class SamsungQaScriptTest {
                   skipped="${'$'}QA_FILTERED_STAGE_SKIPPED"
                 else
                   test_count=65
-                  skipped="${'$'}((5 + QA_FULL_STAGE_SKIPPED))"
+                  skipped="${'$'}((3 + QA_FULL_STAGE_SKIPPED))"
                 fi
                 mkdir -p "${'$'}QA_CONNECTED_RESULTS_DIR"
                 printf '<testsuite tests="%s" failures="0" errors="0" skipped="%s"></testsuite>\n' \

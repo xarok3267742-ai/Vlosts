@@ -5,4 +5,9 @@
     <color name="input_dark">#1F2032</color>
     <color name="accessible_copy_primary">#FFF4D6</color>
     <color name="accessible_copy_secondary">#DCEBFF</color>
+    <color name="slot_transition_violet">#12071F</color>
+    <color name="slot_transition_roman">#23150E</color>
+    <color name="slot_transition_neon">#00171F</color>
+    <color name="slot_transition_pharaoh">#241803</color>
+    <color name="slot_transition_ocean">#001D2B</color>
 </resources>

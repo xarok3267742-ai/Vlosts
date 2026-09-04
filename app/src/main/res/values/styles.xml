@@ -73,6 +73,15 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="VSlotAccessibleCopy.PaytableHeader" parent="VSlotAccessibleCopy.PaytableValue">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+    </style>
+
     <style name="VSlotAccessibleCopy.SpinAction" parent="VSlotAccessibleCopy.Command">
         <item name="android:background">@null</item>
         <item name="android:elevation">0dp</item>

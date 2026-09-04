@@ -18,16 +18,24 @@ class ResponsiveTextContainmentContractTest {
         val background = activity.id("screenBackground")
         val navHost = activity.id("nav_host_fragment")
         val source = Path.of("src/main/java/com/vslot/app/MainActivity.kt").readText()
+        val homeSource = Path.of("src/main/java/com/vslot/app/ui/home/HomeFragment.kt").readText()
 
         assertEquals("FrameLayout", activity.documentElement.tagName)
         assertEquals("match_parent", background.attr("layout_width"))
         assertEquals("match_parent", background.attr("layout_height"))
         assertEquals("centerCrop", background.attr("scaleType"))
+        assertEquals("@color/deep_navy", background.attr("background"))
+        assertEquals("", background.attr("src"))
         assertEquals("match_parent", navHost.attr("layout_width"))
         assertEquals("match_parent", navHost.attr("layout_height"))
         assertTrue(source.contains("val navHostView = binding.navHostFragment"))
         assertTrue(source.contains("R.id.splashFragment -> R.drawable.splash_bg"))
         assertTrue(source.contains("R.id.homeFragment -> R.drawable.home_bg"))
+        assertTrue(source.contains("if (destinationId == R.id.slotFragment)"))
+        assertTrue(source.contains("internal fun releaseScreenBackgroundForSlot()"))
+        assertTrue(source.contains("internal fun prepareScreenBackgroundForSlot(slotId: String)"))
+        assertTrue(source.contains("binding.screenBackground.setImageDrawable(null)"))
+        assertTrue(homeSource.contains("prepareScreenBackgroundForSlot(slotId)"))
         assertTrue(source.contains("else -> R.drawable.main_bg"))
     }
 
@@ -37,13 +45,26 @@ class ResponsiveTextContainmentContractTest {
             val document = parse(path)
             document.elements("TextView").forEach { textView ->
                 val id = textView.getAttribute("android:id").ifBlank { "anonymous TextView" }
-                assertEquals("$path $id must grow vertically", "wrap_content", textView.attr("layout_height"))
+                val isAutosizedSingleLine =
+                    textView.attr("maxLines") == "1" &&
+                        textView.attr("singleLine") == "true" &&
+                        textView.getAttribute("app:autoSizeTextType") == "uniform"
+                if (isAutosizedSingleLine) {
+                    assertTrue(
+                        "$path $id must have a bounded single-line height",
+                        textView.attr("layout_height") in setOf("wrap_content", "match_parent")
+                    )
+                } else {
+                    assertEquals("$path $id must grow vertically", "wrap_content", textView.attr("layout_height"))
+                }
                 assertTrue(
                     "$path $id must inherit the scalable copy policy",
                     textView.getAttribute("style").startsWith("@style/VSlotAccessibleCopy")
                 )
                 assertFalse("$path $id must not ellipsize", textView.hasAttribute("android:ellipsize"))
-                assertFalse("$path $id must not cap lines", textView.hasAttribute("android:maxLines"))
+                if (!isAutosizedSingleLine) {
+                    assertFalse("$path $id must not cap lines", textView.hasAttribute("android:maxLines"))
+                }
                 assertFalse("$path $id must not force horizontal scrolling", textView.hasAttribute("android:scrollHorizontally"))
             }
         }
@@ -84,6 +105,16 @@ class ResponsiveTextContainmentContractTest {
     }
 
     @Test
+    fun `portrait disclaimer action fits the narrowest supported content column`() {
+        val disclaimer = resource("layout/fragment_disclaimer.xml")
+        val continueButton = disclaimer.id("continueButton")
+        val actionContainer = continueButton.parentElement()
+
+        assertEquals("200dp", actionContainer.attr("layout_width"))
+        assertEquals("match_parent", continueButton.attr("layout_width"))
+    }
+
+    @Test
     fun `compact landscape hud and recovery notice are bounded by the available width`() {
         val home = resource("layout-land/fragment_home.xml")
         assertEquals("match_parent", home.id("homeBalancePanel").parentElement().attr("layout_width"))
@@ -94,6 +125,63 @@ class ResponsiveTextContainmentContractTest {
         val slot = resource("layout-land/fragment_slot.xml")
         assertEquals("match_parent", (slot.id("slotMachineFrame").parentNode as Element).attr("layout_width"))
         assertEquals("match_parent", slot.id("settlementRecoveryNotice").attr("layout_width"))
+        listOf("betLabel", "linesLabel").forEach { id ->
+            val meterColumn = slot.id(id).parentElement()
+            assertEquals("$id must preserve compact label width", "4dp", meterColumn.attr("paddingStart"))
+            assertEquals("$id must preserve compact label width", "4dp", meterColumn.attr("paddingEnd"))
+        }
+
+        val source = Path.of("src/main/java/com/vslot/app/ui/slot/SlotFragment.kt").readText()
+        assertTrue(source.contains("private fun adaptCompactLandscapeLayout()"))
+        assertTrue(source.contains("configuration.screenHeightDp >= COMPACT_LANDSCAPE_MAX_HEIGHT_DP"))
+        assertTrue(source.contains("gameContent.orientation = LinearLayout.HORIZONTAL"))
+        assertTrue(source.contains("calculateSlotMachineHeight(machineWidth, minimumHeightPx = 0)"))
+        assertTrue(source.contains("binding.totalBetLabel.setText(R.string.spin_cost_compact)"))
+    }
+
+    @Test
+    fun `theme-bound slot chrome is not decoded twice during inflation`() {
+        val runtimeBoundIds = listOf(
+            "slotMachineFrame",
+            "slotCabinetLights",
+            "slotCabinetChaseLights",
+            "slotMarqueeGlass",
+            "reelDepthDividers",
+            "paylineMarkersOverlay",
+            "reelWindowDepthMask",
+            "reelApertureShadow",
+            "activeLinesRailImage",
+            "activeLinesRailLabel",
+            "freeSpinsRailImage",
+            "betPanelImage",
+            "betPanelMeterGlow",
+            "betMinusButton",
+            "betPlusButton",
+            "linesMinusButton",
+            "linesPlusButton",
+            "lastWinPanelImage",
+            "lastWinPanelMeterGlow",
+            "spinDeckGlow",
+            "spinButtonReadyGlow",
+            "paytableButtonDockGlow",
+            "paytableButtonIcon",
+            "paytableButtonLabel",
+            "spinButton",
+            "autoSpinButton",
+            "maxLinesButtonIcon"
+        )
+        listOf(
+            "layout/fragment_slot.xml",
+            "layout-land/fragment_slot.xml",
+            "layout-w600dp-land/fragment_slot.xml"
+        ).forEach { relativePath ->
+            val slot = resource(relativePath)
+            runtimeBoundIds.forEach { id ->
+                val view = slot.id(id)
+                assertEquals("$relativePath $id must defer runtime bitmap loading", "", view.attr("src"))
+                assertTrue("$relativePath $id must keep a design-time preview", view.getAttribute("tools:src").isNotBlank())
+            }
+        }
     }
 
     private fun layoutFiles(): List<Path> = listOf("layout", "layout-land", "layout-w600dp-land")

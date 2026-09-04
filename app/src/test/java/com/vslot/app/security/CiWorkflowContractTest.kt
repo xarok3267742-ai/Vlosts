@@ -29,7 +29,7 @@ class CiWorkflowContractTest {
     }
 
     @Test
-    fun productionReleaseAttestsBundleAndRawEvidence() {
+    fun productionReleaseAttestsBundleAndSanitizedEvidenceOnly() {
         assertTrue(productionRelease.contains("id-token: write"))
         assertTrue(productionRelease.contains("attestations: write"))
         assertTrue(
@@ -45,9 +45,20 @@ class CiWorkflowContractTest {
         assertTrue(productionRelease.contains("released-slot-math-v5-release-aab.txt"))
         assertTrue(productionRelease.contains("released-slot-math-v5-release-universal-apk.txt"))
         assertTrue(productionRelease.contains("release-app-set-id-dex-validation.txt"))
-        assertTrue(productionRelease.contains("data-safety-raw-evidence.zip"))
-        assertTrue(productionRelease.contains("physical-samsung/raw-evidence.zip"))
+        assertTrue(productionRelease.contains("iarc-validation.txt"))
+        assertEquals(
+            2,
+            Regex("app/build/outputs/diagnostics/release/v-slot-\\*-r8-mapping\\.zip")
+                .findAll(productionRelease)
+                .count()
+        )
         assertTrue(productionRelease.contains("release-provenance.txt"))
+        val externalEvidence = productionRelease
+            .substringAfter("- name: Attest release bundle and security evidence")
+        assertFalse(externalEvidence.contains("data-safety-raw-evidence.zip"))
+        assertFalse(externalEvidence.contains("v-slot-iarc-evidence.json"))
+        assertFalse(externalEvidence.contains("physical-samsung/raw-evidence.zip"))
+        assertFalse(externalEvidence.contains("app/build/reports/release-security/\n"))
     }
 
     @Test
@@ -59,6 +70,8 @@ class CiWorkflowContractTest {
         assertTrue(productionRelease.contains("test \"\$GITHUB_REF\" = 'refs/heads/main'"))
         assertTrue(productionRelease.contains("test \"\$GITHUB_REF_PROTECTED\" = 'true'"))
         assertTrue(productionRelease.contains("test \"\$(git rev-parse --verify HEAD)\" = \"\$GITHUB_SHA\""))
+        assertTrue(productionRelease.contains("git fetch --no-tags origin '+refs/heads/main:refs/remotes/origin/main'"))
+        assertTrue(productionRelease.contains("test \"\$(git rev-parse --verify refs/remotes/origin/main)\" = \"\$GITHUB_SHA\""))
     }
 
     @Test
@@ -242,6 +255,8 @@ class CiWorkflowContractTest {
         assertTrue(productionRelease.contains("vars.V_SLOT_DATA_SAFETY_EVIDENCE_SHA256"))
         assertTrue(productionRelease.contains("secrets.V_SLOT_DATA_SAFETY_RAW_EVIDENCE_ZIP_BASE64"))
         assertTrue(productionRelease.contains("vars.V_SLOT_DATA_SAFETY_RAW_EVIDENCE_SHA256"))
+        assertTrue(productionRelease.contains("secrets.V_SLOT_IARC_EVIDENCE_JSON_BASE64"))
+        assertTrue(productionRelease.contains("vars.V_SLOT_IARC_EVIDENCE_SHA256"))
         assertTrue(productionRelease.contains("secrets.V_SLOT_SAMSUNG_QA_EVIDENCE_JSON_BASE64"))
         assertTrue(productionRelease.contains("vars.V_SLOT_SAMSUNG_QA_EVIDENCE_SHA256"))
         assertTrue(productionRelease.contains("secrets.V_SLOT_PROCESS_DEATH_EVIDENCE_JSON_BASE64"))
@@ -254,6 +269,7 @@ class CiWorkflowContractTest {
         assertTrue(productionRelease.contains("umask 077"))
         assertTrue(productionRelease.contains("rm -f app/src/release/google-services.json"))
         assertTrue(productionRelease.contains("\"\$V_SLOT_DATA_SAFETY_EVIDENCE_FILE\""))
+        assertTrue(productionRelease.contains("\"\$V_SLOT_IARC_EVIDENCE_FILE\""))
         assertTrue(productionRelease.contains("\"\$V_SLOT_SAMSUNG_QA_EVIDENCE_FILE\""))
         assertTrue(productionRelease.contains("\"\$V_SLOT_PROCESS_DEATH_EVIDENCE_FILE\""))
         assertTrue(productionRelease.contains("\"\$V_SLOT_FRAME_METRICS_EVIDENCE_FILE\""))

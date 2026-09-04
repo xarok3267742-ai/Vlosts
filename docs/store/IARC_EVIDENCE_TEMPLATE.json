@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "reviewed_version_code": 0,
+  "package_name": "com.vslot.app",
+  "reviewed_at_utc": "<ISO-8601 UTC timestamp>",
+  "reviewer": "<human reviewer>",
+  "questionnaire": {
+    "contains_gambling_or_simulation": true,
+    "gambling_themes": true,
+    "playable_bingo": false,
+    "playable_casino_games_lotteries_or_racetrack": true,
+    "other_token_reward_games": false,
+    "gambling_prominent": true,
+    "cash_or_significant_monetary_rewards": false
+  },
+  "certificate": {
+    "authority": "IARC",
+    "certificate_id": "<issued certificate identifier>",
+    "issued_at_utc": "<ISO-8601 UTC timestamp>"
+  }
+}

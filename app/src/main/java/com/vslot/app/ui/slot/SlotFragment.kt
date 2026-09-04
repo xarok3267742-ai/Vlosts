@@ -15,6 +15,8 @@ import android.os.PerformanceHintManager
 import android.os.Process
 import android.os.SystemClock
 import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -30,6 +32,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
@@ -39,6 +42,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -68,6 +72,7 @@ import com.vslot.app.ui.dialog.PaytableDialogFragment
 import com.vslot.app.ui.dialog.ResultDialogFragment
 import com.vslot.app.ui.widget.ReelStripDrawableCache
 import com.vslot.app.ui.widget.ReelStripView
+import com.vslot.app.ui.widget.calculateSlotMachineHeight
 import com.vslot.app.ui.widget.clearBoundImageResource
 import com.vslot.app.ui.widget.clearImageResourcesRecursively
 import com.vslot.app.ui.widget.setImageResourceIfChanged
@@ -179,6 +184,7 @@ class SlotFragment : Fragment() {
     private var slotSoundPlayer: SlotSoundPlayer? = null
     private var hapticsEnabled = true
     private var wasSpinning = false
+    private var usesCompactLandscapeConsole = false
     private var reducedMotionStopFeedbackPresentationId: String? = null
     private val slotId by lazy { arguments?.getString("slotId").orEmpty() }
     private val viewModel: SlotViewModel by viewModels {
@@ -206,6 +212,7 @@ class SlotFragment : Fragment() {
         lastStartedSpinFeedbackId = savedInstanceState?.getString(KEY_LAST_STARTED_SPIN_FEEDBACK_ID)
         slotSoundPlayer = SlotSoundPlayer(requireContext())
         applySlotContentCutoutInsets()
+        adaptCompactLandscapeLayout()
         applyLandscapeReelWindowInsets()
         setupGrid()
         binding.reelSpinStripLayer.doOnLayout {
@@ -344,6 +351,136 @@ class SlotFragment : Fragment() {
         }
     }
 
+    private fun adaptCompactLandscapeLayout() {
+        val configuration = resources.configuration
+        if (
+            configuration.orientation != Configuration.ORIENTATION_LANDSCAPE ||
+            configuration.screenHeightDp >= COMPACT_LANDSCAPE_MAX_HEIGHT_DP
+        ) {
+            return
+        }
+        val availableWidthDp = (
+            configuration.screenWidthDp -
+                COMPACT_LANDSCAPE_CONTENT_HORIZONTAL_PADDING_DP
+            ).coerceAtLeast(0)
+        val minimumSideBySideWidthDp =
+            COMPACT_LANDSCAPE_MACHINE_MIN_WIDTH_DP +
+                COMPACT_LANDSCAPE_CONSOLE_MIN_WIDTH_DP +
+                COMPACT_LANDSCAPE_COLUMN_GAP_DP
+        if (availableWidthDp < minimumSideBySideWidthDp) return
+
+        val horizontalGap = COMPACT_LANDSCAPE_COLUMN_GAP_DP.dp()
+        usesCompactLandscapeConsole = true
+        val consoleWidthDp = COMPACT_LANDSCAPE_CONSOLE_WIDTH_DP.coerceAtMost(
+            availableWidthDp -
+                COMPACT_LANDSCAPE_MACHINE_MIN_WIDTH_DP -
+                COMPACT_LANDSCAPE_COLUMN_GAP_DP
+        )
+        val consoleWidth = consoleWidthDp.dp()
+        val machineWidth = (
+            availableWidthDp - consoleWidthDp - COMPACT_LANDSCAPE_COLUMN_GAP_DP
+            ).coerceAtMost(COMPACT_LANDSCAPE_MACHINE_MAX_WIDTH_DP).dp()
+        val machineHeight = calculateSlotMachineHeight(machineWidth, minimumHeightPx = 0)
+
+        val gameContent = binding.slotGameContent as? LinearLayout ?: return
+        binding.slotScrollView.isFillViewport = true
+        gameContent.orientation = LinearLayout.HORIZONTAL
+        gameContent.gravity = Gravity.CENTER
+        binding.slotMachine.minimumHeight = 0
+        binding.slotMachine.layoutParams =
+            (binding.slotMachine.layoutParams as LinearLayout.LayoutParams).apply {
+                width = machineWidth
+                height = machineHeight
+                weight = 0f
+                marginEnd = horizontalGap
+                bottomMargin = 0
+                gravity = Gravity.CENTER_VERTICAL
+            }
+        binding.slotControlConsole.layoutParams =
+            (binding.slotControlConsole.layoutParams as LinearLayout.LayoutParams).apply {
+                width = consoleWidth
+                height = COMPACT_LANDSCAPE_CONTENT_HEIGHT_DP.dp()
+                weight = 0f
+                gravity = Gravity.CENTER_VERTICAL
+            }
+        adaptCompactLandscapeConsoleContents()
+        binding.paytableButton.layoutParams =
+            (binding.paytableButton.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                width = COMPACT_LANDSCAPE_PAYTABLE_WIDTH_DP.dp()
+            }
+        binding.autoSpinButton.layoutParams =
+            (binding.autoSpinButton.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                width = COMPACT_LANDSCAPE_SECONDARY_ACTION_WIDTH_DP.dp()
+                marginEnd = COMPACT_LANDSCAPE_ACTION_GAP_DP.dp()
+            }
+        binding.maxLinesButton.layoutParams =
+            (binding.maxLinesButton.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                width = COMPACT_LANDSCAPE_SECONDARY_ACTION_WIDTH_DP.dp()
+            }
+        binding.spinButton.layoutParams =
+            (binding.spinButton.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                marginStart = COMPACT_LANDSCAPE_ACTION_GAP_DP.dp()
+                marginEnd = COMPACT_LANDSCAPE_ACTION_GAP_DP.dp()
+            }
+        binding.spinButtonText.letterSpacing = 0f
+    }
+
+    private fun adaptCompactLandscapeConsoleContents() {
+        val consoleColumn = binding.betPanelImage.parent?.parent as? LinearLayout ?: return
+        binding.totalBetLabel.setText(R.string.spin_cost_compact)
+        consoleColumn.updatePadding(
+            top = COMPACT_LANDSCAPE_CONSOLE_PADDING_DP.dp(),
+            bottom = COMPACT_LANDSCAPE_CONSOLE_PADDING_DP.dp()
+        )
+        (binding.betPanelImage.parent as? View)?.updateHeight(COMPACT_LANDSCAPE_BET_PANEL_HEIGHT_DP.dp())
+        (binding.betStepperGroup.parent as? LinearLayout)?.updatePadding(top = 0, bottom = 0)
+        (binding.lastWinPanelImage.parent as? View)?.apply {
+            updateHeight(COMPACT_LANDSCAPE_LAST_WIN_PANEL_HEIGHT_DP.dp())
+            (layoutParams as? ViewGroup.MarginLayoutParams)?.let { params ->
+                params.topMargin = COMPACT_LANDSCAPE_SECTION_GAP_DP.dp()
+                layoutParams = params
+            }
+        }
+        (binding.totalBetLabel.parent?.parent as? LinearLayout)?.updatePadding(top = 0, bottom = 0)
+        binding.slotSpinDeck.apply {
+            updateHeight(COMPACT_LANDSCAPE_SPIN_DECK_HEIGHT_DP.dp())
+            (layoutParams as? ViewGroup.MarginLayoutParams)?.let { params ->
+                params.topMargin = COMPACT_LANDSCAPE_SECTION_GAP_DP.dp()
+                layoutParams = params
+            }
+        }
+        binding.spinButton.updateHeight(COMPACT_LANDSCAPE_SPIN_BUTTON_HEIGHT_DP.dp())
+        binding.spinButtonReadyGlow.updateHeight(COMPACT_LANDSCAPE_SPIN_DECK_HEIGHT_DP.dp())
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+            binding.spinButtonText,
+            COMPACT_LANDSCAPE_SPIN_LABEL_MIN_SP,
+            COMPACT_LANDSCAPE_SPIN_LABEL_MAX_SP,
+            1,
+            TypedValue.COMPLEX_UNIT_SP
+        )
+        listOf(
+            binding.betLabel,
+            binding.linesLabel,
+            binding.totalBetLabel,
+            binding.lastWinLabel
+        ).forEach { label ->
+            label.isSingleLine = true
+            label.maxLines = 1
+            label.updateHeight(COMPACT_LANDSCAPE_METER_LABEL_HEIGHT_DP.dp())
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                label,
+                COMPACT_LANDSCAPE_METER_LABEL_MIN_SP,
+                COMPACT_LANDSCAPE_METER_LABEL_MAX_SP,
+                1,
+                TypedValue.COMPLEX_UNIT_SP
+            )
+        }
+    }
+
+    private fun View.updateHeight(heightPx: Int) {
+        layoutParams = layoutParams.apply { height = heightPx }
+    }
+
     private fun applySlotContentCutoutInsets() {
         val content = binding.slotContent
         val initialLeft = content.paddingLeft
@@ -365,7 +502,7 @@ class SlotFragment : Fragment() {
             )
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 binding.slotControlConsole.layoutParams = binding.slotControlConsole.layoutParams.apply {
-                    height = PORTRAIT_CONSOLE_BASE_HEIGHT_DP.dp() + gestureInsets.bottom
+                    height = portraitConsoleBaseHeightDp().dp() + gestureInsets.bottom
                 }
                 binding.slotSpinDeck.updatePadding(
                     left = 0,
@@ -377,6 +514,21 @@ class SlotFragment : Fragment() {
             insets
         }
         ViewCompat.requestApplyInsets(content)
+    }
+
+    private fun portraitConsoleBaseHeightDp(): Int {
+        return if (resources.configuration.screenWidthDp <= COMPACT_PORTRAIT_MAX_WIDTH_DP) {
+            COMPACT_PORTRAIT_CONSOLE_BASE_HEIGHT_DP
+        } else {
+            PORTRAIT_CONSOLE_BASE_HEIGHT_DP
+        }
+    }
+
+    private fun usesCompactSpinVisualLabel(): Boolean {
+        val configuration = resources.configuration
+        return usesCompactLandscapeConsole ||
+            (configuration.orientation == Configuration.ORIENTATION_PORTRAIT &&
+                configuration.screenWidthDp <= COMPACT_PORTRAIT_MAX_WIDTH_DP)
     }
 
     private fun popFromSlot(): Boolean {
@@ -580,6 +732,7 @@ class SlotFragment : Fragment() {
             }
             wasSpinning = state.isSpinning
             binding.slotBg.setImageResourceIfChanged(slotBackgroundDrawable(state.config.theme))
+            (activity as? com.vslot.app.MainActivity)?.releaseScreenBackgroundForSlot()
             binding.slotMachineFrame.setImageResourceIfChanged(slotMachineFrameDrawable(theme))
             binding.slotTitle.setImageResourceIfChanged(slotTitleDrawable(state.config.theme))
             binding.slotMarqueeGlass.setImageResourceIfChanged(slotMarqueeGlassDrawable(theme))
@@ -591,14 +744,18 @@ class SlotFragment : Fragment() {
             binding.reelDepthDividers.setImageResourceIfChanged(reelDepthDividersDrawable(theme))
             binding.reelWindowDepthMask.setImageResourceIfChanged(reelWindowDepthMaskDrawable(theme))
             binding.reelApertureShadow.setImageResourceIfChanged(reelApertureShadowDrawable(theme))
-            binding.reelGlassOverlay.setImageResourceIfChanged(reelGlassOverlayDrawable(theme))
+            if (binding.reelGlassOverlay.isVisible) {
+                binding.reelGlassOverlay.setImageResourceIfChanged(reelGlassOverlayDrawable(theme))
+            }
             binding.slotThemeAmbientOverlay.setImageResourceIfChanged(themeAmbientOverlayDrawable(theme))
             binding.spinDeckGlow.setImageResourceIfChanged(spinDeckGlowDrawable(theme))
             binding.spinButtonReadyGlow.setImageResourceIfChanged(spinButtonReadyGlowDrawable(theme))
             binding.paytableButtonDockGlow.setImageResourceIfChanged(paytableButtonDockGlowDrawable(theme))
             binding.paytableButtonIcon.setImageResourceIfChanged(paytableButtonDrawable(theme))
             binding.paytableButtonLabel.setImageResourceIfChanged(paytableButtonLabelDrawable(theme))
-            binding.slotControlConsoleBackplane.setImageResourceIfChanged(slotControlConsoleBackplaneDrawable(theme))
+            if (binding.slotControlConsoleBackplane.isVisible) {
+                binding.slotControlConsoleBackplane.setImageResourceIfChanged(slotControlConsoleBackplaneDrawable(theme))
+            }
             binding.betPanelImage.setImageResourceIfChanged(betPanelDrawable(theme))
             binding.lastWinPanelImage.setImageResourceIfChanged(betPanelDrawable(theme))
             binding.betPanelMeterGlow.setImageResourceIfChanged(slotControlMeterGlowDrawable(theme))
@@ -635,10 +792,14 @@ class SlotFragment : Fragment() {
             }
             binding.freeSpinsRail.contentDescription = getString(R.string.free_spins_remaining, freeSpins)
             binding.spinButton.setImageResourceIfChanged(spinButtonDrawable(state.config.theme, freeSpinModeActive))
+            val compactSpinVisual = usesCompactSpinVisualLabel()
             binding.spinButtonText.setText(
                 when {
+                    state.isSpinning && compactSpinVisual -> R.string.spin_stop_compact_visual_label
                     state.isSpinning -> R.string.spin_stop_visual_label
+                    freeSpinModeActive && compactSpinVisual -> R.string.spin_compact_visual_label
                     freeSpinModeActive -> R.string.spin_free_visual_label
+                    compactSpinVisual -> R.string.spin_compact_visual_label
                     else -> R.string.spin_visual_label
                 }
             )
@@ -2271,6 +2432,7 @@ class SlotFragment : Fragment() {
         setupReelLandingSparkLayer()
         setupReelBrakeLayer()
         val cellPadding = 2.dp()
+        val cellHorizontalMargin = REEL_CELL_HORIZONTAL_MARGIN_DP.dp()
         for (row in 0 until 3) {
             for (column in 0 until 5) {
                 val imageView = ImageView(requireContext()).apply {
@@ -2285,7 +2447,7 @@ class SlotFragment : Fragment() {
                 ).apply {
                     width = 0
                     height = 0
-                    setMargins(4, 4, 4, 4)
+                    setMargins(cellHorizontalMargin, 0, cellHorizontalMargin, 0)
                 }
                 binding.reelsGrid.addView(imageView, params)
                 reelCells += imageView
@@ -2299,6 +2461,7 @@ class SlotFragment : Fragment() {
         val drawableCache = ReelStripDrawableCache(requireContext()).also {
             reelSpinDrawableCache = it
         }
+        val columnHorizontalMargin = REEL_CELL_HORIZONTAL_MARGIN_DP.dp()
         for (column in 0 until REEL_COUNT) {
             val columnFrame = FrameLayout(requireContext()).apply {
                 contentDescription = null
@@ -2327,7 +2490,7 @@ class SlotFragment : Fragment() {
             ).apply {
                 width = 0
                 height = ViewGroup.LayoutParams.MATCH_PARENT
-                setMargins(4, 4, 4, 4)
+                setMargins(columnHorizontalMargin, 0, columnHorizontalMargin, 0)
             }
             binding.reelSpinStripLayer.addView(columnFrame, params)
             reelSpinColumns += columnFrame
@@ -2378,14 +2541,16 @@ class SlotFragment : Fragment() {
                 .distinct()
                 .toIntArray()
             reelSpinDrawableCache?.preload(symbolResources)
-            preloadDrawables(
-                themeSpinOverlayDrawable(config.theme),
-                reelMotionStreakDrawable(config.theme),
-                reelAnticipationBeamDrawable(config.theme),
-                reelLandingSparkDrawable(config.theme),
-                reelBrakeClampDrawable(config.theme),
-                reelStopFlashDrawable(config.theme)
-            )
+            if (shouldUseRichSpinEffects()) {
+                preloadDrawables(
+                    themeSpinOverlayDrawable(config.theme),
+                    reelMotionStreakDrawable(config.theme),
+                    reelAnticipationBeamDrawable(config.theme),
+                    reelLandingSparkDrawable(config.theme),
+                    reelBrakeClampDrawable(config.theme),
+                    reelStopFlashDrawable(config.theme)
+                )
+            }
             preloadedSpinConfigId = config.id
         }
 
@@ -6303,6 +6468,8 @@ class SlotFragment : Fragment() {
         const val REEL_WINDOW_DEPTH_POLISH_DURATION_MS = 720L
         const val REEL_WINDOW_LANDSCAPE_HORIZONTAL_INSET_DP = 30
         const val PORTRAIT_CONSOLE_BASE_HEIGHT_DP = 270
+        const val COMPACT_PORTRAIT_MAX_WIDTH_DP = 360
+        const val COMPACT_PORTRAIT_CONSOLE_BASE_HEIGHT_DP = 240
         const val LANDSCAPE_STEPPER_EDGE_HIT_WIDTH_DP = 74
         const val PAYTABLE_CONTROL_ENABLED_ALPHA = 1f
         const val PAYTABLE_CONTROL_DISABLED_ALPHA = 0.42f
@@ -6373,10 +6540,11 @@ class SlotFragment : Fragment() {
         const val REEL_VISIBLE_ROWS = 3
         const val REEL_COLUMN_OFFSET = 3
         const val REEL_SPIN_TICK_MS = 20L
-        const val REEL_SPIN_COLUMNS_PER_TICK = 1
+        const val REEL_SPIN_COLUMNS_PER_TICK = 2
         const val NO_REEL_MOTION_STREAK_MODE = -1
         const val REEL_MOTION_STREAK_MODE_VARIANTS = 2
-        const val REEL_SPIN_MIN_RENDER_INTERVAL_MS = 80L
+        const val REEL_SPIN_MIN_RENDER_INTERVAL_MS = 60L
+        const val REEL_CELL_HORIZONTAL_MARGIN_DP = 1
         const val REEL_SPIN_OVERLAP_MS = 0L
         const val REEL_SPIN_ACCELERATION_MS = 420L
         const val REEL_SPIN_DECELERATION_MS = 620L
@@ -6388,6 +6556,28 @@ class SlotFragment : Fragment() {
         const val REEL_SPIN_DECEL_STEP_SYMBOLS = 1
         const val REEL_SCATTER_ANTICIPATION_STEP_SYMBOLS = 1
         const val REEL_SPIN_COLUMN_DURATION_OFFSET_MS = 6
+        const val COMPACT_LANDSCAPE_MAX_HEIGHT_DP = 480
+        const val COMPACT_LANDSCAPE_CONTENT_HORIZONTAL_PADDING_DP = 24
+        const val COMPACT_LANDSCAPE_CONTENT_HEIGHT_DP = 214
+        const val COMPACT_LANDSCAPE_CONSOLE_WIDTH_DP = 260
+        const val COMPACT_LANDSCAPE_CONSOLE_MIN_WIDTH_DP = 220
+        const val COMPACT_LANDSCAPE_MACHINE_MIN_WIDTH_DP = 200
+        const val COMPACT_LANDSCAPE_MACHINE_MAX_WIDTH_DP = 378
+        const val COMPACT_LANDSCAPE_COLUMN_GAP_DP = 8
+        const val COMPACT_LANDSCAPE_PAYTABLE_WIDTH_DP = 56
+        const val COMPACT_LANDSCAPE_SECONDARY_ACTION_WIDTH_DP = 48
+        const val COMPACT_LANDSCAPE_ACTION_GAP_DP = 4
+        const val COMPACT_LANDSCAPE_CONSOLE_PADDING_DP = 2
+        const val COMPACT_LANDSCAPE_BET_PANEL_HEIGHT_DP = 98
+        const val COMPACT_LANDSCAPE_LAST_WIN_PANEL_HEIGHT_DP = 48
+        const val COMPACT_LANDSCAPE_SPIN_DECK_HEIGHT_DP = 60
+        const val COMPACT_LANDSCAPE_SPIN_BUTTON_HEIGHT_DP = 56
+        const val COMPACT_LANDSCAPE_SECTION_GAP_DP = 2
+        const val COMPACT_LANDSCAPE_METER_LABEL_HEIGHT_DP = 16
+        const val COMPACT_LANDSCAPE_METER_LABEL_MIN_SP = 6
+        const val COMPACT_LANDSCAPE_METER_LABEL_MAX_SP = 12
+        const val COMPACT_LANDSCAPE_SPIN_LABEL_MIN_SP = 6
+        const val COMPACT_LANDSCAPE_SPIN_LABEL_MAX_SP = 16
         const val REEL_SPIN_SYMBOL_BLUR_ALPHA = 0.94f
         const val REEL_SPIN_SYMBOL_BLUR_SCALE_Y = 1.12f
         const val REEL_STOP_ANTICIPATION_MS = 300L

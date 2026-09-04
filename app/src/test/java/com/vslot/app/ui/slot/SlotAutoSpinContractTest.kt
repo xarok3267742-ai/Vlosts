@@ -37,6 +37,10 @@ class SlotAutoSpinContractTest {
         assertTrue(!option.contains("<TextView") && !option.contains("android:text="))
         listOf(portrait, landscape).forEach { layout ->
             assertTrue(layout.contains("android:id=\"@+id/autoSpinTitle\""))
+            assertTrue(layout.contains("android:id=\"@+id/autoSpinTitleLargeText\""))
+            assertTrue(layout.contains("android:id=\"@+id/autoSpinChoose\""))
+            assertTrue(layout.contains("android:id=\"@+id/autoSpinChooseLargeText\""))
+            assertTrue(layout.contains("@string/auto_spin_count_choose"))
             assertTrue(layout.contains("android:focusable=\"true\""))
             assertTrue(layout.contains("@+id/autoSpinOption10"))
             assertTrue(layout.contains("@+id/autoSpinOption25"))
@@ -45,6 +49,8 @@ class SlotAutoSpinContractTest {
             assertTrue(layout.contains("@string/auto_spin_safeguards"))
         }
         assertTrue(strings.contains("auto_spin_count_action\">Запустить %1\$d автоспинов"))
+        assertTrue(strings.contains("auto_spin_count_choose\">Количество вращений"))
+        assertTrue(Path.of("src/main/java/com/vslot/app/ui/dialog/AutoSpinCountDialogFragment.kt").readText().contains("bindScalableDialogCopy"))
         assertTrue(strings.contains("auto_spin_stop_remaining\">Остановить автоспин, осталось %1\$d"))
         assertTrue(strings.contains("Лимит потерь — 10 ставок"))
         assertTrue(strings.contains("остановится при выплате 10× общей ставки или больше"))

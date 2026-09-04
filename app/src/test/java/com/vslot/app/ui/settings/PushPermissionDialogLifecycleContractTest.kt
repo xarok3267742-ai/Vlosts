@@ -76,15 +76,30 @@ class PushPermissionDialogLifecycleContractTest {
 
         val pendingWrite = settings.indexOf("pushPermissionRequestStore.markPending()")
         val systemLaunch = settings.indexOf("notificationPermissionLauncher.launch(")
+        val resultCallback = settings
+            .substringAfter("ActivityResultContracts.RequestPermission()")
+            .substringBefore("override fun onCreateView")
         val resultWrite = settings.indexOf("pushPermissionRequestStore.markSystemResult(granted)")
         val resultPersistence = settings.indexOf("viewModel.onPushPermissionResult(", resultWrite)
         assertTrue(pendingWrite >= 0 && systemLaunch > pendingWrite)
         assertTrue(resultWrite >= 0 && resultPersistence > resultWrite)
+        assertTrue(resultCallback.contains("withContext(Dispatchers.IO)"))
         assertTrue(settings.contains("recoverPersistedPushPermissionRequest(state)"))
         assertTrue(requestStore.contains("PendingSystemResult"))
         assertTrue(requestStore.contains("SystemResultGranted"))
         assertTrue(requestStore.contains("SystemResultDenied"))
         assertTrue(requestStore.contains(".commit()"))
+    }
+
+    @Test
+    fun `notification settings launch falls back when an OEM activity rejects the intent`() {
+        val settings = source("src/main/java/com/vslot/app/ui/settings/SettingsFragment.kt")
+        val launcher = settings
+            .substringAfter("private fun openNotificationSettings()")
+            .substringBefore("private fun showPushPrePermission()")
+
+        assertTrue(launcher.contains("AndroidSettings.ACTION_SETTINGS"))
+        assertTrue(launcher.contains("runCatching { startActivity(intent) }.isSuccess"))
     }
 
     private fun source(relativePath: String): String {

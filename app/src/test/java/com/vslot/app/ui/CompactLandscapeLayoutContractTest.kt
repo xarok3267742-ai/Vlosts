@@ -135,6 +135,10 @@ class CompactLandscapeLayoutContractTest {
         assertTrue("Wide controls must stay inside the reachable side-by-side content", slotScroll.contains(slot.id("slotControlConsole")))
         assertEquals("340dp", slot.id("slotControlConsole").attr("layout_width"))
         assertEquals("match_parent", slot.id("slotControlConsole").attr("layout_height"))
+        val wideMachine = slot.id("slotMachine")
+        assertEquals("com.vslot.app.ui.widget.SlotMachineLayout", wideMachine.tagName)
+        assertEquals("wrap_content", wideMachine.attr("layout_height"))
+        assertEquals("center_vertical", wideMachine.attr("layout_gravity"))
     }
 
     @Test
@@ -147,6 +151,23 @@ class CompactLandscapeLayoutContractTest {
         assertTrue(resolver.contains("binding.root.layoutDirection == View.LAYOUT_DIRECTION_RTL"))
         assertTrue(resolver.contains("rootRect.left.."))
         assertTrue(resolver.contains("..rootRect.right"))
+    }
+
+    @Test
+    fun `runtime compact slot console fits a 320dp high large-font viewport`() {
+        val source = Path.of("src/main/java/com/vslot/app/ui/slot/SlotFragment.kt").toFile().readText()
+
+        assertTrue(source.contains("private fun adaptCompactLandscapeConsoleContents()"))
+        assertTrue(source.contains("COMPACT_LANDSCAPE_CONTENT_HEIGHT_DP = 214"))
+        assertTrue(source.contains("COMPACT_LANDSCAPE_BET_PANEL_HEIGHT_DP = 98"))
+        assertTrue(source.contains("COMPACT_LANDSCAPE_LAST_WIN_PANEL_HEIGHT_DP = 48"))
+        assertTrue(source.contains("COMPACT_LANDSCAPE_SPIN_DECK_HEIGHT_DP = 60"))
+        assertTrue(source.contains("COMPACT_LANDSCAPE_METER_LABEL_HEIGHT_DP = 16"))
+        assertTrue(source.contains("label.isSingleLine = true"))
+        assertTrue(source.contains("COMPACT_LANDSCAPE_METER_LABEL_MIN_SP"))
+        assertTrue(source.contains("COMPACT_LANDSCAPE_SPIN_LABEL_MIN_SP = 6"))
+        assertTrue(source.contains("compactSpinVisual -> R.string.spin_compact_visual_label"))
+        assertTrue(source.contains("private fun usesCompactSpinVisualLabel()"))
     }
 
     private fun assertTouchTargets(document: Document, ids: List<String>) {

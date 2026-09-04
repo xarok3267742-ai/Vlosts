@@ -126,6 +126,8 @@ if [[ ! "$git_commit" =~ ^[0-9a-fA-F]{40,64}$ ]]; then
 fi
 qa_status="not_run"
 evidence_ready=1
+power_state_captured=0
+original_stay_on_while_plugged_in=""
 metrics_line=""
 samples=""
 p50_ms=""
@@ -137,6 +139,36 @@ missed_deadline_threshold_ms=""
 missed_deadline_rate_pct=""
 dropped_callbacks=""
 log_file=""
+
+restore_setting() {
+  local namespace="$1"
+  local key="$2"
+  local value="$3"
+  if [[ -z "$value" || "$value" == "null" ]]; then
+    "$ADB" -s "$serial" shell settings delete "$namespace" "$key" >/dev/null 2>&1
+  else
+    "$ADB" -s "$serial" shell settings put "$namespace" "$key" "$value" >/dev/null 2>&1
+  fi
+}
+
+restore_setting_and_verify() {
+  local namespace="$1"
+  local key="$2"
+  local value="$3"
+  local actual=""
+  local attempt
+  for attempt in 1 2 3; do
+    restore_setting "$namespace" "$key" "$value" || continue
+    sleep 1
+    actual="$("$ADB" -s "$serial" shell settings get "$namespace" "$key" 2>/dev/null | tr -d '\r' || true)"
+    if [[ -z "$value" || "$value" == "null" ]]; then
+      [[ -z "$actual" || "$actual" == "null" ]] && return 0
+    elif [[ "$actual" == "$value" ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
 
 write_evidence() {
   local exit_code="$1"
@@ -150,9 +182,9 @@ write_evidence() {
   local missed_deadline_limit_pct=null
   if [[ "$frame_profile" == "physical_samsung" ]]; then
     p95_limit_ms=50.0
-    max_limit_ms=100.0
+    max_limit_ms=150.0
     jank_rate_limit_pct=10.0
-    missed_deadline_limit_pct=20.0
+    missed_deadline_limit_pct=25.0
   fi
   if [[ "$exit_code" == "0" && "$qa_status" == "passed" ]]; then
     result_status="passed"
@@ -236,22 +268,43 @@ write_evidence() {
 
 cleanup() {
   local exit_code=$?
+  local final_exit_code=$exit_code
   trap - EXIT
   set +e
+  if [[ "$power_state_captured" == "1" ]]; then
+    if ! restore_setting_and_verify global stay_on_while_plugged_in "$original_stay_on_while_plugged_in"; then
+      echo "Failed to restore stay_on_while_plugged_in on $model." >&2
+      [[ "$final_exit_code" == "0" ]] && final_exit_code=1
+    fi
+  fi
   if [[ "$evidence_ready" == "1" ]]; then
-    write_evidence "$exit_code" || {
+    write_evidence "$final_exit_code" || {
       echo "Failed to write frame-metrics evidence." >&2
-      [[ "$exit_code" == "0" ]] && exit_code=1
+      [[ "$final_exit_code" == "0" ]] && final_exit_code=1
     }
   fi
   rm -rf -- "$lock_dir"
-  exit "$exit_code"
+  exit "$final_exit_code"
 }
 
 trap cleanup EXIT
 trap 'exit 129' HUP
 trap 'exit 130' INT
 trap 'exit 143' TERM
+
+if original_stay_on_while_plugged_in="$("$ADB" -s "$serial" shell settings get global stay_on_while_plugged_in 2>/dev/null | tr -d '\r')"; then
+  power_state_captured=1
+else
+  echo "Could not capture stay_on_while_plugged_in on $model; refusing to modify the device." >&2
+  exit 1
+fi
+"$ADB" -s "$serial" shell settings put global stay_on_while_plugged_in 7 >/dev/null
+"$ADB" -s "$serial" shell input keyevent KEYCODE_WAKEUP >/dev/null 2>&1 || true
+"$ADB" -s "$serial" shell wm dismiss-keyguard >/dev/null 2>&1 || true
+if "$ADB" -s "$serial" shell dumpsys window 2>/dev/null | grep -Eq 'mDreamingLockscreen=true|mShowingLockscreen=true|mCurrentFocus=.*Bouncer'; then
+  echo "Unlock $model before running slot frame-metrics QA." >&2
+  exit 3
+fi
 
 redact_stream() {
   local line

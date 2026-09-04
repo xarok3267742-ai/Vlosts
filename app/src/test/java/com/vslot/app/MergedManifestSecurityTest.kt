@@ -12,11 +12,7 @@ import org.w3c.dom.Element
 class MergedManifestSecurityTest {
     @Test
     fun `merged manifest exposes only reviewed components`() {
-        val variant = when {
-            BuildConfig.DEBUG -> "debug"
-            BuildConfig.QA_ENABLED -> "qa"
-            else -> "release"
-        }
+        val variant = BuildConfig.BUILD_TYPE
         val variantTitle = variant.replaceFirstChar(Char::uppercase)
         val manifestPath = Path.of(
             "build/intermediates/merged_manifests/$variant/process${variantTitle}Manifest/AndroidManifest.xml"

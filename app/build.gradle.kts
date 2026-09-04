@@ -3159,6 +3159,17 @@ android {
             }
         }
 
+        create("signedCandidate") {
+            initWith(getByName("release"))
+            isDebuggable = false
+            signingConfig = signingConfigs.getByName("releaseConfig")
+            matchingFallbacks += listOf("release")
+            buildConfigField("String", "APP_METRICA_API_KEY", "".asBuildConfigString())
+            buildConfigField("String", "PRIVACY_POLICY_URL", "".asBuildConfigString())
+            buildConfigField("Boolean", "FIREBASE_CONFIGURED", "false")
+            buildConfigField("Boolean", "QA_ENABLED", "false")
+        }
+
         create("qa") {
             initWith(getByName("release"))
             applicationIdSuffix = ".qa"

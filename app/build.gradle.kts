@@ -3253,7 +3253,7 @@ dependencies {
     //noinspection GradleDependency
     implementation("androidx.core:core-ktx:1.18.0")
     //noinspection GradleDependency
-    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation("androidx.appcompat:appcompat:1.8.0")
     implementation("androidx.activity:activity-ktx:1.13.0")
     //noinspection GradleDependency
     implementation("androidx.fragment:fragment-ktx:1.8.9")
